@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save adplist-react-lib
+npm install --save git@github.com:ADPList/adplist-react-lib.git
 ```
 
 ## Usage
@@ -15,12 +15,11 @@ npm install --save adplist-react-lib
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'adplist-react-lib'
-import 'adplist-react-lib/dist/index.css'
+import Component from 'adplist-react-lib'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <Component.Field />
   }
 }
 ```
