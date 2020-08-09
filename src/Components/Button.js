@@ -4,8 +4,8 @@ import Spinner from "./Spinner";
 
 export default ({
   isValid = false,
-  isSubmitting,
   loadingColor,
+  loading,
   value,
   ...props
 }) => {
@@ -14,10 +14,10 @@ export default ({
       {...props}
       variant="default"
       className={`btn ${props.className}`}
-      {...(isSubmitting && { disabled: true })}
+      {...(loading && { disabled: true })}
       {...(!isValid && { disabled: true })}
     >
-      {isSubmitting ? (
+      {loading ? (
         <Spinner contained size={25} color={loadingColor || "#fff"} />
       ) : (
         value
