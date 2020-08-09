@@ -27,7 +27,6 @@
     "react": "^16.0.0"
   },
   "devDependencies": {
-    "microbundle-crl": "^0.13.10",
     "babel-eslint": "^10.0.3",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
@@ -41,6 +40,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-standard": "^4.0.1",
     "gh-pages": "^2.2.0",
+    "microbundle-crl": "^0.13.10",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.4",
     "react": "^16.13.1",
@@ -49,5 +49,30 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.11.0",
+    "@babel/plugin-syntax-export-default-from": "^7.10.4",
+    "@testing-library/dom": "^7.22.0",
+    "axios": "^0.19.2",
+    "formik": "^2.1.5",
+    "lodash": "^4.17.19",
+    "moment": "^2.27.0",
+    "node-sass": "^4.14.1",
+    "prop-types": "^15.7.2",
+    "react-bootstrap": "^1.3.0",
+    "react-confirm": "^0.1.20",
+    "react-fade-in": "^1.1.0",
+    "react-router-dom": "^5.2.0",
+    "react-select": "^3.1.0",
+    "react-spinners": "^0.9.0",
+    "react-textarea-autosize": "^8.2.0",
+    "react-toastify": "^6.0.8",
+    "reactn": "^2.2.7",
+    "swr": "^0.3.0",
+    "typescript": "^3.9.7",
+    "yup": "^0.29.3"
+  }
 }
