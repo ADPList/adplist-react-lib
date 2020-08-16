@@ -2,7 +2,7 @@ import React from "react";
 import Select, { components } from "react-select";
 import { Image } from "react-bootstrap";
 
-import { ErrorBoundary } from "adplist-react-lib";
+import { ErrorBoundary } from "../Utils";
 
 const { Control, Option, SingleValue } = components;
 
