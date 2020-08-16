@@ -12,6 +12,7 @@ const StyledNavLink = styled(Nav.Link)``;
 const StyledNavDropdown = styled(NavDropdown)``;
 const StyledNavbarBrand = styled(Navbar.Brand)``;
 const StyledNavbarToggle = styled(Navbar.Toggle)``;
+const StyledNavbarCollapse = styled(Navbar.Collapse)``;
 const StyledNavDropdownItem = styled(NavDropdown.Item)``;
 
 const StyledLayout = styled(Navbar)`
@@ -25,6 +26,12 @@ const StyledLayout = styled(Navbar)`
   ${StyledNavbarBrand} {
     padding-bottom: 0px;
     padding-top: 0px;
+  }
+
+  ${StyledNavbarToggle} {
+    border: none;
+    padding: 0px;
+    outline: none;
   }
 
   .nav-item {
@@ -80,6 +87,20 @@ const StyledLayout = styled(Navbar)`
     align-items: center;
     display: flex;
   }
+
+  @media (max-width: 767px) {
+    padding-bottom: 20px;
+    padding-top: 20px;
+
+    ${StyledNavbarCollapse} {
+      padding-top: 20px;
+    }
+
+    ${StyledNavLink}, .nav-link {
+      padding-right: 0px !important;
+      padding-left: 0px !important;
+    }
+  }
 `;
 
 const Layout = ({ children, items }) => {
@@ -92,16 +113,17 @@ const Layout = ({ children, items }) => {
    * dispatchers
    */
   const logout = useDispatch("auth.logout");
+  // const logout = () => {};
 
   return (
     <FadeIn>
-      <StyledLayout collapseOnSelect expand="lg" bg="light" variant="light">
+      <StyledLayout collapseOnSelect expand="md" bg="light" variant="light">
         <Container>
           <StyledNavbarBrand>
             <Icon.Logo />
           </StyledNavbarBrand>
           <StyledNavbarToggle aria-controls="navigation" />
-          <Navbar.Collapse id="navigation">
+          <StyledNavbarCollapse id="navigation">
             <Nav className="ml-auto">
               {items?.map((item, key) => (
                 <Fragment key={key}>
@@ -167,7 +189,7 @@ const Layout = ({ children, items }) => {
                 </Fragment>
               )}
             </Nav>
-          </Navbar.Collapse>
+          </StyledNavbarCollapse>
         </Container>
       </StyledLayout>
       {children}
