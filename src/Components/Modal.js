@@ -4,7 +4,7 @@ import { Modal } from "react-bootstrap";
 export default ({ body, onHide, show, header, ...props }) => {
   return (
     <Modal onHide={() => {}} centered show={show} {...props}>
-      <Modal.Body className={body + " p-32"}>
+      <Modal.Body className={`${body} p-32`}>
         {onHide && (
           <div className="d-flex align-items-center mb-32">
             <span className="cursor-pointer d-block mr-2 mt-1" onClick={onHide}>
