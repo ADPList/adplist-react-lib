@@ -87,7 +87,14 @@ export default ({ options, onlyOptions, value, ...props }) => {
         value={_value}
         options={_options}
         components={SelectComponents}
-        styles={{ menuList: () => ({ paddingTop: 0, paddingBottom: 0 }) }}
+        styles={{
+          menuList: () => ({
+            paddingTop: 20,
+            maxHeight: 300,
+            overflow: "auto",
+            paddingBottom: 0,
+          }),
+        }}
       />
     </ErrorBoundary>
   );
