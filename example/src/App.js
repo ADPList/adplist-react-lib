@@ -1,6 +1,6 @@
 import React from "react";
-// import {  } from "adplist-react-lib";
+// import { Layout } from "adplist-react-lib";
 
 export default () => {
-  return <div className="pb-5"></div>;
+  return <div style={{ height: "200vh" }}></div>;
 };

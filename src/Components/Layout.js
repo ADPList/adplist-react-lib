@@ -112,88 +112,95 @@ const Layout = ({ children, items }) => {
   /**
    * dispatchers
    */
-  const logout = useDispatch("auth.logout");
-  // const logout = () => {};
+  // const logout = useDispatch("auth.logout");
+  const logout = () => {};
 
   return (
-    <FadeIn>
+    <Fragment>
       <StyledLayout collapseOnSelect expand="md" bg="light" variant="light">
-        <Container>
-          <StyledNavbarBrand>
-            <Icon.Logo />
-          </StyledNavbarBrand>
-          <StyledNavbarToggle aria-controls="navigation" />
-          <StyledNavbarCollapse id="navigation">
-            <Nav className="ml-auto">
-              {items?.map((item, key) => (
-                <Fragment key={key}>
-                  {item.menu ? (
-                    <StyledNavDropdown
-                      title={
-                        <Fragment>
-                          <span>{item.name}</span>
-                          <i className="material-icons-round font-size-18">
-                            expand_more
-                          </i>
-                        </Fragment>
-                      }
-                      id="collasible-nav-dropdown"
-                    >
-                      {item.menu?.map((menu, key) => (
-                        <StyledNavDropdownItem key={key} href={menu.link}>
-                          {menu.name}
-                        </StyledNavDropdownItem>
-                      ))}
-                    </StyledNavDropdown>
-                  ) : (
-                    <StyledNavLink href={item.link}>{item.name}</StyledNavLink>
-                  )}
-                </Fragment>
-              ))}
+        <FadeIn className="w-100">
+          <Container>
+            <StyledNavbarBrand>
+              <Icon.Logo />
+            </StyledNavbarBrand>
+            <StyledNavbarToggle aria-controls="navigation" />
+            <StyledNavbarCollapse id="navigation">
+              <Nav className="ml-auto">
+                {items?.map((item, key) => (
+                  <Fragment key={key}>
+                    {item.menu ? (
+                      <StyledNavDropdown
+                        title={
+                          <Fragment>
+                            <span>{item.name}</span>
+                            <i className="material-icons-round font-size-18">
+                              expand_more
+                            </i>
+                          </Fragment>
+                        }
+                        id="collasible-nav-dropdown"
+                      >
+                        {item.menu?.map((menu, key) => (
+                          <StyledNavDropdownItem key={key} href={menu.link}>
+                            {menu.name}
+                          </StyledNavDropdownItem>
+                        ))}
+                      </StyledNavDropdown>
+                    ) : (
+                      <StyledNavLink href={item.link}>
+                        {item.name}
+                      </StyledNavLink>
+                    )}
+                  </Fragment>
+                ))}
 
-              {isAuthenticated ? (
-                <StyledNavDropdown
-                  title={
-                    <Fragment>
-                      <div className="profile__avatar" />
-                      <i className="material-icons-round font-size-18">
-                        expand_more
-                      </i>
-                    </Fragment>
-                  }
-                  id="collasible-nav-dropdown"
-                >
-                  <StyledNavDropdownItem
-                    href={`${process.env.REACT_APP_AUTH_URL}/profile`}
+                {isAuthenticated ? (
+                  <StyledNavDropdown
+                    title={
+                      <Fragment>
+                        <div className="profile__avatar" />
+                        <i className="material-icons-round font-size-18">
+                          expand_more
+                        </i>
+                      </Fragment>
+                    }
+                    id="collasible-nav-dropdown"
                   >
-                    Account
-                  </StyledNavDropdownItem>
-                  <StyledNavDropdownItem className="red-text" onClick={logout}>
-                    Logout
-                  </StyledNavDropdownItem>
-                </StyledNavDropdown>
-              ) : (
-                <Fragment>
-                  <StyledNavLink
-                    href={`${process.env.REACT_APP_AUTH_URL}/signup`}
-                    className="font-weight-600"
-                  >
-                    Signup
-                  </StyledNavLink>
-                  <StyledNavLink
-                    href={`${process.env.REACT_APP_AUTH_URL}/login`}
-                    className="btn btn--default"
-                  >
-                    Login
-                  </StyledNavLink>
-                </Fragment>
-              )}
-            </Nav>
-          </StyledNavbarCollapse>
-        </Container>
+                    <StyledNavDropdownItem
+                      href={`${process.env.REACT_APP_AUTH_URL}/profile`}
+                    >
+                      Account
+                    </StyledNavDropdownItem>
+                    <StyledNavDropdownItem
+                      className="red-text"
+                      onClick={logout}
+                    >
+                      Logout
+                    </StyledNavDropdownItem>
+                  </StyledNavDropdown>
+                ) : (
+                  <Fragment>
+                    <StyledNavLink
+                      href={`${process.env.REACT_APP_AUTH_URL}/signup`}
+                      className="font-weight-600"
+                    >
+                      Signup
+                    </StyledNavLink>
+                    <StyledNavLink
+                      href={`${process.env.REACT_APP_AUTH_URL}/login`}
+                      className="btn btn--default"
+                    >
+                      Login
+                    </StyledNavLink>
+                  </Fragment>
+                )}
+              </Nav>
+            </StyledNavbarCollapse>
+          </Container>
+        </FadeIn>
       </StyledLayout>
       {children}
-    </FadeIn>
+    </Fragment>
   );
 };
 
