@@ -14,14 +14,7 @@ const Step = ({ title, active, completed, onClick, index, ...props }) => {
   );
 };
 
-const Steps = ({
-  children,
-  activeKey,
-  className,
-  history,
-  onClick,
-  ...props
-}) => {
+const Steps = ({ children, activeKey, history, onClick, ...props }) => {
   const filteredChildren = React.Children.toArray(children).filter((c) => !!c);
 
   let childProps = {};
