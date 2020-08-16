@@ -21,6 +21,7 @@ const StyledLayout = styled(Navbar)`
   padding-bottom: 7px;
   padding-top: 7px;
   position: sticky;
+  z-index: 1;
   top: 0px;
 
   ${StyledNavbarBrand} {
