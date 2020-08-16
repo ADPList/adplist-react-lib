@@ -4,7 +4,7 @@ import { Image } from "react-bootstrap";
 
 import { ErrorBoundary } from "../Utils";
 
-const { Control, Option, SingleValue } = components;
+const { Control, Option, SingleValue, Menu, MenuList } = components;
 
 /**
  * styles
@@ -47,6 +47,16 @@ export default ({ options, onlyOptions, value, ...props }) => {
       <Control className="r-select " {...props}>
         {children}
       </Control>
+    ),
+    Menu: ({ children, ...props }) => (
+      <Menu className="r-menu" {...props}>
+        {children}
+      </Menu>
+    ),
+    MenuList: ({ children, ...props }) => (
+      <MenuList className="r-menu__list" {...props}>
+        {children}
+      </MenuList>
     ),
     MultiValueRemove: () => null,
     IndicatorSeparator: () => null,
