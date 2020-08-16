@@ -89,7 +89,7 @@ export default ({ options, onlyOptions, value, ...props }) => {
         components={SelectComponents}
         styles={{
           menuList: () => ({
-            paddingTop: 20,
+            paddingTop: 0,
             maxHeight: 300,
             overflow: "auto",
             paddingBottom: 0,
