@@ -4,32 +4,28 @@ import { Modal } from "react-bootstrap";
 
 import Button from "./Button";
 
-export function Dialog({ show, proceed, confirmation, options }) {
+export function Dialog({ show, proceed, confirmation, header, options }) {
   return (
     <Modal onHide={() => proceed(false)} show={show} centered>
-      <Modal.Body className="p-32">
-        <p
-          className="mb-32 font-size-18 text-center"
-          style={{ lineHeight: 1.5 }}
-        >
-          {confirmation}
-        </p>
-        <div className="d-flex align-items-center justify-content-center">
-          <div className="px-3">
+      <Modal.Body className="p-24">
+        {header && (
+          <p className="font-weight-600 font-size-20 mb-12">{header}</p>
+        )}
+        <p className="mb-32 font-size-14 line-height-15">{confirmation}</p>
+        <div className="d-flex align-items-center justify-content-end">
+          <div className="px-2">
             <Button
-              className="btn-48 btn--default"
-              onClick={() => proceed(true)}
-              style={{ width: 144 }}
-              value="Yes"
+              className="btn--default-reverse px-3"
+              onClick={() => proceed(false)}
+              value="Cancel"
               isValid
             />
           </div>
-          <div className="px-3">
+          <div className="px-2">
             <Button
-              className="btn-48 red-border red-text"
-              onClick={() => proceed(false)}
-              style={{ width: 144 }}
-              value="Cancel"
+              className="btn--default px-3"
+              onClick={() => proceed(true)}
+              value="Confirm"
               isValid
             />
           </div>
