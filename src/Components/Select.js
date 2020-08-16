@@ -33,8 +33,13 @@ export function Content({ children, ...props }) {
 
 export default ({ options, onlyOptions, value, ...props }) => {
   const SelectComponents = {
-    Option: ({ children, ...props }) => (
-      <Option {...props}>
+    Option: ({ children, isFocused, isSelected, ...props }) => (
+      <Option
+        className={`r-menu__list__option ${isFocused ? "-focused" : ""} ${
+          isSelected ? "-selected" : ""
+        }`}
+        {...props}
+      >
         <Content children={children} {...props} />
       </Option>
     ),
