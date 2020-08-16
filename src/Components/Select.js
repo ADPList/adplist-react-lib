@@ -2,7 +2,7 @@ import React from "react";
 import Select, { components } from "react-select";
 import { Image } from "react-bootstrap";
 
-import { ErrorBoundary } from "../Utils";
+import { ErrorBoundary } from "adplist-react-lib";
 
 const { Control, Option, SingleValue } = components;
 
@@ -48,6 +48,7 @@ export default ({ options, onlyOptions, value, ...props }) => {
         {children}
       </Control>
     ),
+    MultiValueRemove: () => null,
     IndicatorSeparator: () => null,
   };
 
@@ -93,6 +94,16 @@ export default ({ options, onlyOptions, value, ...props }) => {
             maxHeight: 300,
             overflow: "auto",
             paddingBottom: 0,
+          }),
+          multiValue: (base) => ({
+            ...base,
+            borderRadius: "40px",
+          }),
+          multiValueLabel: () => ({
+            padding: "4px 8px",
+            fontSize: "12px",
+            color: "#33333Î3",
+            lineHeight: 1,
           }),
         }}
       />
