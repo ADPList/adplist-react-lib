@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import { Steps } from "adplist-react-lib";
 
 export default () => {
-  const [activeKey, setActiveKey] = useState(2);
+  const [activeKey, setActiveKey] = useState(1);
 
   return (
     <Container>

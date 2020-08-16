@@ -1,14 +1,7 @@
 import React, { Children, cloneElement, Fragment } from "react";
 import styled, { css } from "styled-components";
 
-export const Step = ({
-  title,
-  active,
-  completed,
-  onClick,
-  index,
-  ...props
-}) => {
+const Step = ({ title, active, completed, onClick, index, ...props }) => {
   return (
     <StyledStep
       {...props}
@@ -21,7 +14,7 @@ export const Step = ({
   );
 };
 
-export const Steps = ({
+const Steps = ({
   children,
   activeKey,
   className,
@@ -31,11 +24,7 @@ export const Steps = ({
 }) => {
   const filteredChildren = React.Children.toArray(children).filter((c) => !!c);
 
-  let Render = null;
   let childProps = {};
-
-  const prev = activeKey - 1 ? activeKey - 1 : 1;
-  const next = parseInt(activeKey) + 1;
 
   activeKey = activeKey ? activeKey - 1 : 0;
 
@@ -58,11 +47,6 @@ export const Steps = ({
 
           if (index === activeKey) {
             childProps.active = true;
-            Render = childProps.component
-              ? childProps.component
-              : childProps.children
-              ? childProps.children
-              : null;
           }
 
           if (activeKey > index) {
@@ -78,12 +62,6 @@ export const Steps = ({
           return cloneElement(child, { ...childProps });
         })}
       </StyledSteps>
-
-      {Render ? (
-        <Render {...childProps} prev={prev} next={next} />
-      ) : (
-        <Fragment />
-      )}
     </Fragment>
   );
 };
