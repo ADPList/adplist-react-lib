@@ -18,15 +18,17 @@ export const request = async (service) => {
   try {
     const response = await service();
     return {
-      success: true,
       data: response.data,
     };
   } catch (error) {
-    return {
-      success: false,
-      statusCode: error.response.status,
-      error: error.response.data,
-    };
+    let error;
+    if (error.response) {
+      error = error.response;
+    } else {
+      error = "Connection error";
+    }
+
+    return { error };
   }
 };
 
