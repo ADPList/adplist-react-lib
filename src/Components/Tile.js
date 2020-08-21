@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 const Tile = styled.span`
-  background-color: ${({ active }) => (active ? "#05051B" : "#f0f6f9")};
+  background-color: ${({ active }) =>
+    active ? "var(--default)" : "var(--grey-3)"};
   color: ${({ active }) => (active ? "#ffffff" : "#000000")};
   transition: ease all 0.25s;
   display: inline-block;

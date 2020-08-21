@@ -76,7 +76,7 @@ const StyledSteps = styled.div`
 `;
 
 const Bar = styled.div`
-  background-color: #eaedf0;
+  background-color: var(--grey-4);
   border-radius: 40px;
   margin-bottom: 8px;
   width: 140px;
@@ -84,7 +84,7 @@ const Bar = styled.div`
 `;
 
 const Title = styled.div`
-  color: #788a9c;
+  color: var(--grey-2);
   font-size: 14px;
   margin: 0px;
 `;
@@ -99,13 +99,13 @@ const StyledStep = styled.div`
     ${({ completed }) =>
       completed &&
       css`
-        background-color: #00c4c4;
+        background-color: var(--teal);
       `}
 
     ${({ active }) =>
       active &&
       css`
-        background-color: #000000;
+        background-color: var(--default);
       `}
   }
 
@@ -113,13 +113,13 @@ const StyledStep = styled.div`
     ${({ completed }) =>
       completed &&
       css`
-        color: #00c4c4;
+        color: var(--teal);
       `}
 
     ${({ active }) =>
       active &&
       css`
-        color: #000000;
+        color: var(--default);
       `}
   }
 `;

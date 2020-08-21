@@ -17,8 +17,11 @@ export const Http = axios.create({
 Http.interceptors.request.use((config) => {
   const url = config?.url?.split("/") || [];
 
-  if (!["login", "forgotten"].includes(url[1]))
-    config.headers["Authorization"] = `Bearer ${localStorage["access_token"]}`;
+  if (!["authenticate", "sign-up-with-email", "forgotten"].includes(url[2])) {
+    if (localStorage["access_token"]) {
+      config.headers["Authorization"] = `Token ${localStorage["access_token"]}`;
+    }
+  }
 
   return config;
 });
@@ -32,7 +35,7 @@ Http.interceptors.response.use(
       }
 
       if (error.response.status === 500) {
-        toast(<Notify body="A server error occured" type="error" />);
+        // toast(<Notify body="A server error occured" type="error" />);
       }
     }
 

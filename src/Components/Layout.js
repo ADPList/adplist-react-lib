@@ -113,8 +113,7 @@ const Layout = ({ children, items }) => {
   /**
    * dispatchers
    */
-  // const logout = useDispatch("auth.logout");
-  const logout = () => {};
+  const logout = useDispatch("auth.logout");
 
   return (
     <Fragment>
