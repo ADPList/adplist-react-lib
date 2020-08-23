@@ -1,68 +1,57 @@
 import React from "react";
-import Select, { components } from "react-select";
-import { Image } from "react-bootstrap";
+import styled from "styled-components";
+import ReactSelect from "react-select";
 
 import { ErrorBoundary } from "../Utils";
-
-const { Control, Option, SingleValue, Menu, MenuList } = components;
 
 /**
  * styles
  */
-const iconStyle = {
-  height: 16,
-  maxWidth: "100%",
-  display: "block",
-  marginRight: 8,
+const styles = {
+  control: (styles, { isFocused }) => ({
+    ...styles,
+    borderColor: isFocused
+      ? "var(--teal) !important"
+      : "transparent !important",
+    backgroundColor: "var(--light-periwinkle)",
+    borderRadius: "10px",
+    boxShadow: "none",
+    height: "100%",
+  }),
+  menuList: () => ({
+    paddingTop: 0,
+    paddingBottom: 0,
+    overflow: "auto",
+    maxHeight: 200,
+  }),
+  menuPortal: (styles) => ({ ...styles, zIndex: 999 }),
+  menu: (styles) => ({
+    ...styles,
+    boxShadow: "0 0px 8px 0 rgba(0, 0, 0, 0.12) !important",
+    border: "none !important",
+    backgroundColor: "#fff",
+    paddingBottom: "8px",
+    paddingTop: "8px",
+    zIndex: 999,
+  }),
+  option: (styles, { isSelected }) => ({
+    ...styles,
+    backgroundColor: (isSelected && "#f5f5f5 !important") || "#fff!important",
+    outline: "none",
+    color: "#000",
+  }),
+  multiValue: (styles) => ({ ...styles, borderRadius: 10 }),
+  multiValueLabel: (styles) => ({ ...styles, paddingLeft: 8, paddingRight: 8 }),
 };
 
-export function Content({ children, ...props }) {
-  return (
-    <div className="d-flex align-items-center">
-      {props.data?.icon && (
-        <Image
-          src={props.data.icon}
-          className="select__icon"
-          style={iconStyle}
-        />
-      )}
-      <span className="select__content">{children}</span>
-    </div>
-  );
-}
+const Select = styled(ReactSelect)`
+  .Select-menu-outer {
+    z-index: 999;
+  }
+`;
 
 export default ({ options, onlyOptions, value, ...props }) => {
   const SelectComponents = {
-    Option: ({ children, isFocused, isSelected, ...props }) => (
-      <Option
-        className={`r-menu__list__option ${isFocused ? "-focused" : ""} ${
-          isSelected ? "-selected" : ""
-        }`}
-        {...props}
-      >
-        <Content children={children} {...props} />
-      </Option>
-    ),
-    SingleValue: ({ children, ...props }) => (
-      <SingleValue {...props}>
-        <Content children={children} {...props} />
-      </SingleValue>
-    ),
-    Control: ({ children, ...props }) => (
-      <Control className="r-select " {...props}>
-        {children}
-      </Control>
-    ),
-    Menu: ({ children, ...props }) => (
-      <Menu className="r-menu" {...props}>
-        {children}
-      </Menu>
-    ),
-    MenuList: ({ children, ...props }) => (
-      <MenuList className="r-menu__list" {...props}>
-        {children}
-      </MenuList>
-    ),
     MultiValueRemove: () => null,
     IndicatorSeparator: () => null,
   };
@@ -80,7 +69,7 @@ export default ({ options, onlyOptions, value, ...props }) => {
   }
 
   if (value) {
-    if (typeof value === "string") {
+    if (!Array.isArray(value)) {
       _value =
         options.find(
           (option) =>
@@ -91,7 +80,7 @@ export default ({ options, onlyOptions, value, ...props }) => {
 
     if (Array.isArray(value)) {
       _value = options.filter((option) =>
-        value.includes((option.value || "").toString()),
+        value?.map((v) => String(v)).includes((option.value || "").toString()),
       );
     }
   }
@@ -101,26 +90,9 @@ export default ({ options, onlyOptions, value, ...props }) => {
       <Select
         {...props}
         value={_value}
+        styles={styles}
         options={_options}
         components={SelectComponents}
-        styles={{
-          menuList: () => ({
-            paddingTop: 0,
-            maxHeight: 300,
-            overflow: "auto",
-            paddingBottom: 0,
-          }),
-          multiValue: (base) => ({
-            ...base,
-            borderRadius: "40px",
-          }),
-          multiValueLabel: () => ({
-            padding: "4px 8px",
-            fontSize: "12px",
-            color: "#33333Î3",
-            lineHeight: 1,
-          }),
-        }}
       />
     </ErrorBoundary>
   );
