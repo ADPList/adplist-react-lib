@@ -13,7 +13,7 @@ export default ({
     <Button
       {...props}
       variant="default"
-      className={`btn ${props.className}`}
+      className={`text-truncate ${props.className}`}
       {...(loading && { disabled: true })}
       {...(!isValid && { disabled: true })}
     >
