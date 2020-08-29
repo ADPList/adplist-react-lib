@@ -1,4 +1,4 @@
-import React, { Fragment, useDispatch, useGlobal } from "reactn";
+import React, { Fragment, useGlobal } from "reactn";
 import { Container, Nav } from "react-bootstrap";
 
 import FadeIn from "react-fade-in";
@@ -15,16 +15,11 @@ import {
 
 import * as Icon from "../../Icons";
 
-const Navbar = ({ items }) => {
+const Navbar = ({ items, logout }) => {
   /**
    * state
    */
   const [isAuthenticated] = useGlobal("isAuthenticated");
-
-  /**
-   * dispatcher
-   */
-  const logout = useDispatch("auth.logout");
 
   return (
     <StyledNavbar collapseOnSelect expand="md" bg="light" variant="light">
