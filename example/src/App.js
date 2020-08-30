@@ -36,7 +36,7 @@ export default () => {
     >
       <Container>
         <Row>
-          <Col sm="12">
+          <Col sm="4">
             <Project
               progress="50"
               header="Leveraging a Network of Health Workers to Connect Ethiopia’s Hardest-to-Reach Couples"
@@ -44,7 +44,7 @@ export default () => {
               image="/photos/img1.png"
               tag="SDG #4 Quality Eduation"
               lead="Stephen Gates"
-              size="lg"
+              size="md"
             />
           </Col>
         </Row>

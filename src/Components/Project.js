@@ -1,5 +1,4 @@
 import React from "react";
-import { Image } from "react-bootstrap";
 import styled from "styled-components";
 import FadeIn from "react-fade-in";
 
@@ -11,15 +10,9 @@ const StyledProjectMd = styled.div`
 
   .image {
     height: 236px;
-    display: flex;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--grey-3);
-
-    img {
-      width: 100%;
-    }
+    background-size: cover;
+    background-position: center;
+    background-image: url(${({ image }) => image});
   }
 
   .progress {
@@ -147,9 +140,7 @@ const Project = ({
       <StyledProjectMd {...{ progress, image, ...props }}>
         <FadeIn>
           <div className="mb-20">
-            <div className="image">
-              <Image src={image} />
-            </div>
+            <div className="image" />
             <div className="progress">
               <div className="progress__indicator" />
             </div>
