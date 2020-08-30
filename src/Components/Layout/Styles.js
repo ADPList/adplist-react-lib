@@ -101,6 +101,13 @@ export const StyledNavbar = styled(Navbar)`
       padding-left: 0px !important;
     }
   }
+
+  @media (max-width: 575px) {
+    .container {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  }
 `;
 
 /**
