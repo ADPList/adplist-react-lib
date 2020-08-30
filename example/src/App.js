@@ -1,5 +1,6 @@
 import React from "react";
-import { Layout } from "adplist-react-lib";
+import { Layout, Project } from "adplist-react-lib";
+import { Container, Row, Col } from "react-bootstrap";
 
 export default () => {
   return (
@@ -32,6 +33,22 @@ export default () => {
           { name: "get help", link: "" },
         ],
       }}
-    ></Layout>
+    >
+      <Container>
+        <Row>
+          <Col sm="12">
+            <Project
+              progress="50"
+              header="Leveraging a Network of Health Workers to Connect Ethiopia’s Hardest-to-Reach Couples"
+              caption="The nimble system and compelling message that’s changing the narrative of contraception from taboo to tactical in rural Ethiopia."
+              image="/photos/img1.png"
+              tag="SDG #4 Quality Eduation"
+              lead="Stephen Gates"
+              size="lg"
+            />
+          </Col>
+        </Row>
+      </Container>
+    </Layout>
   );
 };

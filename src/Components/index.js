@@ -7,6 +7,7 @@ export { default as Layout } from "./Layout";
 export { default as Select } from "./Select";
 export { default as Button } from "./Button";
 export { default as Notify } from "./Notify";
+export { default as Project } from "./Project";
 export { default as Confirm } from "./Confirm";
 export { default as Spinner } from "./Spinner";
 export { default as Textarea } from "./Textarea";
