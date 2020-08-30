@@ -20,7 +20,7 @@ export const StyledNavbar = styled(Navbar)`
   padding-bottom: 7px;
   padding-top: 7px;
   position: sticky;
-  z-index: 1;
+  z-index: 999;
   top: 0px;
 
   ${NavbarBrand} {
