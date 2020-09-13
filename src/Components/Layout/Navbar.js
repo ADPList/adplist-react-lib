@@ -22,8 +22,14 @@ const Navbar = ({ items, logout, home }) => {
   const [isAuthenticated] = useGlobal("isAuthenticated");
 
   return (
-    <Fade bottom className="w-100">
-      <StyledNavbar collapseOnSelect expand="md" bg="light" variant="light">
+    <StyledNavbar
+      collapseOnSelect
+      expand="md"
+      bg="light"
+      variant="light"
+      fixed="top"
+    >
+      <Fade bottom>
         <Container>
           <NavbarBrand
             className="cursor-pointer"
@@ -100,8 +106,8 @@ const Navbar = ({ items, logout, home }) => {
             </Nav>
           </NavbarCollapse>
         </Container>
-      </StyledNavbar>
-    </Fade>
+      </Fade>
+    </StyledNavbar>
   );
 };
 

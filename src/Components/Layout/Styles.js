@@ -19,9 +19,7 @@ export const StyledNavbar = styled(Navbar)`
   background-color: #fff !important;
   padding-bottom: 7px;
   padding-top: 7px;
-  position: sticky;
   z-index: 999;
-  top: 0px;
 
   ${NavbarBrand} {
     padding-bottom: 0px;
@@ -32,6 +30,10 @@ export const StyledNavbar = styled(Navbar)`
     border: none;
     padding: 0px;
     outline: none;
+  }
+
+  .react-reveal {
+    width: 100%;
   }
 
   .nav-item {
