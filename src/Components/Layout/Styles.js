@@ -18,8 +18,10 @@ export const StyledNavbar = styled(Navbar)`
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
   background-color: #fff !important;
   padding-bottom: 7px;
+  position: sticky;
   padding-top: 7px;
   z-index: 999;
+  top: 0;
 
   ${NavbarBrand} {
     padding-bottom: 0px;

@@ -22,13 +22,7 @@ const Navbar = ({ items, logout, home }) => {
   const [isAuthenticated] = useGlobal("isAuthenticated");
 
   return (
-    <StyledNavbar
-      collapseOnSelect
-      expand="md"
-      bg="light"
-      variant="light"
-      fixed="top"
-    >
+    <StyledNavbar collapseOnSelect expand="md" bg="light" variant="light">
       <Fade bottom>
         <Container>
           <NavbarBrand
