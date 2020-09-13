@@ -68,6 +68,7 @@
     "react-confirm": "^0.1.20",
     "react-fade-in": "^1.1.0",
     "react-is": "^16.13.1",
+    "react-paginate": "^6.4.0",
     "react-router-dom": "^5.2.0",
     "react-select": "^3.1.0",
     "react-spinners": "^0.9.0",

@@ -1,4 +1,5 @@
 export { default as Tile } from "./Tile";
+export { default as Tabs } from "./Tabs";
 export { default as Steps } from "./Steps";
 export { default as Field } from "./Field";
 export { default as Modal } from "./Modal";
@@ -11,4 +12,5 @@ export { default as Project } from "./Project";
 export { default as Confirm } from "./Confirm";
 export { default as Spinner } from "./Spinner";
 export { default as Textarea } from "./Textarea";
+export { default as Pagination } from "./Pagination";
 export { default as ScrollToTop } from "./ScrollToTop";
