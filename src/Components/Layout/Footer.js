@@ -3,7 +3,7 @@ import { Container, Form, Row, Col } from "react-bootstrap";
 import { object, string } from "yup";
 import { Formik } from "formik";
 
-import FadeIn from "react-fade-in";
+import Fade from "react-reveal";
 
 import {
   StyledFooter,
@@ -60,14 +60,14 @@ const Footer = ({
   ];
 
   return (
-    <StyledFooter>
-      <FadeIn>
+    <Fade bottom>
+      <StyledFooter>
         {(impact || newsletter) && (
           <InfoContainer>
-            <Row className="justify-content-between">
+            <Row className="justify-content-lg-between">
               {impact && (
                 <Col lg="6">
-                  <div className="impact mb-lg-0">
+                  <div className="impact mx-md-auto mb-lg-0 mx-lg-0">
                     <p className="font-size-20 font-weight-600 mb-32 mb-md-16 mb-lg-32 line-height-15">
                       Create impact with design, change the world with this
                       global community.
@@ -93,7 +93,7 @@ const Footer = ({
               )}
               {newsletter && (
                 <Col lg="6">
-                  <div className="newsletter">
+                  <div className="newsletter mx-md-auto mx-lg-0">
                     <p className="font-size-20 font-weight-600 mb-32 mb-md-16 mb-lg-32 line-height-15">
                       Join our design for change and adplist community
                       newsletter.
@@ -228,8 +228,8 @@ const Footer = ({
             </div>
           </Container>
         </BottomFooter>
-      </FadeIn>
-    </StyledFooter>
+      </StyledFooter>
+    </Fade>
   );
 };
 

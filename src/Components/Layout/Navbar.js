@@ -1,7 +1,7 @@
 import React, { Fragment, useGlobal } from "reactn";
 import { Container, Nav } from "react-bootstrap";
 
-import FadeIn from "react-fade-in";
+import Fade from "react-reveal";
 
 import {
   NavLink,
@@ -15,17 +15,20 @@ import {
 
 import * as Icon from "../../Icons";
 
-const Navbar = ({ items, logout }) => {
+const Navbar = ({ items, logout, home }) => {
   /**
    * state
    */
   const [isAuthenticated] = useGlobal("isAuthenticated");
 
   return (
-    <StyledNavbar collapseOnSelect expand="md" bg="light" variant="light">
-      <FadeIn className="w-100">
+    <Fade bottom className="w-100">
+      <StyledNavbar collapseOnSelect expand="md" bg="light" variant="light">
         <Container>
-          <NavbarBrand>
+          <NavbarBrand
+            className="cursor-pointer"
+            onClick={() => (window.location.href = home || "/")}
+          >
             <Icon.Logo />
           </NavbarBrand>
           <NavbarToggle aria-controls="navigation" />
@@ -97,8 +100,8 @@ const Navbar = ({ items, logout }) => {
             </Nav>
           </NavbarCollapse>
         </Container>
-      </FadeIn>
-    </StyledNavbar>
+      </StyledNavbar>
+    </Fade>
   );
 };
 
