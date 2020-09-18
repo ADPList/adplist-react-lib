@@ -1,4 +1,3 @@
-export { default as Tile } from "./Tile";
 export { default as Tabs } from "./Tabs";
 export { default as Steps } from "./Steps";
 export { default as Field } from "./Field";

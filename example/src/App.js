@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Tabs } from "adplist-react-lib";
+import { Layout, Grid } from "adplist-react-lib";
 import { Container, Tab } from "react-bootstrap";
 
 export default () => {
@@ -45,11 +45,12 @@ export default () => {
         ],
       }}
     >
-      <Tabs defaultActiveKey="first" as={Container}>
-        <Tab eventKey="first" title="First"></Tab>
-        <Tab eventKey="second" title="Second"></Tab>
-        <Tab eventKey="third" title="Third"></Tab>
-      </Tabs>
+      <Container>
+        <Grid gap="5%" sm="47.5% 47.5%">
+          <div className="red-bg p-5" />
+          <div className="red-bg p-5" />
+        </Grid>
+      </Container>
     </Layout>
   );
 };
