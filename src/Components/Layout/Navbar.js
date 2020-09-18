@@ -15,7 +15,11 @@ import {
 
 import * as Icon from "../../Icons";
 
-const Navbar = ({ items, logout, home }) => {
+const Navbar = ({
+  items,
+  logout,
+  router = (link) => (window.location.href = link),
+}) => {
   /**
    * state
    */
@@ -25,10 +29,7 @@ const Navbar = ({ items, logout, home }) => {
     <StyledNavbar collapseOnSelect expand="md" bg="light" variant="light">
       <Fade bottom>
         <Container>
-          <NavbarBrand
-            className="cursor-pointer"
-            onClick={() => (window.location.href = home || "/")}
-          >
+          <NavbarBrand className="cursor-pointer" onClick={() => router("/")}>
             <Icon.Logo />
           </NavbarBrand>
           <NavbarToggle aria-controls="navigation" />
@@ -49,13 +50,27 @@ const Navbar = ({ items, logout, home }) => {
                       id="collasible-nav-dropdown"
                     >
                       {item.menu?.map((menu, key) => (
-                        <NavDropdownItem key={key} href={menu.link}>
+                        <NavDropdownItem
+                          {...(!menu.target && {
+                            onClick: (e) =>
+                              e.preventDefault() | router(menu.link),
+                          })}
+                          href={menu.link}
+                          key={key}
+                        >
                           {menu.name}
                         </NavDropdownItem>
                       ))}
                     </NavDropdown>
                   ) : (
-                    <NavLink href={item.link}>{item.name}</NavLink>
+                    <NavLink
+                      {...(!item.target && {
+                        onClick: (e) => e.preventDefault() | router(item.link),
+                      })}
+                      href={item.link}
+                    >
+                      {item.name}
+                    </NavLink>
                   )}
                 </Fragment>
               ))}

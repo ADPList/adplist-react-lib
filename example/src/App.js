@@ -6,10 +6,21 @@ export default () => {
   return (
     <Layout
       navItems={{
+        router: (link) => console.log(link),
         items: [
           {
             name: "Explore",
-            menu: [{ name: "Adplist", link: "https://adplist.org" }],
+            menu: [
+              {
+                name: "Adplist",
+                link: "https://adplist.org",
+                target: "adplist",
+              },
+              {
+                name: "Adplist",
+                link: "https://adplist.org",
+              },
+            ],
           },
           { name: "For mentors", link: "/mentors" },
           { name: "Find projects", link: "/projects" },
