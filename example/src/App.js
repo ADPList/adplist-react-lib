@@ -1,6 +1,7 @@
 import React from "react";
-import { Layout, Grid } from "adplist-react-lib";
-import { Container, Tab } from "react-bootstrap";
+import { Layout, Grid, Field, Select } from "adplist-react-lib";
+import { Container, Form, Tab } from "react-bootstrap";
+import { Formik } from "formik";
 
 export default () => {
   return (
@@ -45,11 +46,42 @@ export default () => {
         ],
       }}
     >
-      <Container>
-        <Grid gap="5%" sm="47.5% 47.5%">
-          <div className="red-bg p-5" />
-          <div className="red-bg p-5" />
-        </Grid>
+      <Container className="py-5">
+        <Formik
+          validateOnMount
+          initialValues={{ full_name: "", expertise: [] }}
+        >
+          {({
+            handleSubmit,
+            values: { full_name, expertise },
+            setFieldValue,
+          }) => (
+            <Form>
+              <Field
+                name="full_name"
+                value={full_name}
+                placeholder="Full name"
+              />
+              <Field
+                isMulti
+                name="expertise"
+                value={expertise}
+                component={Select}
+                options={["a", "b", "c", "d", "e"].map((ar) => ({
+                  label: ar,
+                  value: ar,
+                }))}
+                placeholder="Expertise"
+                onChange={(options) =>
+                  setFieldValue(
+                    "expertise",
+                    options.map(({ value }) => value),
+                  )
+                }
+              />
+            </Form>
+          )}
+        </Formik>
       </Container>
     </Layout>
   );

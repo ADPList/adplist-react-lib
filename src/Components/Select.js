@@ -42,6 +42,12 @@ const styles = {
   }),
   multiValue: (styles) => ({ ...styles, borderRadius: 10 }),
   multiValueLabel: (styles) => ({ ...styles, paddingLeft: 8, paddingRight: 8 }),
+  valueContainer: (styles) => ({
+    ...styles,
+    height: "100%",
+    padding: "0px 18px",
+  }),
+  indicatorsContainer: (styles) => ({ ...styles, paddingRight: 6 }),
 };
 
 const Select = styled(ReactSelect)`
