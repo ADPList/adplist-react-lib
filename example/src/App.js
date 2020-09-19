@@ -1,5 +1,5 @@
 import React from "react";
-import { Setup } from "adplist-react-lib";
+import { Setup, Editor } from "adplist-react-lib";
 
 export default () => {
   return (
@@ -56,7 +56,9 @@ export default () => {
       active={{ key: 2 }}
       handleSwitch={(e) => console.log(e)}
       handleBack={() => console.log("hi")}
-    ></Setup>
+    >
+      <Editor name="content" value="" setFieldValue={() => {}} />
+    </Setup>
     // </Layout>
   );
 };
