@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Editor as TinyMce } from "@tinymce/tinymce-react";
+
 const Editor = ({ name, value, setFieldValue, placeholder, ...props }) => (
   <Textarea
     children={
-      <Editor
+      <TinyMce
         inline
         value={value || ""}
         plugins={["link image"]}
