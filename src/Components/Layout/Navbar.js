@@ -16,6 +16,7 @@ import {
 import * as Icon from "../../Icons";
 
 const Navbar = ({
+  app,
   items,
   logout,
   router = (link) => (window.location.href = link),
@@ -99,13 +100,17 @@ const Navbar = ({
               ) : (
                 <Fragment>
                   <NavLink
-                    href={`${process.env.REACT_APP_AUTH_URL}/signup`}
+                    href={`${process.env.REACT_APP_AUTH_URL}/signup${
+                      app ? `?app=${app}` : ""
+                    }`}
                     className="font-weight-600"
                   >
                     Signup
                   </NavLink>
                   <NavLink
-                    href={`${process.env.REACT_APP_AUTH_URL}/login`}
+                    href={`${process.env.REACT_APP_AUTH_URL}/login${
+                      app ? `?app=${app}` : ""
+                    }`}
                     className="btn btn--default"
                   >
                     Login
