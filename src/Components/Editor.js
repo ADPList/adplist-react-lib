@@ -44,7 +44,7 @@ const Textarea = styled.div`
     min-height: ${({ height }) => height || "136px"};
     background-color: var(--grey-3);
     border: solid 1px transparent;
-    border-radius: 4px;
+    border-radius: 10px;
     padding: 16px 20px;
     outline: none;
 
