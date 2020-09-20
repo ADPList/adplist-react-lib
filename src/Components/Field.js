@@ -65,7 +65,7 @@ export default ({
         </div>
         <ErrorMessage name={name}>
           {(msg) => (
-            <p className="red-text font-size-10 mt-2 ml-10 mb-0">{msg}</p>
+            <p className="red-text font-size-10 mt-2 ml-20 mb-0">{msg}</p>
           )}
         </ErrorMessage>
       </Form.Group>
