@@ -67,6 +67,7 @@ export default Steps;
  */
 const StyledSteps = styled.div`
   align-items: center;
+  overflow-y: hidden;
   flex-wrap: nowrap;
   overflow-x: auto;
   display: flex;

@@ -15,7 +15,6 @@ const StyledContent = styled.div`
   flex-direction: column;
   margin: 0px auto;
   display: flex;
-  height: 100%;
   width: 100%;
 
   form {
@@ -30,7 +29,6 @@ const StyledContent = styled.div`
 
     .button {
       justify-content: center;
-      margin-bottom: 40px;
       margin-top: auto;
       display: flex;
 
@@ -43,6 +41,8 @@ const StyledContent = styled.div`
   @media (min-width: 768px) {
     form {
       .button {
+        margin-top: auto;
+
         .btn {
           width: auto;
         }
