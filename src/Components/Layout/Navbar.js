@@ -1,5 +1,5 @@
 import React, { Fragment, useGlobal } from "reactn";
-import { Container, Nav } from "react-bootstrap";
+import { Container, Nav, Image } from "react-bootstrap";
 
 import {
   NavLink,
@@ -23,6 +23,11 @@ const Navbar = ({
    * state
    */
   const [isAuthenticated] = useGlobal("isAuthenticated");
+  const [initUser] = useGlobal("user");
+
+  const user = initUser?.identity_type
+    ? initUser[initUser?.identity_type?.toLowerCase()]
+    : {};
 
   return (
     <StyledNavbar collapseOnSelect expand="md" bg="light" variant="light">
@@ -77,7 +82,11 @@ const Navbar = ({
               <NavDropdown
                 title={
                   <Fragment>
-                    <div className="profile__avatar" />
+                    <div className="profile__avatar">
+                      {user?.profile_photo_url && (
+                        <Image src={user.profile_photo_url} />
+                      )}
+                    </div>
                     <i className="material-icons-round font-size-18">
                       expand_more
                     </i>

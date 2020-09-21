@@ -61,6 +61,10 @@ export const StyledNavbar = styled(Navbar)`
         display: flex;
         height: 40px;
         width: 40px;
+
+        img {
+          height: 100%;
+        }
       }
     }
 

@@ -1,64 +1,113 @@
 import React from "react";
-import { Setup, Editor } from "adplist-react-lib";
+import {
+  Setup,
+  Editor,
+  Layout,
+  useCookie,
+  Button,
+  Grid,
+  Field,
+} from "adplist-react-lib";
+import { Container, Form } from "react-bootstrap";
+import { Formik } from "formik";
+import { object, string } from "yup";
 
 export default () => {
+  const { setCookie, getCookie } = useCookie();
   return (
-    // <Layout
-    //   navItems={{
-    //     router: (link) => console.log(link),
-    //     items: [
-    //       {
-    //         name: "Explore",
-    //         menu: [
-    //           {
-    //             name: "Adplist",
-    //             link: "https://adplist.org",
-    //             target: "adplist",
-    //           },
-    //           {
-    //             name: "Adplist",
-    //             link: "https://adplist.org",
-    //           },
-    //         ],
-    //       },
-    //       { name: "For mentors", link: "/mentors" },
-    //       { name: "Find projects", link: "/projects" },
-    //     ],
-    //   }}
-    //   footerItems={{
-    //     impact: true,
-    //     newsletter: true,
-    //     firstItems: [
-    //       { name: "hire designers", link: "https://hire.com" },
-    //       { name: "get mentorship", link: "https://hire.com" },
-    //       { name: "find jobs", link: "https://hire.com" },
-    //       { name: "community resources", link: "https://hire.com" },
-    //       { name: "designing for change", link: "https://hire.com" },
-    //     ],
-    //     secondItems: [
-    //       { name: "join adplist", link: "" },
-    //       { name: "community standards", link: "" },
-    //       { name: "partnerships", link: "" },
-    //       { name: "support us", link: "" },
-    //       { name: "get help", link: "" },
-    //     ],
-    //   }}
-    // >
-    <Setup
-      steps={[
-        { name: "Hello", key: 1 },
-        { name: "World", key: 2 },
-        { name: "This", key: 3 },
-        { name: "Is", key: 4 },
-        { name: "Larry", key: 5 },
-      ]}
-      header="Hello world"
-      active={{ key: 2 }}
-      handleSwitch={(e) => console.log(e)}
-      handleBack={() => console.log("hi")}
+    <Layout
+      navItems={{
+        router: (link) => console.log(link),
+        items: [
+          {
+            name: "Explore",
+            menu: [
+              {
+                name: "Adplist",
+                link: "https://adplist.org",
+                target: "adplist",
+              },
+              {
+                name: "Adplist",
+                link: "https://adplist.org",
+              },
+            ],
+          },
+          { name: "For mentors", link: "/mentors" },
+          { name: "Find projects", link: "/projects" },
+        ],
+      }}
+      footerItems={{
+        impact: true,
+        newsletter: true,
+        firstItems: [
+          { name: "hire designers", link: "https://hire.com" },
+          { name: "get mentorship", link: "https://hire.com" },
+          { name: "find jobs", link: "https://hire.com" },
+          { name: "community resources", link: "https://hire.com" },
+          { name: "designing for change", link: "https://hire.com" },
+        ],
+        secondItems: [
+          { name: "join adplist", link: "" },
+          { name: "community standards", link: "" },
+          { name: "partnerships", link: "" },
+          { name: "support us", link: "" },
+          { name: "get help", link: "" },
+        ],
+      }}
     >
-      <Editor name="content" value="" setFieldValue={() => {}} />
-    </Setup>
-    // </Layout>
+      <Container className="py-5">
+        <Formik
+          validateOnMount
+          initialValues={{ key: "", value: "", type: "" }}
+          validationSchema={object({
+            key: string().required("Item is required"),
+            type: string().required("Type is required"),
+          })}
+          onSubmit={(params, { setFieldValue }) => {
+            if (params.type === "get") {
+              const value = getCookie(params.key);
+              console.log(value);
+            }
+
+            if (params.type === "set") {
+              if (params.key && params.value)
+                setCookie(params.key, params.value);
+            }
+          }}
+        >
+          {({ handleSubmit, values: { key, value }, setFieldValue }) => (
+            <Form style={{ maxWidth: 300 }} className="mx-auto">
+              <Field name="key" value={key} label="Enter Key" />
+              <Field name="value" value={value} label="Enter Value" />
+              <Grid
+                gap="32px"
+                sm="auto auto"
+                className="justify-content-center"
+              >
+                <Button
+                  isValid
+                  value="Set Cookie"
+                  className="btn--default px-5"
+                  onClick={() => {
+                    setFieldValue("type", "set");
+                    handleSubmit();
+                  }}
+                />
+                <Button
+                  isValid
+                  value="Get Cookie"
+                  className="btn--default-reverse px-5"
+                  onClick={() => {
+                    setFieldValue("type", "get");
+                    handleSubmit();
+                  }}
+                />
+              </Grid>
+            </Form>
+          )}
+        </Formik>
+      </Container>
+    </Layout>
   );
 };
