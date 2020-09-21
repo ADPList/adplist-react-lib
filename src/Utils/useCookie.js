@@ -4,10 +4,12 @@ const useCookie = () => {
   };
 
   const getCookie = (key) => {
-    return document.cookie
-      .split("; ")
-      .find((row) => row.startsWith(key))
-      .split("=")[1];
+    return (
+      document.cookie
+        ?.split("; ")
+        ?.find((row) => row.startsWith(key))
+        ?.split("=")[1] || null
+    );
   };
 
   return { setCookie, getCookie };
