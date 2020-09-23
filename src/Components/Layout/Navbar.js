@@ -95,7 +95,7 @@ const Navbar = ({
                 id="collasible-nav-dropdown"
               >
                 <NavDropdownItem
-                  href={`${process.env.REACT_APP_AUTH_URL}/profile`}
+                  href={`${process.env.REACT_APP_AUTH_URL || ""}/profile`}
                 >
                   Account
                 </NavDropdownItem>
@@ -106,7 +106,7 @@ const Navbar = ({
             ) : (
               <Fragment>
                 <NavLink
-                  href={`${process.env.REACT_APP_AUTH_URL}/signup${
+                  href={`${process.env.REACT_APP_AUTH_URL || ""}/signup${
                     app ? `?app=${app}` : ""
                   }`}
                   className="font-weight-600"
@@ -114,7 +114,7 @@ const Navbar = ({
                   Signup
                 </NavLink>
                 <NavLink
-                  href={`${process.env.REACT_APP_AUTH_URL}/login${
+                  href={`${process.env.REACT_APP_AUTH_URL || ""}/login${
                     app ? `?app=${app}` : ""
                   }`}
                   className="btn btn--default"
