@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useEffect, useGlobal } from "reactn";
 import {
-  Setup,
-  Editor,
   Layout,
   useCookie,
   Button,
   Grid,
   Field,
+  Http,
 } from "adplist-react-lib";
 import { Container, Form } from "react-bootstrap";
-import { Formik } from "formik";
 import { object, string } from "yup";
+import { Formik } from "formik";
 
 export default () => {
-  const { setCookie, getCookie } = useCookie();
+  const { setCookie, getCookie, deleteCookie } = useCookie();
+
+  const [, setUser] = useGlobal("user");
+  const [, setAuth] = useGlobal("isAuthenticated");
+
+  useEffect(() => {
+    const token = getCookie("token");
+
+    if (token) {
+      Http.get(`/account/user/`).then(
+        (response) => setAuth(true) | setUser(response),
+      );
+    }
+  }, []);
+
   return (
     <Layout
       navItems={{
@@ -71,18 +84,27 @@ export default () => {
             }
 
             if (params.type === "set") {
-              if (params.key && params.value)
+              if (params.key && params.value) {
                 setCookie(params.key, params.value);
+                console.log(document.cookie);
+              }
+            }
+
+            if (params.type === "delete") {
+              if (params.key) {
+                deleteCookie(params.key);
+                console.log(document.cookie);
+              }
             }
           }}
         >
           {({ handleSubmit, values: { key, value }, setFieldValue }) => (
-            <Form style={{ maxWidth: 300 }} className="mx-auto">
+            <Form style={{ maxWidth: 400 }} className="mx-auto">
               <Field name="key" value={key} label="Enter Key" />
               <Field name="value" value={value} label="Enter Value" />
               <Grid
                 gap="32px"
-                sm="auto auto"
+                sm="auto auto auto"
                 className="justify-content-center"
               >
                 <Button
@@ -100,6 +122,15 @@ export default () => {
                   className="btn--default-reverse px-5"
                   onClick={() => {
                     setFieldValue("type", "get");
+                    handleSubmit();
+                  }}
+                />
+                <Button
+                  isValid
+                  value="Delete Cookie"
+                  className="btn--default-reverse px-5"
+                  onClick={() => {
+                    setFieldValue("type", "delete");
                     handleSubmit();
                   }}
                 />

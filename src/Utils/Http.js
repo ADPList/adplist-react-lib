@@ -5,10 +5,16 @@ import axios from "axios";
 
 import { Notify } from "../Components";
 
+import useCookie from "./useCookie";
+
+// variables
 const rootState = {
   isAuthenticated: false,
   user: null,
 };
+
+// functions
+const { getCookie, deleteCookie } = useCookie();
 
 export const Http = axios.create({
   baseURL: process.env.REACT_APP_API_BASEURL,
@@ -22,10 +28,13 @@ export const Http = axios.create({
 
 Http.interceptors.request.use((config) => {
   const url = config?.url?.split("/") || [];
+  const unAuthRoutes = ["authenticate", "sign-up-with-email", "forgotten"];
 
-  if (!["authenticate", "sign-up-with-email", "forgotten"].includes(url[2])) {
-    if (localStorage["access_token"]) {
-      config.headers["Authorization"] = `Token ${localStorage["access_token"]}`;
+  if (unAuthRoutes.filter((x) => url.includes(x)).length === 0) {
+    const token = getCookie("token");
+
+    if (token) {
+      config.headers.Authorization = `Token ${token}`;
     }
   }
 
@@ -37,7 +46,7 @@ Http.interceptors.response.use(
   (error) => {
     if (error.response?.status) {
       if (error.response.status === 401) {
-        localStorage.clear();
+        deleteCookie("token");
         setGlobal(rootState);
       }
 

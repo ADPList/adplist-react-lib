@@ -12,7 +12,13 @@ const useCookie = () => {
     );
   };
 
-  return { setCookie, getCookie };
+  const deleteCookie = (key) => {
+    if (getCookie(key)) {
+      document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+    }
+  };
+
+  return { setCookie, getCookie, deleteCookie };
 };
 
 export default useCookie;
