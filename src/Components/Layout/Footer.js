@@ -177,7 +177,7 @@ const Footer = ({
             </Row>
             <Row className="justify-content-between flex-column-reverse flex-xl-row">
               <Col xl="6">
-                <p className="mb-0 grey-2-text font-size-12">
+                <p className="mb-0 grey-2-text font-size-14">
                   Copyright 2020 - Amazing Design People List
                 </p>
               </Col>

@@ -178,7 +178,7 @@ const Project = ({
                 Project led by <span>{lead}</span>
               </p>
             )}
-            <span className="font-weight-600 font-size-12 line-height-10">
+            <span className="font-weight-600 font-size-14 line-height-10">
               view project
             </span>
           </FadeIn>

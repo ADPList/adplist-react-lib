@@ -77,6 +77,7 @@
     "react-textarea-autosize": "^8.2.0",
     "react-toastify": "^6.0.8",
     "reactn": "^2.2.7",
+    "showdown": "^1.9.1",
     "styled-components": "^5.1.1",
     "swr": "^0.3.0",
     "typescript": "^3.9.7",

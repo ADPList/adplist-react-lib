@@ -48,7 +48,7 @@ export const StyledNavbar = styled(Navbar)`
     padding-left: 15px !important;
     color: #0a243f !important;
     align-items: center;
-    font-size: 14px;
+    font-size: 16px;
     display: flex;
 
     .profile {
