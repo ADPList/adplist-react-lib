@@ -1,11 +1,12 @@
 import React from "reactn";
 import {
-  Layout,
-  useCookie,
-  Button,
-  Grid,
-  Field,
   AuthProvider,
+  useCookie,
+  Project,
+  Layout,
+  Button,
+  Field,
+  Grid,
 } from "adplist-react-lib";
 import { Container, Form } from "react-bootstrap";
 import { object, string } from "yup";
@@ -126,6 +127,9 @@ export default () => {
               </Form>
             )}
           </Formik>
+          <div style={{ width: "30%" }}>
+            <Project header="Larry" lead="Prince" edit />
+          </div>
         </Container>
       </Layout>
     </AuthProvider>

@@ -12,6 +12,7 @@ const StyledProjectMd = styled.div`
     height: 236px;
     background-size: cover;
     background-position: center;
+    background-color: var(--grey);
     background-image: url(${({ image }) => image});
   }
 
@@ -131,35 +132,56 @@ const Project = ({
   caption,
   header,
   image,
+  edit,
   lead,
   tag,
   ...props
 }) => {
+  console.log(edit);
   if (size === "md") {
     return (
       <StyledProjectMd {...{ progress, image, ...props }}>
         <FadeIn>
           <div className="mb-20">
             <div className="image" />
-            <div className="progress">
-              <div className="progress__indicator" />
-            </div>
+            {progress ? (
+              <div className="progress">
+                <div className="progress__indicator" />
+              </div>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="content">
-            {progress && (
+            {progress ? (
               <p className="content__progress">
                 {progress}% project completion
               </p>
+            ) : (
+              ""
             )}
-            {tag && <p className="content__tag">{tag}</p>}
-            {header && <p className="content__header">{header}</p>}
-            {lead && (
+            {tag ? <p className="content__tag">{tag}</p> : ""}
+            {header ? <p className="content__header">{header}</p> : ""}
+            {lead ? (
               <p className="content__project-lead">
                 Project led by <span>{lead}</span>
               </p>
+            ) : (
+              ""
             )}
           </div>
+
+          {edit && (
+            <a
+              href="/"
+              onClick={(e) => e.preventDefault() | edit()}
+              className="d-flex align-items-center text-decoration-none teal-text"
+            >
+              <i className="material-icons-outlined font-size-16">edit</i>
+              <span className="d-block ml-1 font-size-14">Edit Project</span>
+            </a>
+          )}
         </FadeIn>
       </StyledProjectMd>
     );
@@ -170,13 +192,15 @@ const Project = ({
       <StyledProjectLg {...{ ...props, image }}>
         <div className="content">
           <FadeIn>
-            {tag && <p className="content__tag">{tag}</p>}
-            {header && <p className="content__header">{header}</p>}
-            {caption && <p className="content__caption">{caption}</p>}
-            {lead && (
+            {tag ? <p className="content__tag">{tag}</p> : ""}
+            {header ? <p className="content__header">{header}</p> : ""}
+            {caption ? <p className="content__caption">{caption}</p> : ""}
+            {lead ? (
               <p className="content__project-lead">
                 Project led by <span>{lead}</span>
               </p>
+            ) : (
+              ""
             )}
             <span className="font-weight-600 font-size-14 line-height-10">
               view project

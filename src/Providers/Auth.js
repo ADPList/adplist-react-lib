@@ -1,4 +1,7 @@
 import { useGlobal, useEffect } from "reactn";
+
+import moment from "moment";
+
 import useCookie from "../Utils/useCookie";
 import Http from "../Utils/Http";
 
@@ -8,23 +11,46 @@ const Auth = ({ children }) => {
    */
   const [, setUser] = useGlobal("user");
   const [, setAuth] = useGlobal("isAuthenticated");
+  const [refresh, setRefresh] = useGlobal("refresh");
 
   /**
    * functions
    */
   const { getCookie, deleteCookie } = useCookie();
 
+  const handleUserPayload = () => {
+    return (
+      Http.get(`/account/user/`)
+        .then((response) => setAuth(true) | setUser(response))
+        .catch(() => deleteCookie("token") | setAuth(false) | setUser(null)) |
+      setRefresh(null)
+    );
+  };
+
+  const handleIntervalCompute = () => {
+    const token = getCookie("token");
+    if (token) {
+      if (refresh) {
+        if (moment(refresh).isBefore(moment())) {
+          return setRefresh(moment().add(30, "minutes")) | handleUserPayload();
+        }
+      } else {
+        return handleUserPayload() | setRefresh(moment().add(30, "minutes"));
+      }
+    } else {
+      return setAuth(false) | setUser(null) | setRefresh(null);
+    }
+  };
+
   /**
    * effect
    */
   useEffect(() => {
-    const token = getCookie("token");
-
-    if (token) {
-      Http.get(`/account/user/`)
-        .then((response) => setAuth(true) | setUser(response))
-        .catch(() => deleteCookie("token") | setAuth(false) | setUser(null));
-    }
+    handleIntervalCompute();
+    const interval = setInterval(() => {
+      handleIntervalCompute();
+    }, 1000 * 5);
+    return () => clearInterval(interval);
   }, []);
 
   return children;
