@@ -19,12 +19,15 @@ const Auth = ({ children }) => {
   const { getCookie, deleteCookie } = useCookie();
 
   const handleUserPayload = () => {
-    return (
-      Http.get(`/account/user/`)
-        .then((response) => setAuth(true) | setUser(response))
-        .catch(() => deleteCookie("token") | setAuth(false) | setUser(null)) |
-      setRefresh(null)
-    );
+    return Http.get(`/account/user/`)
+      .then((response) => setAuth(true) | setUser(response))
+      .catch(
+        () =>
+          deleteCookie("token") |
+          setRefresh(null) |
+          setAuth(false) |
+          setUser(null),
+      );
   };
 
   const handleIntervalCompute = () => {
