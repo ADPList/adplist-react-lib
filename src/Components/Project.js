@@ -137,7 +137,6 @@ const Project = ({
   tag,
   ...props
 }) => {
-  console.log(edit);
   if (size === "md") {
     return (
       <StyledProjectMd {...{ progress, image, ...props }}>
