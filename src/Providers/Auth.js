@@ -5,19 +5,21 @@ import moment from "moment";
 import useCookie from "../Utils/useCookie";
 import Http from "../Utils/Http";
 
-const Auth = ({ children, refr = null }) => {
+const Auth = ({ children }) => {
   /**
    * states
    */
   const [, setUser] = useGlobal("user");
   const [, setAuth] = useGlobal("isAuthenticated");
-  const [refresh = refr, setRefresh] = useGlobal("refresh");
 
-  console.log(refresh);
   /**
    * functions
    */
   const { getCookie, deleteCookie } = useCookie();
+
+  const setRefresh = (value) => {
+    window.localStorage.setItem("refresh", value);
+  };
 
   const handleUserPayload = () => {
     return Http.get(`/account/user/`)
@@ -33,6 +35,8 @@ const Auth = ({ children, refr = null }) => {
 
   const handleIntervalCompute = () => {
     const token = getCookie("token");
+    const refresh = window.localStorage.getItem("refresh");
+
     if (token) {
       if (refresh) {
         if (moment(refresh).isBefore(moment())) {
