@@ -13,6 +13,7 @@ const Auth = ({ children }) => {
   const [, setAuth] = useGlobal("isAuthenticated");
   const [refresh, setRefresh] = useGlobal("refresh");
 
+  console.log(refresh);
   /**
    * functions
    */
