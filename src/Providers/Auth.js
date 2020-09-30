@@ -20,15 +20,15 @@ const Auth = ({ children }) => {
   const { getCookie, deleteCookie } = useCookie();
 
   const handleUserPayload = () => {
-    return Http.get(`/account/user/`)
-      .then((response) => setAuth(true) | setUser(response))
-      .catch(
-        () =>
-          deleteCookie("token") |
-          setRefresh(null) |
-          setAuth(false) |
-          setUser(null),
-      );
+    // return Http.get(`/account/user/`)
+    //   .then((response) => setAuth(true) | setUser(response))
+    //   .catch(
+    //     () =>
+    //       deleteCookie("token") |
+    //       setRefresh(null) |
+    //       setAuth(false) |
+    //       setUser(null),
+    //   );
   };
 
   const handleIntervalCompute = () => {
@@ -44,6 +44,7 @@ const Auth = ({ children }) => {
         return handleUserPayload() | setRefresh(moment().add(30, "minutes"));
       }
     } else {
+      console.log("Logout:");
       return setAuth(false) | setUser(null) | setRefresh(null);
     }
   };
