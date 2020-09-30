@@ -5,13 +5,13 @@ import moment from "moment";
 import useCookie from "../Utils/useCookie";
 import Http from "../Utils/Http";
 
-const Auth = ({ children }) => {
+const Auth = ({ children, refr = null }) => {
   /**
    * states
    */
   const [, setUser] = useGlobal("user");
   const [, setAuth] = useGlobal("isAuthenticated");
-  const [refresh, setRefresh] = useGlobal("refresh");
+  const [refresh = refr, setRefresh] = useGlobal("refresh");
 
   console.log(refresh);
   /**
@@ -20,15 +20,15 @@ const Auth = ({ children }) => {
   const { getCookie, deleteCookie } = useCookie();
 
   const handleUserPayload = () => {
-    // return Http.get(`/account/user/`)
-    //   .then((response) => setAuth(true) | setUser(response))
-    //   .catch(
-    //     () =>
-    //       deleteCookie("token") |
-    //       setRefresh(null) |
-    //       setAuth(false) |
-    //       setUser(null),
-    //   );
+    return Http.get(`/account/user/`)
+      .then((response) => setAuth(true) | setUser(response))
+      .catch(
+        () =>
+          deleteCookie("token") |
+          setRefresh(null) |
+          setAuth(false) |
+          setUser(null),
+      );
   };
 
   const handleIntervalCompute = () => {
