@@ -35,9 +35,11 @@ const Auth = ({ children }) => {
     if (token) {
       if (refresh) {
         if (moment(refresh).isBefore(moment())) {
+          console.log("By Passed: ", refresh);
           return setRefresh(moment().add(30, "minutes")) | handleUserPayload();
         }
       } else {
+        console.log("No Refresh: ", refresh);
         return handleUserPayload() | setRefresh(moment().add(30, "minutes"));
       }
     } else {
