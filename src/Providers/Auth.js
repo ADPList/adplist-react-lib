@@ -18,7 +18,7 @@ const Auth = ({ children }) => {
   const { getCookie, deleteCookie } = useCookie();
 
   const setRefresh = (value) => {
-    value = value ? value.toISOString() : null;
+    value = value ? value?.toISOString() : null;
     window.localStorage.setItem("refresh", value);
   };
 
@@ -28,7 +28,7 @@ const Auth = ({ children }) => {
       .catch(
         () =>
           deleteCookie("token") |
-          setRefresh(null) |
+          setRefresh("") |
           setAuth(false) |
           setUser(null),
       );
@@ -47,7 +47,7 @@ const Auth = ({ children }) => {
         return handleUserPayload() | setRefresh(moment().add(30, "minutes"));
       }
     } else {
-      return setAuth(false) | setUser(null) | setRefresh(null);
+      return setAuth(false) | setUser(null) | setRefresh("");
     }
   };
 
