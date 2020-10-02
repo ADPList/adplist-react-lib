@@ -18,8 +18,12 @@ const Auth = ({ children }) => {
   const { getCookie, deleteCookie } = useCookie();
 
   const setRefresh = (value) => {
-    value = value ? value?.toISOString() : null;
-    window.localStorage.setItem("refresh", value);
+    value = value ? value?.toISOString() : "";
+    if (value) {
+      window.localStorage.setItem("refresh", value);
+    } else {
+      window.localStorage.removeItem("refresh");
+    }
   };
 
   const handleUserPayload = () => {
