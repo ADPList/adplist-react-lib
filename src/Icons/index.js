@@ -11,6 +11,7 @@ export { default as Youtube } from "./Youtube";
 export { default as Download } from "./Download";
 export { default as Facebook } from "./Facebook";
 export { default as LinkedIn } from "./LinkedIn";
+export { default as MoreHoriz } from "./MoreHoriz";
 export { default as AlignLeft } from "./AlignLeft";
 export { default as Instagram } from "./Instagram";
 export { default as Expertise } from "./Expertise";
