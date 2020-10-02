@@ -1,6 +1,6 @@
 const useCookie = () => {
   const setCookie = (key, value) => {
-    document.cookie = `${key}=${value};domain=${process.env.REACT_APP_PARENT_URL}`;
+    document.cookie = `${key}=${value}; domain=${process.env.REACT_APP_PARENT_URL}; path=/`;
   };
 
   const getCookie = (key) => {
@@ -14,7 +14,7 @@ const useCookie = () => {
 
   const deleteCookie = (key) => {
     if (getCookie(key)) {
-      document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+      document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.REACT_APP_PARENT_URL}; path=/`;
     }
   };
 
