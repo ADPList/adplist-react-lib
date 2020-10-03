@@ -63,7 +63,7 @@ export const StyledNavbar = styled(Navbar)`
         width: 40px;
 
         img {
-          height: 100%;
+          width: 100%;
         }
       }
     }
