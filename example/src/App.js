@@ -3,6 +3,7 @@ import {
   AuthProvider,
   useCookie,
   Project,
+  Editor,
   Layout,
   Button,
   Field,
@@ -90,7 +91,19 @@ export default () => {
             {({ handleSubmit, values: { key, value }, setFieldValue }) => (
               <Form style={{ maxWidth: 400 }} className="mx-auto">
                 <Field name="key" value={key} label="Enter Key" />
-                <Field name="value" value={value} label="Enter Value" />
+                <Field
+                  name="value"
+                  value={value}
+                  label="Enter Value"
+                  placeholder="Enter value"
+                />
+                <Editor
+                  name="larry"
+                  value=""
+                  placeholder="Hello world"
+                  setFieldValue={setFieldValue}
+                  label="Description"
+                />
                 <Grid
                   gap="32px"
                   sm="auto auto auto"

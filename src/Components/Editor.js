@@ -15,22 +15,24 @@ const Editor = ({
 }) => (
   <Form.Group controlId={name}>
     {label && <Form.Label>{label}</Form.Label>}
-    <Textarea
-      children={
-        <TinyMce
-          inline
-          value={value || ""}
-          plugins={["link image"]}
-          apiKey={process.env.REACT_APP_TINYMCE_KEY}
-          onEditorChange={(content) => setFieldValue(name, content)}
-          init={{
-            menubar: true,
-            toolbar: true,
-            placeholder: placeholder || "",
-          }}
-        />
-      }
-    />
+    <Wrapper {...{ placeholder }}>
+      <Textarea
+        children={
+          <TinyMce
+            inline
+            value={value || ""}
+            plugins={["link image"]}
+            apiKey={process.env.REACT_APP_TINYMCE_KEY}
+            onEditorChange={(content) => setFieldValue(name, content)}
+            init={{
+              menubar: true,
+              toolbar: true,
+              placeholder: placeholder || "",
+            }}
+          />
+        }
+      />
+    </Wrapper>
     <ErrorMessage name={name}>
       {(msg) => <p className="red-text font-size-10 mt-2 ml-20 mb-0">{msg}</p>}
     </ErrorMessage>
@@ -38,6 +40,23 @@ const Editor = ({
 );
 
 export default Editor;
+
+const Wrapper = styled.div`
+  background-color: var(--grey-3);
+  border-radius: 10px;
+  position: relative;
+  min-height: 136px;
+
+  &::before {
+    content: "${({ placeholder }) => placeholder || " "}";
+    color: var(--default);
+    padding: 21px 22px;
+    position: absolute;
+    font-size: 14px;
+    display: block;
+    opacity: 0.5;
+  }
+`;
 
 const Textarea = styled.div`
   .mce-content-body {
@@ -51,9 +70,8 @@ const Textarea = styled.div`
     &::before {
       color: var(--default);
       padding: 0px 20px;
-      line-height: 1.6;
-      font-size: 12px;
-      opacity: 0.5;
+      font-size: 14px;
+      opacity: 0.8;
     }
 
     &:focus {
