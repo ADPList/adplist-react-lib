@@ -53,7 +53,7 @@ export const StyledNavbar = styled(Navbar)`
 
     .profile {
       &__avatar {
-        background-color: #eaedf0;
+        background-color: var(--teal);
         justify-content: center;
         align-items: center;
         border-radius: 50%;

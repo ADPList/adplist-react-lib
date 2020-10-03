@@ -95,7 +95,9 @@ const Navbar = ({
                 id="collasible-nav-dropdown"
               >
                 <NavDropdownItem
-                  href={`${process.env.REACT_APP_AUTH_URL || ""}/profile`}
+                  href={`${
+                    process.env.REACT_APP_AUTH_URL || ""
+                  }/dashboard/profile`}
                 >
                   Account
                 </NavDropdownItem>
