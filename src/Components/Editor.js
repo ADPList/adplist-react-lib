@@ -65,6 +65,7 @@ const Textarea = styled.div`
     border: solid 1px transparent;
     border-radius: 10px;
     padding: 16px 20px;
+    line-height: 1.5;
     outline: none;
 
     &::before {
