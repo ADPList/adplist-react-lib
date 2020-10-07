@@ -13,14 +13,16 @@ const StyledProjectMd = styled.div`
     background-size: cover;
     background-position: center;
     background-color: var(--grey);
+    border-radius: 10px 10px 0px 0px;
     background-image: url(${({ image }) => image});
   }
 
   .progress {
     width: 100%;
     height: 10px;
-    border-radius: 0px;
+    overflow: hidden;
     background-color: var(--grey-3);
+    border-radius: 0px 0px 10px 10px;
 
     &__indicator {
       background-color: var(--teal);
@@ -143,13 +145,9 @@ const Project = ({
         <FadeIn>
           <div className="mb-20">
             <div className="image" />
-            {progress ? (
-              <div className="progress">
-                <div className="progress__indicator" />
-              </div>
-            ) : (
-              ""
-            )}
+            <div className="progress">
+              <div className="progress__indicator" />
+            </div>
           </div>
 
           <div className="content">

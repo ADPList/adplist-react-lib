@@ -141,7 +141,7 @@ export default () => {
             )}
           </Formik>
           <div style={{ width: "30%" }}>
-            <Project header="Larry" lead="Prince" edit />
+            <Project header="Larry" lead="Prince" edit progress={10} />
           </div>
         </Container>
       </Layout>
