@@ -129,6 +129,7 @@ const StyledProjectLg = styled.div`
 `;
 
 const Project = ({
+  approved = false,
   progress = 0,
   size = "md",
   caption,
@@ -151,12 +152,16 @@ const Project = ({
           </div>
 
           <div className="content">
-            {progress ? (
-              <p className="content__progress">
-                {progress}% project completion
-              </p>
+            {approved ? (
+              progress ? (
+                <p className="content__progress">
+                  {progress}% project completion
+                </p>
+              ) : (
+                ""
+              )
             ) : (
-              ""
+              <p className="content__progress warning-text">Pending approval</p>
             )}
             {tag ? <p className="content__tag">{tag}</p> : ""}
             {header ? <p className="content__header">{header}</p> : ""}
