@@ -3,9 +3,8 @@ import { toast } from "react-toastify";
 
 import axios from "axios";
 
-import { Notify } from "../Components";
-
 import useCookie from "./useCookie";
+import Notify from "../Components/Notify";
 
 // variables
 const rootState = {

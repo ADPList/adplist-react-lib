@@ -1,10 +1,12 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+
 import Spinner from "./Spinner";
 
 export default ({
   isValid = false,
   loadingColor,
+  children,
   loading,
   value,
   ...props
@@ -20,7 +22,7 @@ export default ({
       {loading ? (
         <Spinner contained size={25} color={loadingColor || "#fff"} />
       ) : (
-        value
+        value || children
       )}
     </Button>
   );

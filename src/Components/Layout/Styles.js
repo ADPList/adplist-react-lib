@@ -53,18 +53,18 @@ export const StyledNavbar = styled(Navbar)`
 
     .profile {
       &__avatar {
+        ${({ avatar }) =>
+          avatar &&
+          `
+          background-image: url(${avatar});
+        `}
         background-color: var(--teal);
-        justify-content: center;
-        align-items: center;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
         border-radius: 50%;
-        overflow: hidden;
-        display: flex;
         height: 40px;
         width: 40px;
-
-        img {
-          width: 100%;
-        }
       }
     }
 

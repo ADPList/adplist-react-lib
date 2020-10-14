@@ -3,7 +3,7 @@ import { Container, Form, Row, Col } from "react-bootstrap";
 import { object, string } from "yup";
 import { Formik } from "formik";
 
-import Fade from "react-reveal";
+import Fade from "react-fade-in";
 
 import {
   StyledFooter,
@@ -17,8 +17,8 @@ import Button from "../Button";
 import Field from "../Field";
 
 const Footer = ({
-  impact = false,
-  newsletter = false,
+  impact = null,
+  newsletter = null,
   firstItems,
   secondItems,
 }) => {
@@ -85,6 +85,7 @@ const Footer = ({
                           <div className="btn-col">
                             <Button
                               isValid
+                              onClick={impact}
                               className="btn--default-reverse"
                               value="Volunteer to design"
                             />
@@ -109,7 +110,7 @@ const Footer = ({
                               .email("Enter a valid email")
                               .required("Email is required"),
                           })}
-                          onSubmit={() => {}}
+                          onSubmit={newsletter}
                         >
                           {({
                             handleSubmit,

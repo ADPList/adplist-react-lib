@@ -1,5 +1,5 @@
 import React, { Fragment, useGlobal } from "reactn";
-import { Container, Nav, Image } from "react-bootstrap";
+import { Container, Nav } from "react-bootstrap";
 
 import {
   NavLink,
@@ -30,7 +30,13 @@ const Navbar = ({
     : {};
 
   return (
-    <StyledNavbar collapseOnSelect expand="md" bg="light" variant="light">
+    <StyledNavbar
+      bg="light"
+      expand="md"
+      variant="light"
+      collapseOnSelect
+      avatar={user.profile_photo_url}
+    >
       <Container>
         <NavbarBrand className="cursor-pointer" onClick={() => router("/")}>
           <Icon.Logo />
@@ -82,11 +88,7 @@ const Navbar = ({
               <NavDropdown
                 title={
                   <Fragment>
-                    <div className="profile__avatar">
-                      {user?.profile_photo_url && (
-                        <Image src={user.profile_photo_url} />
-                      )}
-                    </div>
+                    <div className="profile__avatar" />
                     <i className="material-icons-round font-size-18">
                       expand_more
                     </i>

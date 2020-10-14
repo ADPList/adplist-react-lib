@@ -1,20 +1,9 @@
-import React from "reactn";
-import {
-  AuthProvider,
-  useCookie,
-  Project,
-  Editor,
-  Layout,
-  Button,
-  Field,
-  Grid,
-} from "adplist-react-lib";
-import { Container, Form } from "react-bootstrap";
-import { object, string } from "yup";
-import { Formik } from "formik";
+import React, { useGlobal } from "reactn";
+import { AuthProvider, Layout, Profile } from "adplist-react-lib";
+import { Container } from "react-bootstrap";
 
 export default () => {
-  const { setCookie, getCookie, deleteCookie } = useCookie();
+  const [user] = useGlobal("user");
 
   return (
     <AuthProvider>
@@ -41,8 +30,8 @@ export default () => {
           ],
         }}
         footerItems={{
-          impact: true,
-          newsletter: true,
+          impact: () => {},
+          newsletter: () => {},
           firstItems: [
             { name: "hire designers", link: "https://hire.com" },
             { name: "get mentorship", link: "https://hire.com" },
@@ -60,89 +49,9 @@ export default () => {
         }}
       >
         <Container className="py-5">
-          <Formik
-            validateOnMount
-            initialValues={{ key: "", value: "", type: "" }}
-            validationSchema={object({
-              key: string().required("Item is required"),
-              type: string().required("Type is required"),
-            })}
-            onSubmit={(params, { setFieldValue }) => {
-              if (params.type === "get") {
-                const value = getCookie(params.key);
-                console.log(value);
-              }
-
-              if (params.type === "set") {
-                if (params.key && params.value) {
-                  setCookie(params.key, params.value);
-                  console.log(document.cookie);
-                }
-              }
-
-              if (params.type === "delete") {
-                if (params.key) {
-                  deleteCookie(params.key);
-                  console.log(document.cookie);
-                }
-              }
-            }}
-          >
-            {({ handleSubmit, values: { key, value }, setFieldValue }) => (
-              <Form style={{ maxWidth: 400 }} className="mx-auto">
-                <Field name="key" value={key} label="Enter Key" />
-                <Field
-                  name="value"
-                  value={value}
-                  label="Enter Value"
-                  placeholder="Enter value"
-                />
-                <Editor
-                  name="larry"
-                  value=""
-                  placeholder="Hello world"
-                  setFieldValue={setFieldValue}
-                  label="Description"
-                />
-                <Grid
-                  gap="32px"
-                  sm="auto auto auto"
-                  className="justify-content-center"
-                >
-                  <Button
-                    isValid
-                    value="Set Cookie"
-                    className="btn--default px-5"
-                    onClick={() => {
-                      setFieldValue("type", "set");
-                      handleSubmit();
-                    }}
-                  />
-                  <Button
-                    isValid
-                    value="Get Cookie"
-                    className="btn--default-reverse px-5"
-                    onClick={() => {
-                      setFieldValue("type", "get");
-                      handleSubmit();
-                    }}
-                  />
-                  <Button
-                    isValid
-                    value="Delete Cookie"
-                    className="btn--default-reverse px-5"
-                    onClick={() => {
-                      setFieldValue("type", "delete");
-                      handleSubmit();
-                    }}
-                  />
-                </Grid>
-              </Form>
-            )}
-          </Formik>
-          <div style={{ width: "30%" }}>
-            <Project header="Larry" lead="Prince" edit progress={10} />
-          </div>
+          <Profile initUser={user}>
+            <h1>Pussy Pussy Pussy Pussy Pussy Pussy Pussy Pussy</h1>
+          </Profile>
         </Container>
       </Layout>
     </AuthProvider>
