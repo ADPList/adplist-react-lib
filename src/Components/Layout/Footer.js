@@ -17,8 +17,10 @@ import Button from "../Button";
 import Field from "../Field";
 
 const Footer = ({
-  impact = null,
-  newsletter = null,
+  impact = false,
+  newsletter = false,
+  startProject = () => {},
+  volunteerProject = () => {},
   firstItems,
   secondItems,
 }) => {
@@ -78,6 +80,7 @@ const Footer = ({
                           <div className="btn-col mb-md-0">
                             <Button
                               isValid
+                              onClick={startProject}
                               className="btn--default"
                               value="Start a project"
                             />
@@ -85,7 +88,7 @@ const Footer = ({
                           <div className="btn-col">
                             <Button
                               isValid
-                              onClick={impact}
+                              onClick={volunteerProject}
                               className="btn--default-reverse"
                               value="Volunteer to design"
                             />
