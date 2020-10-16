@@ -49,7 +49,7 @@ export default () => {
         }}
       >
         <Container className="py-5">
-          <Profile initUser={user}>
+          <Profile initUser={user} isEdit isPrivate>
             <h1>Pussy Pussy Pussy Pussy Pussy Pussy Pussy Pussy</h1>
           </Profile>
         </Container>

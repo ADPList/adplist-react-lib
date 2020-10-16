@@ -11,6 +11,7 @@ const Profile = ({
   children,
   isEdit = false,
   isPrivate = false,
+  handleEdit = () => {},
   handleImage = () => {},
 }) => {
   /**
@@ -35,7 +36,6 @@ const Profile = ({
           className="mb-32"
           image={user?.profile_photo_url}
           onChange={(file) => handleImage(file)}
-          {...(isEdit && isPrivate && { button: "Change profile picture" })}
         />
         {userType === "mentor" && (
           <Fragment>
@@ -60,6 +60,16 @@ const Profile = ({
             className="default-text"
           >
             View my Profile
+          </a>
+        )}
+
+        {isEdit && isPrivate && (
+          <a
+            href="/"
+            className="teal-text d-block mt-5"
+            onChange={(e) => e.preventDefault() | handleEdit()}
+          >
+            Edit profile
           </a>
         )}
       </Preview>
