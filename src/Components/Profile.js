@@ -67,7 +67,7 @@ const Profile = ({
           <a
             href="/"
             className="teal-text d-block mt-5"
-            onChange={(e) => e.preventDefault() | handleEdit()}
+            onClick={(e) => e.preventDefault() | handleEdit()}
           >
             Edit profile
           </a>
