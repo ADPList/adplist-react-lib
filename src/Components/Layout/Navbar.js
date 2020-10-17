@@ -35,7 +35,7 @@ const Navbar = ({
       expand="md"
       variant="light"
       collapseOnSelect
-      avatar={user.profile_photo_url}
+      avatar={user?.profile_photo_url}
     >
       <Container>
         <NavbarBrand className="cursor-pointer" onClick={() => router("/")}>

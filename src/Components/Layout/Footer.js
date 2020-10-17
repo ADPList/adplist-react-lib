@@ -1,29 +1,13 @@
 import React from "react";
-import { Container, Form, Row, Col } from "react-bootstrap";
-import { object, string } from "yup";
-import { Formik } from "formik";
+import { Container, Row, Col } from "react-bootstrap";
 
 import Fade from "react-fade-in";
 
-import {
-  StyledFooter,
-  InfoContainer,
-  BottomFooter,
-  StyledButton,
-} from "./Styles";
+import { StyledFooter, BottomFooter } from "./Styles";
 
 import * as Icon from "../../Icons";
-import Button from "../Button";
-import Field from "../Field";
 
-const Footer = ({
-  impact = false,
-  newsletter = false,
-  startProject = () => {},
-  volunteerProject = () => {},
-  firstItems,
-  secondItems,
-}) => {
+const Footer = ({ firstItems, secondItems }) => {
   /**
    * variables
    */
@@ -64,99 +48,6 @@ const Footer = ({
   return (
     <Fade bottom>
       <StyledFooter>
-        {(impact || newsletter) && (
-          <InfoContainer>
-            <Row>
-              <Col xl="11" className="ml-xl-auto">
-                <Row className="justify-content-lg-between">
-                  {impact && (
-                    <Col lg="6">
-                      <div className="impact mx-md-auto mb-lg-0 mx-lg-0">
-                        <p className="font-size-20 font-weight-600 mb-32 mb-md-16 mb-lg-32 line-height-15">
-                          Create impact with design, change the world with this
-                          global community.
-                        </p>
-                        <div className="d-md-flex align-items-center buttons">
-                          <div className="btn-col mb-md-0">
-                            <Button
-                              isValid
-                              onClick={startProject}
-                              className="btn--default"
-                              value="Start a project"
-                            />
-                          </div>
-                          <div className="btn-col">
-                            <Button
-                              isValid
-                              onClick={volunteerProject}
-                              className="btn--default-reverse"
-                              value="Volunteer to design"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </Col>
-                  )}
-                  {newsletter && (
-                    <Col lg="6">
-                      <div className="newsletter mx-md-auto mx-lg-0">
-                        <p className="font-size-20 font-weight-600 mb-32 mb-md-16 mb-lg-32 line-height-15">
-                          Join our design for change and adplist community
-                          newsletter.
-                        </p>
-
-                        <Formik
-                          validateOnMount
-                          initialValues={{ email: "" }}
-                          validationSchema={object({
-                            email: string()
-                              .email("Enter a valid email")
-                              .required("Email is required"),
-                          })}
-                          onSubmit={newsletter}
-                        >
-                          {({
-                            handleSubmit,
-                            values: { email },
-                            isValid,
-                            isSubmitting,
-                          }) => (
-                            <Form>
-                              <div className="d-md-flex">
-                                <Field
-                                  type="email"
-                                  name="email"
-                                  value={email}
-                                  placeholder="your email address"
-                                  containerProps={{
-                                    className:
-                                      "mb-3 mb-md-0 mr-md-12 field-container",
-                                  }}
-                                />
-
-                                <StyledButton
-                                  {...{
-                                    isValid,
-                                    value: "join",
-                                    type: "submit",
-                                    loading: isSubmitting,
-                                    onClick: handleSubmit,
-                                    className: "btn--default px-40",
-                                  }}
-                                />
-                              </div>
-                            </Form>
-                          )}
-                        </Formik>
-                      </div>
-                    </Col>
-                  )}
-                </Row>
-              </Col>
-            </Row>
-          </InfoContainer>
-        )}
-
         <BottomFooter>
           <Container>
             <Row className="justify-content-between">
