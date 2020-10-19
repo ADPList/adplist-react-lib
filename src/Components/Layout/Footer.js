@@ -1,13 +1,11 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
-import Fade from "react-fade-in";
-
 import { StyledFooter, BottomFooter } from "./Styles";
 
 import * as Icon from "../../Icons";
 
-const Footer = ({ firstItems, secondItems }) => {
+const Footer = () => {
   /**
    * variables
    */
@@ -39,107 +37,98 @@ const Footer = ({ firstItems, secondItems }) => {
     },
   ];
 
+  const firstItems = [
+    { name: "find mentors", link: "" },
+    { name: "hire designers", link: "" },
+    { name: "find jobs", link: "" },
+    { name: "projects", link: "" },
+  ];
+
+  const secondItems = [
+    { name: "join adplist", link: "" },
+    { name: "community standards", link: "" },
+    { name: "partnerships", link: "" },
+    { name: "support us", link: "" },
+  ];
+
   const thirdItems = [
-    { name: "Content Ownershp", link: "" },
-    { name: "Privacy Policy", link: "" },
+    { name: "Contact us", link: "" },
+    { name: "Provacy Policy", link: "" },
     { name: "Terms of use", link: "" },
   ];
 
   return (
-    <Fade bottom>
-      <StyledFooter>
-        <BottomFooter>
-          <Container>
-            <Row className="justify-content-between">
-              <Col xl="1">
-                <Icon.SmileyLogo className="mb-4 mb-xl-0" />
-              </Col>
-              {firstItems && (
-                <Col md="6" lg="12" xl="6">
-                  <div className="d-lg-flex links -first mb-5 mb-lg-0">
-                    {firstItems?.map(({ name, link }, key) => (
-                      <a target={name} href={link} key={key}>
-                        {name}
+    <StyledFooter>
+      <BottomFooter>
+        <Container>
+          <Row className="justify-content-between">
+            <Col xl="1">
+              <Icon.SmileyLogo className="mb-4 mb-xl-0" />
+            </Col>
+            <Col lg="5">
+              <p className="line-height-16 grey-2-text font-size-14 mb-4 mb-lg-0">
+                To inspire powerful conversations and collaborations among
+                designers worldwide so together we can change the world with
+                creativity.
+              </p>
+            </Col>
+            <Col lg="6">
+              <div className="d-flex justify-content-lg-end mb-3 mb-xl-0">
+                <div className="d-flex align-items-center">
+                  <p className="font-size-12 grey-2-text mr-3 mb-0">Connect:</p>
+                  <div className="d-flex align-items-center mx-n1">
+                    {socialMedia.map((social, key) => (
+                      <a
+                        key={key}
+                        href={social.link}
+                        target={social.name}
+                        className="d-block text-decoration-none mx-1"
+                      >
+                        <social.icon />
                       </a>
                     ))}
                   </div>
-                </Col>
-              )}
-              {secondItems && (
-                <Col md="6" lg="12" xl="5">
-                  <div className="d-lg-flex justify-content-xl-end links -second mb-5 mb-lg-0">
-                    {secondItems?.map(({ name, link }, key) => (
-                      <a target={name} href={link} key={key}>
-                        {name}
-                      </a>
-                    ))}
-                  </div>
-                </Col>
-              )}
-            </Row>
-            <Row>
-              <Col xl="11" className="ml-xl-auto">
-                <Row className="justify-content-between flex-column-reverse flex-xl-row">
-                  <Col xl="6">
-                    <p className="mb-0 grey-2-text font-size-14">
-                      Copyright 2020 - Amazing Design People List
-                    </p>
-                  </Col>
-                  {thirdItems && (
-                    <Col xl="6">
-                      <div className="d-md-flex justify-content-xl-end links -third mb-5 mb-lg-0">
-                        {thirdItems?.map(({ name, link }, key) => (
-                          <a target={name} href={link} key={key}>
-                            {name}
-                          </a>
-                        ))}
-                      </div>
-                    </Col>
-                  )}
-                </Row>
-              </Col>
-            </Row>
+                </div>
+              </div>
+            </Col>
+          </Row>
 
-            <div className="border-top grey-4-border mt-3">
-              <Row>
-                <Col xl="11" className="ml-xl-auto">
-                  <Row className="pt-3 justify-content-between">
-                    <Col lg="4">
-                      <p className="line-height-16 grey-2-text font-size-10 mb-4 mb-lg-0">
-                        Our goal is to surface amazing design talents, help
-                        folks find new jobs, and help growing startups find top
-                        talent ASAP.
-                      </p>
-                    </Col>
-                    <Col lg="6">
-                      <div className="d-flex justify-content-lg-end">
-                        <div className="d-flex align-items-center">
-                          <p className="font-size-10 grey-2-text mr-3 mb-0">
-                            Connect:
-                          </p>
-                          <div className="d-flex align-items-center mx-n1">
-                            {socialMedia.map((social, key) => (
-                              <a
-                                key={key}
-                                href={social.link}
-                                target={social.name}
-                                className="d-block text-decoration-none mx-1"
-                              >
-                                <social.icon />
-                              </a>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
+          <div className="border-top grey-4-border mt-3 mt-lg-32 py-lg-4">
+            <div className="d-lg-flex justify-content-between">
+              <div className="d-lg-flex links -first">
+                {firstItems?.map(({ name, link }, key) => (
+                  <a target={name} href={link} key={key}>
+                    {name}
+                  </a>
+                ))}
+              </div>
+              <div className="d-lg-flex links -second">
+                {secondItems?.map(({ name, link }, key) => (
+                  <a target={name} href={link} key={key}>
+                    {name}
+                  </a>
+                ))}
+              </div>
             </div>
-          </Container>
-        </BottomFooter>
-      </StyledFooter>
-    </Fade>
+          </div>
+
+          <div className="d-lg-flex justify-content-between">
+            <p className="grey-2-text font-size-12 mb-4 py-2 py-lg-0 mb-lg-0">
+              Copyright 2020 - Amazing Design People List
+            </p>
+            {thirdItems && (
+              <div className="d-md-flex justify-content-lg-end links -third">
+                {thirdItems?.map(({ name, link }, key) => (
+                  <a target={name} href={link} key={key} className="mb-lg-0">
+                    {name}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </Container>
+      </BottomFooter>
+    </StyledFooter>
   );
 };
 

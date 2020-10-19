@@ -8,6 +8,7 @@ export { default as Person } from "./Person";
 export { default as Comment } from "./Comment";
 export { default as Twitter } from "./Twitter";
 export { default as Youtube } from "./Youtube";
+export { default as AdpLogo } from "./AdpLogo";
 export { default as Download } from "./Download";
 export { default as Facebook } from "./Facebook";
 export { default as LinkedIn } from "./LinkedIn";

@@ -11,12 +11,14 @@ import {
   NavDropdownItem,
 } from "./Styles";
 
-import * as Icon from "../../Icons";
+import ArrowUpRight from "../../Icons/ArrowUpRight";
+import AdpLogo from "../../Icons/AdpLogo";
 
 const Navbar = ({
   app,
   items,
   logout,
+  inverse = false,
   router = (link) => (window.location.href = link),
 }) => {
   /**
@@ -32,18 +34,19 @@ const Navbar = ({
   return (
     <StyledNavbar
       bg="light"
-      expand="md"
+      expand="lg"
       variant="light"
       collapseOnSelect
+      inverse={inverse}
       avatar={user?.profile_photo_url}
     >
       <Container>
         <NavbarBrand className="cursor-pointer" onClick={() => router("/")}>
-          <Icon.Logo />
+          <AdpLogo color={inverse ? "#fff" : ""} />
         </NavbarBrand>
         <NavbarToggle aria-controls="navigation" />
         <NavbarCollapse id="navigation">
-          <Nav className="ml-auto">
+          <Nav className="ml-auto my-4 my-lg-0">
             {items?.map((item, key) => (
               <Fragment key={key}>
                 {item.menu ? (
@@ -60,25 +63,26 @@ const Navbar = ({
                   >
                     {item.menu?.map((menu, key) => (
                       <NavDropdownItem
-                        {...(!menu.target && {
+                        {...(!menu?.target && {
                           onClick: (e) =>
-                            e.preventDefault() | router(menu.link),
+                            e.preventDefault() | router(menu?.link),
                         })}
-                        href={menu.link}
+                        href={menu?.link}
                         key={key}
                       >
-                        {menu.name}
+                        <span>{menu?.name}</span>
+                        {menu?.target && <ArrowUpRight color="var(--grey-2)" />}
                       </NavDropdownItem>
                     ))}
                   </NavDropdown>
                 ) : (
                   <NavLink
-                    {...(!item.target && {
-                      onClick: (e) => e.preventDefault() | router(item.link),
+                    {...(!item?.target && {
+                      onClick: (e) => e.preventDefault() | router(item?.link),
                     })}
-                    href={item.link}
+                    href={item?.link}
                   >
-                    {item.name}
+                    {item?.name}
                   </NavLink>
                 )}
               </Fragment>
@@ -113,7 +117,6 @@ const Navbar = ({
                   href={`${process.env.REACT_APP_AUTH_URL || ""}/signup${
                     app ? `?app=${app}` : ""
                   }`}
-                  className="font-weight-600"
                 >
                   Signup
                 </NavLink>
@@ -121,7 +124,9 @@ const Navbar = ({
                   href={`${process.env.REACT_APP_AUTH_URL || ""}/login${
                     app ? `?app=${app}` : ""
                   }`}
-                  className="btn btn--default"
+                  className={`btn btn-48 ${
+                    inverse ? "white-bg grey-text" : "btn--default"
+                  }`}
                 >
                   Login
                 </NavLink>

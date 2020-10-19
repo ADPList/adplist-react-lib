@@ -1,7 +1,6 @@
 import React from "react";
 import { Container as C } from "react-bootstrap";
 
-import FadeIn from "react-fade-in";
 import styled from "styled-components";
 
 import Steps from "./Steps";
@@ -76,32 +75,30 @@ const Setup = ({
   width = "450px",
 }) => {
   return (
-    <FadeIn>
-      <Container className="py-4 py-md-32">
-        <div className="d-flex justify-content-between align-items-center mb-32">
-          <Icon.Logo />
-          <Icon.Close className="cursor-pointer" onClick={() => handleBack()} />
-        </div>
+    <Container className="py-4 py-md-32">
+      <div className="d-flex justify-content-between align-items-center mb-32">
+        <Icon.Logo />
+        <Icon.Close className="cursor-pointer" onClick={() => handleBack()} />
+      </div>
 
-        <StyledContent {...{ width }}>
-          {header && (
-            <p className="mb-24 font-weight-600 font-size-20 text-center">
-              {header}
-            </p>
-          )}
-          <Steps
-            className="mb-40"
-            onClick={handleSwitch}
-            activeKey={active?.key || steps[0]?.key}
-          >
-            {steps.map(({ name }, key) => (
-              <Steps.Step title={name} key={key} />
-            ))}
-          </Steps>
-          {children}
-        </StyledContent>
-      </Container>
-    </FadeIn>
+      <StyledContent {...{ width }}>
+        {header && (
+          <p className="mb-24 font-weight-600 font-size-20 text-center">
+            {header}
+          </p>
+        )}
+        <Steps
+          className="mb-40"
+          onClick={handleSwitch}
+          activeKey={active?.key || steps[0]?.key}
+        >
+          {steps.map(({ name }, key) => (
+            <Steps.Step title={name} key={key} />
+          ))}
+        </Steps>
+        {children}
+      </StyledContent>
+    </Container>
   );
 };
 

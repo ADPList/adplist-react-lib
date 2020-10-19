@@ -1,14 +1,14 @@
-import React, { useGlobal } from "reactn";
-import { AuthProvider, Layout, Profile } from "adplist-react-lib";
-import { Container } from "react-bootstrap";
+import React from "reactn";
+import { AuthProvider, Layout, Field, Select, Button } from "adplist-react-lib";
+import { Container, Form } from "react-bootstrap";
+import { Formik } from "formik";
 
 export default () => {
-  const [user] = useGlobal("user");
-
   return (
     <AuthProvider>
       <Layout
         navItems={{
+          inverse: false,
           router: (link) => console.log(link),
           items: [
             {
@@ -49,9 +49,41 @@ export default () => {
         }}
       >
         <Container className="py-5">
-          <Profile initUser={user} isEdit isPrivate>
-            <h1>Pussy Pussy Pussy Pussy Pussy Pussy Pussy Pussy</h1>
-          </Profile>
+          <Formik initialValues={{ email: "", password: "", type: "" }}>
+            {({ values, setFieldValue }) => (
+              <Form>
+                <Field
+                  name="email"
+                  type="email"
+                  value={values.email}
+                  label="Email"
+                />
+                <Field
+                  name="password"
+                  type="password"
+                  value={values.password}
+                  label="Password"
+                />
+
+                <Field
+                  name="type"
+                  label="User Type"
+                  component={Select}
+                  value={values.type}
+                  options={[{ value: "Hi", label: "hi" }]}
+                  onChange={({ value }) => setFieldValue("type", value)}
+                />
+
+                <Form.Group>
+                  <Button
+                    className="btn--default w-100"
+                    value="Submit"
+                    isValid
+                  />
+                </Form.Group>
+              </Form>
+            )}
+          </Formik>
         </Container>
       </Layout>
     </AuthProvider>

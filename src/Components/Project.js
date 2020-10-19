@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import FadeIn from "react-fade-in";
 
 /**
  * styles
@@ -143,48 +142,46 @@ const Project = ({
   if (size === "md") {
     return (
       <StyledProjectMd {...{ progress, image, ...props }}>
-        <FadeIn>
-          <div className="mb-20">
-            <div className="image" />
-            <div className="progress">
-              <div className="progress__indicator" />
-            </div>
+        <div className="mb-20">
+          <div className="image" />
+          <div className="progress">
+            <div className="progress__indicator" />
           </div>
+        </div>
 
-          <div className="content">
-            {approved ? (
-              progress ? (
-                <p className="content__progress">
-                  {progress}% project completion
-                </p>
-              ) : (
-                ""
-              )
-            ) : (
-              <p className="content__progress warning-text">Pending approval</p>
-            )}
-            {tag ? <p className="content__tag">{tag}</p> : ""}
-            {header ? <p className="content__header">{header}</p> : ""}
-            {lead ? (
-              <p className="content__project-lead">
-                Project led by <span>{lead}</span>
+        <div className="content">
+          {approved ? (
+            progress ? (
+              <p className="content__progress">
+                {progress}% project completion
               </p>
             ) : (
               ""
-            )}
-          </div>
-
-          {edit && (
-            <a
-              href="/"
-              onClick={(e) => e.preventDefault() | edit()}
-              className="d-flex align-items-center text-decoration-none teal-text"
-            >
-              <i className="material-icons-outlined font-size-16">edit</i>
-              <span className="d-block ml-1 font-size-14">Edit Project</span>
-            </a>
+            )
+          ) : (
+            <p className="content__progress warning-text">Pending approval</p>
           )}
-        </FadeIn>
+          {tag ? <p className="content__tag">{tag}</p> : ""}
+          {header ? <p className="content__header">{header}</p> : ""}
+          {lead ? (
+            <p className="content__project-lead">
+              Project led by <span>{lead}</span>
+            </p>
+          ) : (
+            ""
+          )}
+        </div>
+
+        {edit && (
+          <a
+            href="/"
+            onClick={(e) => e.preventDefault() | edit()}
+            className="d-flex align-items-center text-decoration-none teal-text"
+          >
+            <i className="material-icons-outlined font-size-16">edit</i>
+            <span className="d-block ml-1 font-size-14">Edit Project</span>
+          </a>
+        )}
       </StyledProjectMd>
     );
   }
@@ -193,21 +190,19 @@ const Project = ({
     return (
       <StyledProjectLg {...{ ...props, image }}>
         <div className="content">
-          <FadeIn>
-            {tag ? <p className="content__tag">{tag}</p> : ""}
-            {header ? <p className="content__header">{header}</p> : ""}
-            {caption ? <p className="content__caption">{caption}</p> : ""}
-            {lead ? (
-              <p className="content__project-lead">
-                Project led by <span>{lead}</span>
-              </p>
-            ) : (
-              ""
-            )}
-            <span className="font-weight-600 font-size-14 line-height-10">
-              view project
-            </span>
-          </FadeIn>
+          {tag ? <p className="content__tag">{tag}</p> : ""}
+          {header ? <p className="content__header">{header}</p> : ""}
+          {caption ? <p className="content__caption">{caption}</p> : ""}
+          {lead ? (
+            <p className="content__project-lead">
+              Project led by <span>{lead}</span>
+            </p>
+          ) : (
+            ""
+          )}
+          <span className="font-weight-600 font-size-14 line-height-10">
+            view project
+          </span>
         </div>
       </StyledProjectLg>
     );
