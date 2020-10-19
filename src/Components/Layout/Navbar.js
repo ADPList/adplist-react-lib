@@ -12,6 +12,7 @@ import {
 } from "./Styles";
 
 import ArrowUpRight from "../../Icons/ArrowUpRight";
+import ArrowRight from "../../Icons/ArrowRight";
 import AdpLogo from "../../Icons/AdpLogo";
 
 const Navbar = ({
@@ -107,10 +108,20 @@ const Navbar = ({
                     process.env.REACT_APP_AUTH_URL || ""
                   }/dashboard/profile`}
                 >
-                  Account
+                  Your profile
                 </NavDropdownItem>
-                <NavDropdownItem className="red-text" onClick={logout}>
-                  Logout
+                <NavDropdownItem
+                  href={`${
+                    process.env.REACT_APP_AUTH_URL || ""
+                  }/dashboard/profile`}
+                >
+                  Projects
+                </NavDropdownItem>
+                <NavDropdownItem onClick={logout}>
+                  <span className="mr-3 grey-text" style={{ opacity: 0.5 }}>
+                    Logout
+                  </span>
+                  <ArrowRight color="var(--grey-2)" />
                 </NavDropdownItem>
               </NavDropdown>
             ) : (

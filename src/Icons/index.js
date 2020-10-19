@@ -17,6 +17,7 @@ export { default as AlignLeft } from "./AlignLeft";
 export { default as Instagram } from "./Instagram";
 export { default as Expertise } from "./Expertise";
 export { default as Portfolio } from "./Portfolio";
+export { default as ArrowRight } from "./ArrowRight";
 export { default as SmileyLogo } from "./SmileyLogo";
 export { default as MapPointer } from "./MapPointer";
 export { default as ArrowUpRight } from "./ArrowUpRight";
