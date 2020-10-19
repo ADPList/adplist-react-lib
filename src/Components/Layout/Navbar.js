@@ -18,7 +18,7 @@ const Navbar = ({
   app,
   items,
   logout,
-  inverse = false,
+  inverse,
   router = (link) => (window.location.href = link),
 }) => {
   /**
@@ -37,8 +37,8 @@ const Navbar = ({
       expand="lg"
       variant="light"
       collapseOnSelect
-      inverse={inverse}
       avatar={user?.profile_photo_url}
+      {...(inverse && { inverse: true })}
     >
       <Container>
         <NavbarBrand className="cursor-pointer" onClick={() => router("/")}>
