@@ -20,8 +20,8 @@ const StyledProjectMd = styled.div`
     width: 100%;
     height: 10px;
     overflow: hidden;
+    border-radius: 0px;
     background-color: var(--grey-3);
-    border-radius: 0px 0px 10px 10px;
 
     &__indicator {
       background-color: var(--teal);

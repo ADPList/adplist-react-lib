@@ -70,7 +70,9 @@ const Navbar = ({
                         href={menu?.link}
                         key={key}
                       >
-                        <span>{menu?.name}</span>
+                        <span className={`${menu?.target ? "mr-3" : ""}`}>
+                          {menu?.name}
+                        </span>
                         {menu?.target && <ArrowUpRight color="var(--grey-2)" />}
                       </NavDropdownItem>
                     ))}
