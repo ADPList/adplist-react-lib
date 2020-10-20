@@ -39,7 +39,7 @@ const Navbar = ({
       variant="light"
       collapseOnSelect
       avatar={user?.profile_photo_url}
-      {...(inverse && { inverse: true })}
+      {...(inverse && { inverse: "true" })}
     >
       <Container>
         <NavbarBrand className="cursor-pointer" onClick={() => router("/")}>
