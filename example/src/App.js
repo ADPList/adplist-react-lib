@@ -8,7 +8,7 @@ export default () => {
     <AuthProvider>
       <Layout
         navItems={{
-          inverse: false,
+          inverse: true,
           router: (link) => console.log(link),
           items: [
             {

@@ -11,7 +11,25 @@ export const NavLink = styled(Nav.Link)``;
 export const NavDropdown = styled(Drop)``;
 export const NavbarBrand = styled(Navbar.Brand)``;
 export const NavDropdownItem = styled(Drop.Item)``;
-export const NavbarCollapse = styled(Navbar.Collapse)``;
+export const NavbarCollapse = styled(Navbar.Collapse)`
+  @media (max-width: 991px) {
+    max-height: calc(100vh - 85px);
+    background-color: #fff;
+    position: absolute;
+    overflow-y: auto;
+    width: 100%;
+    top: 81px;
+    left: 0;
+
+    &.show {
+      height: calc(100vh - 81px);
+    }
+  }
+
+  @media (max-width: 767px) {
+    max-height: calc(100vh - 77px);
+  }
+`;
 export const NavbarToggle = styled(Navbar.Toggle)`
   .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3Csvg width='28' height='22' viewBox='0 0 28 22' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M26 9.875H2C1.70163 9.875 1.41548 9.99353 1.2045 10.2045C0.993526 10.4155 0.875 10.7016 0.875 11C0.875 11.2984 0.993526 11.5845 1.2045 11.7955C1.41548 12.0065 1.70163 12.125 2 12.125H26C26.2984 12.125 26.5845 12.0065 26.7955 11.7955C27.0065 11.5845 27.125 11.2984 27.125 11C27.125 10.7016 27.0065 10.4155 26.7955 10.2045C26.5845 9.99353 26.2984 9.875 26 9.875Z' fill='${({
@@ -38,6 +56,9 @@ export const StyledNavbar = styled(Navbar)`
   z-index: 999;
   top: 0;
 
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  background-color: #fff !important;
+
   ${NavbarBrand} {
     transition: ease all 0.25s;
     padding-bottom: 0px;
@@ -56,6 +77,7 @@ export const StyledNavbar = styled(Navbar)`
   }
 
   ${NavLink}, .nav-link {
+    color: var(--grey) !important;
     padding: 24px 40px !important;
     transition: ease all 0.25s;
     align-items: center;
@@ -81,7 +103,8 @@ export const StyledNavbar = styled(Navbar)`
 
     &.btn {
       padding: 0px 24px !important;
-      margin: 24px 40px 0px 40px;
+      margin: 24px 20px 0px 20px;
+      color: #fff !important;
       width: 115px;
     }
   }
@@ -105,6 +128,14 @@ export const StyledNavbar = styled(Navbar)`
     justify-content: space-between;
   }
 
+  @media (min-width: 768px) {
+    ${NavLink}, .nav-link {
+      &.btn {
+        margin: 24px 40px 0px 40px;
+      }
+    }
+  }
+
   @media (min-width: 992px) {
     ${NavLink}, .nav-link {
       padding: 0px 15px !important;
@@ -116,17 +147,22 @@ export const StyledNavbar = styled(Navbar)`
     }
   }
 
+  @media (max-width: 991px) {
+    ${NavLink}, .nav-link {
+      &.btn {
+        background-color: var(--default) !important;
+        color: #fff !important;
+      }
+    }
+  }
+
   @media (max-width: 767px) {
     padding-bottom: 20px;
     padding-top: 20px;
 
-    ${NavbarCollapse} {
-      padding-top: 20px;
-    }
-
     ${NavLink}, .nav-link {
-      padding-right: 0px !important;
-      padding-left: 0px !important;
+      padding-right: 20px !important;
+      padding-left: 20px !important;
     }
   }
 
@@ -138,30 +174,17 @@ export const StyledNavbar = styled(Navbar)`
   }
 
   ${({ inverse }) =>
-    inverse
-      ? `
+    inverse &&
+    `
         background-color: transparent !important;
+        
+        @media (min-width: 992px) {
+          ${NavLink}, .nav-link {
+            color: #fff !important;
 
-        ${NavLink}, .nav-link {
-          color: #fff !important;
-
-          &.btn {
-            color: var(--default)!important;
-          }
-        }
-
-        ${NavbarToggle} {
-        }
-      `
-      : `
-        box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
-        background-color: #fff !important;
-
-        ${NavLink}, .nav-link {
-          color: var(--grey) !important;
-
-          &.btn {
-            color: #fff!important;
+            &.btn {
+              color: var(--default)!important;
+            }
           }
         }
       `}

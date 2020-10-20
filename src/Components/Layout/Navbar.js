@@ -45,9 +45,12 @@ const Navbar = ({
         <NavbarBrand className="cursor-pointer" onClick={() => router("/")}>
           <AdpLogo color={inverse ? "#fff" : ""} />
         </NavbarBrand>
-        <NavbarToggle aria-controls="navigation" />
+        <NavbarToggle
+          {...(inverse && { inverse: "true" })}
+          aria-controls="navigation"
+        />
         <NavbarCollapse id="navigation">
-          <Nav className="ml-auto my-4 my-lg-0">
+          <Nav className="ml-auto">
             {items?.map((item, key) => (
               <Fragment key={key}>
                 {item.menu ? (

@@ -51,6 +51,7 @@ const StyledProjectMd = styled.div`
     }
 
     &__project-lead {
+      margin-bottom: 0px;
       font-weight: 600;
       font-size: 12px;
       line-height: 1;
@@ -162,7 +163,11 @@ const Project = ({
             <p className="content__progress warning-text">Pending approval</p>
           )}
           {tag ? <p className="content__tag">{tag}</p> : ""}
-          {header ? <p className="content__header">{header}</p> : ""}
+          {header ? (
+            <p className="content__header multi-truncate">{header}</p>
+          ) : (
+            ""
+          )}
           {lead ? (
             <p className="content__project-lead">
               Project led by <span>{lead}</span>
@@ -191,7 +196,11 @@ const Project = ({
       <StyledProjectLg {...{ ...props, image }}>
         <div className="content">
           {tag ? <p className="content__tag">{tag}</p> : ""}
-          {header ? <p className="content__header">{header}</p> : ""}
+          {header ? (
+            <p className="content__header multi-truncate">{header}</p>
+          ) : (
+            ""
+          )}
           {caption ? <p className="content__caption">{caption}</p> : ""}
           {lead ? (
             <p className="content__project-lead">
