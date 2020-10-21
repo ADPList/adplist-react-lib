@@ -76,7 +76,7 @@ const Profile = ({
       <Content>
         <div className="user__info">
           <p className="font-size-28 font-size-md-36 font-weight-600">
-            <span className="mr-2">Hello, {user?.name}</span>
+            <span className="mr-2">Hello, I'm {user?.name}</span>
             <Flag label={user?.country?.name} code={user?.country?.iso} />
           </p>
 

@@ -20,6 +20,7 @@ const Navbar = ({
   items,
   logout,
   inverse,
+  startProject = () => {},
   router = (link) => (window.location.href = link),
 }) => {
   /**
@@ -28,9 +29,8 @@ const Navbar = ({
   const [isAuthenticated] = useGlobal("isAuthenticated");
   const [initUser] = useGlobal("user");
 
-  const user = initUser?.identity_type
-    ? initUser[initUser?.identity_type?.toLowerCase()]
-    : {};
+  const identityType = initUser?.identity_type?.toLowerCase();
+  const user = identityType ? initUser[identityType] : {};
 
   return (
     <StyledNavbar
@@ -67,10 +67,14 @@ const Navbar = ({
                   >
                     {item.menu?.map((menu, key) => (
                       <NavDropdownItem
-                        {...(!menu?.target && {
-                          onClick: (e) =>
-                            e.preventDefault() | router(menu?.link),
-                        })}
+                        {...(!menu?.target
+                          ? {
+                              onClick: (e) =>
+                                e.preventDefault() | router(menu?.link),
+                            }
+                          : {
+                              target: menu?.name,
+                            })}
                         href={menu?.link}
                         key={key}
                       >
@@ -95,38 +99,50 @@ const Navbar = ({
             ))}
 
             {isAuthenticated ? (
-              <NavDropdown
-                title={
-                  <Fragment>
-                    <div className="profile__avatar" />
-                    <i className="material-icons-round font-size-18">
-                      expand_more
-                    </i>
-                  </Fragment>
-                }
-                id="collasible-nav-dropdown"
-              >
-                <NavDropdownItem
-                  href={`${
-                    process.env.REACT_APP_AUTH_URL || ""
-                  }/dashboard/profile`}
+              <Fragment>
+                {identityType === "mentor" && (
+                  <NavLink
+                    onClick={() => startProject()}
+                    className={`btn btn-48 mr-lg-3 ${
+                      inverse ? "white-bg grey-text" : "btn--default"
+                    }`}
+                  >
+                    Start a project
+                  </NavLink>
+                )}
+                <NavDropdown
+                  title={
+                    <Fragment>
+                      <div className="profile__avatar" />
+                      <i className="material-icons-round font-size-18">
+                        expand_more
+                      </i>
+                    </Fragment>
+                  }
+                  id="collasible-nav-dropdown"
                 >
-                  Your profile
-                </NavDropdownItem>
-                <NavDropdownItem
-                  href={`${
-                    process.env.REACT_APP_AUTH_URL || ""
-                  }/dashboard/profile`}
-                >
-                  Projects
-                </NavDropdownItem>
-                <NavDropdownItem onClick={logout}>
-                  <span className="mr-3 grey-text" style={{ opacity: 0.5 }}>
-                    Logout
-                  </span>
-                  <ArrowRight color="var(--grey-2)" />
-                </NavDropdownItem>
-              </NavDropdown>
+                  <NavDropdownItem
+                    href={`${
+                      process.env.REACT_APP_AUTH_URL || ""
+                    }/dashboard/profile`}
+                  >
+                    Your profile
+                  </NavDropdownItem>
+                  <NavDropdownItem
+                    href={`${
+                      process.env.REACT_APP_AUTH_URL || ""
+                    }/dashboard/profile`}
+                  >
+                    Projects
+                  </NavDropdownItem>
+                  <NavDropdownItem onClick={logout}>
+                    <span className="mr-3 grey-text" style={{ opacity: 0.5 }}>
+                      Logout
+                    </span>
+                    <ArrowRight color="var(--grey-2)" />
+                  </NavDropdownItem>
+                </NavDropdown>
+              </Fragment>
             ) : (
               <Fragment>
                 <NavLink

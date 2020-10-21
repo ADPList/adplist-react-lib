@@ -105,7 +105,6 @@ export const StyledNavbar = styled(Navbar)`
       padding: 0px 24px !important;
       margin: 24px 20px 0px 20px;
       color: #fff !important;
-      width: 115px;
     }
   }
 

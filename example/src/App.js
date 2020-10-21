@@ -1,14 +1,12 @@
 import React from "reactn";
-import { AuthProvider, Layout, Field, Select, Button } from "adplist-react-lib";
-import { Container, Form } from "react-bootstrap";
-import { Formik } from "formik";
+import { AuthProvider, Layout, Project } from "adplist-react-lib";
+import { Container } from "react-bootstrap";
 
 export default () => {
   return (
     <AuthProvider>
       <Layout
         navItems={{
-          inverse: true,
           router: (link) => console.log(link),
           items: [
             {
@@ -49,41 +47,7 @@ export default () => {
         }}
       >
         <Container className="py-5">
-          <Formik initialValues={{ email: "", password: "", type: "" }}>
-            {({ values, setFieldValue }) => (
-              <Form>
-                <Field
-                  name="email"
-                  type="email"
-                  value={values.email}
-                  label="Email"
-                />
-                <Field
-                  name="password"
-                  type="password"
-                  value={values.password}
-                  label="Password"
-                />
-
-                <Field
-                  name="type"
-                  label="User Type"
-                  component={Select}
-                  value={values.type}
-                  options={[{ value: "Hi", label: "hi" }]}
-                  onChange={({ value }) => setFieldValue("type", value)}
-                />
-
-                <Form.Group>
-                  <Button
-                    className="btn--default w-100"
-                    value="Submit"
-                    isValid
-                  />
-                </Form.Group>
-              </Form>
-            )}
-          </Formik>
+          <Project lead="Hello" edit />
         </Container>
       </Layout>
     </AuthProvider>

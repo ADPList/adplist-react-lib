@@ -3,7 +3,10 @@ import { Container, Row, Col } from "react-bootstrap";
 
 import { StyledFooter, BottomFooter } from "./Styles";
 
-import * as Icon from "../../Icons";
+import SmileyLogo from "../../Icons/SmileyLogo";
+import LinkedIn from "../../Icons/LinkedIn";
+import Youtube from "../../Icons/Youtube";
+import Twitter from "../../Icons/Twitter";
 
 const Footer = () => {
   /**
@@ -11,29 +14,19 @@ const Footer = () => {
    */
   const socialMedia = [
     {
-      icon: Icon.Facebook,
-      name: "facebook",
-      link: "/",
-    },
-    {
-      icon: Icon.Youtube,
+      icon: Youtube,
       name: "youtube",
-      link: "/",
+      link: "https://www.youtube.com/channel/UCEDeB17hbLD_Ius5cnilqSg",
     },
     {
-      icon: Icon.LinkedIn,
+      icon: LinkedIn,
       name: "linkedin",
-      link: "/",
+      link: "https://www.linkedin.com/company/adplist-org/",
     },
     {
-      icon: Icon.Instagram,
-      name: "instagram",
-      link: "/",
-    },
-    {
-      icon: Icon.Twitter,
+      icon: Twitter,
       name: "twitter",
-      link: "/",
+      link: "https://twitter.com/adplist",
     },
   ];
 
@@ -63,7 +56,7 @@ const Footer = () => {
         <Container>
           <Row className="justify-content-between">
             <Col xl="1">
-              <Icon.SmileyLogo className="mb-4 mb-xl-0" />
+              <SmileyLogo className="mb-4 mb-xl-0" />
             </Col>
             <Col lg="5">
               <p className="line-height-16 grey-2-text font-size-14 mb-4 mb-lg-0">

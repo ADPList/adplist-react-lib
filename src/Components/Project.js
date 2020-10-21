@@ -51,80 +51,26 @@ const StyledProjectMd = styled.div`
     }
 
     &__project-lead {
+      align-items: center;
       margin-bottom: 0px;
       font-weight: 600;
       font-size: 12px;
       line-height: 1;
+      display: flex;
 
-      span {
-        color: var(--teal);
+      .avatar {
+        height: 40px;
+        flex: 0 0 40px;
+        display: block;
+        border-radius: 50%;
+        margin-right: 10px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: var(--grey-2);
+        background-image: url(${({ avatar }) => avatar || ""});
       }
     }
-  }
-`;
-
-const StyledProjectLg = styled.div`
-  z-index: 1;
-  color: #fff;
-  cursor: pointer;
-  padding: 72px 32px;
-  position: relative;
-  background-size: cover;
-  background-position: center;
-
-  &::before {
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    content: " ";
-    height: 100%;
-    position: absolute;
-    background: linear-gradient(
-        0deg,
-        rgba(10, 36, 63, 0.7),
-        rgba(10, 36, 63, 0.7)
-      ),
-      url(${({ image }) => image}), #0a243f;
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: multiply, normal, normal;
-  }
-
-  .content {
-    z-index: 1;
-    line-height: 1.6;
-    max-width: 384px;
-
-    &__tag {
-      font-size: 10px;
-      margin-bottom: 14px;
-    }
-
-    &__header {
-      font-size: 20px;
-      margin-bottom: 14px;
-    }
-
-    &__caption {
-      font-size: 12px;
-      margin-bottom: 14px;
-    }
-
-    &__project-lead {
-      margin-bottom: 24px;
-      font-weight: 600;
-      font-size: 12px;
-      line-height: 1;
-
-      span {
-        color: var(--teal);
-      }
-    }
-  }
-
-  @media (min-width: 768px) {
-    padding: 72px 96px;
   }
 `;
 
@@ -133,89 +79,57 @@ const Project = ({
   progress = 0,
   size = "md",
   caption,
+  avatar,
   header,
   image,
   edit,
   lead,
   tag,
   ...props
-}) => {
-  if (size === "md") {
-    return (
-      <StyledProjectMd {...{ progress, image, ...props }}>
-        <div className="mb-20">
-          <div className="image" />
-          <div className="progress">
-            <div className="progress__indicator" />
-          </div>
-        </div>
+}) => (
+  <StyledProjectMd {...{ progress, image, avatar, ...props }}>
+    <div className="mb-20">
+      <div className="image" />
+      <div className="progress">
+        <div className="progress__indicator" />
+      </div>
+    </div>
 
-        <div className="content">
-          {approved ? (
-            progress ? (
-              <p className="content__progress">
-                {progress}% project completion
-              </p>
-            ) : (
-              ""
-            )
-          ) : (
-            <p className="content__progress warning-text">Pending approval</p>
-          )}
-          {tag ? <p className="content__tag">{tag}</p> : ""}
-          {header ? (
-            <p className="content__header multi-truncate">{header}</p>
-          ) : (
-            ""
-          )}
-          {lead ? (
-            <p className="content__project-lead">
-              Project led by <span>{lead}</span>
-            </p>
-          ) : (
-            ""
-          )}
-        </div>
-
-        {edit && (
-          <a
-            href="/"
-            onClick={(e) => e.preventDefault() | edit()}
-            className="d-flex align-items-center text-decoration-none teal-text"
-          >
-            <i className="material-icons-outlined font-size-16">edit</i>
-            <span className="d-block ml-1 font-size-14">Edit Project</span>
-          </a>
-        )}
-      </StyledProjectMd>
-    );
-  }
-
-  if (size === "lg") {
-    return (
-      <StyledProjectLg {...{ ...props, image }}>
-        <div className="content">
-          {tag ? <p className="content__tag">{tag}</p> : ""}
-          {header ? (
-            <p className="content__header multi-truncate">{header}</p>
-          ) : (
-            ""
-          )}
-          {caption ? <p className="content__caption">{caption}</p> : ""}
-          {lead ? (
-            <p className="content__project-lead">
-              Project led by <span>{lead}</span>
-            </p>
-          ) : (
-            ""
-          )}
-          <span className="font-weight-600 font-size-14 line-height-10">
-            view project
+    <div className="content">
+      {approved ? (
+        progress ? (
+          <p className="content__progress">{progress}% project completion</p>
+        ) : (
+          ""
+        )
+      ) : (
+        <p className="content__progress warning-text">Pending approval</p>
+      )}
+      {tag ? <p className="content__tag">{tag}</p> : ""}
+      {header ? <p className="content__header multi-truncate">{header}</p> : ""}
+      {lead ? (
+        <div className="content__project-lead">
+          <span className="avatar" />
+          <span>
+            Project led by <span className="teal-text">{lead}</span>
           </span>
         </div>
-      </StyledProjectLg>
-    );
-  }
-};
+      ) : (
+        ""
+      )}
+    </div>
+
+    {edit && (
+      <a
+        href="/"
+        onClick={(e) => e.preventDefault() | edit()}
+        className="d-flex align-items-center text-decoration-none teal-text mt-3"
+      >
+        <i className="material-icons-outlined font-size-16">edit</i>
+        <span className="d-block ml-1 font-size-14">Edit Project</span>
+      </a>
+    )}
+  </StyledProjectMd>
+);
 
 export default Project;
