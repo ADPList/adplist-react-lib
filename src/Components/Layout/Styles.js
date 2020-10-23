@@ -197,6 +197,8 @@ export const BottomFooter = styled.div``;
 export const StyledButton = styled(Button)``;
 
 export const StyledFooter = styled.div`
+  margin-top: auto;
+
   ${BottomFooter} {
     background-color: var(--grey-3);
     padding-bottom: 32px;

@@ -1,11 +1,12 @@
 import React, { useGlobal } from "reactn";
-import { AuthProvider, Layout, Project } from "adplist-react-lib";
+import { AuthProvider, Layout, Project, Confirm } from "adplist-react-lib";
 import { Container } from "react-bootstrap";
 
 export default () => {
-  const [, setHi] = useGlobal("hi");
-
-  setHi("hi");
+  const handleConfirm = async () => {
+    if (await Confirm({ confirmation: "Hello world" })) {
+    }
+  };
 
   return (
     <AuthProvider>
@@ -51,7 +52,7 @@ export default () => {
         }}
       >
         <Container className="py-5">
-          <Project lead="Hello" edit={() => {}} />
+          <Project lead="Hello" edit={() => {}} onClick={handleConfirm} />
         </Container>
       </Layout>
     </AuthProvider>
