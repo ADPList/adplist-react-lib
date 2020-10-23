@@ -1,4 +1,4 @@
-import React, { Fragment, useGlobal, useState, useEffect } from "reactn";
+import React, { Fragment, useGlobal } from "reactn";
 import { Container, Nav } from "react-bootstrap";
 
 import {
@@ -13,7 +13,6 @@ import {
 
 import ArrowUpRight from "../../Icons/ArrowUpRight";
 import ArrowRight from "../../Icons/ArrowRight";
-import useCookie from "../../Utils/useCookie";
 import AdpLogo from "../../Icons/AdpLogo";
 
 const Navbar = ({
@@ -28,32 +27,10 @@ const Navbar = ({
    * state
    */
   const [isAuthenticated] = useGlobal("isAuthenticated");
-  const [token, setToken] = useState(null);
   const [initUser] = useGlobal("user");
 
   const identityType = initUser?.identity_type?.toLowerCase();
   const user = identityType ? initUser[identityType] : {};
-
-  /**
-   * function
-   */
-  const { getCookie } = useCookie();
-
-  /**
-   * effect
-   */
-  useEffect(() => {
-    /**
-     * ideally I wouldn't have bothered doing this
-     * this is for SSR apps so that it doesn't through errors
-     */
-    if (!token) {
-      const t = getCookie("token");
-      if (t) {
-        setToken(t);
-      }
-    }
-  }, [token]);
 
   return (
     <StyledNavbar
@@ -182,7 +159,6 @@ const Navbar = ({
                   className={`btn btn-48 ${
                     inverse ? "white-bg grey-text" : "btn--default"
                   }`}
-                  {...(token && { disabled: true })}
                 >
                   Login
                 </NavLink>

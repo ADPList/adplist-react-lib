@@ -10,6 +10,8 @@ const rootKey = process.env.REACT_APP_ROOT_KEY;
  */
 export const rootState = {
   isAuthenticated: false,
+  accessToken: null,
+  refresh: null,
   user: null,
 };
 

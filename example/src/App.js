@@ -1,8 +1,12 @@
-import React from "reactn";
+import React, { useGlobal } from "reactn";
 import { AuthProvider, Layout, Project } from "adplist-react-lib";
 import { Container } from "react-bootstrap";
 
 export default () => {
+  const [, setHi] = useGlobal("hi");
+
+  setHi("hi");
+
   return (
     <AuthProvider>
       <Layout
@@ -47,8 +51,7 @@ export default () => {
         }}
       >
         <Container className="py-5">
-          {console.log("hi")}
-          <Project lead="Hello" edit />
+          <Project lead="Hello" edit={() => {}} />
         </Container>
       </Layout>
     </AuthProvider>
