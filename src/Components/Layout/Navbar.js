@@ -1,4 +1,4 @@
-import React, { Fragment, useGlobal } from "reactn";
+import React, { Fragment, useGlobal, useState, useEffect } from "reactn";
 import { Container, Nav } from "react-bootstrap";
 
 import {
@@ -28,6 +28,7 @@ const Navbar = ({
    * state
    */
   const [isAuthenticated] = useGlobal("isAuthenticated");
+  const [token, setToken] = useState(null);
   const [initUser] = useGlobal("user");
 
   const identityType = initUser?.identity_type?.toLowerCase();
@@ -39,9 +40,20 @@ const Navbar = ({
   const { getCookie } = useCookie();
 
   /**
-   * variables
+   * effect
    */
-  const token = getCookie("token");
+  useEffect(() => {
+    /**
+     * ideally I wouldn't have bothered doing this
+     * this is for SSR apps so that it doesn't through errors
+     */
+    if (!token) {
+      const t = getCookie("token");
+      if (t) {
+        setToken(t);
+      }
+    }
+  }, [token]);
 
   return (
     <StyledNavbar
