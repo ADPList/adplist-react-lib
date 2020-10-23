@@ -9,7 +9,7 @@ const Auth = ({ children }) => {
   /**
    * states
    */
-  const [, setUser] = useGlobal("user");
+  const [user, setUser] = useGlobal("user");
   const [, setAuth] = useGlobal("isAuthenticated");
 
   /**
@@ -17,6 +17,10 @@ const Auth = ({ children }) => {
    */
   const { getCookie, deleteCookie } = useCookie();
 
+  /**
+   * resetting refresh timer and local Token
+   * @param {*} value
+   */
   const setRefresh = (value) => {
     value = value ? value?.toISOString() : "";
     if (value) {
@@ -24,8 +28,13 @@ const Auth = ({ children }) => {
     } else {
       window.localStorage.removeItem("refresh");
     }
+
+    window.localStorage.removeItem("accessToken");
   };
 
+  /**
+   * get user payload
+   */
   const handleUserPayload = () => {
     return Http.get(`/account/user/`)
       .then((response) => setAuth(true) | setUser(response))
@@ -39,10 +48,24 @@ const Auth = ({ children }) => {
   };
 
   const handleIntervalCompute = () => {
+    /**
+     * variables
+     */
     const token = getCookie("token");
     const refresh = window.localStorage.getItem("refresh");
+    let localToken = window.localStorage.getItem("accessToken");
 
-    if (token) {
+    /**
+     * maintain global token and local token
+     * check if local token and global token are the same
+     * if not, delete local token
+     */
+    if (!localToken && token) {
+      window.localStorage.setItem("accessToken", token);
+      localToken = token;
+    }
+
+    if (token && localToken && token === localToken) {
       if (refresh) {
         if (moment(refresh).isBefore(moment())) {
           return setRefresh(moment().add(30, "minutes")) | handleUserPayload();
@@ -51,7 +74,9 @@ const Auth = ({ children }) => {
         return handleUserPayload() | setRefresh(moment().add(30, "minutes"));
       }
     } else {
-      return setAuth(false) | setUser(null) | setRefresh("");
+      if (user || refresh || localToken) {
+        return setAuth(false) | setUser(null) | setRefresh("");
+      }
     }
   };
 
@@ -60,9 +85,11 @@ const Auth = ({ children }) => {
    */
   useEffect(() => {
     handleIntervalCompute();
+
     const interval = setInterval(() => {
       handleIntervalCompute();
     }, 1000 * 5);
+
     return () => clearInterval(interval);
   }, []);
 

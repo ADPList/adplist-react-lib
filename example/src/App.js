@@ -47,6 +47,7 @@ export default () => {
         }}
       >
         <Container className="py-5">
+          {console.log("hi")}
           <Project lead="Hello" edit />
         </Container>
       </Layout>

@@ -13,6 +13,7 @@ import {
 
 import ArrowUpRight from "../../Icons/ArrowUpRight";
 import ArrowRight from "../../Icons/ArrowRight";
+import useCookie from "../../Utils/useCookie";
 import AdpLogo from "../../Icons/AdpLogo";
 
 const Navbar = ({
@@ -31,6 +32,16 @@ const Navbar = ({
 
   const identityType = initUser?.identity_type?.toLowerCase();
   const user = identityType ? initUser[identityType] : {};
+
+  /**
+   * function
+   */
+  const { getCookie } = useCookie();
+
+  /**
+   * variables
+   */
+  const token = getCookie("token");
 
   return (
     <StyledNavbar
@@ -159,6 +170,7 @@ const Navbar = ({
                   className={`btn btn-48 ${
                     inverse ? "white-bg grey-text" : "btn--default"
                   }`}
+                  {...(token && { disabled: true })}
                 >
                   Login
                 </NavLink>
