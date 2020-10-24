@@ -77,17 +77,13 @@ const StyledProjectMd = styled.div`
 const Project = ({
   approved = false,
   progress = 0,
-  size = "md",
-  caption,
-  avatar,
   header,
-  image,
   edit,
   lead,
   tag,
   ...props
 }) => (
-  <StyledProjectMd {...{ progress, image, avatar, ...props }}>
+  <StyledProjectMd {...{ progress, ...props }}>
     <div className="mb-20">
       <div className="image" />
       <div className="progress">

@@ -1,5 +1,11 @@
-import React, { useGlobal } from "reactn";
-import { AuthProvider, Layout, Project, Confirm } from "adplist-react-lib";
+import React from "reactn";
+import {
+  AuthProvider,
+  Layout,
+  Project,
+  Confirm,
+  Grid,
+} from "adplist-react-lib";
 import { Container } from "react-bootstrap";
 
 export default () => {
@@ -52,7 +58,16 @@ export default () => {
         }}
       >
         <Container className="py-5">
-          <Project lead="Hello" edit={() => {}} onClick={handleConfirm} />
+          <Grid sm="1fr" md="repeat(2, 1fr)" lg="repeat(3, 1fr)">
+            <Project
+              lead="Hello"
+              clamp="2"
+              clampHeight="64"
+              edit={() => {}}
+              onClick={handleConfirm}
+              header="Rapping in the ghetto with the niggas in the hoodie and the window of the killer is opened can be dangerous"
+            />
+          </Grid>
         </Container>
       </Layout>
     </AuthProvider>
