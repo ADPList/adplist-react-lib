@@ -15,7 +15,7 @@ export default ({ title = null, body, type = "default" }) => {
           {type === "success" && <i className="material-icons">check</i>}
           {type === "error" && <i className="material-icons">close</i>}
         </span>
-        <p className="content mb-0 mr-16">{body}</p>
+        <p className="content mb-0 mr-2">{body}</p>
 
         <i className="material-icons d-block ml-auto font-size-18">close</i>
       </div>

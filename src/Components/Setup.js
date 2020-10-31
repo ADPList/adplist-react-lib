@@ -88,7 +88,7 @@ const Setup = ({
           </p>
         )}
         <Steps
-          className="mb-40"
+          className="mb-5"
           onClick={handleSwitch}
           activeKey={active?.key || steps[0]?.key}
         >

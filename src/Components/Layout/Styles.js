@@ -13,21 +13,17 @@ export const NavbarBrand = styled(Navbar.Brand)``;
 export const NavDropdownItem = styled(Drop.Item)``;
 export const NavbarCollapse = styled(Navbar.Collapse)`
   @media (max-width: 991px) {
-    max-height: calc(100vh - 85px);
     background-color: #fff;
+    padding-bottom: 24px;
     position: absolute;
     overflow-y: auto;
     width: 100%;
     top: 81px;
     left: 0;
-
-    &.show {
-      height: calc(100vh - 81px);
-    }
   }
 
   @media (max-width: 767px) {
-    max-height: calc(100vh - 77px);
+    top: 77px;
   }
 `;
 export const NavbarToggle = styled(Navbar.Toggle)`
@@ -59,6 +55,53 @@ export const StyledNavbar = styled(Navbar)`
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
   background-color: #fff !important;
 
+  .search {
+    display: flex;
+    position: relative;
+    border-radius: 6px;
+    align-items: center;
+    width: calc(100% - 48px);
+    transition: ease all 0.25s;
+    margin: 24px 20px 0px 20px;
+    border: solid 1px var(--grey-4);
+    background-color: ${({ inverse }) => (inverse ? "transparent" : "#fff")};
+
+    svg {
+      transition: ease all 0.25s;
+      position: absolute;
+      left: 16px;
+    }
+
+    .value-container {
+      transition: ease all 0.25s;
+      padding: 0px 48px;
+    }
+
+    .placeholder {
+      ${({ inverse }) => inverse && `color: var(--grey-4)`}
+    }
+
+    &:focus-within {
+      transition: ease all 0.25s;
+      background-color: #fff;
+
+      svg {
+        transition: ease all 0.25s;
+        opacity: 0;
+        z-index: 0;
+      }
+
+      .value-container {
+        transition: ease all 0.25s;
+        padding: 0px 16px;
+      }
+
+      .placeholder {
+        color: #a7a9c0;
+      }
+    }
+  }
+
   ${NavbarBrand} {
     transition: ease all 0.25s;
     padding-bottom: 0px;
@@ -77,8 +120,8 @@ export const StyledNavbar = styled(Navbar)`
   }
 
   ${NavLink}, .nav-link {
-    color: var(--grey) !important;
     padding: 24px 40px !important;
+    color: var(--grey) !important;
     transition: ease all 0.25s;
     align-items: center;
     font-size: 16px;
@@ -100,12 +143,10 @@ export const StyledNavbar = styled(Navbar)`
         width: 40px;
       }
     }
+  }
 
-    &.btn {
-      padding: 0px 24px !important;
-      margin: 24px 20px 0px 20px;
-      color: #fff !important;
-    }
+  .btn {
+    margin: 24px 20px 0px 20px;
   }
 
   ${NavDropdown} {
@@ -128,10 +169,13 @@ export const StyledNavbar = styled(Navbar)`
   }
 
   @media (min-width: 768px) {
-    ${NavLink}, .nav-link {
-      &.btn {
-        margin: 24px 40px 0px 40px;
-      }
+    .btn {
+      margin: 24px 40px 0px 40px;
+    }
+
+    .search {
+      margin-left: 40px;
+      margin-right: 40px;
     }
   }
 
@@ -139,19 +183,21 @@ export const StyledNavbar = styled(Navbar)`
     ${NavLink}, .nav-link {
       padding: 0px 15px !important;
       transition: ease all 0.25s;
+    }
+    .btn {
+      margin: 0px 8px 0px 8px;
+      height: 45px !important;
+      font-size: 14px;
 
-      &.btn {
-        margin: 0px 0px 0px 15px;
+      &:last-child {
+        margin-right: 0px;
       }
     }
-  }
 
-  @media (max-width: 991px) {
-    ${NavLink}, .nav-link {
-      &.btn {
-        background-color: var(--default) !important;
-        color: #fff !important;
-      }
+    .search {
+      width: 100%;
+      max-width: 500px;
+      margin: 0px 0px 0px 48px;
     }
   }
 
@@ -180,10 +226,6 @@ export const StyledNavbar = styled(Navbar)`
         @media (min-width: 992px) {
           ${NavLink}, .nav-link {
             color: #fff !important;
-
-            &.btn {
-              color: var(--default)!important;
-            }
           }
         }
       `}

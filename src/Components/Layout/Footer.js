@@ -46,7 +46,7 @@ const Footer = () => {
 
   const thirdItems = [
     { name: "Contact us", link: "" },
-    { name: "Provacy Policy", link: "" },
+    { name: "Privacy Policy", link: "" },
     { name: "Terms of use", link: "" },
   ];
 

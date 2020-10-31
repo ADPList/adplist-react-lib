@@ -7,7 +7,7 @@ import Button from "./Button";
 export function Dialog({ show, proceed, confirmation, header, options }) {
   return (
     <Modal onHide={() => proceed(false)} show={show} centered>
-      <Modal.Body className="p-24">
+      <Modal.Body className="p-4">
         {header && (
           <p className="font-weight-600 font-size-20 mb-12">{header}</p>
         )}
@@ -15,7 +15,7 @@ export function Dialog({ show, proceed, confirmation, header, options }) {
         <div className="d-flex align-items-center justify-content-end">
           <div className="px-2">
             <Button
-              className="btn--default-reverse btn-40 font-size-14 px-3"
+              className="btn--default-inverted btn-40 font-size-14 px-3"
               onClick={() => proceed(false)}
               value="Cancel"
               isValid
