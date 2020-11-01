@@ -1,4 +1,4 @@
-import React, { Fragment, useGlobal, useState } from "reactn";
+import React, { Fragment, useGlobal, useState, useEffect } from "reactn";
 import { Container, Form, Nav } from "react-bootstrap";
 import { debounce } from "lodash";
 
@@ -52,6 +52,13 @@ const Navbar = ({
       router(item.link);
     }
   };
+
+  /**
+   * effect
+   */
+  useEffect(() => {
+    setInverse(props.inverse);
+  }, [props.inverse]);
 
   const handleSearch = debounce((value) => {
     search.handleSearch(value);
