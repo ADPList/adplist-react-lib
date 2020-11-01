@@ -106,6 +106,7 @@ export const StyledNavbar = styled(Navbar)`
     transition: ease all 0.25s;
     padding-bottom: 0px;
     padding-top: 0px;
+    margin: 0px;
   }
 
   ${NavbarToggle} {
