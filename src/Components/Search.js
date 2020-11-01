@@ -86,7 +86,9 @@ export default ({ options, value, ...props }) => {
     ValueContainer: (props) => (
       <ValueContainer className="value-container" {...props} />
     ),
-    Placeholder: (props) => <Placeholder className="placeholder" {...props} />,
+    Placeholder: (props) => (
+      <Placeholder className="placeholder text-truncate" {...props} />
+    ),
   };
 
   if (value) {

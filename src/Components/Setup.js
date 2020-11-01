@@ -50,10 +50,13 @@ const StyledContent = styled.div`
   }
 `;
 
-const Container = styled(C)`
-  flex-direction: column;
+const Wrapper = styled.div`
   overflow-y: auto;
   height: 100vh;
+`;
+
+const Container = styled(C)`
+  flex-direction: column;
   display: flex;
 `;
 
@@ -75,30 +78,32 @@ const Setup = ({
   width = "450px",
 }) => {
   return (
-    <Container className="py-4 py-md-32">
-      <div className="d-flex justify-content-between align-items-center mb-32">
-        <Icon.Logo />
-        <Icon.Close className="cursor-pointer" onClick={() => handleBack()} />
-      </div>
+    <Wrapper>
+      <Container className="py-4 py-md-32">
+        <div className="d-flex justify-content-between align-items-center mb-32">
+          <Icon.Logo />
+          <Icon.Close className="cursor-pointer" onClick={() => handleBack()} />
+        </div>
 
-      <StyledContent {...{ width }}>
-        {header && (
-          <p className="mb-24 font-weight-600 font-size-20 text-center">
-            {header}
-          </p>
-        )}
-        <Steps
-          className="mb-5"
-          onClick={handleSwitch}
-          activeKey={active?.key || steps[0]?.key}
-        >
-          {steps.map(({ name }, key) => (
-            <Steps.Step title={name} key={key} />
-          ))}
-        </Steps>
-        {children}
-      </StyledContent>
-    </Container>
+        <StyledContent {...{ width }}>
+          {header && (
+            <p className="mb-24 font-weight-600 font-size-20 text-center">
+              {header}
+            </p>
+          )}
+          <Steps
+            className="mb-5"
+            onClick={handleSwitch}
+            activeKey={active?.key || steps[0]?.key}
+          >
+            {steps.map(({ name }, key) => (
+              <Steps.Step title={name} key={key} />
+            ))}
+          </Steps>
+          {children}
+        </StyledContent>
+      </Container>
+    </Wrapper>
   );
 };
 

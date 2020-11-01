@@ -1,7 +1,10 @@
 import React, { Fragment } from "react";
 import { capitalize } from "lodash";
-import styled from "styled-components";
 
+import styled from "styled-components";
+import moment from "moment";
+
+import ArrowUpRight from "../Icons/ArrowUpRight";
 import Button from "./Button";
 import Image from "./Image";
 import Flag from "./Flag";
@@ -29,6 +32,13 @@ const Profile = ({
     }
   })(userType);
 
+  /**
+   * functions
+   */
+  const handleProfile = () => {
+    window.open(user?.portfolio_url);
+  };
+
   return (
     <Wrapper>
       <Preview>
@@ -37,92 +47,130 @@ const Profile = ({
           image={user?.profile_photo_url}
           onChange={(file) => handleImage(file)}
         />
-        {userType === "mentor" && (
-          <Fragment>
-            {!isPrivate && (
-              <Button
-                isValid
-                className="btn--default w-100 btn-56 mb-32"
-                onClick={() => window.open(user?.calendly_url)}
-              >
-                <span className="mr-2">Schedule with Mentor</span>
-                <span role="img" aria-label="writinng">
-                  🗓
-                </span>
-              </Button>
-            )}
-          </Fragment>
-        )}
-        {user?.portfolio_url && (
-          <a
-            href={user?.portfolio_url}
-            target="profile"
-            className="default-text"
-          >
-            View my Profile
-          </a>
-        )}
+        <div className="mx-auto" style={{ width: 280 }}>
+          {userType === "mentor" && (
+            <Fragment>
+              {!isPrivate && (
+                <Button
+                  isValid
+                  className="btn--default w-100 btn-56 mb-32"
+                  onClick={() => window.open(user?.calendly_url)}
+                >
+                  <span className="mr-2">Schedule with Mentor</span>
+                  <span role="img" aria-label="writinng">
+                    🗓
+                  </span>
+                </Button>
+              )}
+            </Fragment>
+          )}
+          {user?.portfolio_url && (
+            <Button
+              isValid
+              className="white-bg default-text w-100"
+              onClick={() => handleProfile()}
+            >
+              <span className="mr-2">View my Linkedin profile</span>
+              <ArrowUpRight color="var(--default)" />
+            </Button>
+          )}
 
-        {isEdit && isPrivate && (
-          <a
-            href="/"
-            className="teal-text d-block mt-5"
-            onClick={(e) => e.preventDefault() | handleEdit()}
-          >
-            Edit profile
-          </a>
-        )}
+          {isEdit && isPrivate && (
+            <a
+              href="/"
+              className="teal-text d-block mt-32"
+              onClick={(e) => e.preventDefault() | handleEdit()}
+            >
+              Edit profile
+            </a>
+          )}
+        </div>
       </Preview>
       <Content>
         <div className="user__info">
-          <p className="font-size-28 font-size-md-36 font-weight-600">
-            <span className="mr-2">Hello, I'm {user?.name}</span>
+          <p className="user__info__name font-weight-600 mb-3">
+            <span className="mr-2">Hey, I'm {user?.name}</span>
             <Flag label={user?.country?.name} code={user?.country?.iso} />
           </p>
 
           <p className="font-weight-500 mb-0">
-            <span>
-              {user?.expertise
-                ?.map(({ description }) => description)
-                .join(", ") || ""}
-            </span>
+            <span>{user?.title}</span>
             {user?.employer && (
-              <span className="blue-text">, {user?.employer}</span>
+              <span className="default-text font-weight-600">
+                {user?.title && (
+                  <span className="grey-2-text font-weight-500"> at </span>
+                )}
+                {user?.employer}
+              </span>
             )}
           </p>
+          {initUser?.email_verified_at && (
+            <p className="mb-0 grey-2-text font-size-14 mt-3">
+              I joined as a {userType} on{" "}
+              {moment(initUser?.email_verified_at).format("MMMM DD, YYYY")}
+            </p>
+          )}
         </div>
         <div className="user__details">
+          {user?.bio && (
+            <div className="user__details__about mb-4">
+              <p className="font-weight-600 mb-2">About</p>
+              <p className="line-height-16">{user?.bio}</p>
+            </div>
+          )}
+
           {userType === "designer" && user?.looking_for && (
             <div className="user__details__item">
-              <p className="prefix">️📣 Looking for</p>
-              <p className="info">{user?.looking_for}</p>
+              <span className="prefix">
+                <span role="img" aria-label="speaker" className="font-size-16">
+                  📣
+                </span>
+                &nbsp;Looking for &nbsp;
+              </span>
+              <span className="info">{user?.looking_for}</span>,
             </div>
           )}
           {userType === "mentor" && (
             <div className="user__details__item">
-              <p className="prefix">📣 I'm mentoring</p>
-              <p className="info">
+              <span className="prefix">
+                <span role="img" aria-label="speaker" className="font-size-16">
+                  📣
+                </span>
+                &nbsp;I'm mentoring &nbsp;
+              </span>
+              <span className="info">
                 {user?.topic_of_interests
                   ?.map((t) => capitalize(t.description))
                   .join(", ")}
-              </p>
+              </span>
+              ,
             </div>
           )}
 
           <div className="user__details__item">
-            <p className="prefix">💬 I speak</p>
-            <p className="info">
+            <span className="prefix">
+              <span role="img" aria-label="thinking" className="font-size-16">
+                💬
+              </span>
+              &nbsp;I speak &nbsp;
+            </span>
+            <span className="info">
               {user?.languages?.map((l) => l.description).join(", ")}
-            </p>
+            </span>
           </div>
 
           <div className="user__details__item">
-            <p className="prefix">💼 My expertise is</p>
-            <p className="info">
+            <span className="prefix">
+              <span role="img" aria-label="briefcase" className="font-size-16">
+                💼
+              </span>
+              &nbsp;My expertise is &nbsp;
+            </span>
+            <span className="info">
               {user?.expertise
                 ?.map(({ description }) => description)
                 .join(", ") || ""}
-            </p>
+            </span>
           </div>
         </div>
       </Content>
@@ -176,13 +224,16 @@ const Content = styled.div`
     margin-bottom: 18px;
     padding-bottom: 24px;
     border-bottom: solid 1px var(--grey-4);
+
+    &__name {
+      font-size: 28px;
+    }
   }
 
   .user__details {
     &__item {
       margin-bottom: 12px;
       line-height: 25px;
-      display: flex;
 
       &:last-child {
         margin-bottom: 0px;
@@ -190,8 +241,8 @@ const Content = styled.div`
 
       .prefix {
         color: var(--grey-2);
+        white-space: nowrap;
         margin-bottom: 0px;
-        margin-right: 4px;
         font-size: 14px;
       }
 
@@ -209,7 +260,9 @@ const Content = styled.div`
     margin-bottom: 0px;
 
     .user__info {
-      padding-bottom: 36px;
+      &__name {
+        font-size: 36px;
+      }
     }
   }
 `;

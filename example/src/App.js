@@ -1,4 +1,4 @@
-import React, { useState } from "reactn";
+import React, { useState, useGlobal } from "reactn";
 import {
   AuthProvider,
   Layout,
@@ -7,11 +7,13 @@ import {
   Grid,
   Search,
   UserTile,
+  Profile,
 } from "adplist-react-lib";
 import { Container } from "react-bootstrap";
 
 export default () => {
   const [selected, setSelected] = useState(null);
+  const [user] = useGlobal("user");
 
   /**
    * functions
@@ -73,7 +75,7 @@ export default () => {
             handleSearch: (value) => console.log(value),
             options: [],
           },
-          inverse: true,
+          inverse: false,
         }}
       >
         <Container className="py-5">
@@ -101,17 +103,12 @@ export default () => {
                   "https://assets-global.website-files.com/5e9b19844c5ff94d9abdebde/5f989652160d1380096a0983_IMG_0038_edited%20-%20Kelley%20Brown.jpg",
                 employer: "Qodehub",
                 expertise: [{ description: "UX Design" }],
-                topic_of_interests: [
-                  { description: "Buttocks" },
-                  { description: "Cunts" },
-                  { description: "Cunts" },
-                  { description: "Cunts" },
-                  { description: "Cunts" },
-                  { description: "Cunts" },
-                ],
+                topic_of_interests: [{ description: "UX Expertise" }],
               }}
             />
           </Grid>
+
+          <Profile initUser={user} />
         </Container>
       </Layout>
     </AuthProvider>

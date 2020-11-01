@@ -74,6 +74,12 @@ const StyledSteps = styled.div`
 
   margin-right: -8px;
   margin-left: -8px;
+
+  &::-webkit-scrollbar {
+    display: none;
+    height: 0px;
+    width: 0px;
+  }
 `;
 
 const Bar = styled.div`
