@@ -53,8 +53,7 @@ export default () => {
               value: "/hi",
             },
             {
-              name: "Hello",
-              btn: "solid",
+              name: "Become a Mentor",
               value: "/hello",
             },
             {
@@ -74,7 +73,7 @@ export default () => {
             handleSearch: (value) => console.log(value),
             options: [],
           },
-          inverse: false,
+          inverse: true,
         }}
       >
         <Container className="py-5">

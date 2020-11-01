@@ -102,7 +102,7 @@ const Navbar = ({
               </div>
             </Form>
           )}
-          <Nav className="ml-auto">
+          <Nav className="ml-auto" style={{ whiteSpace: "nowrap" }}>
             {items?.map((item, key) => (
               <Fragment key={key}>
                 {item.menu ? (

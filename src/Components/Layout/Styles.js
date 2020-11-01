@@ -197,7 +197,7 @@ export const StyledNavbar = styled(Navbar)`
     .search {
       width: 100%;
       max-width: 500px;
-      margin: 0px 0px 0px 48px;
+      margin: 0px 48px;
     }
   }
 

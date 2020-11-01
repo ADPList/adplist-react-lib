@@ -15,7 +15,7 @@ export function Dialog({ show, proceed, confirmation, header, options }) {
         <div className="d-flex align-items-center justify-content-end">
           <div className="px-2">
             <Button
-              className="btn--default-inverted btn-40 font-size-14 px-3"
+              className="btn--default-outline btn-40 font-size-14 px-3"
               onClick={() => proceed(false)}
               value="Cancel"
               isValid
