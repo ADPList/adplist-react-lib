@@ -8,7 +8,11 @@ import Flag from "./Flag";
 
 const UserTile = ({ user, router }) => {
   return (
-    <Wrapper avatar={user?.profile_photo || ""} className="bg" onClick={router}>
+    <Wrapper
+      avatar={user?.profile_photo_url || ""}
+      className="bg user-tile"
+      onClick={router}
+    >
       <div className="overlay">
         <a href="/" className="link" onClick={(e) => e.preventDefault()}>
           <ArrowUpRight color="#fff" />

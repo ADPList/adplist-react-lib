@@ -125,7 +125,7 @@ const Profile = ({
                 <span role="img" aria-label="speaker" className="font-size-16">
                   📣
                 </span>
-                &nbsp;Looking for &nbsp;
+                {"  "}Looking for{"  "}
               </span>
               <span className="info">{user?.looking_for}</span>,
             </div>
@@ -136,7 +136,7 @@ const Profile = ({
                 <span role="img" aria-label="speaker" className="font-size-16">
                   📣
                 </span>
-                &nbsp;I'm mentoring &nbsp;
+                {"  "}I'm mentoring{"  "}
               </span>
               <span className="info">
                 {user?.topic_of_interests
@@ -152,7 +152,7 @@ const Profile = ({
               <span role="img" aria-label="thinking" className="font-size-16">
                 💬
               </span>
-              &nbsp;I speak &nbsp;
+              {"  "}I speak{"  "}
             </span>
             <span className="info">
               {user?.languages?.map((l) => l.description).join(", ")}
@@ -164,7 +164,7 @@ const Profile = ({
               <span role="img" aria-label="briefcase" className="font-size-16">
                 💼
               </span>
-              &nbsp;My expertise is &nbsp;
+              {"  "}My expertise is{"  "}
             </span>
             <span className="info">
               {user?.expertise
@@ -190,7 +190,8 @@ const Wrapper = styled.div`
 
   @media (min-width: 768px) {
     display: grid;
-    grid-row-gap: 42px;
+    grid-row-gap: 32px;
+    grid-column-gap: 24px;
   }
 
   @media (min-width: 992px) {
