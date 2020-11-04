@@ -46,7 +46,11 @@ const Footer = () => {
 
   const thirdItems = [
     { name: "Contact us", link: "" },
-    { name: "Privacy Policy", link: "" },
+    {
+      name: "Privacy Policy",
+      link:
+        "https://www.notion.so/adplist/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
+    },
     { name: "Terms of use", link: "" },
   ];
 

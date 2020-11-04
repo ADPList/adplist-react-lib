@@ -101,78 +101,84 @@ const Navbar = ({
             </Form>
           )}
           <Nav className="ml-auto" style={{ whiteSpace: "nowrap" }}>
-            {items?.map((item, key) => (
-              <Fragment key={key}>
-                {item.menu ? (
-                  <Styled.NavDropdown
-                    title={
-                      <Fragment>
-                        <span>{item.name}</span>
-                        <i className="material-icons-round font-size-18">
-                          expand_more
-                        </i>
-                      </Fragment>
-                    }
-                    id="collasible-nav-dropdown"
-                  >
-                    {item.menu?.map((menu, key) => (
-                      <Styled.NavDropdownItem
-                        {...(!menu?.target
-                          ? {
-                              onClick: (e) =>
-                                e.preventDefault() | router(menu?.link),
-                            }
-                          : {
-                              target: menu?.name,
-                            })}
-                        href={menu?.link}
-                        key={key}
-                      >
-                        <span className={`${menu?.target ? "mr-3" : ""}`}>
-                          {menu?.name}
-                        </span>
-                        {menu?.target && <ArrowUpRight color="var(--grey-2)" />}
-                      </Styled.NavDropdownItem>
-                    ))}
-                  </Styled.NavDropdown>
-                ) : (
-                  <Fragment>
-                    {item?.btn ? (
-                      <Fragment>
-                        {item.btn === "solid" && (
-                          <SolidBtn
-                            {...{
-                              inverse,
-                              onClick: () => handleClick(item),
-                              value: item?.name,
-                            }}
-                          />
-                        )}
-                        {item.btn === "outline" && (
-                          <OutlineBtn
-                            {...{
-                              inverse,
-                              onClick: () => handleClick(item),
-                              value: item?.name,
-                            }}
-                          />
-                        )}
-                      </Fragment>
-                    ) : (
-                      <Styled.NavLink
-                        {...(!item?.target && {
-                          onClick: (e) =>
-                            e.preventDefault() | router(item?.link),
-                        })}
-                        href={item?.link}
-                      >
-                        {item?.name}
-                      </Styled.NavLink>
-                    )}
-                  </Fragment>
-                )}
-              </Fragment>
-            ))}
+            {items?.map((item, key) => {
+              if (!item?.name) return false;
+
+              return (
+                <Fragment key={key}>
+                  {item.menu ? (
+                    <Styled.NavDropdown
+                      title={
+                        <Fragment>
+                          <span>{item.name}</span>
+                          <i className="material-icons-round font-size-18">
+                            expand_more
+                          </i>
+                        </Fragment>
+                      }
+                      id="collasible-nav-dropdown"
+                    >
+                      {item.menu?.map((menu, key) => (
+                        <Styled.NavDropdownItem
+                          {...(!menu?.target
+                            ? {
+                                onClick: (e) =>
+                                  e.preventDefault() | router(menu?.link),
+                              }
+                            : {
+                                target: menu?.name,
+                              })}
+                          href={menu?.link}
+                          key={key}
+                        >
+                          <span className={`${menu?.target ? "mr-3" : ""}`}>
+                            {menu?.name}
+                          </span>
+                          {menu?.target && (
+                            <ArrowUpRight color="var(--grey-2)" />
+                          )}
+                        </Styled.NavDropdownItem>
+                      ))}
+                    </Styled.NavDropdown>
+                  ) : (
+                    <Fragment>
+                      {item?.btn ? (
+                        <Fragment>
+                          {item.btn === "solid" && (
+                            <SolidBtn
+                              {...{
+                                inverse,
+                                onClick: () => handleClick(item),
+                                value: item?.name,
+                              }}
+                            />
+                          )}
+                          {item.btn === "outline" && (
+                            <OutlineBtn
+                              {...{
+                                inverse,
+                                onClick: () => handleClick(item),
+                                value: item?.name,
+                              }}
+                            />
+                          )}
+                        </Fragment>
+                      ) : (
+                        <Styled.NavLink
+                          {...(!item?.target && {
+                            onClick: (e) =>
+                              e.preventDefault() | router(item?.link),
+                          })}
+                          href={item?.link}
+                        >
+                          {item?.name}
+                        </Styled.NavLink>
+                      )}
+                    </Fragment>
+                  )}
+                </Fragment>
+              );
+            })}
 
             {isAuthenticated ? (
               <Fragment>
