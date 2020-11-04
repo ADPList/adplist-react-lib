@@ -16,6 +16,7 @@ const Navbar = ({
   items,
   logout,
   search,
+  home = () => {},
   router = (link) => (window.location.href = link),
   ...props
 }) => {
@@ -77,10 +78,7 @@ const Navbar = ({
       {...(inverse && { inverse: "true" })}
     >
       <Container>
-        <Styled.NavbarBrand
-          className="cursor-pointer"
-          onClick={() => router("/")}
-        >
+        <Styled.NavbarBrand className="cursor-pointer" onClick={home}>
           <AdpLogo color={inverse ? "#fff" : ""} />
         </Styled.NavbarBrand>
         <Styled.NavbarToggle

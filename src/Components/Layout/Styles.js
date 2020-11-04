@@ -247,6 +247,15 @@ export const StyledFooter = styled.div`
     padding-bottom: 32px;
     padding-top: 32px;
 
+    .socials {
+      a {
+        svg {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+
     .links {
       margin-left: -10px;
       margin-right: -10px;

@@ -69,7 +69,7 @@ const Footer = () => {
               <div className="d-flex justify-content-lg-end mb-3 mb-xl-0">
                 <div className="d-flex align-items-center">
                   <p className="font-size-12 grey-2-text mr-3 mb-0">Connect:</p>
-                  <div className="d-flex align-items-center mx-n1">
+                  <div className="socials d-flex align-items-center mx-n1">
                     {socialMedia.map((social, key) => (
                       <a
                         key={key}
