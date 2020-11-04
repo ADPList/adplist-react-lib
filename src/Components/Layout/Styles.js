@@ -49,6 +49,7 @@ export const StyledNavbar = styled(Navbar)`
   padding-bottom: 24px;
   padding-top: 24px;
   position: sticky;
+  display: block;
   z-index: 999;
   top: 0;
 

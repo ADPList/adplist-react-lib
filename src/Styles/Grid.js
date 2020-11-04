@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Grid = styled.div`
   width: 100%;
   display: grid;
-  gap: ${({ gap }) => gap || "32px"};
+  grid-gap: ${({ gap }) => gap || "32px"};
   grid-template-columns: ${({ sm }) => sm || "auto"};
 
   @media (min-width: 768px) {
