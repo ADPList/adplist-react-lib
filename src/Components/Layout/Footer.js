@@ -31,15 +31,31 @@ const Footer = () => {
   ];
 
   const firstItems = [
-    { name: "find mentors", link: "" },
-    { name: "hire designers", link: "" },
-    { name: "find jobs", link: "" },
-    { name: "projects", link: "" },
+    {
+      name: "find mentors",
+      link: `${process.env.REACT_APP_ADPLIST_URL}/mentors`,
+    },
+    {
+      name: "hire designers",
+      link: `${process.env.REACT_APP_ADPLIST_URL}/designers`,
+    },
+    {
+      name: "find jobs",
+      link: `${process.env.REACT_APP_ADPLIST_URL}/jobs`,
+    },
+    {
+      name: "projects",
+      link: `${process.env.REACT_APP_PROJECTS_URL}/projects`,
+    },
   ];
 
   const secondItems = [
     { name: "join adplist", link: "" },
-    { name: "community standards", link: "" },
+    {
+      name: "community standards",
+      link:
+        "https://www.notion.so/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
+    },
     { name: "partnerships", link: "" },
     { name: "support us", link: "" },
   ];
@@ -49,9 +65,13 @@ const Footer = () => {
     {
       name: "Privacy Policy",
       link:
-        "https://www.notion.so/adplist/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
+        "https://www.notion.so/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
     },
-    { name: "Terms of use", link: "" },
+    {
+      name: "Terms of use",
+      link:
+        "https://www.notion.so/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
+    },
   ];
 
   return (
