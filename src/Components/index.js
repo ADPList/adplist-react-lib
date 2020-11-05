@@ -1,5 +1,5 @@
 export { default as Tabs } from "./Tabs";
-export { default as Flgas } from "./Flag";
+export { default as Flag } from "./Flag";
 export { default as Image } from "./Image";
 export { default as Steps } from "./Steps";
 export { default as Setup } from "./Setup";
