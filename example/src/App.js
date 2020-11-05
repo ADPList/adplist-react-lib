@@ -8,6 +8,7 @@ import {
   Search,
   UserTile,
   Profile,
+  Pagination,
 } from "adplist-react-lib";
 import { Container } from "react-bootstrap";
 
@@ -110,6 +111,8 @@ export default () => {
           </Grid>
 
           <Profile initUser={user} />
+
+          <Pagination totalPages="16" />
         </Container>
       </Layout>
     </AuthProvider>

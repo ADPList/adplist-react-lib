@@ -14,10 +14,10 @@ const UserTile = ({ user, router }) => {
       onClick={router}
     >
       <div className="overlay">
-        {user?.rating && (
+        {user?.average_rating && (
           <div className="rating">
             <Star />
-            <span className="font-size-14">{user.rating}</span>
+            <span className="font-size-14">{user.average_rating}</span>
           </div>
         )}
 

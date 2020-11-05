@@ -104,10 +104,10 @@ const Profile = ({
               </span>
             )}
           </p>
-          {initUser?.email_verified_at && (
+          {user?.date_joined && (
             <p className="mb-0 grey-2-text font-size-14 mt-3">
               I joined as a {userType} on{" "}
-              {moment(initUser?.email_verified_at).format("MMMM DD, YYYY")}
+              {moment(user?.date_joined).format("MMMM DD, YYYY")}
             </p>
           )}
         </div>
