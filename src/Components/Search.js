@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 import { ErrorBoundary } from "../Utils";
 
-import Star from "../Icons/Star";
+import Badge from "../Icons/Badge";
 import Flag from "./Flag";
 
 const {
@@ -45,7 +45,7 @@ const CustomOption = ({ children, data }) => (
     </div>
     <div className="option__type">
       <span>{capitalize(data?.type)}</span>
-      {data?.type?.toLowerCase() === "mentor" && <Star />}
+      {data?.type?.toLowerCase() === "mentor" && <Badge />}
     </div>
   </Fragment>
 );

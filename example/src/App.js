@@ -104,6 +104,7 @@ export default () => {
                 employer: "Qodehub",
                 expertise: [{ description: "UX Design" }],
                 topic_of_interests: [{ description: "UX Expertise" }],
+                rating: 5,
               }}
             />
           </Grid>

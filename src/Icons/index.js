@@ -3,6 +3,7 @@ export { default as Logo } from "./Logo";
 export { default as Star } from "./Star";
 export { default as Close } from "./Close";
 export { default as Image } from "./Image";
+export { default as Badge } from "./Badge";
 export { default as Search } from "./Search";
 export { default as Smiley } from "./Smiley";
 export { default as Upload } from "./Upload";

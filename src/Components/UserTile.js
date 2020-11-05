@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import ArrowUpRight from "../Icons/ArrowUpRight";
 import Briefcase from "../Icons/Briefcase";
 import Message from "../Icons/Message";
+import Star from "../Icons/Star";
 import Flag from "./Flag";
 
 const UserTile = ({ user, router }) => {
@@ -14,9 +14,10 @@ const UserTile = ({ user, router }) => {
       onClick={router}
     >
       <div className="overlay">
-        <a href="/" className="link" onClick={(e) => e.preventDefault()}>
-          <ArrowUpRight color="#fff" />
-        </a>
+        <div className="rating">
+          <Star />
+          <span className="font-size-14">{user?.rating}</span>
+        </div>
 
         <div className="details">
           <p className="details__name">
@@ -77,15 +78,21 @@ const Wrapper = styled.div`
     );
   }
 
-  .link {
-    width: 50px;
-    height: 50px;
+  .rating {
+    height: 32px;
     display: flex;
+    padding: 0px 8px;
     margin-left: auto;
-    border-radius: 50%;
+    border-radius: 6px;
     align-items: center;
     justify-content: center;
-    background-color: rgba(34, 34, 43, 0.36);
+    background-color: #fff;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      margin-right: 4px;
+    }
   }
 
   .details {
