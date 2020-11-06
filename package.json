@@ -70,7 +70,7 @@
     "react-confirm": "^0.1.20",
     "react-datepicker": "^3.2.2",
     "react-is": "^16.13.1",
-    "react-loading-skeleton": "git+ssh://git@github.com:lawrenceadu/react-loading-skeleton.git#edfc7b3",
+    "react-loading-skeleton-2": "^1.0.0",
     "react-paginate": "^6.4.0",
     "react-router-dom": "^5.2.0",
     "react-select": "^3.1.0",

@@ -11,6 +11,7 @@ import {
   Pagination,
 } from "adplist-react-lib";
 import { Container } from "react-bootstrap";
+import Skeleton from "react-loading-skeleton-2";
 
 export default () => {
   const [selected, setSelected] = useState(null);
@@ -108,6 +109,8 @@ export default () => {
                 rating: 5,
               }}
             />
+
+            <Skeleton />
           </Grid>
 
           <Profile initUser={user} />
