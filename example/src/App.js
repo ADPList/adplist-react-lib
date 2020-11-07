@@ -81,41 +81,15 @@ export default () => {
         }}
       >
         <Container className="py-5">
-          <div className="mb-5">
-            <Search
-              value={selected}
-              options={options()}
-              placeholder="Hello world"
-            />
-          </div>
-          <Grid sm="1fr" md="repeat(2, 1fr)" lg="repeat(3, 1fr)">
-            <Project
-              lead="Hello"
-              clamp="2"
-              clampHeight="64"
-              edit={() => {}}
-              onClick={handleConfirm}
-              header="Rapping in the ghetto with the niggas in the hoodie and the window of the killer is opened can be dangerous"
-            />
-            <UserTile
-              user={{
-                name: "Larry Buntus",
-                country: { name: "USA", iso: "US" },
-                profile_photo:
-                  "https://assets-global.website-files.com/5e9b19844c5ff94d9abdebde/5f989652160d1380096a0983_IMG_0038_edited%20-%20Kelley%20Brown.jpg",
-                employer: "Qodehub",
-                expertise: [{ description: "UX Design" }],
-                topic_of_interests: [{ description: "UX Expertise" }],
-                rating: 5,
-              }}
-            />
-
-            <Skeleton />
-          </Grid>
-
-          <Profile initUser={user} />
-
-          <Pagination totalPages="16" />
+          <Profile initUser={user}>
+            <div className="py-5">
+              <Grid sm="1fr" md="repeat(2, 1fr)">
+                {[1, 2, 3, 4, 5, 6].map((index) => (
+                  <Skeleton key={index} height={300} />
+                ))}
+              </Grid>
+            </div>
+          </Profile>
         </Container>
       </Layout>
     </AuthProvider>

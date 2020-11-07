@@ -42,48 +42,50 @@ const Profile = ({
   return (
     <Wrapper>
       <Preview>
-        <Image
-          className="mb-32"
-          image={user?.profile_photo_url}
-          onChange={(file) => handleImage(file)}
-        />
-        <div className="mx-auto" style={{ width: 280 }}>
-          {userType === "mentor" && (
-            <Fragment>
-              {!isPrivate && (
-                <Button
-                  isValid
-                  className="btn--default w-100 btn-56 mb-32"
-                  onClick={() => window.open(user?.calendly_url)}
-                >
-                  <span className="mr-2">Schedule with Mentor</span>
-                  <span role="img" aria-label="writinng">
-                    🗓
-                  </span>
-                </Button>
-              )}
-            </Fragment>
-          )}
-          {user?.portfolio_url && (
-            <Button
-              isValid
-              className="white-bg default-text w-100"
-              onClick={() => handleProfile()}
-            >
-              <span className="mr-2">View my Linkedin profile</span>
-              <ArrowUpRight color="var(--default)" />
-            </Button>
-          )}
+        <div className="preview">
+          <Image
+            className="mb-32"
+            image={user?.profile_photo_url}
+            onChange={(file) => handleImage(file)}
+          />
+          <div className="mx-auto" style={{ width: 280 }}>
+            {userType === "mentor" && (
+              <Fragment>
+                {!isPrivate && (
+                  <Button
+                    isValid
+                    className="btn--default w-100 btn-56 mb-32"
+                    onClick={() => window.open(user?.calendly_url)}
+                  >
+                    <span className="mr-2">Schedule with Mentor</span>
+                    <span role="img" aria-label="writinng">
+                      🗓
+                    </span>
+                  </Button>
+                )}
+              </Fragment>
+            )}
+            {user?.portfolio_url && (
+              <Button
+                isValid
+                className="white-bg default-text w-100"
+                onClick={() => handleProfile()}
+              >
+                <span className="mr-2">View my Linkedin profile</span>
+                <ArrowUpRight color="var(--default)" />
+              </Button>
+            )}
 
-          {isEdit && isPrivate && (
-            <a
-              href="/"
-              className="teal-text d-block mt-32"
-              onClick={(e) => e.preventDefault() | handleEdit()}
-            >
-              Edit profile
-            </a>
-          )}
+            {isEdit && isPrivate && (
+              <a
+                href="/"
+                className="teal-text d-block mt-32"
+                onClick={(e) => e.preventDefault() | handleEdit()}
+              >
+                Edit profile
+              </a>
+            )}
+          </div>
         </div>
       </Preview>
       <Content>
@@ -213,8 +215,11 @@ const Preview = styled.div`
   @media (min-width: 992px) {
     grid-row-start: 1;
     grid-row-end: 3;
-    position: sticky;
-    top: 118px;
+
+    .preview {
+      position: sticky;
+      top: 136px;
+    }
   }
 `;
 

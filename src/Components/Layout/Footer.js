@@ -50,14 +50,14 @@ const Footer = () => {
   ];
 
   const secondItems = [
-    { name: "join adplist", link: "" },
+    { name: "join adplist", link: `${process.env.REACT_APP_AUTH_URL}/login` },
     {
       name: "community standards",
       link:
         "https://www.notion.so/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
     },
-    { name: "partnerships", link: "" },
-    { name: "support us", link: "" },
+    { name: "partnerships", link: "mailto: partnership@adplist.org" },
+    { name: "support us", link: "mailto: support@adplist.org" },
   ];
 
   const thirdItems = [
@@ -121,7 +121,7 @@ const Footer = () => {
               </div>
               <div className="d-lg-flex links -second">
                 {secondItems?.map(({ name, link }, key) => (
-                  <a target={name} href={link} key={key}>
+                  <a href={link} key={key}>
                     {name}
                   </a>
                 ))}
