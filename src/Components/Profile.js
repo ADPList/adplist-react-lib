@@ -127,7 +127,7 @@ const Profile = ({
                 <span role="img" aria-label="speaker" className="font-size-16">
                   📣
                 </span>
-                {"  "}Looking for{"  "}
+                Looking for
               </span>
               <span className="info">{user?.looking_for}</span>,
             </div>
@@ -138,7 +138,7 @@ const Profile = ({
                 <span role="img" aria-label="speaker" className="font-size-16">
                   📣
                 </span>
-                {"  "}I'm mentoring{"  "}
+                I'm mentoring
               </span>
               <span className="info">
                 {user?.topic_of_interests
@@ -154,7 +154,7 @@ const Profile = ({
               <span role="img" aria-label="thinking" className="font-size-16">
                 💬
               </span>
-              {"  "}I speak{"  "}
+              I speak
             </span>
             <span className="info">
               {user?.languages?.map((l) => l.description).join(", ")}
@@ -166,7 +166,7 @@ const Profile = ({
               <span role="img" aria-label="briefcase" className="font-size-16">
                 💼
               </span>
-              {"  "}My expertise is{"  "}
+              My expertise is
             </span>
             <span className="info">
               {user?.expertise
@@ -250,11 +250,16 @@ const Content = styled.div`
         white-space: nowrap;
         margin-bottom: 0px;
         font-size: 14px;
+
+        span {
+          margin-right: 8px;
+        }
       }
 
       .info {
         text-transform: capitalize;
         margin-bottom: 0px;
+        margin-left: 8px;
         font-weight: 500;
       }
     }
