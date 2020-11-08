@@ -86,7 +86,7 @@ export const StyledNavbar = styled(Navbar)`
       transition: ease all 0.25s;
       background-color: #fff;
 
-      svg {
+      .search__icon {
         transition: ease all 0.25s;
         opacity: 0;
         z-index: 0;

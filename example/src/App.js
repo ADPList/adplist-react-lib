@@ -35,7 +35,12 @@ export default () => {
             placeholder: "Hello world",
             handleClick: () => {},
             handleSearch: (value) => console.log(value),
-            options: [],
+            options: [
+              {
+                avatar: "",
+                type: "mentor",
+              },
+            ],
           },
           inverse: false,
         }}
