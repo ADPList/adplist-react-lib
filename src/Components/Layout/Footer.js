@@ -110,7 +110,7 @@ const Footer = () => {
             </Col>
           </Row>
 
-          <div className="border-top grey-4-border mt-3 mt-lg-32 py-lg-4">
+          <div className="border-top grey-4-border mt-3 mt-lg-32 pt-4 py-lg-4">
             <div className="d-lg-flex justify-content-between">
               <div className="d-lg-flex links -first">
                 {firstItems?.map(({ name, link }, key) => (

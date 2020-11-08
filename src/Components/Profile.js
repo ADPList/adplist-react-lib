@@ -44,7 +44,7 @@ const Profile = ({
       <Preview>
         <div className="preview">
           <Image
-            className="mb-32"
+            className="mb-32 shadow-sm"
             image={user?.profile_photo_url}
             onChange={(file) => handleImage(file)}
           />

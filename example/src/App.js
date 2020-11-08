@@ -1,50 +1,10 @@
-import React, { useState, useGlobal } from "reactn";
-import {
-  AuthProvider,
-  Layout,
-  Project,
-  Confirm,
-  Grid,
-  Search,
-  UserTile,
-  Profile,
-  Pagination,
-} from "adplist-react-lib";
+import React, { useGlobal } from "reactn";
+import { AuthProvider, Layout, Grid, Profile } from "adplist-react-lib";
 import { Container } from "react-bootstrap";
 import Skeleton from "react-loading-skeleton-2";
 
 export default () => {
-  const [selected, setSelected] = useState(null);
   const [user] = useGlobal("user");
-
-  /**
-   * functions
-   */
-  const handleConfirm = async () => {
-    if (await Confirm({ confirmation: "Hello world" })) {
-    }
-  };
-
-  const options = () => {
-    let options = [];
-
-    for (let i = 0; i < 10; i++) {
-      options.push({
-        avatar: "https://via.placeholder.com/150",
-        country: {
-          name: "USA",
-          iso: "US",
-        },
-        label: `Sasha Shumarayeva - ${i}`,
-        expertise: "Software Engineer",
-        employer: "Qodehub",
-        type: i > 2 ? "Designer" : "Mentor",
-        value: `hello-${i}`,
-      });
-    }
-
-    return options;
-  };
 
   return (
     <AuthProvider>
