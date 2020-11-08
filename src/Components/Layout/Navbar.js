@@ -98,7 +98,7 @@ const Navbar = ({
                   isLoading={search?.isLoading || false}
                   placeholder={search?.placeholder || ""}
                   onInputChange={(value) => handleSearch(value)}
-                  onChange={({ value }) => search?.handleSelect(value)}
+                  onChange={(option) => search?.handleSelect(option)}
                 />
               </div>
             </Form>
