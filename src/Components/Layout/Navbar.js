@@ -206,17 +206,11 @@ const Navbar = ({
                   <Styled.NavDropdownItem
                     href={`${
                       process.env.REACT_APP_AUTH_URL || ""
-                    }/dashboard/change-password`}
+                    }/dashboard/profile/change-password`}
                   >
                     Change Password
                   </Styled.NavDropdownItem>
-                  <Styled.NavDropdownItem
-                    href={`${
-                      process.env.REACT_APP_AUTH_URL || ""
-                    }/dashboard/change-password`}
-                  >
-                    Get Help
-                  </Styled.NavDropdownItem>
+                  <Styled.NavDropdownItem>Get Help</Styled.NavDropdownItem>
                   {identityType === "designer" && (
                     <Styled.NavDropdownItem href="">
                       Become a mentor
