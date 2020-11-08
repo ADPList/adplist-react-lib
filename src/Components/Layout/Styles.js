@@ -67,7 +67,7 @@ export const StyledNavbar = styled(Navbar)`
     border: solid 1px var(--grey-4);
     background-color: ${({ inverse }) => (inverse ? "transparent" : "#fff")};
 
-    svg {
+    .search__icon {
       transition: ease all 0.25s;
       position: absolute;
       left: 16px;

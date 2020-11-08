@@ -25,7 +25,7 @@ const {
 const CustomOption = ({ children, data }) => (
   <Fragment>
     <div
-      className="option__avatar"
+      className="option__avatar bg"
       style={{ backgroundImage: `url(${data?.avatar || ""})` }}
     />
     <div className="option__info">

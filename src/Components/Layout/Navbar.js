@@ -88,7 +88,10 @@ const Navbar = ({
         <Styled.NavbarCollapse id="navigation">
           {search && (
             <Form className="search">
-              <SearchIcon color={inverse ? "var(--grey-4)" : null} />
+              <SearchIcon
+                className="search__icon"
+                color={inverse ? "var(--grey-4)" : null}
+              />
               <div className="search__container w-100">
                 <Search
                   options={search?.options || []}
