@@ -74,7 +74,7 @@ const StyleImageContainer = styled.div`
     `
       @media (min-width: 992px) {
         position: sticky;
-        top: 136px;
+        top: 118px;
       }
     `}
 `;

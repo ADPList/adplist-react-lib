@@ -218,7 +218,7 @@ const Preview = styled.div`
 
     .preview {
       position: sticky;
-      top: 136px;
+      top: 118px;
     }
   }
 `;

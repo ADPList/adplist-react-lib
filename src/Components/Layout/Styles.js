@@ -46,8 +46,8 @@ export const NavbarToggle = styled(Navbar.Toggle)`
 
 export const StyledNavbar = styled(Navbar)`
   transition: ease all 0.25s;
-  padding-bottom: 24px;
-  padding-top: 24px;
+  padding-bottom: 12px;
+  padding-top: 12px;
   position: sticky;
   display: block;
   z-index: 999;
@@ -204,8 +204,8 @@ export const StyledNavbar = styled(Navbar)`
   }
 
   @media (max-width: 767px) {
-    padding-bottom: 20px;
-    padding-top: 20px;
+    padding-bottom: 12px;
+    padding-top: 12px;
 
     ${NavLink}, .nav-link {
       padding-right: 20px !important;
