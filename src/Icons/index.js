@@ -1,5 +1,6 @@
 export { default as Edit } from "./Edit";
 export { default as Logo } from "./Logo";
+export { default as Moon } from "./Moon";
 export { default as Star } from "./Star";
 export { default as Close } from "./Close";
 export { default as Image } from "./Image";

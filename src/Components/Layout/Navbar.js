@@ -37,14 +37,18 @@ const Navbar = ({
    * functions
    */
   const login = () =>
-    (window.location.href = `${process.env.REACT_APP_AUTH_URL || ""}/login${
-      app ? `?app=${app}` : ""
-    }`);
+    window.open(
+      `${process.env.REACT_APP_AUTH_URL || ""}/login${
+        app ? `?app=${app}` : ""
+      }`,
+    );
 
   const signup = () =>
-    (window.location.href = `${process.env.REACT_APP_AUTH_URL || ""}/signup${
-      app ? `?app=${app}` : ""
-    }`);
+    window.open(
+      `${process.env.REACT_APP_AUTH_URL || ""}/signup${
+        app ? `?app=${app}` : ""
+      }`,
+    );
 
   const handleClick = (item) => {
     if (item.target) {

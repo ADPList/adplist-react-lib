@@ -5,6 +5,7 @@ import styled from "styled-components";
 import moment from "moment";
 
 import ArrowUpRight from "../Icons/ArrowUpRight";
+import Moon from "../Icons/Moon";
 import Button from "./Button";
 import Image from "./Image";
 import Flag from "./Flag";
@@ -51,7 +52,7 @@ const Profile = ({
           <div className="mx-auto" style={{ width: 280 }}>
             {userType === "mentor" && (
               <Fragment>
-                {!isPrivate && (
+                {!isPrivate && !user?.on_break ? (
                   <Button
                     isValid
                     className="btn--default w-100 btn-56 mb-32"
@@ -61,6 +62,11 @@ const Profile = ({
                     <span role="img" aria-label="writinng">
                       🗓
                     </span>
+                  </Button>
+                ) : (
+                  <Button isValid className="pale-peach-bg w-100 btn-64 mb-32">
+                    <Moon />
+                    <span className="ml-3">I’m currently on a break</span>
                   </Button>
                 )}
               </Fragment>

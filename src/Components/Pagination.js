@@ -73,7 +73,7 @@ const PaginateStyle = styled.div`
 `;
 
 export default function Pagination({
-  currentPage = 1,
+  currentPage = 0,
   totalPages = 16,
   setPage = () => {},
   ...props
@@ -81,11 +81,11 @@ export default function Pagination({
   return (
     <PaginateStyle {...props}>
       <Paginate
-        initialPage={currentPage - 1}
         pageCount={totalPages}
         pageRangeDisplayed={3}
         marginPagesDisplayed={0}
-        onPageChange={({ selected }) => setPage(selected + 1)}
+        initialPage={currentPage}
+        onPageChange={({ selected }) => setPage(selected)}
         nextLabel={<i className="material-icons-round">keyboard_arrow_right</i>}
         previousLabel={
           <i className="material-icons-round">keyboard_arrow_left</i>
