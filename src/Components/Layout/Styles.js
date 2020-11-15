@@ -18,12 +18,12 @@ export const NavbarCollapse = styled(Navbar.Collapse)`
     position: absolute;
     overflow-y: auto;
     width: 100%;
-    top: 81px;
+    top: 69px;
     left: 0;
   }
 
   @media (max-width: 767px) {
-    top: 77px;
+    top: 60px;
   }
 `;
 export const NavbarToggle = styled(Navbar.Toggle)`
@@ -116,11 +116,6 @@ export const StyledNavbar = styled(Navbar)`
     outline: none;
   }
 
-  .nav-item {
-    display: flex;
-    align-items: center;
-  }
-
   ${NavLink}, .nav-link {
     padding: 24px 40px !important;
     color: var(--grey) !important;
@@ -151,6 +146,11 @@ export const StyledNavbar = styled(Navbar)`
     margin: 24px 20px 0px 20px;
   }
 
+  .dropdown-menu {
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+  }
+
   ${NavDropdown} {
     .dropdown-toggle {
       align-items: center;
@@ -175,6 +175,11 @@ export const StyledNavbar = styled(Navbar)`
       margin: 24px 40px 0px 40px;
     }
 
+    .dropdown-menu {
+      margin-left: 40px !important;
+      margin-right: 40px !important;
+    }
+
     .search {
       margin-left: 40px;
       margin-right: 40px;
@@ -186,6 +191,17 @@ export const StyledNavbar = styled(Navbar)`
       padding: 0px 15px !important;
       transition: ease all 0.25s;
     }
+
+    .dropdown-menu {
+      margin-left: 0px !important;
+      margin-right: 0px !important;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+    }
+
     .btn {
       margin: 0px 8px 0px 8px;
       height: 45px !important;
