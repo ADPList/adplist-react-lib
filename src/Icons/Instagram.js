@@ -1,12 +1,13 @@
 import React from "react";
 
-const Instagram = () => (
+const Instagram = ({ width = 24, height = 24, ...props }) => (
   <svg
-    width="23"
-    height="24"
-    viewBox="0 0 23 24"
     fill="none"
+    width={width}
+    height={height}
+    viewBox="0 0 23 24"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <path
       d="M13.7012 12C13.7012 13.2686 12.7157 14.2969 11.5 14.2969C10.2843 14.2969 9.29883 13.2686 9.29883 12C9.29883 10.7314 10.2843 9.70312 11.5 9.70312C12.7157 9.70312 13.7012 10.7314 13.7012 12Z"

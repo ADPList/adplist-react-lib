@@ -1,11 +1,11 @@
 import React from "react";
 
-const Youtube = (props) => (
+const Youtube = ({ width, height, ...props }) => (
   <svg
-    width="23"
-    height="24"
-    viewBox="0 0 23 24"
     fill="none"
+    width={width}
+    height={height}
+    viewBox="0 0 23 24"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >

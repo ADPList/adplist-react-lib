@@ -1,5 +1,11 @@
 import React, { useGlobal } from "reactn";
-import { AuthProvider, Layout, Grid, Profile } from "adplist-react-lib";
+import {
+  AuthProvider,
+  Layout,
+  Grid,
+  Profile,
+  Socials,
+} from "adplist-react-lib";
 import { Container } from "react-bootstrap";
 import Skeleton from "react-loading-skeleton-2";
 
@@ -53,6 +59,8 @@ export default () => {
                   <Skeleton key={index} height={300} />
                 ))}
               </Grid>
+
+              <Socials url="https://larrybuntus.com" />
             </div>
           </Profile>
         </Container>
