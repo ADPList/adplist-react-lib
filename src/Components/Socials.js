@@ -24,6 +24,7 @@ const Socials = ({
   links = ["facebook", "linkedin", "twitter"],
   size = 24,
   url,
+  ...props
 }) => {
   /**
    * variables
@@ -47,7 +48,7 @@ const Socials = ({
   ];
 
   return (
-    <Grid>
+    <Grid {...props}>
       {links?.map((link, key) => {
         const ar = arr.find((ar) => link?.toLowerCase() === ar.name);
 
