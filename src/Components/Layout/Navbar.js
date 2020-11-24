@@ -99,7 +99,6 @@ const Navbar = ({
               <div className="search__container w-100">
                 <Search
                   options={search?.options || []}
-                  isLoading={search?.isLoading || false}
                   placeholder={search?.placeholder || ""}
                   onInputChange={(value) => handleSearch(value)}
                   onChange={(option) => search?.handleSelect(option)}

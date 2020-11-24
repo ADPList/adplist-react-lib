@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import ReactSelect, { components } from "react-select";
 import { capitalize } from "lodash";
 import { SyncLoader } from "react-spinners";
@@ -63,6 +63,8 @@ const CustomLoadingMessage = () => (
 );
 
 export default ({ options, value, ...props }) => {
+  const [finalOptions, setOption] = useState([]);
+
   const SelectComponents = {
     MultiValueRemove: () => null,
     LoadingIndicator: () => null,
@@ -91,6 +93,12 @@ export default ({ options, value, ...props }) => {
     ),
   };
 
+  useEffect(() => {
+    if (options && options?.length > 0) {
+      setOption(options);
+    }
+  }, [options, setOption]);
+
   if (value) {
     value =
       options.find(
@@ -106,7 +114,7 @@ export default ({ options, value, ...props }) => {
         {...props}
         styles={styles}
         value={value || ""}
-        options={options || []}
+        options={finalOptions || []}
         components={SelectComponents}
       />
     </ErrorBoundary>
