@@ -215,11 +215,11 @@ const Navbar = ({
                     Change Password
                   </Styled.NavDropdownItem>
                   <Styled.NavDropdownItem>Get Help</Styled.NavDropdownItem>
-                  {identityType === "designer" && (
+                  {/* {identityType === "designer" && (
                     <Styled.NavDropdownItem href="">
                       Become a mentor
                     </Styled.NavDropdownItem>
-                  )}
+                  )} */}
                   <Styled.NavDropdownItem onClick={logout}>
                     <span className="mr-3 grey-text" style={{ opacity: 0.5 }}>
                       Logout

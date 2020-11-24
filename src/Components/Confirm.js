@@ -3,8 +3,9 @@ import { createConfirmation, confirmable } from "react-confirm";
 import { Modal } from "react-bootstrap";
 
 import Button from "./Button";
+import Grid from "../Styles/Grid";
 
-export function Dialog({ show, proceed, confirmation, header, options }) {
+export function Dialog({ show, proceed, confirmation, header, buttons }) {
   return (
     <Modal onHide={() => proceed(false)} show={show} centered>
       <Modal.Body className="p-4">
@@ -12,24 +13,20 @@ export function Dialog({ show, proceed, confirmation, header, options }) {
           <p className="font-weight-600 font-size-20 mb-12">{header}</p>
         )}
         <p className="mb-32 font-size-14 line-height-15">{confirmation}</p>
-        <div className="d-flex align-items-center justify-content-end">
-          <div className="px-2">
-            <Button
-              className="btn--default-outline btn-40 font-size-14 px-3"
-              onClick={() => proceed(false)}
-              value="Cancel"
-              isValid
-            />
-          </div>
-          <div className="px-2">
-            <Button
-              className="btn--default btn-40 font-size-14 px-3"
-              onClick={() => proceed(true)}
-              value="Confirm"
-              isValid
-            />
-          </div>
-        </div>
+        <Grid gap="16px" sm="auto auto" className="justify-content-end">
+          <Button
+            className={`btn--default-outline btn-40 font-size-14 px-3 ${buttons?.cancel?.className}`}
+            value={buttons?.cancel?.value || "Cancel"}
+            onClick={() => proceed(false)}
+            isValid
+          />
+          <Button
+            className={`btn--default btn-40 font-size-14 px-3 ${buttons?.proceed?.className}`}
+            value={buttons?.proceed?.value || "Proceed"}
+            onClick={() => proceed(true)}
+            isValid
+          />
+        </Grid>
       </Modal.Body>
     </Modal>
   );

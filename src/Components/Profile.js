@@ -52,17 +52,21 @@ const Profile = ({
           <div className="mx-auto" style={{ width: 280 }}>
             {userType === "mentor" && (
               <Fragment>
-                {!isPrivate && !user?.on_break ? (
-                  <Button
-                    isValid
-                    className="btn--default w-100 btn-56 mb-32"
-                    onClick={() => window.open(user?.calendly_url)}
-                  >
-                    <span className="mr-2">Schedule with Mentor</span>
-                    <span role="img" aria-label="writinng">
-                      🗓
-                    </span>
-                  </Button>
+                {!user?.on_break ? (
+                  <Fragment>
+                    {!isPrivate && (
+                      <Button
+                        isValid
+                        className="btn--default w-100 btn-56 mb-32"
+                        onClick={() => window.open(user?.calendly_url)}
+                      >
+                        <span className="mr-2">Schedule with Mentor</span>
+                        <span role="img" aria-label="writinng">
+                          🗓
+                        </span>
+                      </Button>
+                    )}
+                  </Fragment>
                 ) : (
                   <Button isValid className="pale-peach-bg w-100 btn-64 mb-32">
                     <Moon />
@@ -127,7 +131,7 @@ const Profile = ({
             </div>
           )}
 
-          {userType === "designer" && user?.looking_for && (
+          {userType === "designer" && user?.looking_for && user?.open_to_work && (
             <div className="user__details__item">
               <span className="prefix">
                 <span role="img" aria-label="speaker" className="font-size-16">
@@ -135,7 +139,7 @@ const Profile = ({
                 </span>
                 Looking for
               </span>
-              <span className="info">{user?.looking_for}</span>,
+              <span className="info">{capitalize(user?.looking_for)}</span>,
             </div>
           )}
           {userType === "mentor" && (

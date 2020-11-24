@@ -1,16 +1,28 @@
 import React, { useGlobal } from "reactn";
 import {
-  AuthProvider,
-  Layout,
   Grid,
+  Layout,
+  Button,
   Profile,
   Socials,
+  Confirm,
+  AuthProvider,
 } from "adplist-react-lib";
 import { Container } from "react-bootstrap";
 import Skeleton from "react-loading-skeleton-2";
 
 export default () => {
   const [user] = useGlobal("user");
+
+  const handleConfirm = async () => {
+    if (
+      await Confirm({
+        confirmation: "Hello world",
+        buttons: { cancel: { value: "Cunt", className: "d-none" } },
+      })
+    ) {
+    }
+  };
 
   return (
     <AuthProvider>
@@ -64,6 +76,10 @@ export default () => {
             </div>
           </Profile>
         </Container>
+
+        <Button className="btn--default" isValid onClick={handleConfirm}>
+          Hello
+        </Button>
       </Layout>
     </AuthProvider>
   );

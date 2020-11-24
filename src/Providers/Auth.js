@@ -52,8 +52,8 @@ const Auth = ({ children }) => {
      * variables
      */
     const token = getCookie("token");
-    const refresh = window.localStorage.getItem("refresh");
-    let localToken = window.localStorage.getItem("accessToken");
+    const refresh = window?.localStorage?.getItem("refresh");
+    let localToken = window?.localStorage?.getItem("accessToken");
 
     /**
      * maintain global token and local token
