@@ -46,6 +46,7 @@ const styles = {
     ...styles,
     height: "100%",
     padding: "0px 18px",
+    flexWrap: "nowrap",
   }),
   indicatorsContainer: (styles) => ({ ...styles, paddingRight: 6 }),
 };
