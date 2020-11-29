@@ -114,6 +114,8 @@ export default ({ options, value, ...props }) => {
         {...props}
         styles={styles}
         value={value || ""}
+        closeOnSelect={false}
+        onSelectResetsInput={false}
         options={finalOptions || []}
         components={SelectComponents}
       />

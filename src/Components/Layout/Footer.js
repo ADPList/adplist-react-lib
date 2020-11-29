@@ -43,10 +43,6 @@ const Footer = () => {
       name: "find jobs",
       link: `${process.env.REACT_APP_ADPLIST_URL}/jobs`,
     },
-    {
-      name: "projects",
-      link: `${process.env.REACT_APP_PROJECTS_URL}/projects`,
-    },
   ];
 
   const secondItems = [

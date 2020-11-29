@@ -98,6 +98,8 @@ export default ({ options, onlyOptions, value, ...props }) => {
         value={_value}
         styles={styles}
         options={_options}
+        closeOnSelect={false}
+        onSelectResetsInput={false}
         components={SelectComponents}
       />
     </ErrorBoundary>

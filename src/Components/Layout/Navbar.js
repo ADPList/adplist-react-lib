@@ -44,11 +44,7 @@ const Navbar = ({
     );
 
   const signup = () =>
-    window.open(
-      `${process.env.REACT_APP_AUTH_URL || ""}/signup${
-        app ? `?app=${app}` : ""
-      }`,
-    );
+    window.open(`${process.env.REACT_APP_AUTH_URL || ""}/signup`);
 
   const handleClick = (item) => {
     if (item.target) {
@@ -229,8 +225,8 @@ const Navbar = ({
               </Fragment>
             ) : (
               <Fragment>
-                <OutlineBtn {...{ inverse, onClick: login, value: "Login" }} />
-                <SolidBtn {...{ inverse, onClick: signup, value: "Signup" }} />
+                <OutlineBtn {...{ inverse, onClick: login, value: "Log in" }} />
+                <SolidBtn {...{ inverse, onClick: signup, value: "Sig nup" }} />
               </Fragment>
             )}
           </Nav>
