@@ -242,7 +242,7 @@ const Navbar = ({
             ) : (
               <Fragment>
                 <OutlineBtn {...{ inverse, onClick: login, value: "Log in" }} />
-                <SolidBtn {...{ inverse, onClick: signup, value: "Sig nup" }} />
+                <SolidBtn {...{ inverse, onClick: signup, value: "Sign up" }} />
               </Fragment>
             )}
           </Nav>
