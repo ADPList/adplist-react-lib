@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Briefcase from "../Icons/Briefcase";
 import Message from "../Icons/Message";
+import Moon from "../Icons/Moon";
 import Star from "../Icons/Star";
 import Flag from "./Flag";
 
@@ -14,14 +15,22 @@ const UserTile = ({ user, router }) => {
       onClick={router}
     >
       <div className="overlay">
-        {user?.total_reviews ? (
-          <div className="rating">
-            <Star />
-            <span className="font-size-14">{user.total_reviews}</span>
-          </div>
-        ) : (
-          ""
-        )}
+        <div className="top-items ml-auto">
+          {user?.on_break && (
+            <div className="on-break">
+              <Moon color="#fff" />
+              <span className="font-size-14 font-weight-bold">On break</span>
+            </div>
+          )}
+          {user?.total_reviews ? (
+            <div className="rating">
+              <Star />
+              <span className="font-size-14">{user.total_reviews}</span>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
 
         <div className="details">
           <p className="details__name">
@@ -33,14 +42,16 @@ const UserTile = ({ user, router }) => {
           )}
 
           <div className="details__items">
-            <div className="item">
-              <Briefcase />
-              <span>
-                {user?.expertise
-                  ?.map(({ description }) => description)
-                  .join(", ")}
-              </span>
-            </div>
+            {user?.expertise && (
+              <div className="item">
+                <Briefcase />
+                <span>
+                  {user?.expertise
+                    ?.map(({ description }) => description)
+                    .join(", ")}
+                </span>
+              </div>
+            )}
             {user?.topic_of_interests && (
               <div className="item">
                 <Message />
@@ -82,20 +93,37 @@ const Wrapper = styled.div`
     );
   }
 
-  .rating {
-    height: 32px;
-    display: flex;
-    padding: 0px 8px;
-    margin-left: auto;
-    border-radius: 6px;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
+  .top-items {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 6px;
 
-    svg {
-      width: 14px;
-      height: 14px;
-      margin-right: 4px;
+    .rating,
+    .on-break {
+      height: 32px;
+      display: flex;
+      padding: 0px 8px;
+      margin-left: auto;
+      border-radius: 6px;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+
+      svg {
+        width: 14px;
+        height: 14px;
+        margin-right: 4px;
+      }
+    }
+
+    .on-break {
+      background: rgba(243, 101, 35, 0.76);
+      color: #fff;
+
+      svg {
+        path {
+        }
+      }
     }
   }
 

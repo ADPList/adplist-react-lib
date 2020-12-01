@@ -10,6 +10,8 @@ import SearchIcon from "../../Icons/Search";
 import AdpLogo from "../../Icons/AdpLogo";
 import Search from "../Search";
 import Button from "../Button";
+import { toast } from "react-toastify";
+import Notify from "../Notify";
 
 const Navbar = ({
   app,
@@ -205,6 +207,13 @@ const Navbar = ({
                   <Styled.NavDropdownItem
                     href={`${
                       process.env.REACT_APP_AUTH_URL || ""
+                    }/dashboard/profile/edit`}
+                  >
+                    Edit profile
+                  </Styled.NavDropdownItem>
+                  <Styled.NavDropdownItem
+                    href={`${
+                      process.env.REACT_APP_AUTH_URL || ""
                     }/dashboard/profile/change-password`}
                   >
                     Change Password
@@ -215,7 +224,14 @@ const Navbar = ({
                       Become a mentor
                     </Styled.NavDropdownItem>
                   )} */}
-                  <Styled.NavDropdownItem onClick={logout}>
+                  <Styled.NavDropdownItem
+                    onClick={() =>
+                      logout() |
+                      toast(
+                        <Notify body="You've been logged out" type="success" />,
+                      )
+                    }
+                  >
                     <span className="mr-3 grey-text" style={{ opacity: 0.5 }}>
                       Logout
                     </span>

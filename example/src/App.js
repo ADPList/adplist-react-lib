@@ -6,6 +6,7 @@ import {
   Profile,
   Socials,
   Confirm,
+  UserTile,
   AuthProvider,
 } from "adplist-react-lib";
 import { Container } from "react-bootstrap";
@@ -75,23 +76,30 @@ export default () => {
           inverse: false,
         }}
       >
-        <Container className="py-5">
-          <Profile initUser={user}>
-            <div className="py-5">
-              <Grid sm="1fr" md="repeat(2, 1fr)">
-                {[1, 2, 3, 4, 5, 6].map((index) => (
-                  <Skeleton key={index} height={300} />
-                ))}
-              </Grid>
+        <Profile initUser={user} isPrivate>
+          <div className="py-5">
+            <Grid sm="1fr" md="repeat(2, 1fr)">
+              {[1, 2, 3, 4, 5, 6].map((index) => (
+                <Skeleton key={index} height={300} />
+              ))}
+            </Grid>
 
-              <Socials url="https://larrybuntus.com" />
-            </div>
-          </Profile>
-        </Container>
+            <Socials url="https://larrybuntus.com" />
+          </div>
+        </Profile>
 
         <Button className="btn--default" isValid onClick={handleConfirm}>
           Hello
         </Button>
+
+        <UserTile
+          user={{
+            on_break: false,
+            total_reviews: 5,
+            name: "Larry Buntus",
+            country: { iso: "GH", name: "Ghana" },
+          }}
+        />
       </Layout>
     </AuthProvider>
   );

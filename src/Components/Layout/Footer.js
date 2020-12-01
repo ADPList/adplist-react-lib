@@ -32,6 +32,10 @@ const Footer = () => {
 
   const firstItems = [
     {
+      name: "about us",
+      link: "https://www.adplist.org/about",
+    },
+    {
       name: "find mentors",
       link: `${process.env.REACT_APP_ADPLIST_URL}/mentors`,
     },
@@ -41,7 +45,7 @@ const Footer = () => {
     },
     {
       name: "find jobs",
-      link: `${process.env.REACT_APP_ADPLIST_URL}/jobs`,
+      link: `https://www.adplist.org/jobs`,
     },
   ];
 
