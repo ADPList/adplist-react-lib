@@ -3,6 +3,7 @@ export { default as Logo } from "./Logo";
 export { default as Copy } from "./Copy";
 export { default as Moon } from "./Moon";
 export { default as Star } from "./Star";
+export { default as Sort } from "./Sort";
 export { default as Close } from "./Close";
 export { default as Image } from "./Image";
 export { default as Badge } from "./Badge";
