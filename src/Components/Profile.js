@@ -1,14 +1,16 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useGlobal } from "reactn";
 import { capitalize } from "lodash";
+import Modal from "react-bootstrap/Modal";
 
 import styled from "styled-components";
 import moment from "moment";
 
 import ArrowUpRight from "../Icons/ArrowUpRight";
-import Moon from "../Icons/Moon";
+import Confirm from "./Confirm";
 import Button from "./Button";
 import Image from "./Image";
 import Flag from "./Flag";
+import Moon from "../Icons/Moon";
 
 const Profile = ({
   initUser,
@@ -18,6 +20,12 @@ const Profile = ({
   handleEdit = () => {},
   handleImage = () => {},
 }) => {
+  /**
+   * state
+   */
+  const [disclaimer, setDisclaimer] = useState(false);
+  const [loggedInUser] = useGlobal("user");
+
   /**
    * variables
    */
@@ -38,6 +46,37 @@ const Profile = ({
    */
   const handleProfile = () => {
     window.open(user?.portfolio_url);
+  };
+
+  const handleDisclaimer = async () => {
+    if (!loggedInUser) {
+      if (
+        await Confirm({
+          confirmation: "You need to login to schedule with mentor",
+          buttons: { proceed: { value: "Login" } },
+        })
+      ) {
+        window.open(process.env.REACT_APP_AUTH_URL + "/login?app=adplist");
+      }
+
+      return false;
+    }
+
+    if (loggedInUser?.mentor?.id === user?.id) {
+      if (
+        await Confirm({
+          confirmation: "Cannot schedule with yourself",
+          buttons: {
+            cancel: { className: "d-none" },
+            proceed: { value: "Ok" },
+          },
+        })
+      ) {
+      }
+      return false;
+    }
+
+    setDisclaimer(true);
   };
 
   return (
@@ -62,7 +101,7 @@ const Profile = ({
                         <Button
                           isValid
                           className="btn--default w-100 btn-56 mb-32"
-                          onClick={() => window.open(user?.calendly_url)}
+                          onClick={() => handleDisclaimer()}
                         >
                           <span className="mr-2">Schedule with Mentor</span>
                           <span role="img" aria-label="writinng">
@@ -209,6 +248,51 @@ const Profile = ({
         </Content>
         <Children>{children}</Children>
       </Wrapper>
+
+      <Modal centered show={disclaimer} onHide={() => setDisclaimer(false)}>
+        <Modal.Body className="p-4 p-md-32 p-lg-40">
+          <h1 className="font-size-24 mb-3">Before you book</h1>
+
+          <p className="line-height-16 mb-32">
+            <span className="d-block mb-4">
+              Whether it’s your first time using ADPList or you’re one of our
+              original community designers, please commit to respecting the
+              mentors and their schedule.{" "}
+              <b>
+                <a
+                  target="standards"
+                  className="teal-text"
+                  href="https://www.notion.so/adplist/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a"
+                >
+                  Read more about our Community Standards.
+                </a>
+              </b>
+            </span>
+            <span className="d-block">
+              I agree to show up for the mentoring sessions I booked, not spam,
+              and treat everyone in ADPList community with respect, and without
+              judgement or bias.
+            </span>
+          </p>
+
+          <div className="d-flex">
+            <Button
+              isValid
+              onClick={() => window.open(user?.calendly_url)}
+              className="teal-bg white-text teal-border mr-3 btn-48 px-5"
+            >
+              I Agree
+            </Button>
+            <Button
+              isValid
+              onClick={() => setDisclaimer(false)}
+              className="teal-border white-bg teal-text btn-48 px-5"
+            >
+              I Decline
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </Fragment>
   );
 };
