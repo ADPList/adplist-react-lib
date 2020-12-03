@@ -16,6 +16,7 @@ export { default as Twitter } from "./Twitter";
 export { default as Youtube } from "./Youtube";
 export { default as AdpLogo } from "./AdpLogo";
 export { default as Message } from "./Message";
+export { default as ThumbsUp } from "./ThumbsUp";
 export { default as Download } from "./Download";
 export { default as Facebook } from "./Facebook";
 export { default as LinkedIn } from "./LinkedIn";
