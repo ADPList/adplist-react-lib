@@ -93,6 +93,10 @@ const Auth = ({ children }) => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    console.log("Testing remount");
+  }, []);
+
   return children;
 };
 
