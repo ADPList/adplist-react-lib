@@ -94,7 +94,7 @@ const Auth = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log("Testing remount");
+    handleUserPayload();
   }, []);
 
   return children;
