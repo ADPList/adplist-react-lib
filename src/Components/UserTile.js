@@ -42,14 +42,10 @@ const UserTile = ({ user, router }) => {
           )}
 
           <div className="details__items">
-            {user?.expertise && (
+            {user?.title && (
               <div className="item">
                 <Briefcase />
-                <span>
-                  {user?.expertise
-                    ?.map(({ description }) => description)
-                    .join(", ")}
-                </span>
+                <span>{user?.title}</span>
               </div>
             )}
             {user?.topic_of_interests && (

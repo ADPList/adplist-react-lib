@@ -297,8 +297,6 @@ const Profile = ({
   );
 };
 
-export default Profile;
-
 /**
  * styles
  */
@@ -414,3 +412,7 @@ const Children = styled.div`
     grid-column-start: 2;
   }
 `;
+
+Profile.Alert = Alert;
+
+export default Profile;
