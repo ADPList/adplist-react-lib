@@ -313,6 +313,8 @@ const Alert = styled.div`
 const Wrapper = styled.div`
   max-width: 982px;
   margin: 0px auto;
+  padding-left: 15px;
+  padding-right: 15px;
 
   @media (min-width: 768px) {
     display: grid;
