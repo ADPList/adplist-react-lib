@@ -9,7 +9,6 @@ import {
   UserTile,
   AuthProvider,
 } from "adplist-react-lib";
-import { Container } from "react-bootstrap";
 import Skeleton from "react-loading-skeleton-2";
 import useSWR from "swr";
 

@@ -1,10 +1,11 @@
 import React, { Fragment, useState, useGlobal } from "reactn";
 import { capitalize } from "lodash";
-import Modal from "react-bootstrap/Modal";
 
 import styled from "styled-components";
 import moment from "moment";
 
+import ScheduleWithCalendly from "./Profile/ScheduleWithCalendly";
+import ScheduleWithEmail from "./Profile/ScheduleWithEmail";
 import ArrowUpRight from "../Icons/ArrowUpRight";
 import Confirm from "./Confirm";
 import Button from "./Button";
@@ -23,8 +24,9 @@ const Profile = ({
   /**
    * state
    */
-  const [disclaimer, setDisclaimer] = useState(false);
   const [loggedInUser] = useGlobal("user");
+  const [scheduleWithEmail, setScheduleWithEmail] = useState(false);
+  const [scheduleWithCalendly, setScheduleWithCalendly] = useState(false);
 
   /**
    * variables
@@ -48,7 +50,7 @@ const Profile = ({
     window.open(user?.portfolio_url);
   };
 
-  const handleDisclaimer = async () => {
+  const handleScheduling = async () => {
     if (!loggedInUser) {
       if (
         await Confirm({
@@ -76,7 +78,11 @@ const Profile = ({
       return false;
     }
 
-    setDisclaimer(true);
+    if (user?.calendly_url) {
+      setScheduleWithCalendly(true);
+    } else {
+      setScheduleWithEmail(true);
+    }
   };
 
   return (
@@ -101,12 +107,22 @@ const Profile = ({
                         <Button
                           isValid
                           className="btn--default w-100 btn-56 mb-32"
-                          onClick={() => handleDisclaimer()}
+                          onClick={() => handleScheduling()}
                         >
-                          <span className="mr-2">Schedule with Mentor</span>
-                          <span role="img" aria-label="writinng">
-                            🗓
+                          <span className="mr-2">
+                            {user?.calendly_url
+                              ? "Schedule with Mentor"
+                              : "Send me a email"}
                           </span>
+                          {user?.calendly_url ? (
+                            <span role="img" aria-label="writinng">
+                              🗓
+                            </span>
+                          ) : (
+                            <span role="img" aria-label="email">
+                              📨
+                            </span>
+                          )}
                         </Button>
                       )}
                     </Fragment>
@@ -249,50 +265,17 @@ const Profile = ({
         <Children>{children}</Children>
       </Wrapper>
 
-      <Modal centered show={disclaimer} onHide={() => setDisclaimer(false)}>
-        <Modal.Body className="p-4 p-md-32 p-lg-40">
-          <h1 className="font-size-24 mb-3">Before you book</h1>
+      <ScheduleWithCalendly
+        modal={scheduleWithCalendly}
+        setModal={setScheduleWithCalendly}
+        user={user}
+      />
 
-          <p className="line-height-16 mb-32">
-            <span className="d-block mb-4">
-              Whether it’s your first time using ADPList or you’re one of our
-              original community designers, please commit to respecting the
-              mentors and their schedule.{" "}
-              <b>
-                <a
-                  target="standards"
-                  className="teal-text"
-                  href="https://www.notion.so/adplist/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a"
-                >
-                  Read more about our Community Standards.
-                </a>
-              </b>
-            </span>
-            <span className="d-block">
-              I agree to show up for the mentoring sessions I booked, not spam,
-              and treat everyone in ADPList community with respect, and without
-              judgement or bias.
-            </span>
-          </p>
-
-          <div className="d-flex">
-            <Button
-              isValid
-              onClick={() => window.open(user?.calendly_url)}
-              className="teal-bg white-text teal-border mr-3 btn-48 px-5"
-            >
-              I Agree
-            </Button>
-            <Button
-              isValid
-              onClick={() => setDisclaimer(false)}
-              className="teal-border white-bg teal-text btn-48 px-5"
-            >
-              I Decline
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
+      <ScheduleWithEmail
+        modal={scheduleWithEmail}
+        setModal={setScheduleWithEmail}
+        user={user}
+      />
     </Fragment>
   );
 };
