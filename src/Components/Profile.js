@@ -207,7 +207,7 @@ const Profile = ({
                     </span>
                     Looking for
                   </span>
-                  <span className="info">{capitalize(user?.looking_for)}</span>,
+                  <span className="info">{capitalize(user?.looking_for)}</span>
                 </div>
               )}
             {userType === "mentor" && (
@@ -227,7 +227,6 @@ const Profile = ({
                     ?.map((t) => capitalize(t.description))
                     .join(", ")}
                 </span>
-                ,
               </div>
             )}
 
