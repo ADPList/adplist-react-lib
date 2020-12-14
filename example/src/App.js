@@ -75,7 +75,7 @@ export default () => {
           inverse: false,
         }}
       >
-        <Profile initUser={user}>
+        <Profile initUser={user} isPrivate>
           <div className="py-5">
             <Grid sm="1fr" md="repeat(2, 1fr)">
               {[1, 2, 3, 4, 5, 6].map((index) => (

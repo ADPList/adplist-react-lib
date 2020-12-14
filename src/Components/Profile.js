@@ -260,6 +260,95 @@ const Profile = ({
               </span>
             </div>
           </div>
+
+          {isPrivate && (
+            <Banner>
+              <div className="header">
+                <span role="img" aria-label="rocket">
+                  🚀
+                </span>
+                {" Be a power mentor on ADPList"}
+              </div>
+              <div className="content">
+                <div className="item complete">
+                  <div className="check">
+                    <i className="material-icons">check</i>
+                  </div>
+                  <p>
+                    <span role="img" aria-label="mail">
+                      📧
+                    </span>
+                    {"  Verify your email"}
+                  </p>
+                </div>
+                <div className={`item ${user?.date_verified && "complete"}`}>
+                  <div className="check">
+                    <i className="material-icons">check</i>
+                  </div>
+                  <p>
+                    <span role="img" aria-label="hurray">
+                      🎉
+                    </span>{" "}
+                    {" Mentor profile approved!"}
+                  </p>
+                </div>
+                <div
+                  className={`item align-items-start ${
+                    !user?.date_verified && "disabled"
+                  }`}
+                >
+                  <div className="check">
+                    <i className="material-icons">check</i>
+                  </div>
+                  <div>
+                    <p className="mb-1">
+                      <span role="img" aria-label="unicorn">
+                        🦄
+                      </span>
+                      {" Share with your network - You’re a verified mentor!"}
+                    </p>
+                    <span className="font-size-14 line-height-16 grey-2-text mb-3 d-block">
+                      When you share with your LinkedIn network, more designers
+                      can get access to free quality mentorships globally.
+                    </span>
+                    <Button
+                      onClick={() =>
+                        window.open(
+                          `https://www.linkedin.com/sharing/share-offsite/?url=${process.env.REACT_APP_ADPLIST_URL}/mentors/${user.slug}`,
+                        )
+                      }
+                      isValid={!!user?.date_verified}
+                      className="teal-bg white-text teal-border btn-48"
+                    >
+                      Share on LinkedIn
+                    </Button>
+                  </div>
+                </div>
+                <div className={`item ${!user?.date_verified && "disabled"}`}>
+                  <div className="check">
+                    <i className="material-icons">check</i>
+                  </div>
+                  <p>
+                    <span role="img" aria-label="wave">
+                      👋
+                    </span>{" "}
+                    Join Mentor Club Slack Network -{" "}
+                    <span
+                      className="green cursor-pointer"
+                      onClick={() =>
+                        user?.date_verified &&
+                        window.open(
+                          "https://join.slack.com/t/amazing-design-list/shared_invite/zt-jt9k2gc3-E1ZMPuEifAbLUNjehx3QXw",
+                        )
+                      }
+                    >
+                      Join here
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </Banner>
+          )}
         </Content>
         <Children>{children}</Children>
       </Wrapper>
@@ -394,6 +483,80 @@ const Children = styled.div`
 
   @media (min-width: 992px) {
     grid-column-start: 2;
+  }
+`;
+
+const green = "#30d158";
+const Banner = styled.div`
+  margin-top: 1.5rem;
+  border-radius: 18px;
+  padding: 1.5rem 1rem;
+  background-color: var(--grey-3);
+
+  .header {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+    padding-bottom: 20px;
+    font-weight: bold;
+    font-size: 24px;
+  }
+  .content {
+    padding-top: 1.5rem;
+    display: grid;
+    row-gap: 24px;
+
+    .item {
+      display: flex;
+      align-items: center;
+
+      .green {
+        color: ${green};
+      }
+
+      .check {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        flex: 0 0 20px;
+        color: transparent;
+        border-radius: 50%;
+        margin-right: 1rem;
+        align-items: center;
+        justify-content: center;
+        border: solid 1px var(--grey-2);
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.6;
+        font-weight: 500;
+        margin-bottom: 0px;
+      }
+
+      &.complete {
+        .check {
+          background-color: ${green};
+          border-color: ${green};
+          color: #fff;
+        }
+      }
+      &.disabled {
+        opacity: 0.3;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    padding: 1.5rem 2rem;
+
+    .content {
+      .item {
+        .check {
+          width: 40px;
+          height: 40px;
+          flex: 0 0 40px;
+        }
+      }
+    }
   }
 `;
 
