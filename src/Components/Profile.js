@@ -189,9 +189,12 @@ const Profile = ({
             {user?.bio && (
               <div className="user__details__about mb-4">
                 <p className="font-weight-600 mb-2">About</p>
-                <p className="line-height-16">
-                  {converter.makeHtml(user?.bio)}
-                </p>
+                <div
+                  className="line-height-16"
+                  dangerouslySetInnerHTML={{
+                    __html: converter.makeHtml(user?.bio),
+                  }}
+                />
               </div>
             )}
 
