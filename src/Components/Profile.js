@@ -261,61 +261,57 @@ const Profile = ({
             </div>
           </div>
 
-          {isPrivate &&
-            (user?.date_verified
-              ? !(moment().diff(user.date_verified, "days") >= 1)
-              : true) && (
-              <Banner>
-                <div className="header">
-                  <span role="img" aria-label="rocket">
-                    🚀
-                  </span>
-                  {" Be a power mentor on ADPList"}
+          {isPrivate && (
+            <Banner>
+              <div className="header">
+                <span role="img" aria-label="rocket">
+                  🚀
+                </span>
+                {" Be a power mentor on ADPList"}
+              </div>
+              <div className="content">
+                <div className="item complete">
+                  <div className="check">
+                    <i className="material-icons">check</i>
+                  </div>
+                  <p>
+                    <span role="img" aria-label="mail">
+                      📧
+                    </span>
+                    {"  Verify your email"}
+                  </p>
                 </div>
-                <div className="content">
-                  <div className="item complete">
-                    <div className="check">
-                      <i className="material-icons">check</i>
-                    </div>
-                    <p>
-                      <span role="img" aria-label="mail">
-                        📧
-                      </span>
-                      {"  Verify your email"}
-                    </p>
+                <div className={`item ${user?.date_verified && "complete"}`}>
+                  <div className="check">
+                    <i className="material-icons">check</i>
                   </div>
-                  <div className={`item ${user?.date_verified && "complete"}`}>
-                    <div className="check">
-                      <i className="material-icons">check</i>
-                    </div>
-                    <p>
-                      <span role="img" aria-label="hurray">
-                        🎉
-                      </span>{" "}
-                      {" Mentor profile approved!"}
-                    </p>
+                  <p>
+                    <span role="img" aria-label="hurray">
+                      🎉
+                    </span>{" "}
+                    {" Mentor profile approved!"}
+                  </p>
+                </div>
+                <div
+                  className={`item align-items-start ${
+                    !user?.date_verified && "disabled"
+                  }`}
+                >
+                  <div className="check">
+                    <i className="material-icons">check</i>
                   </div>
-                  <div
-                    className={`item align-items-start ${
-                      !user?.date_verified && "disabled"
-                    }`}
-                  >
-                    <div className="check">
-                      <i className="material-icons">check</i>
-                    </div>
-                    <div>
-                      <p className="mb-1">
-                        <span role="img" aria-label="unicorn">
-                          🦄
-                        </span>
-                        {" Share with your network - You’re a verified mentor!"}
-                      </p>
-                      <span className="font-size-14 line-height-16 grey-2-text d-block">
-                        When you share with your LinkedIn network, more
-                        designers can get access to free quality mentorships
-                        globally.
+                  <div>
+                    <p className="mb-1">
+                      <span role="img" aria-label="unicorn">
+                        🦄
                       </span>
-                      {/* <Button
+                      {" Share with your network - You’re a verified mentor!"}
+                    </p>
+                    <span className="font-size-14 line-height-16 grey-2-text d-block">
+                      When you share with your LinkedIn network, more designers
+                      can get access to free quality mentorships globally.
+                    </span>
+                    {/* <Button
                       onClick={() =>
                         window.open(
                           `https://www.linkedin.com/sharing/share-offsite/?url=${process.env.REACT_APP_ADPLIST_URL}/mentors/${user.slug}`,
@@ -326,33 +322,33 @@ const Profile = ({
                     >
                       Share on LinkedIn
                     </Button> */}
-                    </div>
-                  </div>
-                  <div className={`item ${!user?.date_verified && "disabled"}`}>
-                    <div className="check">
-                      <i className="material-icons">check</i>
-                    </div>
-                    <p>
-                      <span role="img" aria-label="wave">
-                        👋
-                      </span>{" "}
-                      Join Mentor Club Slack Network -{" "}
-                      <span
-                        className="green cursor-pointer"
-                        onClick={() =>
-                          user?.date_verified &&
-                          window.open(
-                            "https://join.slack.com/t/amazing-design-list/shared_invite/zt-jt9k2gc3-E1ZMPuEifAbLUNjehx3QXw",
-                          )
-                        }
-                      >
-                        Join here
-                      </span>
-                    </p>
                   </div>
                 </div>
-              </Banner>
-            )}
+                <div className={`item ${!user?.date_verified && "disabled"}`}>
+                  <div className="check">
+                    <i className="material-icons">check</i>
+                  </div>
+                  <p>
+                    <span role="img" aria-label="wave">
+                      👋
+                    </span>{" "}
+                    Join Mentor Club Slack Network -{" "}
+                    <span
+                      className="green cursor-pointer"
+                      onClick={() =>
+                        user?.date_verified &&
+                        window.open(
+                          "https://join.slack.com/t/amazing-design-list/shared_invite/zt-jt9k2gc3-E1ZMPuEifAbLUNjehx3QXw",
+                        )
+                      }
+                    >
+                      Join here
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </Banner>
+          )}
         </Content>
         <Children>{children}</Children>
       </Wrapper>
