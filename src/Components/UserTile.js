@@ -1,4 +1,5 @@
 import React from "react";
+import { startCase } from "lodash";
 import styled from "styled-components";
 
 import Briefcase from "../Icons/Briefcase";
@@ -34,7 +35,7 @@ const UserTile = ({ user, router }) => {
 
         <div className="details">
           <p className="details__name">
-            {user?.name}&nbsp;&nbsp;
+            {startCase(user?.name)}&nbsp;&nbsp;
             <Flag code={user?.country?.iso} label={user?.country?.name} />
           </p>
           {user?.employer && (

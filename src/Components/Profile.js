@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useGlobal } from "reactn";
-import { capitalize } from "lodash";
-
+import { capitalize, startCase } from "lodash";
 import styled from "styled-components";
 import moment from "moment";
 
@@ -12,6 +11,7 @@ import Button from "./Button";
 import Image from "./Image";
 import Flag from "./Flag";
 import Moon from "../Icons/Moon";
+import { converter } from "../Utils";
 
 const Profile = ({
   initUser,
@@ -163,7 +163,7 @@ const Profile = ({
         <Content>
           <div className="user__info">
             <p className="user__info__name font-weight-600 mb-3">
-              <span className="mr-2">Hey, I'm {user?.name}</span>
+              <span className="mr-2">Hey, I'm {startCase(user?.name)}</span>
               <Flag label={user?.country?.name} code={user?.country?.iso} />
             </p>
 
@@ -189,7 +189,9 @@ const Profile = ({
             {user?.bio && (
               <div className="user__details__about mb-4">
                 <p className="font-weight-600 mb-2">About</p>
-                <p className="line-height-16">{user?.bio}</p>
+                <p className="line-height-16">
+                  {converter.makeHtml(user?.bio)}
+                </p>
               </div>
             )}
 
@@ -311,7 +313,7 @@ const Profile = ({
                       When you share with your LinkedIn network, more designers
                       can get access to free quality mentorships globally.
                     </span>
-                    {/* <Button
+                    <Button
                       onClick={() =>
                         window.open(
                           `https://www.linkedin.com/sharing/share-offsite/?url=${process.env.REACT_APP_ADPLIST_URL}/mentors/${user.slug}`,
@@ -321,7 +323,7 @@ const Profile = ({
                       className="teal-bg white-text teal-border btn-48 mt-3"
                     >
                       Share on LinkedIn
-                    </Button> */}
+                    </Button>
                   </div>
                 </div>
                 <div className={`item ${!user?.date_verified && "disabled"}`}>

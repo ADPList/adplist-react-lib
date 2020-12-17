@@ -218,7 +218,7 @@ const Navbar = ({
                   >
                     Change Password
                   </Styled.NavDropdownItem>
-                  <Styled.NavDropdownItem>Get Help</Styled.NavDropdownItem>
+                  {/* <Styled.NavDropdownItem>Get Help</Styled.NavDropdownItem> */}
                   {/* {identityType === "designer" && (
                     <Styled.NavDropdownItem href="">
                       Become a mentor
