@@ -261,7 +261,7 @@ const Profile = ({
             </div>
           </div>
 
-          {isPrivate && (
+          {isPrivate && userType === "mentor" && (
             <Banner>
               <div className="header">
                 <span role="img" aria-label="rocket">
