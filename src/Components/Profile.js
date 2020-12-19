@@ -112,7 +112,7 @@ const Profile = ({
                           <span className="mr-2">
                             {user?.calendly_url
                               ? "Schedule with Mentor"
-                              : "Send me a email"}
+                              : "Send me an email"}
                           </span>
                           {user?.calendly_url ? (
                             <span role="img" aria-label="writinng">
