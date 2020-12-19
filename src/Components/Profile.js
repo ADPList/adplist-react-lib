@@ -3,6 +3,7 @@ import { capitalize, startCase } from "lodash";
 import styled from "styled-components";
 import moment from "moment";
 
+import { converter } from "../Utils";
 import ScheduleWithCalendly from "./Profile/ScheduleWithCalendly";
 import ScheduleWithEmail from "./Profile/ScheduleWithEmail";
 import ArrowUpRight from "../Icons/ArrowUpRight";
@@ -11,7 +12,6 @@ import Button from "./Button";
 import Image from "./Image";
 import Flag from "./Flag";
 import Moon from "../Icons/Moon";
-import { converter } from "../Utils";
 
 const Profile = ({
   initUser,

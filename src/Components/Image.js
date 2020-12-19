@@ -1,5 +1,5 @@
 import React, { Fragment, useRef } from "react";
-import { Button as Btn } from "react-bootstrap";
+import { Button as Btn, Image as BsImage } from "react-bootstrap";
 import Img from "../Icons/Image";
 
 import styled from "styled-components";
@@ -10,9 +10,9 @@ const Image = ({ button, className, onChange, image, ...props }) => {
   return (
     <StyleImageContainer
       className={className + ` ${image ? "" : "grey-2-bg"}`}
-      {...(image && { image })}
       {...props}
     >
+      {image && <BsImage src={image} />}
       {button && (
         <Fragment>
           <Button
@@ -54,14 +54,12 @@ const StyleImageContainer = styled.div`
   display: flex;
   width: 280px;
 
-  ${({ image }) =>
-    image &&
-    `
-      background-image: url(${image});
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-    `}
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 
   ${Button} {
     position: absolute;

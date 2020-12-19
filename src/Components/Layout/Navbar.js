@@ -1,5 +1,5 @@
 import React, { Fragment, useGlobal, useState, useEffect } from "reactn";
-import { Container, Form, Nav } from "react-bootstrap";
+import { Container, Form, Nav, Image } from "react-bootstrap";
 import { debounce } from "lodash";
 
 import * as Styled from "./Styles";
@@ -73,7 +73,6 @@ const Navbar = ({
       expand="lg"
       variant="light"
       collapseOnSelect
-      avatar={user?.profile_photo_url}
       onToggle={(value) =>
         value ? setInverse(false) : setInverse(props?.inverse || false)
       }
@@ -189,7 +188,9 @@ const Navbar = ({
                 <Styled.NavDropdown
                   title={
                     <Fragment>
-                      <div className="profile__avatar" />
+                      <div className="profile__avatar">
+                        <Image src={user?.profile_photo_url} />
+                      </div>
                       <i className="material-icons-round font-size-18">
                         expand_more
                       </i>

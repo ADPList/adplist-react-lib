@@ -7,14 +7,14 @@ import Message from "../Icons/Message";
 import Moon from "../Icons/Moon";
 import Star from "../Icons/Star";
 import Flag from "./Flag";
+import { Image } from "react-bootstrap";
 
 const UserTile = ({ user, router }) => {
   return (
-    <Wrapper
-      avatar={user?.profile_photo_url || ""}
-      className="bg user-tile"
-      onClick={router}
-    >
+    <Wrapper className="bg user-tile" onClick={router}>
+      {user?.profile_photo_url && (
+        <Image className="avatar" src={user?.profile_photo_url} />
+      )}
       <div className="overlay">
         <div className="top-items ml-auto">
           {user?.on_break && (
@@ -74,13 +74,23 @@ const Wrapper = styled.div`
   height: 432px;
   cursor: pointer;
   overflow: hidden;
+  position: relative;
   border-radius: 12px;
-  background-image: url(${({ avatar }) => avatar || ""});
+
+  img.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 
   .overlay {
+    top: 0;
+    width: 100%;
     height: 100%;
     display: flex;
     padding: 20px;
+    position: absolute;
     flex-direction: column;
     transition: ease all 0.25s;
     background-image: linear-gradient(

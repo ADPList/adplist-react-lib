@@ -2,14 +2,14 @@ import React from "react";
 import { object, string } from "yup";
 import { Form, Modal } from "react-bootstrap";
 import { Formik } from "formik";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
+import { scheduleService } from "../../Services/scheduleService";
 import Textarea from "../Textarea";
+import Notify from "../Notify";
 import Button from "../Button";
 import Field from "../Field";
-import { scheduleService } from "../../Services/scheduleService";
-import { toast } from "react-toastify";
-import Notify from "../Notify";
 
 const ScheduleWithEmail = ({ modal, setModal, user }) => {
   return (
@@ -37,14 +37,13 @@ const ScheduleWithEmail = ({ modal, setModal, user }) => {
           })}
           onSubmit={(params, { setSubmitting }) =>
             scheduleService(user.id, params)
-              .then(() =>
-                toast(
-                  (
+              .then(
+                () =>
+                  toast(
                     <Notify
-                      body={`Awesome. We are sending your message to ${user.name}`}
-                    />
+                      body={`Sent 📤 you'll receive an email when your mentor accepts`}
+                    />,
                   ) | setModal(false),
-                ),
               )
               .catch(() => setSubmitting(false))
           }

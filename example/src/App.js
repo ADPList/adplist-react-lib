@@ -11,6 +11,8 @@ import {
 } from "adplist-react-lib";
 import Skeleton from "react-loading-skeleton-2";
 import useSWR from "swr";
+import { Fragment } from "react";
+import { ToastContainer } from "react-toastify";
 
 export default () => {
   const [user] = useGlobal("user");
@@ -33,73 +35,69 @@ export default () => {
   };
 
   return (
-    <AuthProvider>
-      <Layout
-        navItems={{
-          router: (link) => console.log(link),
-          items: [
-            {
-              name: "Hello",
-              value: "/hi",
+    <Fragment>
+      <AuthProvider>
+        <Layout
+          navItems={{
+            router: (link) => console.log(link),
+            items: [
+              {
+                name: "Hello",
+                value: "/hi",
+              },
+              {
+                name: "Become a Mentor",
+                value: "/hello",
+              },
+              {
+                name: "Hello",
+                menu: [
+                  {
+                    name: "Hello",
+                    target: "hello",
+                    value: "/hi",
+                  },
+                ],
+              },
+            ],
+            search: {
+              placeholder: "Hello world",
+              handleClick: () => {},
+              handleSearch: (value) => setSearch(value),
+              options:
+                searchData?.results?.map((s) => ({
+                  slug: s?.slug,
+                  avatar: s?.profile_photo_url || "",
+                  country: { iso: s?.country?.iso, name: s?.country?.name },
+                  employer: s?.employer,
+                  expertise: s?.expertise[0]?.description,
+                  type: s?.topic_of_interests ? "mentor" : "designer",
+                  label: s?.name,
+                })) || [],
             },
-            {
-              name: "Become a Mentor",
-              value: "/hello",
-            },
-            {
-              name: "Hello",
-              menu: [
-                {
-                  name: "Hello",
-                  target: "hello",
-                  value: "/hi",
-                },
-              ],
-            },
-          ],
-          search: {
-            placeholder: "Hello world",
-            handleClick: () => {},
-            handleSearch: (value) => setSearch(value),
-            options:
-              searchData?.results?.map((s) => ({
-                slug: s?.slug,
-                avatar: s?.profile_photo_url || "",
-                country: { iso: s?.country?.iso, name: s?.country?.name },
-                employer: s?.employer,
-                expertise: s?.expertise[0]?.description,
-                type: s?.topic_of_interests ? "mentor" : "designer",
-                label: s?.name,
-              })) || [],
-          },
-          inverse: false,
-        }}
-      >
-        <Profile initUser={user} isPrivate>
-          <div className="py-5">
-            <Grid sm="1fr" md="repeat(2, 1fr)">
-              {[1, 2, 3, 4, 5, 6].map((index) => (
-                <Skeleton key={index} height={300} />
-              ))}
-            </Grid>
-
-            <Socials url="https://larrybuntus.com" />
-          </div>
-        </Profile>
-
-        <Button className="btn--default" isValid onClick={handleConfirm}>
-          Hello
-        </Button>
-
-        <UserTile
-          user={{
-            on_break: false,
-            total_reviews: 5,
-            name: "Larry Buntus",
-            country: { iso: "GH", name: "Ghana" },
+            inverse: false,
           }}
-        />
-      </Layout>
-    </AuthProvider>
+        >
+          <Profile initUser={user}>
+            <div className="py-5">
+              <Grid sm="1fr" md="repeat(2, 1fr)">
+                {[1, 2, 3, 4, 5, 6].map((index) => (
+                  <Skeleton key={index} height={300} />
+                ))}
+              </Grid>
+
+              <Socials url="https://larrybuntus.com" />
+            </div>
+          </Profile>
+
+          <Button className="btn--default" isValid onClick={handleConfirm}>
+            Hello
+          </Button>
+
+          <UserTile user={user?.mentor} />
+        </Layout>
+      </AuthProvider>
+      <ToastContainer />
+    </Fragment>
   );
 };
