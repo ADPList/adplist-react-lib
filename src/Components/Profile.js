@@ -143,7 +143,7 @@ const Profile = ({
                   className="white-bg default-text w-100"
                   onClick={() => handleProfile()}
                 >
-                  <span className="mr-2">View my Linkedin profile</span>
+                  <span className="mr-2">View my portfolio</span>
                   <ArrowUpRight color="var(--default)" />
                 </Button>
               )}

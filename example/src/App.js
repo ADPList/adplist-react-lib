@@ -39,7 +39,7 @@ export default () => {
       <AuthProvider>
         <Layout
           navItems={{
-            router: (link) => console.log(link),
+            router: (link) => {},
             items: [
               {
                 name: "Hello",
