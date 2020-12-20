@@ -38,7 +38,7 @@ const CustomOption = ({ children, data }) => (
 
       <div className="option__info__title">
         <p>
-          {`${data?.role}${data?.role && data?.employer ? ", " : ""}`}
+          {`${data?.title}${data?.title && data?.employer ? ", " : ""}`}
           {data?.employer || ""}
         </p>
       </div>
