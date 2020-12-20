@@ -85,7 +85,9 @@ export default function Pagination({
         pageRangeDisplayed={3}
         marginPagesDisplayed={0}
         initialPage={currentPage}
-        onPageChange={({ selected }) => setPage(selected)}
+        onPageChange={({ selected }) =>
+          selected === currentPage ? {} : setPage(selected)
+        }
         nextLabel={<i className="material-icons-round">keyboard_arrow_right</i>}
         previousLabel={
           <i className="material-icons-round">keyboard_arrow_left</i>
