@@ -111,7 +111,7 @@ const Profile = ({
                         >
                           <span className="mr-2">
                             {user?.calendly_url
-                              ? "Schedule with Mentor"
+                              ? "Schedule time with me"
                               : "Send me an email"}
                           </span>
                           {user?.calendly_url ? (
@@ -143,7 +143,7 @@ const Profile = ({
                   className="white-bg default-text w-100"
                   onClick={() => handleProfile()}
                 >
-                  <span className="mr-2">View my portfolio</span>
+                  <span className="mr-2">View my LinkedIn</span>
                   <ArrowUpRight color="var(--default)" />
                 </Button>
               )}
