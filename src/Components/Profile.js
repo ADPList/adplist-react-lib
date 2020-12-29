@@ -9,6 +9,7 @@ import Banner from "./Profile/Mentor/Banner";
 import Flag from "./Flag";
 
 const Profile = ({
+  url,
   children,
   initUser,
   isEdit = false,
@@ -39,7 +40,15 @@ const Profile = ({
       <Wrapper className="py-4 py-md-5 px-3">
         {/* profile image preview */}
         <Thumbnail
-          {...{ user, isEdit, userType, isPrivate, handleEdit, handleImage }}
+          {...{
+            url,
+            user,
+            isEdit,
+            userType,
+            isPrivate,
+            handleEdit,
+            handleImage,
+          }}
         />
 
         <Content>

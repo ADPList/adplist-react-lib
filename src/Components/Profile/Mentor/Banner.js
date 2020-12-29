@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useGlobal } from "reactn";
 import styled from "styled-components";
-import { updateBannerStatusService } from "../../../Services/bannerService";
+import { updateBannerStatusService } from "../../../Services/profileService";
 
 import Button from "../../Button";
 

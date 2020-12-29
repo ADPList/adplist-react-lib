@@ -1,6 +1,7 @@
 import React, { useGlobal, useState } from "reactn";
 import styled from "styled-components";
 
+import { copyToClipboard } from "../../Utils";
 import ScheduleWithCalendly from "./Mentor/ScheduleWithCalendly";
 import ScheduleWithEmail from "./Mentor/ScheduleWithEmail";
 import ReportProfile from "./Mentor/ReportProfile";
@@ -9,9 +10,11 @@ import Confirm from "../Confirm";
 import Button from "../Button";
 import Image from "../Image";
 import Grid from "../../Styles/Grid";
+import Copy from "../../Icons/Copy";
 import Moon from "../../Icons/Moon";
 
 const Thumbnail = ({
+  url,
   user,
   isEdit,
   userType,
@@ -19,6 +22,11 @@ const Thumbnail = ({
   handleEdit,
   handleImage,
 }) => {
+  /**
+   * variable
+   */
+  url = `${url}/${userType}s/${user?.slug}`;
+
   /**
    * states
    */
@@ -79,6 +87,24 @@ const Thumbnail = ({
             onChange={(file) => handleImage(file)}
           />
           <Grid className="mx-auto" gap="16px" style={{ width: 280 }}>
+            <div>
+              <label className="text-left grey-2-text mb-2">
+                Your public profile
+              </label>
+              <Grid
+                className="grey-3-bg rounded py-12 px-3"
+                sm="calc(100% - 40px) 24px"
+                gap="16px"
+              >
+                <a className="text-truncate teal-text" href={url}>
+                  {url}
+                </a>
+                <Copy
+                  className="cursor-pointer"
+                  onClick={() => copyToClipboard(url)}
+                />
+              </Grid>
+            </div>
             {userType === "mentor" && (
               <React.Fragment>
                 {!user?.on_break ? (
@@ -160,7 +186,11 @@ const Thumbnail = ({
         user={user}
       />
 
-      <ReportProfile modal={report} setModal={setReport} user={user} />
+      <ReportProfile
+        modal={report}
+        setModal={setReport}
+        {...{ user, userType }}
+      />
     </React.Fragment>
   );
 };

@@ -5,7 +5,7 @@ import { Formik } from "formik";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 
-import { scheduleService } from "../../../Services/scheduleService";
+import { scheduleService } from "../../../Services/profileService";
 import Textarea from "../../Textarea";
 import Notify from "../../Notify";
 import Button from "../../Button";

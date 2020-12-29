@@ -2,19 +2,30 @@ import React from "react";
 import { object, string } from "yup";
 import { Form, Modal } from "react-bootstrap";
 import { Formik } from "formik";
+import { toast } from "react-toastify";
 
+import { reportUserService } from "../../../Services/profileService";
 import Textarea from "../../Textarea";
 import Button from "../../Button";
+import Notify from "../../Notify";
 import Field from "../../Field";
 
-const ReportProfile = ({ modal, setModal, user }) => {
+const ReportProfile = ({ modal, setModal, user, userType }) => {
   /**
    * functions
    */
-  const handleSubmit = (params, { setSubmitting }) => {
-    params = { ...params, mentor_id: user.id };
+  const handleSubmit = (params, { setSubmitting, setErrors }) => {
+    params = { ...params, [`reported_${userType}_id`]: user.id };
 
-    setModal(false);
+    reportUserService(params)
+      .then(
+        () =>
+          toast(
+            <Notify body="Report has been submitted. Account undergoing review" />,
+          ) | setModal(false),
+      )
+      .catch(() => setErrors({ reason: "Unable to submit report" }))
+      .finally(() => setSubmitting(false));
   };
 
   return (
