@@ -22,7 +22,7 @@
     "test:watch": "react-scripts test --env=jsdom",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build",
-    "copy": "cp -R src/Scss/fonts dist/"
+    "copy": "cp -R src/Scss/fonts/* dist/"
   },
   "peerDependencies": {
     "react": "^16.0.0"
