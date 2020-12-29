@@ -1,17 +1,25 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-const defaultProps = {
-  width: 27,
-  height: 27,
-  color: "#05051B",
+/**
+ * props definition
+ */
+const propTypes = {
+  size: PropTypes.number,
+  color: PropTypes.string,
 };
 
-const Moon = ({ color, width, height, ...props }) => (
+const defaultProps = {
+  size: 27,
+  color: "var(--default)",
+};
+
+const Moon = ({ color, size, ...props }) => (
   <svg
-    width={width}
-    height={height}
-    viewBox="0 0 27 27"
     fill="none"
+    width={size}
+    height={size}
+    viewBox="0 0 27 27"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
@@ -22,6 +30,7 @@ const Moon = ({ color, width, height, ...props }) => (
   </svg>
 );
 
+Moon.propTypes = propTypes;
 Moon.defaultProps = defaultProps;
 
 export default Moon;

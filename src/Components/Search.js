@@ -1,249 +1,249 @@
-import React, { Fragment, useState, useEffect } from "react";
-import ReactSelect, { components } from "react-select";
-import { capitalize } from "lodash";
-import { SyncLoader } from "react-spinners";
-
+import React, { useState, Fragment, useCallback } from "react";
+import { capitalize, debounce } from "lodash";
+import * as Lazy from "react-lazy-load-image-component";
+import Dropdown from "react-bootstrap/Dropdown";
+import PropTypes from "prop-types";
 import styled from "styled-components";
+import useSWR from "swr";
+import Form from "react-bootstrap/Form";
 
-import { ErrorBoundary } from "../Utils";
-
+import Spinner from "./Spinner";
 import Badge from "../Icons/Badge";
 import Flag from "./Flag";
 
-const {
-  Option,
-  NoOptionsMessage,
-  LoadingMessage,
-  ValueContainer,
-  Placeholder,
-} = components;
-
 /**
- * custom components
- * @param {*} param0
+ * props definition
  */
-const CustomOption = ({ children, data }) => (
-  <Fragment>
-    <div
-      className="option__avatar bg"
-      style={{ backgroundImage: `url(${data?.avatar || ""})` }}
-    />
-    <div className="option__info">
-      <div className="option__info__name">
-        <p>
-          {children}&nbsp;&nbsp;
-          <Flag code={data?.country?.iso} label={data?.country?.name} />
-        </p>
-      </div>
+const propTypes = {
+  placeholder: PropTypes.string,
+};
 
-      <div className="option__info__title">
-        <p>
-          {`${data?.title}${data?.title && data?.employer ? ", " : ""}`}
-          {data?.employer || ""}
-        </p>
-      </div>
-    </div>
-    <div className="option__type">
-      <span>{capitalize(data?.type)}</span>
-      {data?.type?.toLowerCase() === "mentor" && <Badge />}
-    </div>
-  </Fragment>
-);
+const defaultProps = {
+  router: () => {},
+  placeholder: "",
+};
 
-const CustomNoOptionMessage = () => (
-  <div className="text-center py-4 grey-2-text">
-    No mentor or designer found
-  </div>
-);
+const Search = ({ placeholder, router, scrollPosition, ...props }) => {
+  /**
+   * state
+   */
+  const [show, setShow] = useState(false);
+  const [search, setSearch] = useState(null);
 
-const CustomLoadingMessage = () => (
-  <div className="d-flex justify-content-center py-4">
-    <SyncLoader margin="10px" color="var(--teal)" size="10px" />
-  </div>
-);
+  /**
+   * api
+   */
+  const { data, error } = useSWR(
+    `${process.env.REACT_APP_API_BASEURL}/account/search-mentor-designer/?${
+      search ? `q=${search}&` : ""
+    }offset=0&limit=10`,
+    { dedupingInterval: 1000 * 60 * 15 },
+  );
 
-export default ({ options, value, ...props }) => {
-  const [finalOptions, setOption] = useState([]);
-
-  const SelectComponents = {
-    MultiValueRemove: () => null,
-    LoadingIndicator: () => null,
-    DropdownIndicator: () => null,
-    IndicatorSeparator: () => null,
-    Option: ({ children, ...props }) => (
-      <Option {...props} className="option">
-        <CustomOption children={children} {...props} />
-      </Option>
-    ),
-    NoOptionsMessage: (props) => (
-      <NoOptionsMessage className="p-0" {...props}>
-        <CustomNoOptionMessage />
-      </NoOptionsMessage>
-    ),
-    LoadingMessage: (props) => (
-      <LoadingMessage className="p-0" {...props}>
-        <CustomLoadingMessage />
-      </LoadingMessage>
-    ),
-    ValueContainer: (props) => (
-      <ValueContainer className="value-container" {...props} />
-    ),
-    Placeholder: (props) => (
-      <Placeholder className="placeholder text-truncate" {...props} />
-    ),
-  };
-
-  useEffect(() => {
-    if (options && options?.length > 0) {
-      setOption(options);
+  const options = (() => {
+    if (data) {
+      if (data?.results?.length > 0) {
+        return data?.results?.map(
+          ({
+            name,
+            slug,
+            title,
+            country,
+            employer,
+            profile_photo_url: photo,
+            topic_of_interests: interests,
+            ...d
+          }) => {
+            return {
+              name,
+              slug,
+              photo,
+              title,
+              country,
+              employer,
+              type: interests ? "mentor" : "designer",
+            };
+          },
+        );
+      } else {
+        return [];
+      }
     }
-  }, [options, setOption]);
 
-  if (value) {
-    value =
-      options.find(
-        (option) =>
-          (option.value || "").toString()?.toLowerCase() ===
-            (value || "").toString()?.toLowerCase() || "",
-      ) || "";
-  }
+    return null;
+  })();
+
+  /**
+   * function
+   */
+  const handleRedirect = ({ slug, type }) => router(`/${type}s/${slug}`);
+
+  const handleSearch = useCallback(
+    debounce((value) => setSearch(value), 1000),
+    [],
+  );
 
   return (
-    <ErrorBoundary>
-      <Select
-        {...props}
-        styles={styles}
-        value={value || ""}
-        closeOnSelect={false}
-        onSelectResetsInput={false}
-        options={finalOptions || []}
-        components={SelectComponents}
-      />
-    </ErrorBoundary>
+    <Wrapper {...props}>
+      <Group>
+        <Control
+          placeholder={placeholder}
+          onBlur={() => setShow(false)}
+          onFocus={() => setShow(true)}
+          onChange={({ currentTarget: { value } }) => handleSearch(value)}
+        />
+      </Group>
+      <Menu
+        show={show && (!data && !error ? true : options)}
+        className="dropdown-menu"
+      >
+        {!data && !error ? (
+          <Item className="d-flex justify-content-center">
+            <Spinner size={20} center />
+          </Item>
+        ) : (
+          <Fragment>
+            {options?.length > 0 && (
+              <Fragment>
+                {options.map((option, key) => (
+                  <Item key={key} onMouseDown={() => handleRedirect(option)}>
+                    <Lazy.LazyLoadImage
+                      width={48}
+                      height={48}
+                      src={option?.photo}
+                      className="option__avatar"
+                      {...{ scrollPosition }}
+                    />
+                    <div className="option__info text-truncate">
+                      <p className="option__info__name text-truncate">
+                        {option.name}&nbsp;&nbsp;
+                        <Flag
+                          code={option?.country?.iso}
+                          label={option?.country?.name}
+                        />
+                      </p>
+
+                      <p className="option__info__title text-truncate">
+                        {`${option?.title}${
+                          option?.title && option?.employer ? ", " : ""
+                        }`}
+                        {option?.employer || ""}
+                      </p>
+                    </div>
+                    <div className="option__type">
+                      <span>{capitalize(option?.type)}</span>
+                      {option?.type?.toLowerCase() === "mentor" && <Badge />}
+                    </div>
+                  </Item>
+                ))}
+              </Fragment>
+            )}
+            {options?.length === 0 && (
+              <Item className="text-center text-body gull-grey-text">
+                No options found
+              </Item>
+            )}
+          </Fragment>
+        )}
+      </Menu>
+    </Wrapper>
   );
 };
 
 /**
  * styles
  */
-const styles = {
-  container: (styles) => ({
-    ...styles,
-    width: "100%",
-  }),
-  indicatorsContainer: () => ({ padding: 0 }),
-  control: (styles, { isFocused }) => ({
-    ...styles,
-    borderColor: "transparent !important",
-    backgroundColor: "transparent",
-    borderRadius: "0px",
-    boxShadow: "none",
-    height: "100%",
-  }),
-  menuList: () => ({
-    paddingBottom: 0,
-    overflow: "auto",
-    maxHeight: 440,
-    paddingTop: 0,
-  }),
-  menuPortal: (styles) => ({ ...styles, zIndex: 999 }),
-  menu: (styles) => ({
-    ...styles,
-    boxShadow: "0px 0px 20px rgba(167, 169, 192, 0.21) !important",
-    border: "none !important",
-    backgroundColor: "#fff",
-    paddingBottom: "0px",
-    overflow: "hidden",
-    paddingTop: "0px",
-    borderRadius: 12,
-    marginBottom: 0,
-    maxWidth: 500,
-    marginTop: 24,
-    zIndex: 999,
-  }),
-  option: (styles, { isSelected }) => ({
-    ...styles,
-    backgroundColor: (isSelected && "#f5f5f5 !important") || "#fff!important",
-    color: "var(--default)",
-    outline: "none",
-    padding: "0px",
-  }),
-  multiValue: (styles) => ({ ...styles, borderRadius: 10 }),
-  multiValueLabel: (styles) => ({ ...styles, paddingLeft: 8, paddingRight: 8 }),
-  valueContainer: (styles) => ({
-    ...styles,
-    color: "var(--default)",
-    padding: "0px",
-    height: "100%",
-  }),
-  placeholder: (styles) => ({ ...styles, color: "#A7A9C0", cursor: "text" }),
-};
+const Wrapper = styled.div`
+  position: relative;
+`;
 
-/**
- * styled component styles
- */
-const Select = styled(ReactSelect)`
-  .Select-menu-outer {
-    z-index: 999;
+const Group = styled(Form.Group)`
+  margin-bottom: 0px;
+`;
+
+const Control = styled(Form.Control)`
+  height: auto;
+  border: none !important;
+  background-color: transparent !important;
+`;
+
+const Menu = styled.div`
+  padding: 0px;
+  border: none;
+  margin-top: 8px;
+  overflow-y: auto;
+  max-height: 432px;
+  position: absolute;
+  border-radius: 12px;
+  display: ${({ show }) => (show ? "block" : "none")};
+  box-shadow: 0px 0px 20px rgba(167, 169, 192, 0.21);
+
+  @media (max-width: 767px) {
+    width: 100%;
   }
 
-  .option {
-    display: flex;
-    cursor: pointer;
-    padding: 18px 24px;
-    align-items: center;
-
-    &__avatar {
-      width: 48px;
-      height: 48px;
-      flex: 0 0 48px;
-      margin-right: 8px;
-      border-radius: 50%;
-    }
-
-    &__info {
-      font-size: 14px;
-      margin-right: 32px;
-
-      &__name {
-        display: flex;
-        flex-wrap: wrap;
-        font-weight: 500;
-        line-height: 1.6;
-        align-items: center;
-
-        p {
-          margin-bottom: 0px;
-        }
-      }
-
-      &__title {
-        line-height: 1.6;
-        color: var(--teal);
-        p {
-          margin-bottom: 0px;
-        }
-      }
-    }
-
-    &__type {
-      display: flex;
-      font-size: 14px;
-      margin-left: auto;
-      align-items: center;
-      color: var(--grey-2);
-
-      svg {
-        margin-left: 5px;
-      }
-    }
-
-    &:first-child {
-      padding-top: 24px;
-    }
-
-    &:last-child {
-      padding-bottom: 24px;
-    }
+  @media (min-width: 768px) {
+    min-width: 400px;
+    max-width: 500px;
   }
 `;
+
+const Item = styled(Dropdown.Item)`
+  display: flex;
+  cursor: pointer;
+  padding: 18px 24px;
+  align-items: center;
+
+  .option__avatar {
+    flex: 0 0 48px;
+    object-fit: cover;
+    margin-right: 8px;
+    border-radius: 50%;
+  }
+
+  .option__info {
+    font-size: 14px;
+    margin-right: 32px;
+    flex: 0 0 calc(100% - 80px - 48px - 32px - 8px);
+
+    &__name {
+      display: flex;
+      flex-wrap: wrap;
+      font-weight: 500;
+      line-height: 1.6;
+      align-items: center;
+      margin-bottom: 0px;
+    }
+
+    &__title {
+      line-height: 1.6;
+      color: var(--teal);
+      margin-bottom: 0px;
+    }
+  }
+
+  .option__type {
+    display: flex;
+    font-size: 14px;
+    margin-left: auto;
+    align-items: center;
+    color: var(--grey-2);
+
+    svg {
+      margin-left: 5px;
+    }
+  }
+
+  &:first-child {
+    padding-top: 24px;
+  }
+
+  &:last-child {
+    padding-bottom: 24px;
+  }
+`;
+
+Search.propTypes = propTypes;
+Search.defaultProps = defaultProps;
+
+export default Lazy.trackWindowScroll(Search);

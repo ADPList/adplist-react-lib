@@ -1,0 +1,23 @@
+.modal {
+    &-sm {
+        max-width: 420px;
+
+        .modal-body {
+            padding: 32px 24px;
+        }
+    }
+
+    &-content {
+        box-shadow: -5px 0px 50px rgba(120, 138, 156, 0.2);
+        border-radius: 18px;
+        border: none;
+    }
+}
+
+.modal-backdrop {
+    background-color: #fff;
+
+    &.show {
+        opacity: 0.8;
+    }
+}

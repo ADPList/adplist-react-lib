@@ -5,11 +5,11 @@ import { Formik } from "formik";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 
-import { scheduleService } from "../../Services/scheduleService";
-import Textarea from "../Textarea";
-import Notify from "../Notify";
-import Button from "../Button";
-import Field from "../Field";
+import { scheduleService } from "../../../Services/scheduleService";
+import Textarea from "../../Textarea";
+import Notify from "../../Notify";
+import Button from "../../Button";
+import Field from "../../Field";
 
 const ScheduleWithEmail = ({ modal, setModal, user }) => {
   return (
@@ -41,7 +41,7 @@ const ScheduleWithEmail = ({ modal, setModal, user }) => {
                 () =>
                   toast(
                     <Notify
-                      body={`Sent 📤 you'll receive an email when your mentor accepts`}
+                      body={`Sent 📤  you'll receive an email when your mentor accepts`}
                     />,
                   ) | setModal(false),
               )

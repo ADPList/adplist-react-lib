@@ -61,7 +61,7 @@ const Footer = () => {
   ];
 
   const thirdItems = [
-    { name: "Contact us", link: "" },
+    { name: "Contact us", link: "mailto: support@adplist.org" },
     {
       name: "Privacy Policy",
       link:

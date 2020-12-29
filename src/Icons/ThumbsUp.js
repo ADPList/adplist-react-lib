@@ -1,11 +1,25 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-const ThumbsUp = ({ width = 24, height = 24, color = "#000" }) => (
+/**
+ * props definition
+ */
+const propTypes = {
+  size: PropTypes.number,
+  color: PropTypes.string,
+};
+
+const defaultProps = {
+  size: 18,
+  color: "var(--default)",
+};
+
+const ThumbsUp = ({ size, color, ...props }) => (
   <svg
-    width={width}
-    height={height}
-    viewBox="0 0 18 18"
     fill="none"
+    width={size}
+    height={size}
+    viewBox="0 0 18 18"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -17,5 +31,8 @@ const ThumbsUp = ({ width = 24, height = 24, color = "#000" }) => (
     />
   </svg>
 );
+
+ThumbsUp.propTypes = propTypes;
+ThumbsUp.defaultProps = defaultProps;
 
 export default ThumbsUp;

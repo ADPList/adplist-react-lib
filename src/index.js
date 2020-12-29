@@ -1,3 +1,5 @@
+import "./Scss/app.scss";
+
 export * from "./Utils";
 export * from "./Styles";
 export * from "./Providers";

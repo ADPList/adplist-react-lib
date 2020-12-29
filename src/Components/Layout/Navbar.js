@@ -1,6 +1,6 @@
 import React, { Fragment, useGlobal, useState, useEffect } from "reactn";
 import { Container, Form, Nav, Image } from "react-bootstrap";
-import { debounce } from "lodash";
+import { toast } from "react-toastify";
 
 import * as Styled from "./Styles";
 
@@ -10,7 +10,6 @@ import SearchIcon from "../../Icons/Search";
 import AdpLogo from "../../Icons/AdpLogo";
 import Search from "../Search";
 import Button from "../Button";
-import { toast } from "react-toastify";
 import Notify from "../Notify";
 
 const Navbar = ({
@@ -63,10 +62,6 @@ const Navbar = ({
     setInverse(props.inverse);
   }, [props.inverse]);
 
-  const handleSearch = debounce((value) => {
-    search.handleSearch(value);
-  }, 1000);
-
   return (
     <Styled.StyledNavbar
       bg="light"
@@ -80,7 +75,7 @@ const Navbar = ({
     >
       <Container>
         <Styled.NavbarBrand className="cursor-pointer" onClick={home}>
-          <AdpLogo color={inverse ? "#fff" : ""} />
+          <AdpLogo color={inverse ? "#fff" : "var(--default)"} />
         </Styled.NavbarBrand>
         <Styled.NavbarToggle
           {...(inverse && { inverse: "true" })}
@@ -91,14 +86,12 @@ const Navbar = ({
             <Form className="search">
               <SearchIcon
                 className="search__icon"
-                color={inverse ? "var(--grey-4)" : null}
+                color={inverse ? "var(--grey-4)" : "var(--teal)"}
               />
               <div className="search__container w-100">
                 <Search
-                  options={search?.options || []}
-                  placeholder={search?.placeholder || ""}
-                  onInputChange={(value) => handleSearch(value)}
-                  onChange={(option) => search?.handleSelect(option)}
+                  {...{ router }}
+                  placeholder="Search for a mentor or designer"
                 />
               </div>
             </Form>

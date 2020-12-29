@@ -1,0 +1,78 @@
+.table-container {
+  border: solid 1px $grey-4;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.table {
+  white-space: nowrap;
+  margin-bottom: 0px;
+  border: none;
+
+  thead {
+    th {
+      background-color: #fff;
+      white-space: nowrap;
+      border-bottom: none;
+      border-top: none;
+      font-weight: 400;
+      position: sticky;
+      font-size: 14px;
+      padding: 0px;
+      z-index: 10;
+      top: 0;
+
+      .th {
+        border-bottom: solid 1px $grey-4;
+        padding: 16px 24px;
+        font-size: 14px;
+        color: $grey-2;
+        display: flex;
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+        border-top: none;
+        padding: 0px;
+
+        .td {
+          border-bottom: solid 1px $grey-4;
+          align-items: center;
+          padding: 0px 24px;
+          min-height: 60px;
+          font-size: 14px;
+          display: flex;
+
+          .img {
+            text-transform: uppercase;
+            justify-content: center;
+            background-color: $grey;
+            align-items: center;
+            border-radius: 50%;
+            overflow: hidden;
+            font-weight: 700;
+            font-size: 14px;
+            flex: 0 0 35px;
+            display: flex;
+            color: $white;
+            height: 35px;
+            width: 35px;
+
+            img {
+              height: 100%;
+            }
+          }
+        }
+      }
+      &:last-child {
+        td {
+          .td {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}

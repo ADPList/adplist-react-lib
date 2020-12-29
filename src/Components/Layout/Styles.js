@@ -45,6 +45,8 @@ export const NavbarToggle = styled(Navbar.Toggle)`
 `;
 
 export const StyledNavbar = styled(Navbar)`
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  background-color: #fff !important;
   transition: ease all 0.25s;
   padding-bottom: 12px;
   padding-top: 12px;
@@ -52,9 +54,6 @@ export const StyledNavbar = styled(Navbar)`
   display: block;
   z-index: 999;
   top: 0;
-
-  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
-  background-color: #fff !important;
 
   .search {
     display: flex;
@@ -73,9 +72,10 @@ export const StyledNavbar = styled(Navbar)`
       left: 16px;
     }
 
-    .value-container {
+    .form-control {
       transition: ease all 0.25s;
-      padding: 0px 48px;
+      padding: 0px 16px 0px 48px;
+      height: 48px;
     }
 
     .placeholder {
@@ -92,7 +92,7 @@ export const StyledNavbar = styled(Navbar)`
         z-index: 0;
       }
 
-      .value-container {
+      .form-control {
         transition: ease all 0.25s;
         padding: 0px 16px;
       }

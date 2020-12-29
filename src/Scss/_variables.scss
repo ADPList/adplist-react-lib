@@ -1,0 +1,83 @@
+// colors
+$red: #da3d2a;
+$grey: #0a243f;
+$blue: #0a1a7b;
+$teal: #077f7f;
+$green: #44ab65;
+$white: #ffffff;
+$danger: #ff453a;
+$grey-2: #788a9c;
+$grey-3: #f0f6f9;
+$grey-4: #eaedf0;
+$grey-5: #f9fafb;
+$orange: #fdbc7d;
+$warning: #f88634;
+$default: #05051b;
+$pale-grey: #fafbfc;
+$dark-blue: #071a52;
+$pale-peach: rgba(243, 101, 35, 0.2);
+$linkedin-blue: #2966bc;
+$light-periwinkle: #f0f6f9;
+
+$colors: () !default;
+
+$colors: map-merge(("red": $red,
+    "grey": $grey,
+    "teal": $teal,
+    "blue": $blue,
+    "green": $green,
+    "white": $white,
+    "danger": $danger,
+    "grey-2": $grey-2,
+    "grey-3": $grey-3,
+    "grey-4": $grey-4,
+    "grey-5": $grey-5,
+    "orange": $orange,
+    "warning": $warning,
+    "default": $default,
+    "pale-grey": $pale-grey,
+    "dark-blue": $dark-blue,
+    "pale-peach": $pale-peach,
+    "linkedin-blue": $linkedin-blue,
+    "light-periwinkle": $light-periwinkle,
+  ),
+  $colors);
+
+// grids
+$grids: ((name: "sm",
+    grid: 0,
+  ),
+  (name: "md",
+    grid: 768,
+  ),
+  (name: "lg",
+    grid: 992,
+  ),
+  (name: "xl",
+    grid: 1200,
+  ));
+
+// font weights
+$weights: (400, 500, 600, 700);
+
+:root {
+  --red: #{$red};
+  --grey: #{$grey};
+  --teal: #{$teal};
+  --blue: #{$blue};
+  --green: #{$green};
+  --white: #{$white};
+  --danger: #{$danger};
+  --grey-2: #{$grey-2};
+  --grey-3: #{$grey-3};
+  --grey-4: #{$grey-4};
+  --grey-5: #{$grey-5};
+  --orange: #{$orange};
+  --warning: #{$warning};
+  --default: #{$default};
+  --pale-grey: #{$pale-grey};
+  --dark-blue: #{$dark-blue};
+  --pale-peach: #{$pale-peach};
+  --linkedin-blue: #{$linkedin-blue};
+  --light-periwinkle: #{$light-periwinkle};
+}
