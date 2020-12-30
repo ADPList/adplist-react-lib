@@ -1,70 +1,73 @@
 import React from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { startCase } from "lodash";
 import styled from "styled-components";
 
 import Briefcase from "../Icons/Briefcase";
 import Message from "../Icons/Message";
+import Flag from "./Flag";
 import Moon from "../Icons/Moon";
 import Star from "../Icons/Star";
-import Flag from "./Flag";
-import { Image } from "react-bootstrap";
 
-const UserTile = ({ user, router }) => {
-  return (
-    <Wrapper className="bg user-tile" onClick={router}>
-      {user?.profile_photo_url && (
-        <Image className="avatar" src={user?.profile_photo_url} />
-      )}
-      <div className="overlay">
-        <div className="top-items ml-auto">
-          {user?.on_break && (
-            <div className="on-break">
-              <Moon color="#fff" />
-              <span className="font-size-14 font-weight-bold">On break</span>
-            </div>
-          )}
-          {user?.total_reviews ? (
-            <div className="rating">
-              <Star />
-              <span className="font-size-14">{user.total_reviews}</span>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-
-        <div className="details">
-          <p className="details__name">
-            {startCase(user?.name)}&nbsp;&nbsp;
-            <Flag code={user?.country?.iso} label={user?.country?.name} />
-          </p>
-          {user?.employer && (
-            <p className="details__employer">{user?.employer}</p>
-          )}
-
-          <div className="details__items">
-            {user?.title && (
-              <div className="item">
-                <Briefcase />
-                <span>{user?.title}</span>
-              </div>
-            )}
-            {user?.topic_of_interests && (
-              <div className="item">
-                <Message />
-                <span>
-                  {user?.topic_of_interests
-                    ?.map(({ description }) => description)
-                    .join(", ")}
-                </span>
-              </div>
-            )}
+const UserTile = ({ user, router }) => (
+  <Wrapper className="bg user-tile" onClick={router}>
+    {user?.profile_photo_url && (
+      <LazyLoadImage
+        width="100%"
+        height="100%"
+        className="avatar"
+        src={user?.profile_photo_url}
+      />
+    )}
+    <div className="overlay">
+      <div className="top-items ml-auto">
+        {user?.on_break && (
+          <div className="on-break">
+            <Moon color="#fff" />
+            <span className="font-size-14 font-weight-bold">On break</span>
           </div>
+        )}
+        {user?.total_reviews ? (
+          <div className="rating">
+            <Star />
+            <span className="font-size-14">{user.total_reviews}</span>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+
+      <div className="details">
+        <p className="details__name">
+          {startCase(user?.name)}&nbsp;&nbsp;
+          <Flag code={user?.country?.iso} label={user?.country?.name} />
+        </p>
+        {user?.employer && (
+          <p className="details__employer">{user?.employer}</p>
+        )}
+
+        <div className="details__items">
+          {user?.title && (
+            <div className="item">
+              <Briefcase />
+              <span>{user?.title}</span>
+            </div>
+          )}
+          {user?.topic_of_interests && (
+            <div className="item">
+              <Message />
+              <span>
+                {user?.topic_of_interests
+                  ?.map(({ description }) => description)
+                  .join(", ")}
+              </span>
+            </div>
+          )}
         </div>
       </div>
-    </Wrapper>
-  );
-};
+    </div>
+  </Wrapper>
+);
 
 /**
  * styles
