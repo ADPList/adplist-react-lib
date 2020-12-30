@@ -43,10 +43,10 @@ const Footer = () => {
       name: "hire designers",
       link: `${process.env.REACT_APP_ADPLIST_URL}/designers`,
     },
-    {
-      name: "find jobs",
-      link: `https://www.adplist.org/jobs`,
-    },
+    // {
+    //   name: "find jobs",
+    //   link: `https://www.adplist.org/jobs`,
+    // },
   ];
 
   const secondItems = [
