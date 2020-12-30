@@ -142,7 +142,7 @@ const Thumbnail = ({
                 )}
               </React.Fragment>
             )}
-            {user?.portfolio_url && (
+            {user?.portfolio_url && !isPrivate && (
               <Button
                 isValid
                 className="grey-3-bg default-text w-100 btn-56"
@@ -153,7 +153,7 @@ const Thumbnail = ({
               </Button>
             )}
 
-            {loggedInUser && (
+            {loggedInUser && !isPrivate && (
               <a
                 href="/"
                 className="default-text py-2"

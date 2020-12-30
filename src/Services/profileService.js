@@ -7,4 +7,4 @@ export const scheduleService = (id, payload) =>
   Http.post(`/account/mentor/${id}/request-mentorship/`, payload);
 
 export const reportUserService = (payload) =>
-  Http.put(`/account/user/reported-profile/`, payload);
+  Http.post(`/account/user/reported-profile/`, payload);
