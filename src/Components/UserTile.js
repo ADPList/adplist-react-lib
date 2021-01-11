@@ -3,14 +3,14 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { startCase } from "lodash";
 import styled from "styled-components";
 
+import ChatBubble from "../Icons/ChatBubble";
 import Briefcase from "../Icons/Briefcase";
 import Message from "../Icons/Message";
 import Flag from "./Flag";
 import Moon from "../Icons/Moon";
-import Star from "../Icons/Star";
 
-const UserTile = ({ user, router }) => (
-  <Wrapper className="bg user-tile" onClick={router}>
+const UserTile = ({ user, href }) => (
+  <Wrapper className="bg user-tile" target="_blank" href={href}>
     {user?.profile_photo_url && (
       <LazyLoadImage
         width="100%"
@@ -29,7 +29,7 @@ const UserTile = ({ user, router }) => (
         )}
         {user?.total_reviews ? (
           <div className="rating">
-            <Star />
+            <ChatBubble size={14} />
             <span className="font-size-14">{user.total_reviews}</span>
           </div>
         ) : (
@@ -72,9 +72,10 @@ const UserTile = ({ user, router }) => (
 /**
  * styles
  */
-const Wrapper = styled.div`
+const Wrapper = styled.a`
   width: 100%;
   height: 432px;
+  display: block;
   cursor: pointer;
   overflow: hidden;
   position: relative;

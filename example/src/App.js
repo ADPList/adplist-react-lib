@@ -82,7 +82,8 @@ export default () => {
           <Icon.ArrowRight />
           <Icon.ArrowUpRight />
           <Icon.Badge />
-          <Icon.Briefcase />
+          <Icon.Briefcase color="var(--teal)" />
+          <Icon.ChatBubble />
           <Icon.Close />
           <Icon.Comment />
           <Icon.Copy />
@@ -112,7 +113,7 @@ export default () => {
           <Icon.Upload />
           <Icon.Youtube />
 
-          <UserTile user={user?.mentor} />
+          <UserTile user={user?.mentor} href="/" />
         </Layout>
       </AuthProvider>
       <ToastContainer />

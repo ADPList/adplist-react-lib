@@ -87,7 +87,7 @@ const Thumbnail = ({
             onChange={(file) => handleImage(file)}
           />
           <Grid className="mx-auto" gap="16px" style={{ width: 280 }}>
-            {isPrivate && (
+            {isPrivate && user?.date_verified && (
               <div>
                 <label className="text-left grey-2-text mb-2">
                   Your public profile
