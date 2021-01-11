@@ -10,7 +10,7 @@ import Flag from "./Flag";
 import Moon from "../Icons/Moon";
 
 const UserTile = ({ user, href }) => (
-  <Wrapper className="bg user-tile" target="_blank" href={href}>
+  <Wrapper className="user-tile" target="_blank" href={href}>
     {user?.profile_photo_url && (
       <LazyLoadImage
         width="100%"
@@ -80,6 +80,7 @@ const Wrapper = styled.a`
   overflow: hidden;
   position: relative;
   border-radius: 12px;
+  text-decoration: none;
 
   img.avatar {
     width: 100%;
