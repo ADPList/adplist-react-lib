@@ -15,7 +15,7 @@ const Auth = ({ children }) => {
   /**
    * functions
    */
-  const { getCookie, deleteCookie } = useCookie();
+  const { getCookie } = useCookie();
 
   /**
    * resetting refresh timer and local Token
