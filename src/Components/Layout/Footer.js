@@ -31,10 +31,10 @@ const Footer = () => {
   ];
 
   const firstItems = [
-    {
-      name: "about us",
-      link: "https://www.adplist.org/about",
-    },
+    // {
+    //   name: "about us",
+    //   link: "https://www.adplist.org/about",
+    // },
     {
       name: "find mentors",
       link: `${process.env.REACT_APP_ADPLIST_URL}/mentors`,
@@ -57,7 +57,7 @@ const Footer = () => {
         "https://www.notion.so/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
     },
     { name: "partnerships", link: "mailto: partnership@adplist.org" },
-    { name: "support us", link: "mailto: support@adplist.org" },
+    { name: "support us", link: "https://www.buymeacoffee.com/adplist" },
   ];
 
   const thirdItems = [

@@ -38,13 +38,7 @@ const Auth = ({ children }) => {
   const handleUserPayload = () => {
     return Http.get(`/account/user/`)
       .then((response) => setAuth(true) | setUser(response))
-      .catch(
-        () =>
-          deleteCookie("token") |
-          setRefresh("") |
-          setAuth(false) |
-          setUser(null),
-      );
+      .catch(() => setRefresh("") | setAuth(false) | setUser(null));
   };
 
   const handleIntervalCompute = () => {
