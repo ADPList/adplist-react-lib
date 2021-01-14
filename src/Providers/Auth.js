@@ -1,21 +1,20 @@
 import { useGlobal, useEffect } from "reactn";
-
+import { useCookies } from "react-cookie";
 import moment from "moment";
 
-import useCookie from "../Utils/useCookie";
 import Http from "../Utils/Http";
 
 const Auth = ({ children }) => {
   /**
    * states
    */
-  const [, setUser] = useGlobal("user");
+  const [user, setUser] = useGlobal("user");
   const [, setAuth] = useGlobal("isAuthenticated");
 
   /**
    * functions
    */
-  const { getCookie } = useCookie();
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
 
   /**
    * resetting refresh timer and local Token
@@ -39,11 +38,11 @@ const Auth = ({ children }) => {
     return Http.get(`/account/user/`)
       .then((response) => setAuth(true) | setUser(response))
       .catch(
-        () => {},
-        // deleteCookie("token") |
-        // setRefresh("") |
-        // setAuth(false) |
-        // setUser(null),
+        () =>
+          removeCookie("token") |
+          setRefresh("") |
+          setAuth(false) |
+          setUser(null),
       );
   };
 
@@ -51,7 +50,7 @@ const Auth = ({ children }) => {
     /**
      * variables
      */
-    const token = getCookie("token");
+    const token = cookies.token;
     const refresh = window?.localStorage?.getItem("refresh");
     let localToken = window?.localStorage?.getItem("accessToken");
 
@@ -74,9 +73,9 @@ const Auth = ({ children }) => {
         return handleUserPayload() | setRefresh(moment().add(30, "minutes"));
       }
     } else {
-      // if (user || refresh || localToken) {
-      //   return setAuth(false) | setUser(null) | setRefresh("");
-      // }
+      if (user || refresh || localToken) {
+        return setAuth(false) | setUser(null) | setRefresh("");
+      }
     }
   };
 
