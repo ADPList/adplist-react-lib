@@ -6,11 +6,13 @@ import * as Styled from "./Styles";
 
 import ArrowUpRight from "../../Icons/ArrowUpRight";
 import ArrowRight from "../../Icons/ArrowRight";
+import ChatBubble from "../../Icons/ChatBubble";
 import SearchIcon from "../../Icons/Search";
 import AdpLogo from "../../Icons/AdpLogo";
 import Search from "../Search";
 import Button from "../Button";
 import Notify from "../Notify";
+import Grid from "../../Styles/Grid";
 
 const Navbar = ({
   app,
@@ -191,6 +193,21 @@ const Navbar = ({
                   }
                   id="collasible-nav-dropdown"
                 >
+                  <Styled.NavDropdownItem className="px-2 pt-3 pb-0 border-bottom-0">
+                    <Grid
+                      gap="8px"
+                      sm="24px 1fr"
+                      className="align-items-center p-12 rounded grey-3-bg"
+                    >
+                      <ChatBubble />
+                      <div className="font-size-10">
+                        <p className="mb-1 font-weight-600">
+                          Met a mentor on ADPList?
+                        </p>
+                        <p className="mb-0">Remember to write them a review.</p>
+                      </div>
+                    </Grid>
+                  </Styled.NavDropdownItem>
                   <Styled.NavDropdownItem
                     href={`${
                       process.env.REACT_APP_AUTH_URL || ""

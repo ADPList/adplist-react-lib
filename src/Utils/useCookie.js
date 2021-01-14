@@ -1,9 +1,15 @@
+import moment from "moment";
+
 const isBrowser = () => typeof window !== "undefined";
 
 const useCookie = () => {
   const setCookie = (key, value) => {
     if (isBrowser) {
-      return (window.document.cookie = `${key}=${value}; domain=${process.env.REACT_APP_PARENT_DOMAIN}; path=/`);
+      return (window.document.cookie = `${key}=${value}; domain=${
+        process.env.REACT_APP_PARENT_DOMAIN
+      }; path=/; max-age=60*60*24*31*3; expires=${moment()
+        .add(3, "months")
+        .toDate()}`);
     }
   };
 
