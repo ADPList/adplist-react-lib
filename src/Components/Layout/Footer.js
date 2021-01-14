@@ -57,7 +57,11 @@ const Footer = () => {
         "https://www.notion.so/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
     },
     { name: "partnerships", link: "mailto: partnership@adplist.org" },
-    { name: "support us", link: "https://www.buymeacoffee.com/adplist" },
+    {
+      name: "support us",
+      link: "https://www.buymeacoffee.com/adplist",
+      external: true,
+    },
   ];
 
   const thirdItems = [
@@ -120,8 +124,12 @@ const Footer = () => {
                 ))}
               </div>
               <div className="d-lg-flex links -second">
-                {secondItems?.map(({ name, link }, key) => (
-                  <a href={link} key={key}>
+                {secondItems?.map(({ name, link, external }, key) => (
+                  <a
+                    key={key}
+                    href={link}
+                    {...(external && { target: "_blank" })}
+                  >
                     {name}
                   </a>
                 ))}
