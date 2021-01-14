@@ -64,7 +64,7 @@ const Auth = ({ children }) => {
       localToken = token;
     }
 
-    if (token && localToken && token === localToken) {
+    if (localToken) {
       if (refresh) {
         if (moment(refresh).isBefore(moment())) {
           return setRefresh(moment().add(30, "minutes")) | handleUserPayload();
