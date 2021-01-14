@@ -195,6 +195,8 @@ export const StyledNavbar = styled(Navbar)`
     .dropdown-menu {
       margin-left: 0px !important;
       margin-right: 0px !important;
+      left: auto;
+      right: 0;
     }
 
     .nav-item {
