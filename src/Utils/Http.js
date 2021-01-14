@@ -1,10 +1,8 @@
-import React, { setGlobal } from "reactn";
-import { toast } from "react-toastify";
+import { setGlobal } from "reactn";
 
 import axios from "axios";
 
 import useCookie from "./useCookie";
-import Notify from "../Components/Notify";
 
 // variables
 const rootState = {
@@ -49,9 +47,9 @@ Http.interceptors.response.use(
         setGlobal(rootState);
       }
 
-      if (error.response.status === 500) {
-        toast(<Notify body="A server error occured" type="error" />);
-      }
+      // if (error.response.status === 500) {
+      //   toast(<Notify body="A server error occured" type="error" />);
+      // }
     }
 
     return Promise.reject(error);

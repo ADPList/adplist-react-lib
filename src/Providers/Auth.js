@@ -88,7 +88,7 @@ const Auth = ({ children }) => {
 
     const interval = setInterval(() => {
       handleIntervalCompute();
-    }, 1000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
