@@ -236,10 +236,13 @@ const Navbar = ({
                     </Styled.NavDropdownItem>
                   )} */}
                   <Styled.NavDropdownItem
-                    onClick={() =>
+                    onClick={() => {
+                      localStorage.clear();
                       window.open(process.env.REACT_APP_AUTH_URL + "/logout") |
-                      toast(<Notify body="Logout successful" type="success" />)
-                    }
+                        toast(
+                          <Notify body="Logout successful" type="success" />,
+                        );
+                    }}
                   >
                     <span className="mr-3 grey-text" style={{ opacity: 0.5 }}>
                       Logout
