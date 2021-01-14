@@ -9,13 +9,13 @@ const Auth = ({ children }) => {
   /**
    * states
    */
-  const [user, setUser] = useGlobal("user");
+  const [, setUser] = useGlobal("user");
   const [, setAuth] = useGlobal("isAuthenticated");
 
   /**
    * functions
    */
-  const { getCookie, deleteCookie } = useCookie();
+  const { getCookie } = useCookie();
 
   /**
    * resetting refresh timer and local Token
@@ -39,11 +39,11 @@ const Auth = ({ children }) => {
     return Http.get(`/account/user/`)
       .then((response) => setAuth(true) | setUser(response))
       .catch(
-        () =>
-          deleteCookie("token") |
-          setRefresh("") |
-          setAuth(false) |
-          setUser(null),
+        () => {},
+        // deleteCookie("token") |
+        // setRefresh("") |
+        // setAuth(false) |
+        // setUser(null),
       );
   };
 
@@ -74,9 +74,9 @@ const Auth = ({ children }) => {
         return handleUserPayload() | setRefresh(moment().add(30, "minutes"));
       }
     } else {
-      if (user || refresh || localToken) {
-        return setAuth(false) | setUser(null) | setRefresh("");
-      }
+      // if (user || refresh || localToken) {
+      //   return setAuth(false) | setUser(null) | setRefresh("");
+      // }
     }
   };
 
