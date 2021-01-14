@@ -28,7 +28,7 @@ const Auth = ({ children }) => {
       window.localStorage.removeItem("refresh");
     }
 
-    window.localStorage.removeItem("accessToken");
+    // window.localStorage.removeItem("accessToken");
   };
 
   /**

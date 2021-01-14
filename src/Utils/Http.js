@@ -1,6 +1,8 @@
 import { setGlobal } from "reactn";
-
 import axios from "axios";
+
+// import Notify from "../Components/Notify";
+// import { toast } from "react-toastify";
 
 // variables
 const rootState = {
@@ -24,7 +26,7 @@ Http.interceptors.request.use((config) => {
   const unAuthRoutes = ["authenticate", "sign-up-with-email", "forgotten"];
 
   if (unAuthRoutes.filter((x) => url.includes(x)).length === 0) {
-    const token = window.localStorage.getItem("accessToken");
+    const token = window?.localStorage.getItem("accessToken");
 
     if (token) {
       config.headers.Authorization = `Token ${token}`;
