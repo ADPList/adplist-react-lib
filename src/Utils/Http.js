@@ -21,12 +21,33 @@ export const Http = axios.create({
   },
 });
 
+const getCookie = (cname) => {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(";");
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == " ") {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+};
+
 Http.interceptors.request.use((config) => {
   const url = config?.url?.split("/") || [];
   const unAuthRoutes = ["authenticate", "sign-up-with-email", "forgotten"];
 
   if (unAuthRoutes.filter((x) => url.includes(x)).length === 0) {
-    const token = window?.localStorage.getItem("accessToken");
+    // get token from cookie
+    let token = getCookie("token");
+    console.log("Token from Cookie ", token);
+
+    // if not available... get from local storage
+    if (!token) token = window?.localStorage.getItem("accessToken");
 
     if (token) {
       config.headers.Authorization = `Token ${token}`;
