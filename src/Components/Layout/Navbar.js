@@ -11,6 +11,7 @@ import SearchIcon from "../../Icons/Search";
 import AdpLogo from "../../Icons/AdpLogo";
 import Search from "../Search";
 import Button from "../Button";
+import cookie from "../../Utils/cookie";
 import Notify from "../Notify";
 import Grid from "../../Styles/Grid";
 
@@ -47,11 +48,11 @@ const Navbar = ({
     );
 
   const logout = () => {
+    cookie().deleteCookie("token");
     setToken(null);
     setUser(null);
 
-    toast(<Notify body="Logging out" type="success" />);
-    return window.open(process.env.REACT_APP_AUTH_URL + "/logout");
+    toast(<Notify body="Logged out" type="success" />);
   };
 
   const signup = () =>
