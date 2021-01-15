@@ -27,7 +27,7 @@ const Navbar = ({
    * state
    */
   const [inverse, setInverse] = useState(props?.inverse || false);
-  const [isAuthenticated] = useGlobal("isAuthenticated");
+  const [isAuthenticated, setAuth] = useGlobal("isAuthenticated");
   const [initUser, setUser] = useGlobal("user");
   const [, setToken] = useGlobal("accessToken");
 
@@ -51,6 +51,7 @@ const Navbar = ({
     cookie().deleteCookie("token");
     setToken(null);
     setUser(null);
+    setAuth(false);
 
     toast(<Notify body="Logged out" type="success" />);
   };
