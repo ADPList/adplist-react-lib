@@ -22,19 +22,27 @@ const Auth = ({ children }) => {
    * get user payload
    */
   const handleUserPayload = useCallback(() => {
-    if (!user) {
+    if (cookie().getCookie("token")) {
       return Http.get(`/account/user/`)
         .then((response) => setAuth(true) | setUser(response))
         .catch(() => deleteCookie("token") | setAuth(false) | setUser(null));
+    } else {
+      if (user) {
+        setAuth(false);
+        setUser(null);
+      }
     }
   }, [deleteCookie, setAuth, setUser, user]);
 
-  const handleIntervalCompute = useCallback(() => {
+  const handleIntervalCompute = () => {
     /**
      * variables
      */
     const token = getCookie("token");
     let localToken = window?.localStorage?.getItem("accessToken");
+    const storage = JSON.parse(
+      window.localStorage.getItem(process.env.REACT_APP_ROOT_KEY),
+    );
 
     /**
      * maintain global token and local token
@@ -47,8 +55,8 @@ const Auth = ({ children }) => {
     }
 
     if (token && localToken && token === localToken) {
-      if (!user) {
-        handleUserPayload();
+      if (!storage?.user) {
+        // handleUserPayload();
       }
     } else {
       if (user || localToken) {
@@ -60,7 +68,7 @@ const Auth = ({ children }) => {
         return setAuth(false) | setUser(null);
       }
     }
-  }, [getCookie, setAuth, setUser, user, handleUserPayload]);
+  };
 
   /**
    * effect
@@ -73,11 +81,11 @@ const Auth = ({ children }) => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [handleIntervalCompute]);
+  }, []);
 
   useEffect(() => {
     handleUserPayload();
-  }, [handleUserPayload]);
+  }, []);
 
   return children;
 };

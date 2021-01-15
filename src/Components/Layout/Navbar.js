@@ -11,7 +11,6 @@ import SearchIcon from "../../Icons/Search";
 import AdpLogo from "../../Icons/AdpLogo";
 import Search from "../Search";
 import Button from "../Button";
-import cookie from "../../Utils/cookie";
 import Notify from "../Notify";
 import Grid from "../../Styles/Grid";
 
@@ -48,7 +47,6 @@ const Navbar = ({
     );
 
   const logout = () => {
-    cookie().deleteCookie("token");
     setToken(null);
     setUser(null);
 
