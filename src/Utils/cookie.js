@@ -1,13 +1,11 @@
-import moment from "moment";
 import Cookie from "js-cookie";
 
 const cookie = () => {
   const setCookie = (key, value) => {
     return Cookie.set(key, value, {
       path: "/",
-      maxAge: 60 * 60 * 24 * 31 * 3,
+      expires: 60,
       domain: process.env.REACT_APP_PARENT_DOMAIN,
-      expires: moment().add(3, "months").toDate(),
     });
   };
 

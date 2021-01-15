@@ -1,31 +1,15 @@
-import React, { useGlobal, Fragment } from "reactn";
-import {
-  Grid,
-  Icon,
-  Layout,
-  Button,
-  Profile,
-  Socials,
-  Confirm,
-  UserTile,
-  AuthProvider,
-} from "adplist-react-lib";
+import React, { Fragment } from "reactn";
+import { AuthProvider, Button, Layout, cookie } from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
-import Skeleton from "react-loading-skeleton-2";
+import { Formik, Field } from "formik";
+import { Form } from "react-bootstrap";
 
 import "adplist-react-lib/dist/index.css";
 
 export default () => {
-  const [user] = useGlobal("user");
-
-  const handleConfirm = async () => {
-    if (
-      await Confirm({
-        confirmation: "Hello world",
-        buttons: { cancel: { value: "Cunt", className: "d-none" } },
-      })
-    ) {
-    }
+  const handleSubmit = (params, { setSubmitting }) => {
+    cookie().setCookie("token", params.token);
+    setSubmitting(false);
   };
 
   return (
@@ -60,60 +44,22 @@ export default () => {
             inverse: false,
           }}
         >
-          <Profile initUser={user} isPrivate isEdit>
-            <div className="py-5">
-              <Grid sm="1fr" md="repeat(2, 1fr)">
-                {[1, 2, 3, 4, 5, 6].map((index) => (
-                  <Skeleton key={index} height={300} />
-                ))}
-              </Grid>
+          <Formik initialValues={{ token: "" }} onSubmit={handleSubmit}>
+            {({ handleSubmit, values, isValid, isSubmitting }) => (
+              <Form>
+                <Field label="Token" name="token" value={values.token || ""} />
 
-              <Socials url="https://larrybuntus.com" />
-            </div>
-          </Profile>
-
-          <Button className="btn--default" isValid onClick={handleConfirm}>
-            Hello
-          </Button>
-
-          <Icon.Twitter variant="default" />
-          <Icon.AdpLogo />
-          <Icon.AlignLeft />
-          <Icon.ArrowRight />
-          <Icon.ArrowUpRight />
-          <Icon.Badge />
-          <Icon.Briefcase color="var(--teal)" />
-          <Icon.ChatBubble />
-          <Icon.Close />
-          <Icon.Comment />
-          <Icon.Copy />
-          <Icon.Download />
-          <Icon.Edit />
-          <Icon.Expertise />
-          <Icon.Facebook />
-          <Icon.Image />
-          <Icon.Instagram variant="default" />
-          <Icon.Instagram />
-          <Icon.LinkedIn variant="default" />
-          <Icon.LinkedIn />
-          <Icon.Logo />
-          <Icon.MapPointer />
-          <Icon.Message />
-          <Icon.Moon />
-          <Icon.MoreHoriz />
-          <Icon.Person color="red" />
-          <Icon.Portfolio />
-          <Icon.Search />
-          <Icon.Smiley />
-          <Icon.SmileyLogo />
-          <Icon.Sort />
-          <Icon.Star />
-          <Icon.ThumbsUp />
-          <Icon.Twitter />
-          <Icon.Upload />
-          <Icon.Youtube />
-
-          <UserTile user={user?.mentor} href="/" />
+                <Button
+                  className="btn--default px-5"
+                  loading={isSubmitting}
+                  isValid={isValid}
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </Button>
+              </Form>
+            )}
+          </Formik>
         </Layout>
       </AuthProvider>
       <ToastContainer />
