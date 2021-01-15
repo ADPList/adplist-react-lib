@@ -39,7 +39,7 @@ const Auth = ({ children }) => {
      * check if local token and global token are the same
      * if not, delete local token
      */
-    if (token !== localToken) {
+    if (token && token !== localToken) {
       window.localStorage.setItem("accessToken", token);
       localToken = token;
     }
