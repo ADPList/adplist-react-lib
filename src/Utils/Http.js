@@ -1,8 +1,6 @@
 import { setGlobal } from "reactn";
 import axios from "axios";
-
-// import Notify from "../Components/Notify";
-// import { toast } from "react-toastify";
+import cookie from "./cookie";
 
 // variables
 const rootState = {
@@ -22,11 +20,12 @@ export const Http = axios.create({
 });
 
 Http.interceptors.request.use((config) => {
+  const { getCookie } = cookie();
   const url = config?.url?.split("/") || [];
   const unAuthRoutes = ["authenticate", "sign-up-with-email", "forgotten"];
 
   if (unAuthRoutes.filter((x) => url.includes(x)).length === 0) {
-    const token = window?.localStorage.getItem("accessToken");
+    const token = getCookie("token");
 
     if (token) {
       config.headers.Authorization = `Token ${token}`;
@@ -41,6 +40,9 @@ Http.interceptors.response.use(
   (error) => {
     if (error.response?.status) {
       if (error.response.status === 401) {
+        const { deleteCookie } = cookie();
+
+        deleteCookie("token");
         setGlobal(rootState);
       }
 

@@ -11,13 +11,13 @@ import SearchIcon from "../../Icons/Search";
 import AdpLogo from "../../Icons/AdpLogo";
 import Search from "../Search";
 import Button from "../Button";
+import cookie from "../../Utils/cookie";
 import Notify from "../Notify";
 import Grid from "../../Styles/Grid";
 
 const Navbar = ({
   app,
   items,
-  logout,
   search,
   home = () => {},
   router = (link) => (window.location.href = link),
@@ -45,6 +45,14 @@ const Navbar = ({
         app ? `?app=${app}` : ""
       }`,
     );
+
+  const logout = () => {
+    cookie().deleteCookie("token");
+    window.localStorage.clear();
+
+    toast(<Notify body="Logging out" type="success" />);
+    return window.open(process.env.REACT_APP_AUTH_URL + "/logout");
+  };
 
   const signup = () =>
     window.open(`${process.env.REACT_APP_AUTH_URL || ""}/signup`);
@@ -235,15 +243,7 @@ const Navbar = ({
                       Become a mentor
                     </Styled.NavDropdownItem>
                   )} */}
-                  <Styled.NavDropdownItem
-                    onClick={() => {
-                      localStorage.clear();
-                      window.open(process.env.REACT_APP_AUTH_URL + "/logout") |
-                        toast(
-                          <Notify body="Logout successful" type="success" />,
-                        );
-                    }}
-                  >
+                  <Styled.NavDropdownItem onClick={logout}>
                     <span className="mr-3 grey-text" style={{ opacity: 0.5 }}>
                       Logout
                     </span>

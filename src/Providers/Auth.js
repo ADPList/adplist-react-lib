@@ -1,7 +1,9 @@
+import React from "react";
 import { useGlobal, useEffect } from "reactn";
-import { useCookies } from "react-cookie";
-import moment from "moment";
+import { toast } from "react-toastify";
 
+import cookie from "../Utils/cookie";
+import Notify from "../Components/Notify";
 import Http from "../Utils/Http";
 
 const Auth = ({ children }) => {
@@ -14,22 +16,7 @@ const Auth = ({ children }) => {
   /**
    * functions
    */
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
-
-  /**
-   * resetting refresh timer and local Token
-   * @param {*} value
-   */
-  const setRefresh = (value) => {
-    value = value ? value?.toISOString() : "";
-    if (value) {
-      window.localStorage.setItem("refresh", value);
-    } else {
-      window.localStorage.removeItem("refresh");
-    }
-
-    // window.localStorage.removeItem("accessToken");
-  };
+  const { deleteCookie, getCookie } = cookie();
 
   /**
    * get user payload
@@ -37,21 +24,14 @@ const Auth = ({ children }) => {
   const handleUserPayload = () => {
     return Http.get(`/account/user/`)
       .then((response) => setAuth(true) | setUser(response))
-      .catch(
-        () =>
-          removeCookie("token") |
-          setRefresh("") |
-          setAuth(false) |
-          setUser(null),
-      );
+      .catch(() => deleteCookie("token") | setAuth(false) | setUser(null));
   };
 
   const handleIntervalCompute = () => {
     /**
      * variables
      */
-    const token = cookies.token;
-    const refresh = window?.localStorage?.getItem("refresh");
+    const token = getCookie("token");
     let localToken = window?.localStorage?.getItem("accessToken");
 
     /**
@@ -64,17 +44,18 @@ const Auth = ({ children }) => {
       localToken = token;
     }
 
-    if (localToken) {
-      if (refresh) {
-        if (moment(refresh).isBefore(moment())) {
-          return setRefresh(moment().add(30, "minutes")) | handleUserPayload();
-        }
-      } else {
-        return handleUserPayload() | setRefresh(moment().add(30, "minutes"));
+    if (token && localToken && token === localToken) {
+      if (!user) {
+        handleUserPayload();
       }
     } else {
-      if (user || refresh || localToken) {
-        return setAuth(false) | setUser(null) | setRefresh("");
+      if (user || localToken) {
+        if (token) {
+          toast(
+            <Notify body="Re-authenticating. Please wait" type="success" />,
+          );
+        }
+        return setAuth(false) | setUser(null);
       }
     }
   };
@@ -87,7 +68,7 @@ const Auth = ({ children }) => {
 
     const interval = setInterval(() => {
       handleIntervalCompute();
-    }, 2000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
