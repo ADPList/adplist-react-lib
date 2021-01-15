@@ -1,8 +1,6 @@
 import { setGlobal } from "reactn";
 import axios from "axios";
-
-// import Notify from "../Components/Notify";
-// import { toast } from "react-toastify";
+import cookie from "./cookie";
 
 // variables
 const rootState = {
@@ -21,23 +19,8 @@ export const Http = axios.create({
   },
 });
 
-const getCookie = (cname) => {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(";");
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-};
-
 Http.interceptors.request.use((config) => {
+  const { getCookie } = cookie();
   const url = config?.url?.split("/") || [];
   const unAuthRoutes = ["authenticate", "sign-up-with-email", "forgotten"];
 
@@ -62,6 +45,9 @@ Http.interceptors.response.use(
   (error) => {
     if (error.response?.status) {
       if (error.response.status === 401) {
+        const { deleteCookie } = cookie();
+
+        deleteCookie("token");
         setGlobal(rootState);
       }
 
