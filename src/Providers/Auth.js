@@ -1,7 +1,10 @@
 import React, { useCallback } from "react";
 import { useGlobal, useEffect } from "reactn";
-import { cookie, Http, Notify } from "adplist-react-lib";
 import { toast } from "react-toastify";
+
+import Notify from "../Components/Notify";
+import cookie from "../Utils/cookie";
+import Http from "../Utils/Http";
 
 const Auth = ({ children }) => {
   /**
