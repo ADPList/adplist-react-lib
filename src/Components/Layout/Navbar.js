@@ -28,7 +28,7 @@ const Navbar = ({
    */
   const [inverse, setInverse] = useState(props?.inverse || false);
   const [isAuthenticated] = useGlobal("isAuthenticated");
-  const [initUser] = useGlobal("user");
+  const [initUser, setUser] = useGlobal("user");
   const [, setToken] = useGlobal("accessToken");
 
   /**
@@ -50,7 +50,7 @@ const Navbar = ({
   const logout = () => {
     cookie().deleteCookie("token");
     setToken(null);
-    window.localStorage.clear();
+    setUser(null);
 
     toast(<Notify body="Logging out" type="success" />);
     return window.open(process.env.REACT_APP_AUTH_URL + "/logout");
