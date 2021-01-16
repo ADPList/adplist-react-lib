@@ -27,10 +27,6 @@ Http.interceptors.request.use((config) => {
   if (unAuthRoutes.filter((x) => url.includes(x)).length === 0) {
     // get token from cookie
     let token = getCookie("token");
-    console.log("Token from Cookie ", token);
-
-    // if not available... get from local storage
-    if (!token) token = window?.localStorage.getItem("accessToken");
 
     if (token) {
       config.headers.Authorization = `Token ${token}`;
