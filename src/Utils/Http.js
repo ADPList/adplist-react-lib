@@ -25,8 +25,7 @@ Http.interceptors.request.use((config) => {
   const unAuthRoutes = ["authenticate", "sign-up-with-email", "forgotten"];
 
   if (unAuthRoutes.filter((x) => url.includes(x)).length === 0) {
-    // get token from cookie
-    let token = getCookie("token");
+    const token = getCookie("token");
 
     if (token) {
       config.headers.Authorization = `Token ${token}`;
@@ -41,9 +40,7 @@ Http.interceptors.response.use(
   (error) => {
     if (error.response?.status) {
       if (error.response.status === 401) {
-        const { deleteCookie } = cookie();
-
-        deleteCookie("token");
+        cookie().deleteCookie("token");
         setGlobal(rootState);
       }
 
