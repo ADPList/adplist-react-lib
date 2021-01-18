@@ -25,7 +25,8 @@ Http.interceptors.request.use((config) => {
   const unAuthRoutes = ["authenticate", "sign-up-with-email", "forgotten"];
 
   if (unAuthRoutes.filter((x) => url.includes(x)).length === 0) {
-    const token = getCookie("token");
+    // get token from cookie
+    let token = getCookie("token");
 
     if (token) {
       config.headers.Authorization = `Token ${token}`;
