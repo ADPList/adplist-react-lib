@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import moment from "moment";
 
 import { StyledFooter, BottomFooter } from "./Styles";
 
@@ -151,7 +152,7 @@ const Footer = () => {
 
           <div className="d-lg-flex justify-content-between">
             <p className="grey-2-text font-size-12 mb-4 py-2 py-lg-0 mb-lg-0">
-              Copyright 2020 - Amazing Design People List
+              Copyright {moment().format("YYYY")} - Amazing Design People List
             </p>
             {thirdItems && (
               <div className="d-md-flex justify-content-lg-end links -third">

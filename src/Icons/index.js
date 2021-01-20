@@ -21,6 +21,7 @@ export { default as ThumbsUp } from "./ThumbsUp";
 export { default as Download } from "./Download";
 export { default as Facebook } from "./Facebook";
 export { default as LinkedIn } from "./LinkedIn";
+export { default as NotFound } from "./NotFound";
 export { default as Briefcase } from "./Briefcase";
 export { default as MoreHoriz } from "./MoreHoriz";
 export { default as AlignLeft } from "./AlignLeft";
