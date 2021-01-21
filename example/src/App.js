@@ -1,5 +1,5 @@
 import React, { Fragment } from "reactn";
-import { AuthProvider, PageNotFound, Layout, cookie } from "adplist-react-lib";
+import { AuthProvider, Layout, Tile } from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
 
 import "adplist-react-lib/dist/index.css";
@@ -37,7 +37,7 @@ export default () => {
             inverse: false,
           }}
         >
-          <PageNotFound route={() => {}} />
+          <Tile active>Hello</Tile>
         </Layout>
       </AuthProvider>
       <ToastContainer />

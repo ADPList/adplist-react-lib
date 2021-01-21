@@ -262,7 +262,7 @@ export const StyledFooter = styled.div`
   margin-top: auto;
 
   ${BottomFooter} {
-    background-color: var(--grey-3);
+    background-color: var(--grey-4);
     padding-bottom: 32px;
     padding-top: 32px;
 

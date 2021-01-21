@@ -11,9 +11,9 @@ const styles = {
   control: (styles, { isFocused }) => ({
     ...styles,
     borderColor: isFocused
-      ? "var(--teal) !important"
-      : "transparent !important",
-    backgroundColor: "var(--light-periwinkle)",
+      ? "var(--black) !important"
+      : "var(--grey-3) !important",
+    backgroundColor: "var(--grey-4)",
     borderRadius: "10px",
     boxShadow: "none",
     height: "100%",

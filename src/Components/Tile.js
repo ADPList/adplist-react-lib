@@ -1,15 +1,29 @@
+import React from "react";
 import styled from "styled-components";
 
-const Tile = styled.span`
-  background-color: ${({ active }) => (active ? "#05051B" : "#f0f6f9")};
-  color: ${({ active }) => (active ? "#ffffff" : "#000000")};
+const Tile = ({ children, ...props }) => (
+  <Wrapper {...props}>
+    {props.active && <i className="material-icons font-size-16">check</i>}
+    <span>{children}</span>
+  </Wrapper>
+);
+
+const Wrapper = styled.div`
+  background-color: ${({ active }) =>
+    active ? "var(--black)" : "var(--grey-3)"};
+  color: ${({ active }) => (active ? "#ffffff" : "var(--grey-1)")};
   transition: ease all 0.25s;
-  display: inline-block;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: 600;
+  justify-content: center;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  line-height: 24px;
   cursor: pointer;
-  padding: 22px;
+
+  i {
+    margin-right: 10px;
+  }
 `;
 
 export default Tile;
