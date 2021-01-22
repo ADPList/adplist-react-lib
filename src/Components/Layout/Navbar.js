@@ -203,7 +203,7 @@ const Navbar = ({
                   }
                   id="collasible-nav-dropdown"
                 >
-                  <Styled.NavDropdownItem className="px-2 pt-3 pb-0 border-bottom-0">
+                  <Styled.NavDropdownItem className="px-2 py-3 pb-0 border-bottom-0">
                     <Grid
                       gap="8px"
                       sm="24px 1fr"
