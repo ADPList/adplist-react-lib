@@ -32,5 +32,6 @@ export { default as ArrowRight } from "./ArrowRight";
 export { default as ChatBubble } from "./ChatBubble";
 export { default as SmileyLogo } from "./SmileyLogo";
 export { default as MapPointer } from "./MapPointer";
+export { default as CheckCircle } from "./CheckCircle";
 export { default as ArrowUpRight } from "./ArrowUpRight";
 export { default as NoConnection } from "./NoConnection";
