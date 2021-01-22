@@ -109,7 +109,7 @@ const Thumbnail = ({
             )}
             {userType === "mentor" && (
               <React.Fragment>
-                {!user?.on_break ? (
+                {!user?.on_break && loggedInUser?.mentor?.id !== user?.id ? (
                   <React.Fragment>
                     {!isPrivate && (
                       <Button
