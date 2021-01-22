@@ -63,7 +63,7 @@ export const StyledNavbar = styled(Navbar)`
     width: calc(100% - 48px);
     transition: ease all 0.25s;
     margin: 24px 20px 0px 20px;
-    border: solid 1px var(--grey-4);
+    border: solid 1px var(--grey-3);
     background-color: ${({ inverse }) => (inverse ? "transparent" : "#fff")};
 
     .search__icon {
