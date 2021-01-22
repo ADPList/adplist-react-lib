@@ -109,9 +109,9 @@ const Thumbnail = ({
             )}
             {userType === "mentor" && (
               <React.Fragment>
-                {!user?.on_break && loggedInUser?.mentor?.id !== user?.id ? (
+                {!user?.on_break ? (
                   <React.Fragment>
-                    {!isPrivate && (
+                    {!isPrivate && loggedInUser?.mentor?.id !== user?.id && (
                       <Button
                         isValid
                         className="btn--default w-100 btn-56"
