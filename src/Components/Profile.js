@@ -34,9 +34,6 @@ const Profile = ({
 
   return (
     <Fragment>
-      {isPrivate && userType === "mentor" && !user?.date_verified && (
-        <Alert>Your mentor account is pending approval</Alert>
-      )}
       <Wrapper className="py-4 py-md-5 px-3">
         {/* profile image preview */}
         <Thumbnail
@@ -161,15 +158,6 @@ const Profile = ({
 /**
  * styles
  */
-const Alert = styled.div`
-  background-color: #fdbc7d;
-  text-align: center;
-  line-height: 1.6;
-  font-size: 18px;
-  padding: 16px;
-  color: #fff;
-`;
-
 const Wrapper = styled.div`
   max-width: 982px;
   margin: 0px auto;
@@ -252,7 +240,5 @@ const Children = styled.div`
     grid-column-start: 2;
   }
 `;
-
-Profile.Alert = Alert;
 
 export default Profile;
