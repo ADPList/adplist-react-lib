@@ -58,8 +58,7 @@ const Footer = () => {
     },
     {
       name: "community standards",
-      link:
-        "https://www.notion.so/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
+      link: process.env.REACT_APP_COMMUNITY_STANDARDS,
       external: true,
     },
     { name: "partnerships", link: "mailto: partnership@adplist.org" },
@@ -74,14 +73,12 @@ const Footer = () => {
     { name: "Contact us", link: "mailto: support@adplist.org" },
     {
       name: "Privacy Policy",
-      link:
-        "https://www.notion.so/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
+      link: process.env.REACT_APP_PRIVACY_POLICY,
       external: true,
     },
     {
       name: "Terms of use",
-      link:
-        "https://www.notion.so/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
+      link: process.env.REACT_APP_TERMS_AND_CONDITIONS,
       external: true,
     },
   ];
