@@ -1,8 +1,6 @@
 import { setGlobal } from "reactn";
-
 import axios from "axios";
-
-import useCookie from "./useCookie";
+import cookie from "./cookie";
 
 // variables
 const rootState = {
@@ -11,8 +9,6 @@ const rootState = {
 };
 
 // functions
-const { getCookie, deleteCookie } = useCookie();
-
 export const Http = axios.create({
   baseURL: process.env.REACT_APP_API_BASEURL,
   timeout: 45000,
@@ -24,6 +20,7 @@ export const Http = axios.create({
 });
 
 Http.interceptors.request.use((config) => {
+  const { getCookie } = cookie();
   const url = config?.url?.split("/") || [];
   const unAuthRoutes = ["authenticate", "sign-up-with-email", "forgotten"];
 
@@ -43,7 +40,7 @@ Http.interceptors.response.use(
   (error) => {
     if (error.response?.status) {
       if (error.response.status === 401) {
-        deleteCookie("token");
+        cookie().deleteCookie("token");
         setGlobal(rootState);
       }
 

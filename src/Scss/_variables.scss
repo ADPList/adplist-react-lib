@@ -3,31 +3,43 @@ $red: #da3d2a;
 $grey: #0a243f;
 $blue: #0a1a7b;
 $teal: #077f7f;
-$green: #44ab65;
+$black: #131313;
+$green: #30d158;
 $white: #ffffff;
-$danger: #ff453a;
-$grey-2: #788a9c;
-$grey-3: #f0f6f9;
-$grey-4: #eaedf0;
+$danger: #ff5a5f;
+$grey-1: #384853;
+$grey-2: #6b7b8a;
+$grey-3: #e3e6ea;
+$grey-4: #fafafa;
 $grey-5: #f9fafb;
 $orange: #fdbc7d;
 $warning: #f88634;
 $default: #05051b;
+$lavendar: #f09ce6;
 $pale-grey: #fafbfc;
 $dark-blue: #071a52;
 $pale-peach: rgba(243, 101, 35, 0.2);
+$muted-blue: #e6f4f9;
+$muted-grey: #f0f6f9;
+$muted-pink: #ffebea;
+$muted-brown: #ecdbc9;
+$muted-green: #bee1dc;
+$muted-purple: #f0ebf5;
 $linkedin-blue: #2966bc;
-$light-periwinkle: #f0f6f9;
 
 $colors: () !default;
 
-$colors: map-merge(("red": $red,
+$colors: map-merge(
+  (
+    "red": $red,
     "grey": $grey,
     "teal": $teal,
     "blue": $blue,
+    "black": $black,
     "green": $green,
     "white": $white,
     "danger": $danger,
+    "grey-1": $grey-1,
     "grey-2": $grey-2,
     "grey-3": $grey-3,
     "grey-4": $grey-4,
@@ -35,27 +47,40 @@ $colors: map-merge(("red": $red,
     "orange": $orange,
     "warning": $warning,
     "default": $default,
+    "lavendar": $lavendar,
     "pale-grey": $pale-grey,
     "dark-blue": $dark-blue,
     "pale-peach": $pale-peach,
+    "muted-blue": $muted-blue,
+    "muted-grey": $muted-grey,
+    "muted-pink": $muted-pink,
+    "muted-brown": $muted-brown,
+    "muted-green": $muted-green,
+    "muted-purple": $muted-purple,
     "linkedin-blue": $linkedin-blue,
-    "light-periwinkle": $light-periwinkle,
   ),
-  $colors);
+  $colors
+);
 
 // grids
-$grids: ((name: "sm",
+$grids: (
+  (
+    name: "sm",
     grid: 0,
   ),
-  (name: "md",
+  (
+    name: "md",
     grid: 768,
   ),
-  (name: "lg",
+  (
+    name: "lg",
     grid: 992,
   ),
-  (name: "xl",
+  (
+    name: "xl",
     grid: 1200,
-  ));
+  )
+);
 
 // font weights
 $weights: (400, 500, 600, 700);
@@ -65,9 +90,11 @@ $weights: (400, 500, 600, 700);
   --grey: #{$grey};
   --teal: #{$teal};
   --blue: #{$blue};
+  --black: #{$black};
   --green: #{$green};
   --white: #{$white};
   --danger: #{$danger};
+  --grey-1: #{$grey-1};
   --grey-2: #{$grey-2};
   --grey-3: #{$grey-3};
   --grey-4: #{$grey-4};
@@ -75,9 +102,15 @@ $weights: (400, 500, 600, 700);
   --orange: #{$orange};
   --warning: #{$warning};
   --default: #{$default};
+  --lavendar: #{$lavendar};
   --pale-grey: #{$pale-grey};
   --dark-blue: #{$dark-blue};
   --pale-peach: #{$pale-peach};
+  --muted-blue: #{$muted-blue};
+  --muted-grey: #{$muted-grey};
+  --muted-pink: #{$muted-pink};
+  --muted-brown: #{$muted-brown};
+  --muted-green: #{$muted-green};
+  --muted-purple: #{$muted-purple};
   --linkedin-blue: #{$linkedin-blue};
-  --light-periwinkle: #{$light-periwinkle};
 }

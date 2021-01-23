@@ -11,13 +11,13 @@ import SearchIcon from "../../Icons/Search";
 import AdpLogo from "../../Icons/AdpLogo";
 import Search from "../Search";
 import Button from "../Button";
+import cookie from "../../Utils/cookie";
 import Notify from "../Notify";
 import Grid from "../../Styles/Grid";
 
 const Navbar = ({
   app,
   items,
-  logout,
   search,
   home = () => {},
   router = (link) => (window.location.href = link),
@@ -27,8 +27,9 @@ const Navbar = ({
    * state
    */
   const [inverse, setInverse] = useState(props?.inverse || false);
-  const [isAuthenticated] = useGlobal("isAuthenticated");
-  const [initUser] = useGlobal("user");
+  const [isAuthenticated, setAuth] = useGlobal("isAuthenticated");
+  const [initUser, setUser] = useGlobal("user");
+  const [, setToken] = useGlobal("accessToken");
 
   /**
    * variables
@@ -45,6 +46,15 @@ const Navbar = ({
         app ? `?app=${app}` : ""
       }`,
     );
+
+  const logout = () => {
+    cookie().deleteCookie("token");
+    setToken(null);
+    setUser(null);
+    setAuth(false);
+
+    toast(<Notify body="Logged out" type="success" />);
+  };
 
   const signup = () =>
     window.open(`${process.env.REACT_APP_AUTH_URL || ""}/signup`);
@@ -193,7 +203,7 @@ const Navbar = ({
                   }
                   id="collasible-nav-dropdown"
                 >
-                  <Styled.NavDropdownItem className="px-2 pt-3 pb-0 border-bottom-0">
+                  <Styled.NavDropdownItem className="px-2 py-3 pb-0 border-bottom-0">
                     <Grid
                       gap="8px"
                       sm="24px 1fr"
@@ -235,12 +245,7 @@ const Navbar = ({
                       Become a mentor
                     </Styled.NavDropdownItem>
                   )} */}
-                  <Styled.NavDropdownItem
-                    onClick={() =>
-                      window.open(process.env.REACT_APP_AUTH_URL + "/logout") |
-                      toast(<Notify body="Logout successful" type="success" />)
-                    }
-                  >
+                  <Styled.NavDropdownItem onClick={logout}>
                     <span className="mr-3 grey-text" style={{ opacity: 0.5 }}>
                       Logout
                     </span>

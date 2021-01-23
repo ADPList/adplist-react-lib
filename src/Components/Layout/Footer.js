@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import moment from "moment";
 
 import { StyledFooter, BottomFooter } from "./Styles";
 
@@ -50,11 +51,15 @@ const Footer = () => {
   ];
 
   const secondItems = [
-    { name: "join adplist", link: `${process.env.REACT_APP_AUTH_URL}/login` },
+    {
+      name: "join adplist",
+      link: `${process.env.REACT_APP_AUTH_URL}/login`,
+      external: true,
+    },
     {
       name: "community standards",
-      link:
-        "https://www.notion.so/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
+      link: process.env.REACT_APP_COMMUNITY_STANDARDS,
+      external: true,
     },
     { name: "partnerships", link: "mailto: partnership@adplist.org" },
     {
@@ -68,13 +73,13 @@ const Footer = () => {
     { name: "Contact us", link: "mailto: support@adplist.org" },
     {
       name: "Privacy Policy",
-      link:
-        "https://www.notion.so/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
+      link: process.env.REACT_APP_PRIVACY_POLICY,
+      external: true,
     },
     {
       name: "Terms of use",
-      link:
-        "https://www.notion.so/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a",
+      link: process.env.REACT_APP_TERMS_AND_CONDITIONS,
+      external: true,
     },
   ];
 
@@ -117,8 +122,13 @@ const Footer = () => {
           <div className="border-top grey-4-border mt-3 mt-lg-32 pt-4 py-lg-4">
             <div className="d-lg-flex justify-content-between">
               <div className="d-lg-flex links -first">
-                {firstItems?.map(({ name, link }, key) => (
-                  <a target={name} href={link} key={key}>
+                {firstItems?.map(({ name, link, external }, key) => (
+                  <a
+                    key={key}
+                    href={link}
+                    target={name}
+                    {...(external && { target: "_black" })}
+                  >
                     {name}
                   </a>
                 ))}
@@ -139,12 +149,18 @@ const Footer = () => {
 
           <div className="d-lg-flex justify-content-between">
             <p className="grey-2-text font-size-12 mb-4 py-2 py-lg-0 mb-lg-0">
-              Copyright 2020 - Amazing Design People List
+              Copyright {moment().format("YYYY")} - Amazing Design People List
             </p>
             {thirdItems && (
               <div className="d-md-flex justify-content-lg-end links -third">
-                {thirdItems?.map(({ name, link }, key) => (
-                  <a target={name} href={link} key={key} className="mb-lg-0">
+                {thirdItems?.map(({ name, link, external }, key) => (
+                  <a
+                    key={key}
+                    href={link}
+                    target={name}
+                    className="mb-lg-0"
+                    {...(external && { target: "_blank" })}
+                  >
                     {name}
                   </a>
                 ))}

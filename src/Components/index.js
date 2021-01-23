@@ -1,5 +1,6 @@
 export { default as Flag } from "./Flag";
 export { default as Tabs } from "./Tabs";
+export { default as Tile } from "./Tile";
 export { default as Image } from "./Image";
 export { default as Field } from "./Field";
 export { default as Modal } from "./Modal";
@@ -21,3 +22,4 @@ export { default as Textarea } from "./Textarea";
 export { default as UserTile } from "./UserTile";
 export { default as Pagination } from "./Pagination";
 export { default as ScrollToTop } from "./ScrollToTop";
+export { default as PageNotFound } from "./PageNotFound";

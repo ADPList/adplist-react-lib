@@ -31,7 +31,7 @@ const Banner = ({ isPrivate, userType, user }) => {
       () =>
         handleUpdate({ joined_slack: true }) |
         window.open(
-          "https://join.slack.com/t/amazing-design-list/shared_invite/zt-jt9k2gc3-E1ZMPuEifAbLUNjehx3QXw",
+          "https://join.slack.com/t/amazing-design-list/shared_invite/zt-le0d93wh-Cv_fvYHqKoN7Ciim99d44Q",
         ),
     );
   };
@@ -64,7 +64,7 @@ const Banner = ({ isPrivate, userType, user }) => {
               className="header__close my-auto text-decoration-none"
               onClick={(e) => e.preventDefault() | handleFullSetup()}
             >
-              <i className="material-icons-round">close</i>
+              <i className="material-icons-round black-text">close</i>
             </a>
             {/* )} */}
           </div>
@@ -160,7 +160,7 @@ const Wrapper = styled.div`
   margin-top: 1.5rem;
   border-radius: 18px;
   padding: 1.5rem 1rem;
-  background-color: var(--grey-3);
+  background-color: var(--grey-4);
 
   .header {
     border-bottom: solid 1px rgba(0, 0, 0, 0.1);
@@ -179,7 +179,7 @@ const Wrapper = styled.div`
       display: flex;
       border-radius: 50%;
       text-decoration: none;
-      background-color: var(--grey-4);
+      background-color: var(--grey-3);
 
       i {
         margin: auto;
