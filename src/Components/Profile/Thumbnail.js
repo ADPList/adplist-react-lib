@@ -145,7 +145,7 @@ const Thumbnail = ({
             {user?.portfolio_url && !isPrivate && (
               <Button
                 isValid
-                className="grey-3-bg default-text w-100 btn-56"
+                className="muted-grey-bg default-text w-100 btn-56"
                 onClick={() => handleProfile()}
               >
                 <span className="mr-2">View my LinkedIn</span>
