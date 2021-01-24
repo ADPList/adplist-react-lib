@@ -223,8 +223,12 @@ const Navbar = ({
                       href={`${
                         process.env.REACT_APP_AUTH_URL || ""
                       }/setup/designer/finish`}
+                      className="d-flex align-items-center justify-content-between"
                     >
-                      Auto Match
+                      <span>Get a Match</span>
+                      <span className="font-weight-bold font-size-12 rounded danger-bg py-1 px-2 white-text line-height-16">
+                        NEW
+                      </span>
                     </Styled.NavDropdownItem>
                   )}
                   <Styled.NavDropdownItem
