@@ -83,8 +83,9 @@ export const StyledNavbar = styled(Navbar)`
     }
 
     &:focus-within {
-      transition: ease all 0.25s;
       background-color: #fff;
+      transition: ease all 0.25s;
+      border-color: var(--black);
 
       .search__icon {
         transition: ease all 0.25s;

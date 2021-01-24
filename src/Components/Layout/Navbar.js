@@ -207,7 +207,7 @@ const Navbar = ({
                     <Grid
                       gap="8px"
                       sm="24px 1fr"
-                      className="align-items-center p-12 rounded grey-3-bg"
+                      className="align-items-center p-12 rounded muted-grey-bg"
                     >
                       <ChatBubble />
                       <div className="font-size-10">
@@ -218,6 +218,15 @@ const Navbar = ({
                       </div>
                     </Grid>
                   </Styled.NavDropdownItem>
+                  {identityType === "designer" && (
+                    <Styled.NavDropdownItem
+                      href={`${
+                        process.env.REACT_APP_AUTH_URL || ""
+                      }/setup/designer/finish`}
+                    >
+                      Auto Match
+                    </Styled.NavDropdownItem>
+                  )}
                   <Styled.NavDropdownItem
                     href={`${
                       process.env.REACT_APP_AUTH_URL || ""
