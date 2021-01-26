@@ -177,6 +177,7 @@ const Navbar = ({
                             onClick: (e) =>
                               e.preventDefault() | router(item?.link),
                           })}
+                          {...(item?.target && { target: "_blank" })}
                           href={item?.link}
                         >
                           {item?.name}
