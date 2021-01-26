@@ -218,17 +218,11 @@ const Navbar = ({
                       </div>
                     </Grid>
                   </Styled.NavDropdownItem>
-                  {identityType === "designer" && (
+                  {(identityType === "designer" || !initUser) && (
                     <Styled.NavDropdownItem
-                      href={`${
-                        process.env.REACT_APP_AUTH_URL || ""
-                      }/setup/designer/finish`}
-                      className="d-flex align-items-center justify-content-between"
+                      href={`${process.env.REACT_APP_ADPLIST_URL}/become-a-mentor`}
                     >
-                      <span>Get a Match</span>
-                      <span className="font-weight-bold font-size-12 rounded danger-bg py-1 px-2 white-text line-height-16">
-                        NEW
-                      </span>
+                      Become a mentor
                     </Styled.NavDropdownItem>
                   )}
                   <Styled.NavDropdownItem
@@ -252,12 +246,6 @@ const Navbar = ({
                   >
                     Change Password
                   </Styled.NavDropdownItem>
-                  {/* <Styled.NavDropdownItem>Get Help</Styled.NavDropdownItem> */}
-                  {/* {identityType === "designer" && (
-                    <Styled.NavDropdownItem href="">
-                      Become a mentor
-                    </Styled.NavDropdownItem>
-                  )} */}
                   <Styled.NavDropdownItem onClick={logout}>
                     <span className="mr-3 grey-text" style={{ opacity: 0.5 }}>
                       Logout

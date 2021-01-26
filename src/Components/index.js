@@ -1,6 +1,7 @@
 export { default as Flag } from "./Flag";
 export { default as Tabs } from "./Tabs";
 export { default as Tile } from "./Tile";
+export { default as Badge } from "./Badge";
 export { default as Image } from "./Image";
 export { default as Field } from "./Field";
 export { default as Modal } from "./Modal";
