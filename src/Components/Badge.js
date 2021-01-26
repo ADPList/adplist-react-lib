@@ -42,14 +42,17 @@ const Badge = ({ variant, children, className, size, ...props }) => {
 /**
  * styles
  */
-const Wrapper = styled.div`
+const Wrapper = styled.span`
   height: ${({ size }) => `${size}px`};
+  display: flex;
   font-size: 12px;
   font-weight: 600;
   line-height: 1.6;
   padding-left: 8px;
   border-radius: 6px;
   padding-right: 8px;
+  align-items: center;
+  justify-content: center;
 `;
 
 Badge.propTypes = propTypes;
