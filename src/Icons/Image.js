@@ -14,7 +14,7 @@ const defaultProps = {
   color: "var(--default)",
 };
 
-const Image = ({ size, color, props }) => (
+const Image = ({ size, color, ...props }) => (
   <svg
     fill="none"
     width={size}

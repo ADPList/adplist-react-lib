@@ -14,7 +14,7 @@ const defaultProps = {
   color: "var(--grey-2)",
 };
 
-const MapPointer = ({ size, color, props }) => (
+const MapPointer = ({ size, color, ...props }) => (
   <svg
     width={size}
     height={size}

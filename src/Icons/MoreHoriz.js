@@ -14,7 +14,7 @@ const defaultProps = {
   color: "var(--grey-2)",
 };
 
-const MoreHoriz = ({ size, color, props }) => (
+const MoreHoriz = ({ size, color, ...props }) => (
   <svg
     width={size}
     height={size}
