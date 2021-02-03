@@ -102,7 +102,7 @@ const Navbar = ({
               />
               <div className="search__container w-100">
                 <Search
-                  {...{ router }}
+                  router={({ slug, type }) => router(`/${type}s/${slug}`)}
                   placeholder="Search for a mentor or designer"
                 />
               </div>
