@@ -76,7 +76,7 @@ const Search = ({ placeholder, router, scrollPosition, ...props }) => {
   /**
    * function
    */
-  const handleRedirect = ({ slug, type }) => router(`/${type}s/${slug}`);
+  const handleRedirect = (data) => router(data);
 
   const handleSearch = useCallback(
     debounce((value) => setSearch(value), 1000),
