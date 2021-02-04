@@ -178,10 +178,10 @@ const Menu = styled.div`
   padding: 0px;
   border: none;
   margin-top: 8px;
-  overflow-y: auto;
   max-height: 432px;
   position: absolute;
   border-radius: 12px;
+  overflow-y: auto !important;
   display: ${({ show }) => (show ? "block" : "none")};
   box-shadow: 0px 0px 20px rgba(167, 169, 192, 0.21);
 
