@@ -23,7 +23,13 @@ const defaultProps = {
   placeholder: "",
 };
 
-const Search = ({ placeholder, router, scrollPosition, ...props }) => {
+const Search = ({
+  scrollPosition,
+  placeholder,
+  inputProps,
+  router,
+  ...props
+}) => {
   /**
    * state
    */
@@ -91,6 +97,7 @@ const Search = ({ placeholder, router, scrollPosition, ...props }) => {
           onBlur={() => setShow(false)}
           onFocus={() => setShow(true)}
           onChange={({ currentTarget: { value } }) => handleSearch(value)}
+          {...inputProps}
         />
       </Group>
       <Menu
