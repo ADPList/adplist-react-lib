@@ -1,14 +1,30 @@
 import React from "react";
+import { Editor as TinyMce } from "@tinymce/tinymce-react";
+import { ErrorMessage } from "formik";
+import { Form } from "react-bootstrap";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { Editor as TinyMce } from "@tinymce/tinymce-react";
-import { Form } from "react-bootstrap";
-import { ErrorMessage } from "formik";
+/**
+ * prop definition
+ */
+const propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.any,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+  setFieldValue: PropTypes.func,
+};
+
+const defaultProps = {
+  init: { menubar: true, toolbar: true },
+};
 
 const Editor = ({
   name,
   value,
   label,
+  init,
   placeholder,
   setFieldValue,
   ...props
@@ -25,8 +41,7 @@ const Editor = ({
             apiKey={process.env.REACT_APP_TINYMCE_KEY}
             onEditorChange={(content) => setFieldValue(name, content)}
             init={{
-              menubar: true,
-              toolbar: true,
+              ...init,
               placeholder: placeholder || "",
             }}
           />
@@ -38,6 +53,9 @@ const Editor = ({
     </ErrorMessage>
   </Form.Group>
 );
+
+Editor.propTypes = propTypes;
+Editor.defaultProps = defaultProps;
 
 export default Editor;
 
