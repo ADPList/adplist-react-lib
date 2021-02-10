@@ -49,7 +49,7 @@ const Wrapper = styled.div`
 
   &::before {
     content: "${({ placeholder }) => placeholder || " "}";
-    color: var(--default);
+    color: var(--black);
     padding: 21px 22px;
     position: absolute;
     font-size: 14px;
@@ -61,8 +61,8 @@ const Wrapper = styled.div`
 const Textarea = styled.div`
   .mce-content-body {
     min-height: ${({ height }) => height || "136px"};
-    background-color: var(--grey-3);
-    border: solid 1px transparent;
+    background-color: var(--grey-4);
+    border: solid 1px var(--black);
     border-radius: 10px;
     padding: 16px 20px;
     line-height: 1.5;
