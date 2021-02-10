@@ -93,7 +93,7 @@ const Thumbnail = ({
                   Your public profile
                 </label>
                 <Grid
-                  className="grey-3-bg rounded py-12 px-3"
+                  className="grey-4-bg rounded py-12 px-3"
                   sm="calc(100% - 40px) 24px"
                   gap="16px"
                 >

@@ -54,7 +54,7 @@ const Wrapper = styled.div`
     position: absolute;
     font-size: 14px;
     display: block;
-    opacity: 0.5;
+    opacity: 0.65;
   }
 `;
 
@@ -62,7 +62,7 @@ const Textarea = styled.div`
   .mce-content-body {
     min-height: ${({ height }) => height || "136px"};
     background-color: var(--grey-4);
-    border: solid 1px var(--black);
+    border: solid 1px var(--grey-3);
     border-radius: 10px;
     padding: 16px 20px;
     line-height: 1.5;
@@ -72,7 +72,7 @@ const Textarea = styled.div`
       color: var(--default);
       padding: 0px 20px;
       font-size: 16px;
-      opacity: 0.8;
+      opacity: 0.65;
     }
 
     &:focus {
