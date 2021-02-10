@@ -42,7 +42,7 @@ const Editor = ({
 export default Editor;
 
 const Wrapper = styled.div`
-  background-color: var(--grey-3);
+  background-color: var(--grey-4);
   border-radius: 10px;
   position: relative;
   min-height: 136px;
@@ -71,12 +71,12 @@ const Textarea = styled.div`
     &::before {
       color: var(--default);
       padding: 0px 20px;
-      font-size: 14px;
+      font-size: 16px;
       opacity: 0.8;
     }
 
     &:focus {
-      border-color: var(--teal);
+      border-color: var(--black);
     }
 
     p:last-child {
