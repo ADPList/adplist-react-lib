@@ -1,10 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
+import { updateAgreeToStandardsService } from "../../../Services/mentorService";
 import Button from "../../Button";
 
 const ScheduleWithCalendly = ({ modal, setModal, user }) => {
+  /**
+   * state
+   */
+  const [openModal, setOpenModal] = useState(false);
+
+  /**
+   * functions
+   */
+  const handleAgreed = () =>
+    setOpenModal(false) | setModal(false) | updateAgreeToStandardsService();
+
+  /**
+   * effect
+   */
+  useEffect(() => {
+    if (modal && !openModal) {
+      if (user?.agreed_to_standards) {
+        window.open(user?.calendly_url);
+        setModal(false);
+      } else {
+        setOpenModal(true);
+      }
+    }
+  }, [modal]);
+
   return (
-    <Modal centered show={modal} onHide={() => setModal(false)}>
+    <Modal
+      centered
+      show={openModal}
+      onHide={() => setOpenModal(false) | setModal(false)}
+    >
       <Modal.Body className="p-4 p-md-32 p-lg-40">
         <h1 className="font-size-24 mb-3">Before you book</h1>
 
@@ -17,7 +47,7 @@ const ScheduleWithCalendly = ({ modal, setModal, user }) => {
               <a
                 target="standards"
                 className="teal-text"
-                href="https://www.notion.so/adplist/ADPList-Community-Standards-48c67f3c7f6740beaef3ddba71b3fd1a"
+                href={process.env.REACT_APP_COMMUNITY_STANDARDS}
               >
                 Read more about our Community Standards.
               </a>
@@ -33,7 +63,7 @@ const ScheduleWithCalendly = ({ modal, setModal, user }) => {
         <div className="d-flex">
           <Button
             isValid
-            onClick={() => window.open(user?.calendly_url)}
+            onClick={() => handleAgreed() | window.open(user?.calendly_url)}
             className="teal-bg white-text teal-border mr-3 btn-48 px-5"
           >
             I Agree
