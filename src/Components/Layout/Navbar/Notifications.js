@@ -12,7 +12,7 @@ const Notifications = ({ data, error, mutate, route }) => {
    * variables
    */
   const notifications = data?.results;
-  const local = window.location.origin === process.env.REACT_APP_ADPLIST_URL;
+  const local = window?.location.origin === process.env.REACT_APP_ADPLIST_URL;
 
   return (
     <Fragment>
@@ -56,7 +56,8 @@ const Notifications = ({ data, error, mutate, route }) => {
             onClick={() =>
               local
                 ? route("/notifications")
-                : (window.location.href =
+                : window &&
+                  (window.location.href =
                     process.env.REACT_APP_ADPLIST_URL + "/notifications")
             }
             className="grey-4-bg justify-content-center py-3 font-weight-600 teal-text"
@@ -124,6 +125,7 @@ const Review = ({
         } else {
           return updateNotificationSeenService(id).then(
             () =>
+              window &&
               (window.location.href = `${process.env.REACT_APP_ADPLIST_URL}/mentors/${slug}`),
           );
         }
@@ -183,6 +185,7 @@ const Note = ({
             } else {
               return updateNotificationSeenService(id).then(
                 () =>
+                  window &&
                   (window.location.href = `${process.env.REACT_APP_ADPLIST_URL}/mentors/${slug}`),
               );
             }
