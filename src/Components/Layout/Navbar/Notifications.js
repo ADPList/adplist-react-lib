@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Image } from "react-bootstrap";
 
 import { updateNotificationSeenService } from "../../../Services/notificationService";
@@ -12,7 +12,22 @@ const Notifications = ({ data, error, mutate, route }) => {
    * variables
    */
   const notifications = data?.results;
-  const local = window?.location.origin === process.env.REACT_APP_ADPLIST_URL;
+  const [local, setLocal] = useState();
+
+  /**
+   * functions
+   */
+  const handleRoute = (url) => {
+    if (local) route(url);
+    else window.location.origin = url;
+  };
+
+  /**
+   * effects
+   */
+  useEffect(() => {
+    setLocal(window?.location.origin === process.env.REACT_APP_ADPLIST_URL);
+  }, []);
 
   return (
     <Fragment>
@@ -36,18 +51,22 @@ const Notifications = ({ data, error, mutate, route }) => {
           {notifications?.map(({ notification_type, ...notification }, key) => (
             <Fragment key={key}>
               {notification_type === "Announcement" && (
-                <Announcement {...{ ...notification, route, local, mutate }} />
+                <Announcement
+                  {...{ ...notification, route, local, mutate, handleRoute }}
+                />
               )}
 
               {notification_type === "Review" && (
                 <Review
-                  {...{ ...notification, route, local, mutate }}
+                  {...{ ...notification, route, local, mutate, handleRoute }}
                   route={route}
                 />
               )}
 
               {notification_type === "Note" && (
-                <Note {...{ ...notification, route, local, mutate }} />
+                <Note
+                  {...{ ...notification, route, local, mutate, handleRoute }}
+                />
               )}
             </Fragment>
           ))}
@@ -56,9 +75,9 @@ const Notifications = ({ data, error, mutate, route }) => {
             onClick={() =>
               local
                 ? route("/notifications")
-                : window &&
-                  (window.location.href =
-                    process.env.REACT_APP_ADPLIST_URL + "/notifications")
+                : handleRoute(
+                    process.env.REACT_APP_ADPLIST_URL + "/notifications",
+                  )
             }
             className="grey-4-bg justify-content-center py-3 font-weight-600 teal-text"
           >
@@ -108,6 +127,7 @@ const Review = ({
   route,
   local,
   mutate,
+  handleRoute,
   source_user: { profile_photo_url, name, identity_type, slug },
 }) => {
   const type = `${identity_type.toLowerCase()}s`;
@@ -123,10 +143,8 @@ const Review = ({
             route(`/mentors/${slug}`)
           );
         } else {
-          return updateNotificationSeenService(id).then(
-            () =>
-              window &&
-              (window.location.href = `${process.env.REACT_APP_ADPLIST_URL}/mentors/${slug}`),
+          return updateNotificationSeenService(id).then(() =>
+            handleRoute(`${process.env.REACT_APP_ADPLIST_URL}/mentors/${slug}`),
           );
         }
       }}
@@ -154,6 +172,7 @@ const Note = ({
   route,
   local,
   mutate,
+  handleRoute,
   source_user: { profile_photo_url, name, identity_type, slug },
 }) => {
   const type = `${identity_type.toLowerCase()}s`;
@@ -183,10 +202,10 @@ const Note = ({
                 route(`/mentors/${slug}`)
               );
             } else {
-              return updateNotificationSeenService(id).then(
-                () =>
-                  window &&
-                  (window.location.href = `${process.env.REACT_APP_ADPLIST_URL}/mentors/${slug}`),
+              return updateNotificationSeenService(id).then(() =>
+                handleRoute(
+                  `${process.env.REACT_APP_ADPLIST_URL}/mentors/${slug}`,
+                ),
               );
             }
           }}
