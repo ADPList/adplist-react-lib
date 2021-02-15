@@ -19,14 +19,19 @@ const Notifications = ({ data, error, mutate, route }) => {
    */
   const handleRoute = (url) => {
     if (local) route(url);
-    else window.location.origin = url;
+    else {
+      if (typeof window !== "undefined") {
+        window.location.origin = url;
+      }
   };
 
   /**
    * effects
    */
   useEffect(() => {
-    setLocal(window?.location.origin === process.env.REACT_APP_ADPLIST_URL);
+    if (typeof window !== "undefined") {
+      setLocal(window?.location.origin === process.env.REACT_APP_ADPLIST_URL);
+    }
   }, []);
 
   return (

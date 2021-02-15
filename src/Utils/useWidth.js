@@ -5,21 +5,25 @@ const useWidth = () => {
   /**
    * state
    */
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState();
 
   /**
    * function
    */
   const handleWidth = debounce(() => {
-    setWidth(window.innerWidth);
+    if (typeof window !== "undefined") setWidth(window.innerWidth);
   }, 1000);
 
   /**
    * effect
    */
   useEffect(() => {
-    window.addEventListener("resize", () => handleWidth());
-    return () => window.removeEventListener("resize", handleWidth());
+    if (typeof window !== "undefined")
+      window.addEventListener("resize", () => handleWidth());
+    return () => {
+      if (typeof window !== "undefined")
+        window.removeEventListener("resize", handleWidth());
+    };
   });
 
   return width;
