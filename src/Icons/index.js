@@ -1,3 +1,4 @@
+export { default as Chat } from "./Chat";
 export { default as Edit } from "./Edit";
 export { default as Logo } from "./Logo";
 export { default as Copy } from "./Copy";
@@ -35,3 +36,4 @@ export { default as MapPointer } from "./MapPointer";
 export { default as CheckCircle } from "./CheckCircle";
 export { default as ArrowUpRight } from "./ArrowUpRight";
 export { default as NoConnection } from "./NoConnection";
+export { default as Notification } from "./Notification";

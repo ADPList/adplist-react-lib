@@ -1,7 +1,17 @@
 import React from "react";
-import { Modal } from "react-bootstrap";
+import { Container, Modal } from "react-bootstrap";
+import styled from "styled-components";
+
+import Close from "../Icons/Close";
+import Logo from "../Icons/AdpLogo";
 
 export default ({ body, onHide, show, header, ...props }) => {
+  const size = props.size;
+
+  if (size === "full") {
+    return <LargeModal {...{ show, onHide, ...props }} />;
+  }
+
   return (
     <Modal onHide={() => {}} centered show={show} {...props}>
       <Modal.Body className={body || "p-32"}>
@@ -18,3 +28,47 @@ export default ({ body, onHide, show, header, ...props }) => {
     </Modal>
   );
 };
+
+const LargeModal = ({ onHide, show, ...props }) => {
+  return (
+    <LargeModalWrapper centered show={show} onHide={() => {}} {...props}>
+      <Modal.Body className="p-0">
+        <LargeModalNav>
+          <Logo />
+          <Close size={48} className="cursor-pointer" onClick={onHide} />
+        </LargeModalNav>
+        <LargeModalBody>{props.component || props.children}</LargeModalBody>
+      </Modal.Body>
+    </LargeModalWrapper>
+  );
+};
+
+/**
+ * styles
+ */
+const LargeModalBody = styled(Container)`
+  height: calc(100% - 70px);
+  overflow-y: auto;
+`;
+
+const LargeModalNav = styled(Container)`
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+`;
+
+const LargeModalWrapper = styled(Modal)`
+  .modal-dialog {
+    width: 100%;
+    margin: 0px;
+    height: 100%;
+    max-width: 100%;
+
+    .modal-content {
+      height: 100%;
+      border-radius: 0px;
+    }
+  }
+`;

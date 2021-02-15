@@ -1,19 +1,23 @@
 import React, { Fragment, useGlobal, useState, useEffect } from "reactn";
 import { Container, Form, Nav, Image } from "react-bootstrap";
 import { toast } from "react-toastify";
+import useSWR from "swr";
 
 import * as Styled from "./Styles";
-
+import Notifications from "./Navbar/Notifications";
+import Notification from "../../Icons/Notification";
 import ArrowUpRight from "../../Icons/ArrowUpRight";
 import ArrowRight from "../../Icons/ArrowRight";
 import ChatBubble from "../../Icons/ChatBubble";
 import SearchIcon from "../../Icons/Search";
+import useWidth from "../../Utils/useWidth";
 import AdpLogo from "../../Icons/AdpLogo";
 import Search from "../Search";
 import Button from "../Button";
 import cookie from "../../Utils/cookie";
 import Notify from "../Notify";
 import Grid from "../../Styles/Grid";
+import Chat from "../../Icons/Chat";
 
 const Navbar = ({
   app,
@@ -23,6 +27,11 @@ const Navbar = ({
   router = (link) => (window.location.href = link),
   ...props
 }) => {
+  /**
+   * variables
+   */
+  const width = useWidth();
+
   /**
    * state
    */
@@ -36,6 +45,91 @@ const Navbar = ({
    */
   const identityType = initUser?.identity_type?.toLowerCase();
   const user = identityType ? initUser[identityType] : {};
+
+  /**
+   * apis
+   */
+  const {
+    // data: notifications,
+    error: notificationError,
+    mutate: notificationMutate,
+  } = useSWR(
+    initUser &&
+      process.env.REACT_APP_MESSAGING_BASEURL +
+        "/notification/?offset=0&limit=10",
+  );
+
+  const notifications = {
+    count: 2,
+    unseen: 3,
+    next: null,
+    previous: null,
+    results: [
+      {
+        id: 6,
+        notification_type: "Announcement",
+        source_user: null,
+        destination_user: null,
+        announcement: {
+          id: 1,
+          title: "This is an announcement",
+          url: "https://adplist.org",
+          status: "Sent",
+          date_created: "2021-02-13T23:58:47.392158Z",
+          created_by_id: 2,
+        },
+        seen: false,
+        date_created: "2021-02-14T23:53:24.590957Z",
+      },
+      {
+        id: 5,
+        notification_type: "Review",
+        source_user: {
+          identity_id: 4,
+          name: "Samuel Jr. Berkoh",
+          slug: "samuel-jr-berkoh",
+          profile_photo_url:
+            "https://adplist-bucket.s3.amazonaws.com/media/profile_photos/b65d97af4f6c4e22bd48980e45df096dHKHqx.jpg",
+          identity_type: "Mentor",
+        },
+        destination_user: {
+          identity_id: 5,
+          name: "James Baduor",
+          slug: "james-baduor",
+          profile_photo_url:
+            "https://adplist-bucket.s3.amazonaws.com/media/profile_photos/593745e150b840328977710f1d4876571tJQa.png",
+          identity_type: "Mentor",
+        },
+        announcement: null,
+        seen: true,
+        date_created: "2021-02-14T23:37:56.048103Z",
+      },
+
+      {
+        id: 5,
+        notification_type: "Note",
+        source_user: {
+          identity_id: 4,
+          name: "Samuel Jr. Berkoh",
+          slug: "samuel-jr-berkoh",
+          profile_photo_url:
+            "https://adplist-bucket.s3.amazonaws.com/media/profile_photos/b65d97af4f6c4e22bd48980e45df096dHKHqx.jpg",
+          identity_type: "Mentor",
+        },
+        destination_user: {
+          identity_id: 5,
+          name: "James Baduor",
+          slug: "james-baduor",
+          profile_photo_url:
+            "https://adplist-bucket.s3.amazonaws.com/media/profile_photos/593745e150b840328977710f1d4876571tJQa.png",
+          identity_type: "Mentor",
+        },
+        announcement: null,
+        seen: true,
+        date_created: "2021-02-14T23:37:56.048103Z",
+      },
+    ],
+  };
 
   /**
    * functions
@@ -108,7 +202,10 @@ const Navbar = ({
               </div>
             </Form>
           )}
-          <Nav className="ml-auto" style={{ whiteSpace: "nowrap" }}>
+          <Nav
+            className="ml-auto align-items-lg-center"
+            style={{ whiteSpace: "nowrap" }}
+          >
             {items?.map((item, key) => {
               if (!item?.name) return false;
 
@@ -189,8 +286,56 @@ const Navbar = ({
               );
             })}
 
-            {isAuthenticated ? (
+            {!isAuthenticated ? (
               <Fragment>
+                {width >= 992 ? (
+                  <Fragment>
+                    <Styled.NavDropdown
+                      className="notif"
+                      title={
+                        <Fragment>
+                          <Notification />
+                          {!!notifications?.unseen && (
+                            <span className="notif__badge">
+                              {notifications.unseen}
+                            </span>
+                          )}
+                        </Fragment>
+                      }
+                    >
+                      <Notifications
+                        route={router}
+                        data={notifications}
+                        error={notificationError}
+                        mutate={notificationMutate}
+                      />
+                    </Styled.NavDropdown>
+                    {/* <Styled.NavLink
+                      to={process.env.REACT_APP_ADPLIST_URL + "/messages"}
+                      className="notif"
+                    >
+                      <Chat />
+                    </Styled.NavLink> */}
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    <Styled.NavLink
+                      href={`${process.env.REACT_APP_ADPLIST_URL}/notifications`}
+                      className="notif--link"
+                    >
+                      <span>Notifications</span>
+                      {!!notifications?.unseen && (
+                        <span className="notif__badge">
+                          {notifications.unseen}
+                        </span>
+                      )}
+                    </Styled.NavLink>
+                    {/* <Styled.NavLink className="notif--link">
+                      <span>Messages</span>
+                      <span className="notif__badge">3</span>
+                    </Styled.NavLink> */}
+                  </Fragment>
+                )}
                 <Styled.NavDropdown
                   title={
                     <Fragment>

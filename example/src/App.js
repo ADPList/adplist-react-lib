@@ -1,10 +1,13 @@
-import React, { Fragment } from "reactn";
-import { AuthProvider, Layout, Tile } from "adplist-react-lib";
+import React, { Fragment, useState } from "reactn";
+import { AuthProvider, Layout, Button, Modal } from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
+import Container from "react-bootstrap/Container";
 
 import "adplist-react-lib/dist/index.css";
 
 export default () => {
+  const [modal, setModal] = useState(false);
+
   return (
     <Fragment>
       <AuthProvider>
@@ -37,7 +40,21 @@ export default () => {
             inverse: false,
           }}
         >
-          <Tile active>Hello</Tile>
+          <Container className="py-5">
+            <Modal
+              size="full"
+              show={modal}
+              onHide={() => setModal(false)}
+            ></Modal>
+
+            <Button
+              isValid
+              className="btn--default px-5"
+              onClick={() => setModal(true)}
+            >
+              Large Modal
+            </Button>
+          </Container>
         </Layout>
       </AuthProvider>
       <ToastContainer />

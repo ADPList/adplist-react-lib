@@ -7,10 +7,109 @@ import Button from "../Button";
 /**
  * all styled nav components
  */
-export const NavLink = styled(Nav.Link)``;
-export const NavDropdown = styled(Drop)``;
+export const NavLink = styled(Nav.Link)`
+  border-bottom: solid 1px var(--muted-grey);
+
+  @media (min-width: 992px) {
+    border-bottom: none;
+  }
+`;
+export const NavDropdown = styled(Drop)`
+  .dropdown-toggle {
+    border-bottom: solid 1px var(--muted-grey) !important;
+    border-radius: 0px !important;
+  }
+
+  &.notif {
+    background-color: var(--grey-3);
+    border-radius: 50%;
+    margin: 0px 15px;
+    height: 36px;
+    width: 36px;
+
+    .dropdown-toggle {
+      padding: 0px !important;
+      height: 100%;
+      width: 100%;
+    }
+
+    svg {
+      margin: auto;
+    }
+
+    .notif__badge {
+      top: -3px;
+      right: -3px;
+      position: absolute;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .dropdown-toggle {
+      border-bottom: none !important;
+    }
+  }
+`;
 export const NavbarBrand = styled(Navbar.Brand)``;
-export const NavDropdownItem = styled(Drop.Item)``;
+export const NavDropdownItem = styled(Drop.Item)`
+  border-bottom: solid 1px var(--muted-grey);
+
+  &.notif__item {
+    gap: 12px;
+    width: 320px;
+    padding: 24px;
+    cursor: pointer;
+    position: relative;
+    display: grid !important;
+    grid-template-columns: 40px minmax(0, 1fr);
+
+    .notif__item__avatar {
+      background-color: var(--grey-3);
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      display: flex;
+      height: 40px;
+      width: 40px;
+
+      img {
+        object-position: center;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .notif__item__content {
+      line-height: 1.4;
+      font-size: 14px;
+      white-space: pre-wrap;
+
+      a,
+      b {
+        font-weight: 600;
+      }
+
+      a {
+        color: var(--teal);
+      }
+    }
+
+    .notif__item__unseen {
+      width: 12px;
+      height: 12px;
+      margin: 13px 0px;
+      border-radius: 50%;
+      background-color: var(--danger);
+    }
+
+    &.-unseen {
+      grid-template-columns: 40px minmax(0, 1fr) 12px;
+    }
+  }
+`;
 export const NavbarCollapse = styled(Navbar.Collapse)`
   @media (max-width: 991px) {
     background-color: #fff;
@@ -54,6 +153,20 @@ export const StyledNavbar = styled(Navbar)`
   display: block;
   z-index: 999;
   top: 0;
+
+  .notif__badge {
+    width: 16px;
+    height: 16px;
+    color: #fff;
+    font-size: 10px;
+    border-radius: 50%;
+    align-items: center;
+    margin: 0px !important;
+    justify-content: center;
+    display: flex !important;
+    border: solid 2px #fff;
+    background-color: var(--danger);
+  }
 
   .search {
     display: flex;
@@ -139,6 +252,30 @@ export const StyledNavbar = styled(Navbar)`
           object-fit: cover;
           object-position: center;
         }
+      }
+    }
+
+    &.notif {
+      background-color: var(--grey-3);
+      justify-content: center;
+      padding: 0px !important;
+      align-items: center;
+      border-radius: 50%;
+      margin: 0px 15px;
+      display: flex;
+      height: 36px;
+      width: 36px;
+    }
+
+    &.notif--link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .notif__badge {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
       }
     }
   }
