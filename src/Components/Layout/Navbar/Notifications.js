@@ -23,6 +23,7 @@ const Notifications = ({ data, error, mutate, route }) => {
       if (typeof window !== "undefined") {
         window.location.origin = url;
       }
+    }
   };
 
   /**
