@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useGlobal } from "reactn";
 import { Modal } from "react-bootstrap";
+
 import { updateAgreeToStandardsService } from "../../../Services/mentorService";
 import Button from "../../Button";
 
@@ -8,12 +9,17 @@ const ScheduleWithCalendly = ({ modal, setModal, user }) => {
    * state
    */
   const [openModal, setOpenModal] = useState(false);
+  const [, setUser] = useGlobal("user");
 
   /**
    * functions
    */
   const handleAgreed = () =>
-    setOpenModal(false) | setModal(false) | updateAgreeToStandardsService();
+    setOpenModal(false) |
+    setModal(false) |
+    updateAgreeToStandardsService().then(() =>
+      setUser({ ...user, agreed_to_standards: true }),
+    );
 
   /**
    * effect
