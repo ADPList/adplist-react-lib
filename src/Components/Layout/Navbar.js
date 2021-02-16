@@ -57,6 +57,7 @@ const Navbar = ({
     initUser &&
       process.env.REACT_APP_MESSAGING_BASEURL +
         "/notification/?offset=0&limit=10",
+    { focusThrottleInterval: 8000 },
   );
 
   /**
