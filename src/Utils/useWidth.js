@@ -12,7 +12,7 @@ const useWidth = () => {
    */
   const handleWidth = debounce(() => {
     if (typeof window !== "undefined") setWidth(window.innerWidth);
-  }, 1000);
+  }, 50);
 
   /**
    * effect

@@ -199,8 +199,11 @@ const Navbar = ({
                       ) : (
                         <Styled.NavLink
                           {...(!item?.target && {
-                            onClick: (e) =>
-                              e.preventDefault() | router(item?.link),
+                            onClick: (e) => {
+                              e.preventDefault();
+                              if (item?.onClick) return item?.onClick();
+                              else return router(item?.link);
+                            },
                           })}
                           {...(item?.target && { target: "_blank" })}
                           href={item?.link}
