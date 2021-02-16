@@ -21,7 +21,7 @@ const Notifications = ({ data, error, mutate, route }) => {
     if (local) route(url);
     else {
       if (typeof window !== "undefined") {
-        window.location.origin = url;
+        window.location.href = url;
       }
     }
   };
