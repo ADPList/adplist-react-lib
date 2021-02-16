@@ -9,7 +9,7 @@ const ScheduleWithCalendly = ({ modal, setModal, user }) => {
    * state
    */
   const [openModal, setOpenModal] = useState(false);
-  const [, setUser] = useGlobal("user");
+  const [initUser, setUser] = useGlobal("user");
 
   /**
    * functions
@@ -18,7 +18,7 @@ const ScheduleWithCalendly = ({ modal, setModal, user }) => {
     setOpenModal(false) |
     setModal(false) |
     updateAgreeToStandardsService().then(() =>
-      setUser({ ...user, agreed_to_standards: true }),
+      setUser({ ...initUser, agreed_to_standards: true }),
     );
 
   /**
@@ -26,7 +26,7 @@ const ScheduleWithCalendly = ({ modal, setModal, user }) => {
    */
   useEffect(() => {
     if (modal && !openModal) {
-      if (user?.agreed_to_standards) {
+      if (initUser?.agreed_to_standards) {
         window.open(user?.calendly_url);
         setModal(false);
       } else {
