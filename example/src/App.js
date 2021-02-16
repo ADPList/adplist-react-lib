@@ -1,5 +1,11 @@
 import React, { Fragment, useState } from "reactn";
-import { AuthProvider, Layout, Button, Modal } from "adplist-react-lib";
+import {
+  Modal,
+  Layout,
+  Button,
+  GetAMatch,
+  AuthProvider,
+} from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
 
@@ -41,11 +47,7 @@ export default () => {
           }}
         >
           <Container className="py-5">
-            <Modal
-              size="full"
-              show={modal}
-              onHide={() => setModal(false)}
-            ></Modal>
+            <GetAMatch {...{ modal, setModal }} />
 
             <Button
               isValid

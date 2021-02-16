@@ -21,6 +21,7 @@ export { default as Spinner } from "./Spinner";
 export { default as Socials } from "./Socials";
 export { default as Textarea } from "./Textarea";
 export { default as UserTile } from "./UserTile";
+export { default as GetAMatch } from "./GetAMatch";
 export { default as Pagination } from "./Pagination";
 export { default as ScrollToTop } from "./ScrollToTop";
 export { default as PageNotFound } from "./PageNotFound";

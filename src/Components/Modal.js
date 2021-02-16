@@ -32,10 +32,12 @@ export default ({ body, onHide, show, header, ...props }) => {
 const LargeModal = ({ onHide, show, ...props }) => {
   return (
     <LargeModalWrapper centered show={show} onHide={() => {}} {...props}>
-      <Modal.Body className="p-0">
+      <Modal.Body className="p-0 h-100">
         <LargeModalNav>
-          <Logo />
-          <Close size={48} className="cursor-pointer" onClick={onHide} />
+          <Container>
+            <Logo />
+            <Close size={48} className="cursor-pointer" onClick={onHide} />
+          </Container>
         </LargeModalNav>
         <LargeModalBody>{props.component || props.children}</LargeModalBody>
       </Modal.Body>
@@ -51,12 +53,16 @@ const LargeModalBody = styled(Container)`
   overflow-y: auto;
 `;
 
-const LargeModalNav = styled(Container)`
+const LargeModalNav = styled.div`
   height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+
+  .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 const LargeModalWrapper = styled(Modal)`
