@@ -227,9 +227,9 @@ const Navbar = ({
                       title={
                         <Fragment>
                           <Notification />
-                          {!!notifications?.unseen && (
+                          {!!notifications?.total_unseen && (
                             <span className="notif__badge">
-                              {notifications.unseen}
+                              {notifications.total_unseen}
                             </span>
                           )}
                         </Fragment>
@@ -256,9 +256,9 @@ const Navbar = ({
                       className="notif--link"
                     >
                       <span>Notifications</span>
-                      {!!notifications?.unseen && (
+                      {!!notifications?.total_unseen && (
                         <span className="notif__badge">
-                          {notifications.unseen}
+                          {notifications.total_unseen}
                         </span>
                       )}
                     </Styled.NavLink>
