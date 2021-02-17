@@ -10,14 +10,12 @@ import ArrowUpRight from "../../Icons/ArrowUpRight";
 import ArrowRight from "../../Icons/ArrowRight";
 import ChatBubble from "../../Icons/ChatBubble";
 import SearchIcon from "../../Icons/Search";
-import useWidth from "../../Utils/useWidth";
 import AdpLogo from "../../Icons/AdpLogo";
 import Search from "../Search";
 import Button from "../Button";
 import cookie from "../../Utils/cookie";
 import Notify from "../Notify";
 import Grid from "../../Styles/Grid";
-// import Chat from "../../Icons/Chat";
 
 const Navbar = ({
   app,
@@ -27,11 +25,6 @@ const Navbar = ({
   router = (link) => (window.location.href = link),
   ...props
 }) => {
-  /**
-   * variables
-   */
-  const width = useWidth();
-
   /**
    * state
    */
@@ -126,7 +119,7 @@ const Navbar = ({
               <div className="search__container w-100">
                 <Search
                   router={({ slug, type }) => router(`/${type}s/${slug}`)}
-                  placeholder="Search for a mentor or designer"
+                  placeholder="Search for mentors, roles or companies"
                 />
               </div>
             </Form>
@@ -220,54 +213,39 @@ const Navbar = ({
 
             {isAuthenticated ? (
               <Fragment>
-                {width >= 992 ? (
-                  <Fragment>
-                    <Styled.NavDropdown
-                      className="notif"
-                      title={
-                        <Fragment>
-                          <Notification />
-                          {!!notifications?.total_unseen && (
-                            <span className="notif__badge">
-                              {notifications.total_unseen}
-                            </span>
-                          )}
-                        </Fragment>
-                      }
-                    >
-                      <Notifications
-                        route={router}
-                        data={notifications}
-                        error={notificationError}
-                        mutate={notificationMutate}
-                      />
-                    </Styled.NavDropdown>
-                    {/* <Styled.NavLink
-                      to={process.env.REACT_APP_ADPLIST_URL + "/messages"}
-                      className="notif"
-                    >
-                      <Chat />
-                    </Styled.NavLink> */}
-                  </Fragment>
-                ) : (
-                  <Fragment>
-                    <Styled.NavLink
-                      href={`${process.env.REACT_APP_ADPLIST_URL}/notifications`}
-                      className="notif--link"
-                    >
-                      <span>Notifications</span>
+                <Styled.NavDropdown
+                  className="notif d-none d-lg-flex"
+                  title={
+                    <Fragment>
+                      <Notification />
                       {!!notifications?.total_unseen && (
                         <span className="notif__badge">
                           {notifications.total_unseen}
                         </span>
                       )}
-                    </Styled.NavLink>
-                    {/* <Styled.NavLink className="notif--link">
-                      <span>Messages</span>
-                      <span className="notif__badge">3</span>
-                    </Styled.NavLink> */}
-                  </Fragment>
-                )}
+                    </Fragment>
+                  }
+                >
+                  <Notifications
+                    route={router}
+                    data={notifications}
+                    error={notificationError}
+                    mutate={notificationMutate}
+                  />
+                </Styled.NavDropdown>
+
+                <Styled.NavLink
+                  href={`${process.env.REACT_APP_ADPLIST_URL}/notifications`}
+                  className="notif--link d-flex d-lg-none"
+                >
+                  <span>Notifications</span>
+                  {!!notifications?.total_unseen && (
+                    <span className="notif__badge">
+                      {notifications.total_unseen}
+                    </span>
+                  )}
+                </Styled.NavLink>
+
                 <Styled.NavDropdown
                   title={
                     <Fragment>

@@ -135,6 +135,7 @@ const Review = ({
   mutate,
   handleRoute,
   source_user: { profile_photo_url, name, identity_type, slug },
+  destination_user,
 }) => {
   const type = `${identity_type.toLowerCase()}s`;
 
@@ -146,11 +147,13 @@ const Review = ({
         if (local) {
           return (
             updateNotificationSeenService(id).then(() => mutate()) |
-            route(`/mentors/${slug}`)
+            route(`/mentors/${destination_user.slug}`)
           );
         } else {
           return updateNotificationSeenService(id).then(() =>
-            handleRoute(`${process.env.REACT_APP_ADPLIST_URL}/mentors/${slug}`),
+            handleRoute(
+              `${process.env.REACT_APP_ADPLIST_URL}/mentors/${destination_user.slug}`,
+            ),
           );
         }
       }}
@@ -165,7 +168,7 @@ const Review = ({
         >
           {name}
         </a>{" "}
-        just wrote a review on your profile.
+        wrote a review on your profile.
       </div>
       {!seen && <span className="notif__item__unseen" />}
     </Styled.NavDropdownItem>
@@ -180,6 +183,7 @@ const Note = ({
   mutate,
   handleRoute,
   source_user: { profile_photo_url, name, identity_type, slug },
+  destination_user,
 }) => {
   const type = `${identity_type.toLowerCase()}s`;
 
@@ -196,7 +200,7 @@ const Note = ({
           <a href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}>
             {name}
           </a>{" "}
-          just asked for your review. Write one for them.
+          asked for your review. Write one for them.
         </p>
         <Button
           isValid
