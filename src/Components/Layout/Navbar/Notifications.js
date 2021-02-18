@@ -183,7 +183,6 @@ const Note = ({
   mutate,
   handleRoute,
   source_user: { profile_photo_url, name, identity_type, slug },
-  destination_user,
 }) => {
   const type = `${identity_type.toLowerCase()}s`;
 
