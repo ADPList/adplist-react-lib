@@ -199,7 +199,7 @@ const Note = ({
           <a href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}>
             {name}
           </a>{" "}
-          asked for your review. Write one for them.
+          sent you a note. Write one for them.
         </p>
         {seen ? (
           <Button className="btn--default-outline px-3 mx-0 btn-36" isValid>
