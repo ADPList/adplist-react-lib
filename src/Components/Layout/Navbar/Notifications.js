@@ -201,26 +201,32 @@ const Note = ({
           </a>{" "}
           asked for your review. Write one for them.
         </p>
-        <Button
-          isValid
-          className="btn--default btn-36 px-3 mx-0"
-          onClick={() => {
-            if (local) {
-              return (
-                updateNotificationSeenService(id).then(() => mutate()) |
-                route(`/mentors/${slug}`)
-              );
-            } else {
-              return updateNotificationSeenService(id).then(() =>
-                handleRoute(
-                  `${process.env.REACT_APP_ADPLIST_URL}/mentors/${slug}`,
-                ),
-              );
-            }
-          }}
-        >
-          Write review
-        </Button>
+        {seen ? (
+          <Button className="btn--default-outline px-3 mx-0 btn-36" inValid>
+            Review written!
+          </Button>
+        ) : (
+          <Button
+            isValid
+            className="btn--default btn-36 px-3 mx-0"
+            onClick={() => {
+              if (local) {
+                return (
+                  updateNotificationSeenService(id).then(() => mutate()) |
+                  route(`/mentors/${slug}`)
+                );
+              } else {
+                return updateNotificationSeenService(id).then(() =>
+                  handleRoute(
+                    `${process.env.REACT_APP_ADPLIST_URL}/mentors/${slug}`,
+                  ),
+                );
+              }
+            }}
+          >
+            Write review
+          </Button>
+        )}
       </div>
       {!seen && <span className="notif__item__unseen" />}
     </Styled.NavDropdownItem>
