@@ -202,7 +202,7 @@ const Note = ({
           asked for your review. Write one for them.
         </p>
         {seen ? (
-          <Button className="btn--default-outline px-3 mx-0 btn-36" inValid>
+          <Button className="btn--default-outline px-3 mx-0 btn-36" isValid>
             Review written!
           </Button>
         ) : (

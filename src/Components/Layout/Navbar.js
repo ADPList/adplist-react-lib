@@ -147,14 +147,10 @@ const Navbar = ({
                     >
                       {item.menu?.map((menu, key) => (
                         <Styled.NavDropdownItem
-                          {...(!menu?.target
-                            ? {
-                                onClick: (e) =>
-                                  e.preventDefault() | router(menu?.link),
-                              }
-                            : {
-                                target: menu?.name,
-                              })}
+                          {...(!menu?.target && {
+                            onClick: (e) =>
+                              e.preventDefault() | router(menu?.link),
+                          })}
                           href={menu?.link}
                           key={key}
                         >
