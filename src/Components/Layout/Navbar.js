@@ -77,7 +77,7 @@ const Navbar = ({
 
   const handleClick = (item) => {
     if (item.target) {
-      window.open(item.link);
+      window.location.href = item.link;
     } else {
       router(item.link);
     }
@@ -195,7 +195,6 @@ const Navbar = ({
                               else return router(item?.link);
                             },
                           })}
-                          {...(item?.target && { target: "_blank" })}
                           href={item?.link}
                         >
                           {item?.name}
