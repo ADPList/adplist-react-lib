@@ -1,4 +1,4 @@
-import React, { useState } from "reactn";
+import React, { useState, useGlobal } from "reactn";
 import { Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 
@@ -26,7 +26,6 @@ const Thumbnail = ({
   isPrivate,
   handleEdit,
   handleImage,
-  loggedInUser,
 }) => {
   /**
    * variable
@@ -36,6 +35,7 @@ const Thumbnail = ({
   /**
    * states
    */
+  const [loggedInUser] = useGlobal("user");
   const [report, setReport] = useState(false);
   const [askQuestion, setAskQuestion] = useState(false);
   const [scheduleWithEmail, setScheduleWithEmail] = useState(false);

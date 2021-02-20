@@ -1,4 +1,4 @@
-import React, { Fragment, useGlobal } from "reactn";
+import React, { Fragment } from "reactn";
 import { Layout, Profile, AuthProvider } from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
