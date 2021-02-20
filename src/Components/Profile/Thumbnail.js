@@ -52,7 +52,9 @@ const Thumbnail = ({
           buttons: { proceed: { value: "Login" } },
         })
       ) {
-        window.open(process.env.REACT_APP_AUTH_URL + "/login?app=adplist");
+        if (typeof window !== "undefined") {
+          window.open(process.env.REACT_APP_AUTH_URL + "/login?app=adplist");
+        }
       }
 
       return false;
@@ -209,7 +211,12 @@ const ProfileDropdown = ({ loggedInUser, isPrivate, setReport }) => {
   const message = `I'd recommend you to book a session with ${
     loggedInUser?.name || ""
   } on ADPList 🙌!`;
-  const url = window.location.href;
+  const url = (() => {
+    if (typeof window !== "undefined") {
+      return window.location.href;
+    }
+    return "";
+  })();
 
   return (
     <Dropdown>

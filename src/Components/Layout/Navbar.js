@@ -56,12 +56,15 @@ const Navbar = ({
   /**
    * functions
    */
-  const login = () =>
-    window.open(
-      `${process.env.REACT_APP_AUTH_URL || ""}/login${
-        app ? `?app=${app}` : ""
-      }`,
-    );
+  const login = () => {
+    if (typeof window !== "undefined") {
+      window.open(
+        `${process.env.REACT_APP_AUTH_URL || ""}/login${
+          app ? `?app=${app}` : ""
+        }`,
+      );
+    }
+  };
 
   const logout = () => {
     cookie().deleteCookie("token");
@@ -72,12 +75,17 @@ const Navbar = ({
     toast(<Notify body="Logged out" type="success" />);
   };
 
-  const signup = () =>
-    window.open(`${process.env.REACT_APP_AUTH_URL || ""}/signup`);
+  const signup = () => {
+    if (typeof window !== "undefined") {
+      window.open(`${process.env.REACT_APP_AUTH_URL || ""}/signup`);
+    }
+  };
 
   const handleClick = (item) => {
     if (item.target) {
-      window.location.href = item.link;
+      if (typeof window !== "undefined") {
+        window.location.href = item.link;
+      }
     } else {
       router(item.link);
     }
