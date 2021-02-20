@@ -237,7 +237,7 @@ const ProfileDropdown = ({ loggedInUser, isPrivate, setReport }) => {
             onClick={() => setReport(true)}
             className="justify-content-center grey-2-text"
           >
-            Report item
+            Report profile
           </Dropdown.Item>
         )}
       </Dropdown.Menu>
