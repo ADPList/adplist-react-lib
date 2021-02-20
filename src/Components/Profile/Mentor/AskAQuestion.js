@@ -40,7 +40,9 @@ const AskAQuestion = ({ user, modal, setModal }) => {
             message: string().required("Message is required"),
           })}
           onSubmit={(params, { setSubmitting }) => {
-            Http.post(`/account/mentor/${user.id}/ask-a-question/`, params)
+            Http.post(`/account/mentor/${user.id}/ask-a-question/`, {
+              question: params.message,
+            })
               .then(
                 () =>
                   toast(
