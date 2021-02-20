@@ -195,11 +195,7 @@ const Thumbnail = ({
         {...{ user, userType }}
       />
 
-      <AskAQuestion
-        modal={askQuestion}
-        setModal={setAskQuestion}
-        mentor={user}
-      />
+      <AskAQuestion modal={askQuestion} setModal={setAskQuestion} user={user} />
     </React.Fragment>
   );
 };
