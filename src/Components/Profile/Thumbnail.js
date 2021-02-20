@@ -1,11 +1,16 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useState } from "reactn";
+import { Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 
-import { copyToClipboard } from "../../Utils";
+import { handleShare } from "../../Utils/helpers";
 import ScheduleWithCalendly from "./Mentor/ScheduleWithCalendly";
 import ScheduleWithEmail from "./Mentor/ScheduleWithEmail";
+import copyToClipboard from "../../Utils/copyToClipboard";
+import MessageQuestion from "../../Icons/MessageQuestion";
 import ReportProfile from "./Mentor/ReportProfile";
-import ArrowUpRight from "../../Icons/ArrowUpRight";
+import AskAQuestion from "./Mentor/AskAQuestion";
+import Linkedin from "../../Icons/LinkedIn";
+import Twitter from "../../Icons/Twitter";
 import Confirm from "../Confirm";
 import Button from "../Button";
 import Image from "../Image";
@@ -21,6 +26,7 @@ const Thumbnail = ({
   isPrivate,
   handleEdit,
   handleImage,
+  loggedInUser,
 }) => {
   /**
    * variable
@@ -30,18 +36,14 @@ const Thumbnail = ({
   /**
    * states
    */
-  const [loggedInUser] = useGlobal("user");
   const [report, setReport] = useState(false);
+  const [askQuestion, setAskQuestion] = useState(false);
   const [scheduleWithEmail, setScheduleWithEmail] = useState(false);
   const [scheduleWithCalendly, setScheduleWithCalendly] = useState(false);
 
   /**
    * functions
    */
-  const handleProfile = () => {
-    window.open(user?.portfolio_url);
-  };
-
   const handleScheduling = async () => {
     if (!loggedInUser) {
       if (
@@ -112,26 +114,44 @@ const Thumbnail = ({
                 {!user?.on_break ? (
                   <React.Fragment>
                     {!isPrivate && loggedInUser?.mentor?.id !== user?.id && (
-                      <Button
-                        isValid
-                        className="btn--default w-100 btn-56"
-                        onClick={() => handleScheduling()}
-                      >
-                        <span className="mr-2">
-                          {user?.calendly_url
-                            ? "Schedule time with me"
-                            : "Send me an email"}
-                        </span>
+                      <React.Fragment>
                         {user?.calendly_url ? (
-                          <span role="img" aria-label="writinng">
-                            🗓
-                          </span>
+                          <Grid sm="minmax(0, 1fr) 58px 58px" gap="8px">
+                            <Button
+                              isValid={
+                                loggedInUser?.identity_type?.toLowerCase() !==
+                                "limbo"
+                              }
+                              onClick={handleScheduling}
+                              className="btn--default w-100 btn-56"
+                            >
+                              Schedule a call
+                            </Button>
+                            <Action onClick={() => setAskQuestion(true)}>
+                              <MessageQuestion size={24} />
+                            </Action>
+                            <ProfileDropdown
+                              {...{ user, isPrivate, loggedInUser, setReport }}
+                            />
+                          </Grid>
                         ) : (
-                          <span role="img" aria-label="email">
-                            📨
-                          </span>
+                          <Grid sm="1fr 58px" gap="8px">
+                            <Button
+                              isValid={
+                                loggedInUser?.identity_type?.toLowerCase() !==
+                                "limbo"
+                              }
+                              onClick={() => setAskQuestion(true)}
+                              className="btn--default w-100 btn-56"
+                            >
+                              Ask a question
+                            </Button>
+                            <ProfileDropdown
+                              {...{ user, isPrivate, loggedInUser, setReport }}
+                            />
+                          </Grid>
                         )}
-                      </Button>
+                      </React.Fragment>
                     )}
                   </React.Fragment>
                 ) : (
@@ -142,27 +162,6 @@ const Thumbnail = ({
                 )}
               </React.Fragment>
             )}
-            {user?.portfolio_url && !isPrivate && (
-              <Button
-                isValid
-                className="muted-grey-bg default-text w-100 btn-56"
-                onClick={() => handleProfile()}
-              >
-                <span className="mr-2">View my LinkedIn</span>
-                <ArrowUpRight color="var(--default)" />
-              </Button>
-            )}
-
-            {loggedInUser && !isPrivate && (
-              <a
-                href="/"
-                className="default-text py-2"
-                onClick={(e) => e.preventDefault() | setReport(true)}
-              >
-                Report this profile
-              </a>
-            )}
-
             {isEdit && isPrivate && (
               <a
                 href="/"
@@ -193,7 +192,51 @@ const Thumbnail = ({
         setModal={setReport}
         {...{ user, userType }}
       />
+
+      <AskAQuestion
+        modal={askQuestion}
+        setModal={setAskQuestion}
+        mentor={user}
+      />
     </React.Fragment>
+  );
+};
+
+/**
+ * other componenets
+ */
+const ProfileDropdown = ({ loggedInUser, isPrivate, setReport }) => {
+  const message = `I'd recommend you to book a session with ${loggedInUser.name} on ADPList 🙌!`;
+  const url = window.location.href;
+
+  return (
+    <Dropdown>
+      <Dropdown.Toggle as={Action}>
+        <i className="material-icons-round">keyboard_arrow_down</i>
+      </Dropdown.Toggle>
+      <Dropdown.Menu className="mt-2">
+        <Dropdown.Item
+          onClick={() => handleShare("twitter", null, url, message)}
+        >
+          <Twitter variant="default" size={18} />
+          <span className="ml-3">Tweet this profile</span>
+        </Dropdown.Item>
+        <Dropdown.Item
+          onClick={() => handleShare("linkedin", null, url, message)}
+        >
+          <Linkedin variant="default" size={18} />
+          <span className="ml-3">Share on LinkedIn</span>
+        </Dropdown.Item>
+        {loggedInUser && !isPrivate && (
+          <Dropdown.Item
+            onClick={() => setReport(true)}
+            className="justify-content-center grey-2-text"
+          >
+            Report item
+          </Dropdown.Item>
+        )}
+      </Dropdown.Menu>
+    </Dropdown>
   );
 };
 
@@ -218,6 +261,20 @@ const Wrapper = styled.div`
       position: sticky;
       top: 118px;
     }
+  }
+`;
+
+const Action = styled.div`
+  height: 56px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px !important;
+  border: solid 1px var(--grey-3) !important;
+
+  i {
+    font-size: 28px !important;
   }
 `;
 

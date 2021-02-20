@@ -37,3 +37,4 @@ export { default as CheckCircle } from "./CheckCircle";
 export { default as ArrowUpRight } from "./ArrowUpRight";
 export { default as NoConnection } from "./NoConnection";
 export { default as Notification } from "./Notification";
+export { default as MessageQuestion } from "./MessageQuestion";
