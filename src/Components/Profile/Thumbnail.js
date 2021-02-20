@@ -206,7 +206,9 @@ const Thumbnail = ({
  * other componenets
  */
 const ProfileDropdown = ({ loggedInUser, isPrivate, setReport }) => {
-  const message = `I'd recommend you to book a session with ${loggedInUser.name} on ADPList 🙌!`;
+  const message = `I'd recommend you to book a session with ${
+    loggedInUser?.name || ""
+  } on ADPList 🙌!`;
   const url = window.location.href;
 
   return (
