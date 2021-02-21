@@ -2,7 +2,7 @@ import React, { useState, useGlobal } from "reactn";
 import { Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 
-import { handleShare } from "../../Utils/helpers";
+import { handleShare, handleLogin } from "../../Utils/helpers";
 import ScheduleWithCalendly from "./Mentor/ScheduleWithCalendly";
 import ScheduleWithEmail from "./Mentor/ScheduleWithEmail";
 import copyToClipboard from "../../Utils/copyToClipboard";
@@ -44,41 +44,58 @@ const Thumbnail = ({
   /**
    * functions
    */
+
   const handleScheduling = async () => {
-    if (!loggedInUser) {
-      if (
-        await Confirm({
-          confirmation: "You need to login to schedule with mentor",
-          buttons: { proceed: { value: "Login" } },
-        })
-      ) {
-        if (typeof window !== "undefined") {
-          window.open(process.env.REACT_APP_AUTH_URL + "/login?app=adplist");
+    handleLogin(loggedInUser)
+      .then(async () => {
+        if (loggedInUser?.mentor?.id === user?.id) {
+          if (
+            await Confirm({
+              confirmation: "Cannot schedule with yourself",
+              buttons: {
+                cancel: { className: "d-none" },
+                proceed: { value: "Ok" },
+              },
+            })
+          ) {
+          }
+          return false;
         }
+
+        if (user?.calendly_url) {
+          setScheduleWithCalendly(true);
+        } else {
+          setScheduleWithEmail(true);
+        }
+      })
+      .catch(() => {
+        return false;
+      });
+  };
+
+  const handleAskQuestion = async () => {
+    handleLogin(loggedInUser).then(async () => {
+      if (loggedInUser?.mentor?.id === user?.id) {
+        if (
+          await Confirm({
+            confirmation: "Cannot ask yourself a question",
+            buttons: {
+              cancel: { className: "d-none" },
+              proceed: { value: "Ok" },
+            },
+          })
+        ) {
+        }
+        return false;
       }
 
-      return false;
-    }
-
-    if (loggedInUser?.mentor?.id === user?.id) {
-      if (
-        await Confirm({
-          confirmation: "Cannot schedule with yourself",
-          buttons: {
-            cancel: { className: "d-none" },
-            proceed: { value: "Ok" },
-          },
-        })
-      ) {
+      if (loggedInUser?.identity_type?.toLowerCase() === "limbo") {
+        window.location.href = process.env.REACT_APP_AUTH_URL;
+        return false;
       }
-      return false;
-    }
 
-    if (user?.calendly_url) {
-      setScheduleWithCalendly(true);
-    } else {
-      setScheduleWithEmail(true);
-    }
+      return setAskQuestion(true);
+    });
   };
 
   return (
@@ -120,16 +137,13 @@ const Thumbnail = ({
                         {user?.calendly_url ? (
                           <Grid sm="minmax(0, 1fr) 58px 58px" gap="8px">
                             <Button
-                              isValid={
-                                loggedInUser?.identity_type?.toLowerCase() !==
-                                "limbo"
-                              }
+                              isValid
                               onClick={handleScheduling}
                               className="btn--default w-100 btn-56"
                             >
                               Schedule a call
                             </Button>
-                            <Action onClick={() => setAskQuestion(true)}>
+                            <Action onClick={handleAskQuestion}>
                               <MessageQuestion size={24} />
                             </Action>
                             <ProfileDropdown
@@ -139,11 +153,8 @@ const Thumbnail = ({
                         ) : (
                           <Grid sm="1fr 58px" gap="8px">
                             <Button
-                              isValid={
-                                loggedInUser?.identity_type?.toLowerCase() !==
-                                "limbo"
-                              }
-                              onClick={() => setAskQuestion(true)}
+                              isValid
+                              onClick={handleAskQuestion}
                               className="btn--default w-100 btn-56"
                             >
                               Ask a question
@@ -203,9 +214,9 @@ const Thumbnail = ({
 /**
  * other componenets
  */
-const ProfileDropdown = ({ loggedInUser, isPrivate, setReport }) => {
+const ProfileDropdown = ({ user, loggedInUser, isPrivate, setReport }) => {
   const message = `I'd recommend you to book a session with ${
-    loggedInUser?.name || ""
+    user?.name || ""
   } on ADPList 🙌!`;
   const url = (() => {
     if (typeof window !== "undefined") {
@@ -219,7 +230,7 @@ const ProfileDropdown = ({ loggedInUser, isPrivate, setReport }) => {
       <Dropdown.Toggle as={Action}>
         <i className="material-icons-round">keyboard_arrow_down</i>
       </Dropdown.Toggle>
-      <Dropdown.Menu className="mt-2">
+      <DropdownMenu className="mt-2">
         <Dropdown.Item
           onClick={() => handleShare("twitter", null, url, message)}
         >
@@ -240,7 +251,7 @@ const ProfileDropdown = ({ loggedInUser, isPrivate, setReport }) => {
             Report profile
           </Dropdown.Item>
         )}
-      </Dropdown.Menu>
+      </DropdownMenu>
     </Dropdown>
   );
 };
@@ -248,6 +259,11 @@ const ProfileDropdown = ({ loggedInUser, isPrivate, setReport }) => {
 /**
  * styles
  */
+const DropdownMenu = styled(Dropdown.Menu)`
+  right: 0 !important;
+  left: auto !important;
+`;
+
 const Wrapper = styled.div`
   text-align: center;
   margin-bottom: 32px;

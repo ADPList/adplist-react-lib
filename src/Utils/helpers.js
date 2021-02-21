@@ -1,3 +1,5 @@
+import Confirm from "../Components/Confirm";
+
 export const handleShare = (type, mentor, url, message) => {
   const text = encodeURI(
     message ||
@@ -19,4 +21,25 @@ export const handleShare = (type, mentor, url, message) => {
     default:
       break;
   }
+};
+
+export const handleLogin = async (user) => {
+  if (!user) {
+    if (
+      await Confirm({
+        confirmation: "You need to login to schedule with mentor",
+        buttons: { proceed: { value: "Login" } },
+      })
+    ) {
+      if (typeof window !== "undefined") {
+        window.open(process.env.REACT_APP_AUTH_URL + "/login?app=adplist");
+      }
+
+      return false;
+    }
+
+    return false;
+  }
+
+  return true;
 };
