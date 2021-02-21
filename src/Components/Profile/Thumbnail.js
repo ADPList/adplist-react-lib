@@ -260,8 +260,10 @@ const ProfileDropdown = ({ user, loggedInUser, isPrivate, setReport }) => {
  * styles
  */
 const DropdownMenu = styled(Dropdown.Menu)`
-  right: 0 !important;
-  left: auto !important;
+  @media (min-width: 768px) {
+    right: 0 !important;
+    left: auto !important;
+  }
 `;
 
 const Wrapper = styled.div`
