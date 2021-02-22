@@ -45,6 +45,10 @@ const Thumbnail = ({
    * functions
    */
 
+  const handleProfile = () => {
+    window.open(user?.portfolio_url);
+  };
+
   const handleScheduling = async () => {
     handleLogin(loggedInUser)
       .then(async () => {
@@ -175,6 +179,18 @@ const Thumbnail = ({
                 )}
               </React.Fragment>
             )}
+
+            {user?.portfolio_url && !isPrivate && (
+              <Button
+                isValid
+                className="grey-3-bg default-text w-100 btn-56"
+                onClick={() => handleProfile()}
+              >
+                <span className="mr-2">View my LinkedIn</span>
+                <ArrowUpRight color="var(--default)" />
+              </Button>
+            )}
+
             {isEdit && isPrivate && (
               <a
                 href="/"
