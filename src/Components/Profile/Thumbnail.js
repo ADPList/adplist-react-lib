@@ -8,6 +8,7 @@ import ScheduleWithEmail from "./Mentor/ScheduleWithEmail";
 import copyToClipboard from "../../Utils/copyToClipboard";
 import MessageQuestion from "../../Icons/MessageQuestion";
 import ReportProfile from "./Mentor/ReportProfile";
+import ArrowUpRight from "../../Icons/ArrowRight";
 import AskAQuestion from "./Mentor/AskAQuestion";
 import Linkedin from "../../Icons/LinkedIn";
 import Twitter from "../../Icons/Twitter";
@@ -44,6 +45,10 @@ const Thumbnail = ({
   /**
    * functions
    */
+
+  const handleProfile = () => {
+    window.open(user?.portfolio_url);
+  };
 
   const handleScheduling = async () => {
     handleLogin(loggedInUser)
@@ -175,6 +180,18 @@ const Thumbnail = ({
                 )}
               </React.Fragment>
             )}
+
+            {user?.portfolio_url && !isPrivate && (
+              <Button
+                isValid
+                className="grey-3-bg default-text w-100 btn-56"
+                onClick={() => handleProfile()}
+              >
+                <span className="mr-2">View my LinkedIn</span>
+                <ArrowUpRight color="var(--default)" />
+              </Button>
+            )}
+
             {isEdit && isPrivate && (
               <a
                 href="/"
