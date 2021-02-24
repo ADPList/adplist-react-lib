@@ -91,6 +91,10 @@ const Navbar = ({
     }
   };
 
+  const handleSession = () => {
+    return window.location.href = `${process.env.REACT_APP_ADPLIST_URL}/create-session`;
+  }
+
   /**
    * effect
    */
@@ -312,6 +316,9 @@ const Navbar = ({
                     <ArrowRight color="var(--grey-2)" />
                   </Styled.NavDropdownItem>
                 </Styled.NavDropdown>
+                {(identityType === "mentor") && (
+                  <Button isValid className="teal-bg white-text" onClick={handleSession}>+  Start a session</Button>
+                )}
               </Fragment>
             ) : (
               <Fragment>

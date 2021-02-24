@@ -1,5 +1,5 @@
 import React, { Fragment } from "reactn";
-import { Layout, Profile, AuthProvider } from "adplist-react-lib";
+import { Layout, Profile, AuthProvider, GroupSession, DatePicker, TimePicker } from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
 
@@ -119,6 +119,10 @@ export default () => {
         >
           <Container className="py-5">
             <Profile initUser={user} />
+            <GroupSession.Card />
+            <DatePicker dateFormat />
+            <TimePicker />
+            <GroupSession.Form />
           </Container>
         </Layout>
       </AuthProvider>
