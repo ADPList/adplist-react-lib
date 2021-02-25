@@ -1,10 +1,20 @@
 import React, { Fragment } from "reactn";
-import { Layout, Profile, AuthProvider, GroupSession, DatePicker, TimePicker } from "adplist-react-lib";
+import {
+  Layout,
+  Profile,
+  AuthProvider,
+  GroupSession,
+  DatePicker,
+  TimePicker,
+} from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
 
 import "adplist-react-lib/dist/index.css";
 import "react-datetime/css/react-datetime.css";
+import { Form } from "react-bootstrap";
+import { Formik } from "formik";
+import { number, object, string } from "yup";
 
 export default () => {
   const user = {
@@ -120,7 +130,46 @@ export default () => {
         >
           <Container className="py-5">
             <Profile initUser={user} />
-            <GroupSession.Card />
+            <GroupSession.Card
+              content={{
+                date: "Date here",
+                title: "Hello world 🚀",
+                avatar: "https://via.placeholder.com/150",
+                description:
+                  "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores tenetur voluptates ducimus. Temporibus autem repudiandae harum soluta at possimus minus numquam consectetur. Est velit temporibus sapiente eaque adipisci, illo magnam.",
+                author: "Larry Buntus",
+                organisation: "Qodehub",
+              }}
+            />
+
+            {/* <Formik
+              validateOnMount
+              initialValues={{
+                name: "",
+                video_url: "",
+                rsvp_limit: "",
+                description: "",
+              }}
+              validationSchema={object({
+                name: string().required("Name is required"),
+                video_url: string()
+                  .url("Invalid url")
+                  .required("Url is required"),
+                rsvp_limit: number()
+                  .typeError("")
+                  .required("RSVP limit is required"),
+                description: string().required("Description is required"),
+              })}
+            >
+              {({ values: { name, video_url, rsvp_limit, description } }) => (
+                <div>
+                  <GroupSession.Fields.SessionName value={name} />
+                  <GroupSession.Fields.MeetingURL value={video_url} />
+                  <GroupSession.Fields.RsvpLimit value={rsvp_limit} />
+                  <GroupSession.Fields.Description value={description} />
+                </div>
+              )}
+            </Formik> */}
           </Container>
         </Layout>
       </AuthProvider>

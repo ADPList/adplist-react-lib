@@ -91,9 +91,9 @@ const Navbar = ({
     }
   };
 
-  const handleSession = () => {
-    return window.location.href = `${process.env.REACT_APP_ADPLIST_URL}/create-session`;
-  }
+  // const handleSession = () => {
+  //   return (window.location.href = `${process.env.REACT_APP_ADPLIST_URL}/create-session`);
+  // };
 
   /**
    * effect
@@ -316,9 +316,18 @@ const Navbar = ({
                     <ArrowRight color="var(--grey-2)" />
                   </Styled.NavDropdownItem>
                 </Styled.NavDropdown>
-                {(identityType === "mentor") && (
-                  <Button isValid className="teal-bg white-text" onClick={handleSession}>+  Start a session</Button>
-                )}
+                {/* {identityType === "mentor" && (
+                  <Button
+                    isValid
+                    className="teal-bg white-text"
+                    onClick={handleSession}
+                  >
+                    <i className="material-icons-round mr-1 font-size-20">
+                      add
+                    </i>
+                    <span>Start a session</span>
+                  </Button>
+                )} */}
               </Fragment>
             ) : (
               <Fragment>

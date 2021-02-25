@@ -13,6 +13,7 @@ import AskAQuestion from "./Mentor/AskAQuestion";
 import Linkedin from "../../Icons/LinkedIn";
 import Twitter from "../../Icons/Twitter";
 import Confirm from "../Confirm";
+import Shield from "../../Icons/Shield";
 import Button from "../Button";
 import Image from "../Image";
 import Grid from "../../Styles/Grid";
@@ -51,7 +52,7 @@ const Thumbnail = ({
   };
 
   const handleScheduling = async () => {
-    handleLogin(loggedInUser)
+    handleLogin(loggedInUser, "You need to login to schedule with mentor")
       .then(async () => {
         if (loggedInUser?.mentor?.id === user?.id) {
           if (
@@ -79,28 +80,25 @@ const Thumbnail = ({
   };
 
   const handleAskQuestion = async () => {
-    handleLogin(loggedInUser).then(async () => {
-      if (loggedInUser?.mentor?.id === user?.id) {
-        if (
-          await Confirm({
-            confirmation: "Cannot ask yourself a question",
-            buttons: {
-              cancel: { className: "d-none" },
-              proceed: { value: "Ok" },
-            },
-          })
-        ) {
+    handleLogin(loggedInUser, "You need to login to ask a question").then(
+      async () => {
+        if (loggedInUser?.mentor?.id === user?.id) {
+          if (
+            await Confirm({
+              confirmation: "Cannot ask yourself a question",
+              buttons: {
+                cancel: { className: "d-none" },
+                proceed: { value: "Ok" },
+              },
+            })
+          ) {
+          }
+          return false;
         }
-        return false;
-      }
 
-      if (loggedInUser?.identity_type?.toLowerCase() === "limbo") {
-        window.location.href = process.env.REACT_APP_AUTH_URL;
-        return false;
-      }
-
-      return setAskQuestion(true);
-    });
+        return setAskQuestion(true);
+      },
+    );
   };
 
   return (
@@ -184,12 +182,28 @@ const Thumbnail = ({
             {user?.portfolio_url && !isPrivate && (
               <Button
                 isValid
-                className="grey-3-bg default-text w-100 btn-56"
+                className="muted-grey-bg default-text w-100 btn-56"
                 onClick={() => handleProfile()}
               >
                 <span className="mr-2">View my LinkedIn</span>
                 <ArrowUpRight color="var(--default)" />
               </Button>
+            )}
+
+            {userType === "mentor" && (
+              <NoShow>
+                <Shield className="mr-2" />
+                <p className="line-height-16 font-size-14 mb-0">
+                  No-Show Ban Policy{" "}
+                  <a
+                    target="notion"
+                    className="teal-text"
+                    href="https://www.notion.so/adplist/No-Show-Ban-Policy-ac9b11bd05c649a2867e534d66c49fa4"
+                  >
+                    Read more
+                  </a>
+                </p>
+              </NoShow>
             )}
 
             {isEdit && isPrivate && (
@@ -302,6 +316,16 @@ const Wrapper = styled.div`
       top: 118px;
     }
   }
+`;
+
+const NoShow = styled.div`
+  display: flex;
+  font-weight: 500;
+  padding: 10px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  align-items: center;
+  background-color: var(--muted-orange);
 `;
 
 const Action = styled.div`

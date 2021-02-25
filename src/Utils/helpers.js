@@ -23,11 +23,11 @@ export const handleShare = (type, mentor, url, message) => {
   }
 };
 
-export const handleLogin = async (user) => {
+export const handleLogin = async (user, message) => {
   if (!user) {
     if (
       await Confirm({
-        confirmation: "You need to login to schedule with mentor",
+        confirmation: message,
         buttons: { proceed: { value: "Login" } },
       })
     ) {
@@ -39,6 +39,13 @@ export const handleLogin = async (user) => {
     }
 
     return false;
+  } else {
+    if (user?.identity_type?.toLowerCase() === "limbo") {
+      if (typeof window !== "undefined")
+        window.location.href = process.env.REACT_APP_AUTH_URL;
+
+      return false;
+    }
   }
 
   return true;

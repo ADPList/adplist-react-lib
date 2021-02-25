@@ -26,5 +26,4 @@ export { default as GetAMatch } from "./GetAMatch";
 export { default as Pagination } from "./Pagination";
 export { default as ScrollToTop } from "./ScrollToTop";
 export { default as PageNotFound } from "./PageNotFound";
-export {default as DatePicker} from "./DatePicker";
-export {default as TimePicker} from "./TimePicker";
+export { default as DateTimePicker } from "./DateTimePicker";
