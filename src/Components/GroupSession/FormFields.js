@@ -28,14 +28,14 @@ export const RsvpLimit = ({ value, ...props }) => (
     value={value}
     name="rsvp_limit"
     placeholder="Max of 50 allowed"
-    label="Max attendees in this session"
+    label="How many attendees do you expect"
     {...props}
   />
 );
 
 export const Description = ({ value, ...props }) => (
   <Field
-    name="bio"
+    name="description"
     minRows={6}
     value={value}
     className="p-3"
