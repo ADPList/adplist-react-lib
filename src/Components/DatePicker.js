@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import Datetime from "react-datetime";
 
-import "react-datetime/css/react-datetime.css";
 
 const DateTimePicker = ({ label, ...props }) => {
   return (

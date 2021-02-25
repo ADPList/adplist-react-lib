@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
 
 import "adplist-react-lib/dist/index.css";
+import "react-datetime/css/react-datetime.css";
 
 export default () => {
   const user = {
@@ -119,6 +120,9 @@ export default () => {
         >
           <Container className="py-5">
             <Profile initUser={user} />
+            <GroupSession.Card />
+            <DatePicker  />
+            <TimePicker  />
           </Container>
         </Layout>
       </AuthProvider>
