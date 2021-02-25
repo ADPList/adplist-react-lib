@@ -1,28 +1,51 @@
-import React,  {Fragment} from "react";
-import styled from 'styled-components';
+import React, { Fragment } from "react";
+import styled from "styled-components";
 
-const Card = ({content, ...props}) => {
+import Notification from "../../Icons/Notification";
+import Close from "../../Icons/Close";
+import Edit from "../../Icons/Edit";
+
+const Card = ({ content, isPrivate, ...props }) => {
   return (
     <Wrapper {...props}>
       <div className="session cursor-pointer">
         {content && (
           <Fragment>
-          <div className="card__header">
-            <p className="font-size-14 mb-0 grey-2-text">{content.date || ''}</p>
-            {content.icon}
-          </div>
-          <div className="card__body">
-            <p className="card__body__title">{content.title}</p>
-            <p className="card__body__description">{content.description}</p>
-          </div>
-          <div className="card__footer">
-            <Avatar src={content.avatar} />
-            <div className="media-body px-3">
-              <p className="font-size-16 mb-1">{content.author}</p>
-              <p className="font-size-14 mb-0">{content.organisation}</p>
-            </div>
-          </div>
+            <div className="card__header">
+              <p className="font-size-14 mb-0 grey-2-text">
+                {content.date || ""}
+              </p>
 
+              {isPrivate ? (
+                <div className="d-flex align-items-center">
+                  <a href="/" onClick={(e) => e.preventDefault()}>
+                    <Edit />
+                  </a>
+                  <a href="/" onClick={(e) => e.preventDefault()}>
+                    <Close />
+                  </a>
+                </div>
+              ) : (
+                <a
+                  href="/"
+                  className="cursor-pointer"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <Notification color="var(--black)" />
+                </a>
+              )}
+            </div>
+            <div className="card__body">
+              <p className="card__body__title">{content.title}</p>
+              <p className="card__body__description">{content.description}</p>
+            </div>
+            <div className="card__footer">
+              <Avatar src={content.avatar} />
+              <div className="media-body px-3">
+                <p className="font-size-16 mb-1">{content.author}</p>
+                <p className="font-size-14 mb-0">{content.organisation}</p>
+              </div>
+            </div>
           </Fragment>
         )}
       </div>
@@ -30,6 +53,9 @@ const Card = ({content, ...props}) => {
   );
 };
 
+/**
+ * styles
+ */
 const Wrapper = styled.div`
   .session {
     height: 100%;
@@ -79,7 +105,6 @@ const Wrapper = styled.div`
     }
   }
 `;
-
 
 const Avatar = styled.img`
   width: 48px;

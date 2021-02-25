@@ -13,6 +13,7 @@ import AskAQuestion from "./Mentor/AskAQuestion";
 import Linkedin from "../../Icons/LinkedIn";
 import Twitter from "../../Icons/Twitter";
 import Confirm from "../Confirm";
+import Shield from "../../Icons/Shield";
 import Button from "../Button";
 import Image from "../Image";
 import Grid from "../../Styles/Grid";
@@ -139,6 +140,19 @@ const Thumbnail = ({
                   <React.Fragment>
                     {!isPrivate && loggedInUser?.mentor?.id !== user?.id && (
                       <React.Fragment>
+                        <NoShow>
+                          <Shield className="mr-2" />
+                          <div className="line-height-16">
+                            No-Show Ban Policy{" "}
+                            <a
+                              target="notion"
+                              className="teal-text"
+                              href="https://www.notion.so/adplist/No-Show-Ban-Policy-ac9b11bd05c649a2867e534d66c49fa4"
+                            >
+                              Read more
+                            </a>
+                          </div>
+                        </NoShow>
                         {user?.calendly_url ? (
                           <Grid sm="minmax(0, 1fr) 58px 58px" gap="8px">
                             <Button
@@ -184,7 +198,7 @@ const Thumbnail = ({
             {user?.portfolio_url && !isPrivate && (
               <Button
                 isValid
-                className="grey-3-bg default-text w-100 btn-56"
+                className="muted-grey-bg default-text w-100 btn-56"
                 onClick={() => handleProfile()}
               >
                 <span className="mr-2">View my LinkedIn</span>
@@ -302,6 +316,16 @@ const Wrapper = styled.div`
       top: 118px;
     }
   }
+`;
+
+const NoShow = styled.div`
+  display: flex;
+  font-weight: 500;
+  padding: 10px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  align-items: center;
+  background-color: var(--muted-orange);
 `;
 
 const Action = styled.div`

@@ -25,6 +25,7 @@ $muted-pink: #ffebea;
 $muted-brown: #ecdbc9;
 $muted-green: #bee1dc;
 $muted-purple: #f0ebf5;
+$muted-orange: #fef9ef;
 $linkedin-blue: #2966bc;
 
 $colors: () !default;
@@ -57,6 +58,7 @@ $colors: map-merge(
     "muted-brown": $muted-brown,
     "muted-green": $muted-green,
     "muted-purple": $muted-purple,
+    "muted-orange": $muted-orange,
     "linkedin-blue": $linkedin-blue,
   ),
   $colors
@@ -112,5 +114,6 @@ $weights: (400, 500, 600, 700);
   --muted-brown: #{$muted-brown};
   --muted-green: #{$muted-green};
   --muted-purple: #{$muted-purple};
+  --muted-orange: #{$muted-orange};
   --linkedin-blue: #{$linkedin-blue};
 }
