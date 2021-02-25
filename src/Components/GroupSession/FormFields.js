@@ -1,6 +1,8 @@
 import React from "react";
 import Textarea from "../Textarea";
 import Field from "../Field";
+import TimePicker from "../TimePicker";
+import DatePicker from "../DatePicker";
 
 export const SessionName = ({ value, ...props }) => (
   <Field
@@ -47,6 +49,22 @@ export const Description = ({ value, ...props }) => (
   />
 );
 
+export const Date = ({ value, ...props }) => (
+  <DatePicker
+    name="date_and_time"
+    value={value}
+    placeholderText="DD/MM/YYYY"
+    label="Time"
+    {...props}
+  />
+);
+
 export const Time = ({ value, ...props }) => (
-  <Field name="title" value={value} label="Date" placeholder="" {...props} />
+  <TimePicker
+    name="date_and_time"
+    value={value}
+    placeholderText="MM:HH AM"
+    label="Time"
+    {...props}
+  />
 );
