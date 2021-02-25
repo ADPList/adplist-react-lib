@@ -135,19 +135,6 @@ const Thumbnail = ({
                   <React.Fragment>
                     {!isPrivate && loggedInUser?.mentor?.id !== user?.id && (
                       <React.Fragment>
-                        <NoShow>
-                          <Shield className="mr-2" />
-                          <div className="line-height-16">
-                            No-Show Ban Policy{" "}
-                            <a
-                              target="notion"
-                              className="teal-text"
-                              href="https://www.notion.so/adplist/No-Show-Ban-Policy-ac9b11bd05c649a2867e534d66c49fa4"
-                            >
-                              Read more
-                            </a>
-                          </div>
-                        </NoShow>
                         {user?.calendly_url ? (
                           <Grid sm="minmax(0, 1fr) 58px 58px" gap="8px">
                             <Button
@@ -199,6 +186,22 @@ const Thumbnail = ({
                 <span className="mr-2">View my LinkedIn</span>
                 <ArrowUpRight color="var(--default)" />
               </Button>
+            )}
+
+            {userType === "mentor" && (
+              <NoShow>
+                <Shield className="mr-2" />
+                <p className="line-height-16 font-size-14 mb-0">
+                  No-Show Ban Policy{" "}
+                  <a
+                    target="notion"
+                    className="teal-text"
+                    href="https://www.notion.so/adplist/No-Show-Ban-Policy-ac9b11bd05c649a2867e534d66c49fa4"
+                  >
+                    Read more
+                  </a>
+                </p>
+              </NoShow>
             )}
 
             {isEdit && isPrivate && (
