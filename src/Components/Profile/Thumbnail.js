@@ -95,11 +95,6 @@ const Thumbnail = ({
         return false;
       }
 
-      if (loggedInUser?.identity_type?.toLowerCase() === "limbo") {
-        window.location.href = process.env.REACT_APP_AUTH_URL;
-        return false;
-      }
-
       return setAskQuestion(true);
     });
   };

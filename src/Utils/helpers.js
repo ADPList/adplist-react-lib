@@ -39,6 +39,13 @@ export const handleLogin = async (user) => {
     }
 
     return false;
+  } else {
+    if (user?.identity_type?.toLowerCase() === "limbo") {
+      if (typeof window !== "undefined")
+        window.location.href = process.env.REACT_APP_AUTH_URL;
+
+      return false;
+    }
   }
 
   return true;
