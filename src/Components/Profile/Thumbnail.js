@@ -52,7 +52,7 @@ const Thumbnail = ({
   };
 
   const handleScheduling = async () => {
-    handleLogin(loggedInUser)
+    handleLogin(loggedInUser, "You need to login to schedule with mentor")
       .then(async () => {
         if (loggedInUser?.mentor?.id === user?.id) {
           if (
@@ -80,23 +80,25 @@ const Thumbnail = ({
   };
 
   const handleAskQuestion = async () => {
-    handleLogin(loggedInUser).then(async () => {
-      if (loggedInUser?.mentor?.id === user?.id) {
-        if (
-          await Confirm({
-            confirmation: "Cannot ask yourself a question",
-            buttons: {
-              cancel: { className: "d-none" },
-              proceed: { value: "Ok" },
-            },
-          })
-        ) {
+    handleLogin(loggedInUser, "You need to login to ask a question").then(
+      async () => {
+        if (loggedInUser?.mentor?.id === user?.id) {
+          if (
+            await Confirm({
+              confirmation: "Cannot ask yourself a question",
+              buttons: {
+                cancel: { className: "d-none" },
+                proceed: { value: "Ok" },
+              },
+            })
+          ) {
+          }
+          return false;
         }
-        return false;
-      }
 
-      return setAskQuestion(true);
-    });
+        return setAskQuestion(true);
+      },
+    );
   };
 
   return (
