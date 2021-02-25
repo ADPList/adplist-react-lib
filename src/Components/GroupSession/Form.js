@@ -25,16 +25,7 @@ const SessionForm = ({ header, ...props }) => {
                     {header.content}
                   </p>
                 )}
-                <Formik
-                validateOnMount
-                onSubmit={handleSubmit}
-                > {({
-                  values: { date },
-                  setFieldValue,
-                  isSubmitting,
-                  handleSubmit,
-                  isValid,
-                }) => (
+                <Formik>
                   <Form>
                     <FormFields.SessionName />
                     <FormFields.MeetingURL />
@@ -64,7 +55,7 @@ const SessionForm = ({ header, ...props }) => {
                       className="btn--default px-4"
                     />
                   </Form>
-                )}
+              
                 </Formik>
               </Col>
             </Row>

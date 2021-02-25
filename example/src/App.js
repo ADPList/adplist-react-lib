@@ -119,10 +119,6 @@ export default () => {
         >
           <Container className="py-5">
             <Profile initUser={user} />
-            <GroupSession.Card />
-            <DatePicker dateFormat />
-            <TimePicker />
-            <GroupSession.Form />
           </Container>
         </Layout>
       </AuthProvider>
