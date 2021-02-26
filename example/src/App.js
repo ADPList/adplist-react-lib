@@ -1,5 +1,13 @@
 import React, { Fragment } from "reactn";
-import { Layout, Profile, AuthProvider, GroupSession } from "adplist-react-lib";
+import {
+  Layout,
+  Profile,
+  AuthProvider,
+  GroupSession,
+  DatePicker,
+  TimePicker,
+  Button,
+} from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
 
@@ -7,7 +15,7 @@ import "adplist-react-lib/dist/index.css";
 import "react-datetime/css/react-datetime.css";
 import { Form } from "react-bootstrap";
 import { Formik } from "formik";
-import { number, object, string } from "yup";
+import { date, number, object, string } from "yup";
 
 export default () => {
   const user = {
@@ -133,36 +141,57 @@ export default () => {
                 author: "Larry Buntus",
                 organisation: "Qodehub",
               }}
+              width="100%"
+              isPrivate
             />
 
-            {/* <Formik
+            <Formik
               validateOnMount
               initialValues={{
-                name: "",
-                video_url: "",
-                rsvp_limit: "",
-                description: "",
+                date_and_time: "",
               }}
-              validationSchema={object({
-                name: string().required("Name is required"),
-                video_url: string()
-                  .url("Invalid url")
-                  .required("Url is required"),
-                rsvp_limit: number()
-                  .typeError("")
-                  .required("RSVP limit is required"),
-                description: string().required("Description is required"),
-              })}
+              onSubmit={(actions) => {
+                console.log(actions);
+              }}
             >
-              {({ values: { name, video_url, rsvp_limit, description } }) => (
-                <div>
-                  <GroupSession.Fields.SessionName value={name} />
-                  <GroupSession.Fields.MeetingURL value={video_url} />
-                  <GroupSession.Fields.RsvpLimit value={rsvp_limit} />
-                  <GroupSession.Fields.Description value={description} />
-                </div>
+              {({
+                setFieldValue,
+                isValid,
+                isSubmitting,
+                handleSubmit,
+                values: { date_and_time },
+              }) => (
+                <Form onSubmit={(e) => e.preventDefault()}>
+                  <Form.Group className="d-flex">
+                    <DatePicker
+                      placeholderText="DD/MM/YYYY"
+                      field={{
+                        name: "date_and_time",
+                      }}
+                      className="mr-2"
+                      setFieldValue={setFieldValue}
+                    />
+
+                    <TimePicker
+                      placeholderText="MM:HH AM"
+                      field={{
+                        name: "date_and_time",
+                      }}
+                      className="mr-2"
+                      setFieldValue={setFieldValue}
+                    />
+                  </Form.Group>
+
+                  <Button
+                    className="btn--default px-32"
+                    isValid={true}
+                    loading={isSubmitting}
+                    onClick={handleSubmit}
+                    value="Publish session"
+                  />
+                </Form>
               )}
-            </Formik> */}
+            </Formik>
           </Container>
         </Layout>
       </AuthProvider>

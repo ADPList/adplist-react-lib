@@ -49,22 +49,26 @@ export const Description = ({ value, ...props }) => (
   />
 );
 
-export const Date = ({ value, ...props }) => (
+export const Date = ({ setFieldValue, name, ...props }) => (
   <DatePicker
-    name="date_and_time"
-    value={value}
     placeholderText="DD/MM/YYYY"
-    label="Time"
+    field={{
+      name,
+    }}
+    className="mr-2"
+    setFieldValue={setFieldValue}
     {...props}
   />
 );
 
-export const Time = ({ value, ...props }) => (
+export const Time = ({ setFieldValue, name, ...props }) => (
   <TimePicker
-    name="date_and_time"
-    value={value}
     placeholderText="MM:HH AM"
-    label="Time"
+    field={{
+      name,
+    }}
+    className="mr-2"
+    setFieldValue={setFieldValue}
     {...props}
   />
 );

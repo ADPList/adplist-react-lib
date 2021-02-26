@@ -5,11 +5,10 @@ import moment from "moment";
 
 const DatePicker = ({
   label,
-  name,
-  value,
-  date,
+  field,
   placeholderText,
   disabled,
+  onFieldBlur,
   setFieldValue,
   validDate,
   ...props
@@ -24,13 +23,17 @@ const DatePicker = ({
       {label && <Form.Label>{label}</Form.Label>}
       <Datetime
         dateFormat="DD-MM-YYYY"
-        value={date}
-        inputProps={inputProps}
-        isValidDate={validDate}
-        onChange={(value) =>
-          setFieldValue(name, value ? moment(value).format("YYYY-MM-DD") : "")
-        }
         timeFormat={false}
+        id={field.name}
+        name={field.name}
+        inputProps={inputProps}
+        onChange={(value) => {
+          setFieldValue(
+            field.name,
+            value ? moment(value).format("DD-MM-YYYY") : "",
+          );
+        }}
+        onBlur={onFieldBlur}
         {...props}
       />
     </Fragment>

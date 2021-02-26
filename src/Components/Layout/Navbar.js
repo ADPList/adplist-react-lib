@@ -317,17 +317,17 @@ const Navbar = ({
                   </Styled.NavDropdownItem>
                 </Styled.NavDropdown>
                 {/* {identityType === "mentor" && (
-                  <Button
-                    isValid
-                    className="teal-bg white-text"
-                    onClick={handleSession}
-                  >
-                    <i className="material-icons-round mr-1 font-size-20">
-                      add
-                    </i>
-                    <span>Start a session</span>
-                  </Button>
-                )} */}
+                    <Button
+                      isValid
+                      className="teal-bg white-text"
+                      onClick={handleSession}
+                    >
+                      <i className="material-icons-round mr-1 font-size-20">
+                        add
+                      </i>
+                      <span>Start a session</span>
+                    </Button>
+                  )} */}
               </Fragment>
             ) : (
               <Fragment>

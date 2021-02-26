@@ -2,8 +2,7 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 
 import Notification from "../../Icons/Notification";
-import Close from "../../Icons/Close";
-import Edit from "../../Icons/Edit";
+import { Delete, Edit } from "../../Icons";
 
 const Card = ({ content, isPrivate, ...props }) => {
   return (
@@ -18,11 +17,15 @@ const Card = ({ content, isPrivate, ...props }) => {
 
               {isPrivate ? (
                 <div className="d-flex align-items-center">
-                  <a href="/" onClick={(e) => e.preventDefault()}>
+                  <a
+                    href="/"
+                    onClick={(e) => e.preventDefault()}
+                    className="mr-2"
+                  >
                     <Edit />
                   </a>
                   <a href="/" onClick={(e) => e.preventDefault()}>
-                    <Close />
+                    <Delete />
                   </a>
                 </div>
               ) : (
@@ -59,7 +62,8 @@ const Card = ({ content, isPrivate, ...props }) => {
 const Wrapper = styled.div`
   .session {
     height: 100%;
-    width: 330px;
+    width: ${({ width }) => width || 330}px;
+    // width: 330px;
     display: flex;
     padding: 1.5rem;
     border-radius: 12px;
