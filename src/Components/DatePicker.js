@@ -22,16 +22,13 @@ const DatePicker = ({
     <Fragment>
       {label && <Form.Label>{label}</Form.Label>}
       <Datetime
-        dateFormat="DD-MM-YYYY"
+        dateFormat="YYYY-MM-DD"
         timeFormat={false}
         id={field.name}
         name={field.name}
         inputProps={inputProps}
         onChange={(value) => {
-          setFieldValue(
-            field.name,
-            value ? moment(value).format("DD-MM-YYYY") : "",
-          );
+          setFieldValue(field.name, value ? moment(value).format() : "");
         }}
         onBlur={onFieldBlur}
         {...props}

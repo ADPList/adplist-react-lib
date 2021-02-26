@@ -28,7 +28,7 @@ const TimePicker = ({
         name={field.name}
         inputProps={inputProps}
         onChange={(value) => {
-          setFieldValue(field.name, value ? moment(value).format("LT") : "");
+          setFieldValue(field.name, value ? moment(value).format() : "");
         }}
         onBlur={onFieldBlur}
         {...props}
