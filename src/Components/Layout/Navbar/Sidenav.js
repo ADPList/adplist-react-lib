@@ -16,8 +16,6 @@ const Sidenav = ({
   identityType,
   notifications,
 }) => {
-  console.log(user);
-
   items = [
     ...items,
     {

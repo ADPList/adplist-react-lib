@@ -26,6 +26,7 @@ const GroupSessionModal = ({ show, onHide, data, ...props }) => {
   } = data;
 
   const url = process.env.REACT_APP_ADPLIST_URL + `/?group-session=${slug}`;
+  const message = `I’m hosting ${name} on @ADPList. Starting on, <MM DD> at <HH:MM> am/pm (<their local timezone>). Join me here!`;
 
   return (
     <Modal onHide={onHide} show={show} size="sm" centered>
@@ -93,14 +94,14 @@ const GroupSessionModal = ({ show, onHide, data, ...props }) => {
             <LinkedinButton
               isValid
               className="w-100 btn-56 white-text mb-3"
-              onClick={() => handleShare("linkedin", mentor, url)}
+              onClick={() => handleShare("linkedin", mentor, url, message)}
             >
               <LinkedIn color="#fff" variant="default" size={18} />
               <span className="ml-2 font-size-14">Share on LinkedIn</span>
             </LinkedinButton>
             <TwitterButton
               isValid
-              onClick={() => handleShare("twitter", mentor, url)}
+              onClick={() => handleShare("twitter", mentor, url, message)}
               className="w-100 twitter-bg btn-56 white-text"
             >
               <Twitter variant="default" size={18} color="white" />
