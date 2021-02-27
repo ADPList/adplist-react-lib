@@ -20,13 +20,16 @@ const Card = ({ content, isPrivate, handleDelete, handleEdit, ...props }) => {
                 <div className="d-flex align-items-center">
                   <a
                     href="/"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => e.preventDefault() | handleEdit()}
                     className="mr-2"
                   >
-                    <Edit onClick={handleEdit} />
+                    <Edit />
                   </a>
-                  <a href="/" onClick={(e) => e.preventDefault()}>
-                    <Delete onClick={handleDelete} />
+                  <a
+                    href="/"
+                    onClick={(e) => e.preventDefault() | handleDelete()}
+                  >
+                    <Delete />
                   </a>
                 </div>
               ) : (
