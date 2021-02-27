@@ -199,7 +199,7 @@ const GroupSession = ({
   return (
     <Styled.NavDropdownItem
       as="div"
-      className={`notif__item ${!seen && "-unseen"}`}
+      className={`notif__item ${!cancelled && "-unseen"}`}
       onClick={() => {
         if (local) {
           return (

@@ -1,51 +1,77 @@
-import React, { useGlobal, useState, Fragment } from "reactn";
-import { Modal, Image } from "react-bootstrap";
+import React, { useGlobal, Fragment } from "reactn";
 import styled from "styled-components";
-import {
-  useTitle,
-  Profile as Account,
-  loop,
-  helpers,
-  Icon,
-  Button,
-  Grid,
-  copyToClipboard,
-} from "adplist-react-lib";
+import { Modal } from "react-bootstrap";
+import moment from "moment";
+import { Button, helpers, Icon } from "adplist-react-lib";
 
-const SuccessModal = ({ content, onHide, show, ...props }) => {
+const GroupSessionModal = ({ url, show, onHide, ...props }) => {
+  /**
+   * variables
+   */
+  const [sessionDetails] = useGlobal("sessionDetails");
+
   return (
     <Modal onHide={onHide} show={show} size="sm" centered>
       <Modal.Body>
-        <Fragment>
-          <div className="d-flex flex-column justify-content-center align-items-center">
-            <Avatar src="https://via.placeholder.com/150" />
-            <p className="text-center font-size-24 font-weight-600 px-3 line-height-13">
-              Congrats on creating your latest session, Felix Lee 🎉!
+        <Wrapper>
+          <div className="d-flex flex-column justify-content-center align-items-start">
+            <p className="grey-2-text">
+              {moment(sessionDetails?.date_and_time).format("MMM D, HH:MM A")}
             </p>
-            <Divider />
-            <p className="mb-4 font-size-18 font-weight-600 line-height-13">
-              Share your session, get more guests
+            <p className="font-size-20 font-weight-600">
+              {sessionDetails?.name}
             </p>
-            <p className="text-center px-4 line-height-13 mb-4">
-              I’m hosting “Private Session with Mentors” on @ADPList. Starting
-              on, Jan 21 at 8:00pm (GMT +8). Join me here!
+            <p className="grey-1-text line-height-13">
+              {sessionDetails?.description}
+            </p>
+            <p className="grey-2-text line-height-13 mb-3">Organised by:</p>
+
+            <div className="modal__footer d-flex align-items-center">
+              <Avatar src={sessionDetails?.mentor?.profile_photo_url} />
+              <div className="media-body px-3">
+                <p className="font-weight-bold mb-1">
+                  {sessionDetails?.mentor?.name} 🇺🇸
+                </p>
+                <p className="font-size-14 mb-0 text-truncate">
+                  {sessionDetails?.mentor?.title} at{" "}
+                  {sessionDetails?.mentor?.employer}
+                </p>
+              </div>
+            </div>
+
+            <p className="grey-2-text line-height-13 mt-3">
+              Mentees attending ({sessionDetails?.rsvp.length}/50):
             </p>
           </div>
 
-          <StyledGrid
-            className="grey-4-bg py-12 px-3 mb-3"
-            sm="calc(100% - 40px) 24px"
-            gap="16px"
-          >
-            <a className="text-truncate grey-2-text" href={content.url}>
-              https://adplist.org/session/qweyewra...
-              {/* {content.url} */}
-            </a>
-            <Icon.Copy
-              className="cursor-pointer"
-              onClick={() => copyToClipboard(url)}
-            />
-          </StyledGrid>
+          <Images>
+            {sessionDetails?.rsvp.map((member, key) => (
+              <Fragment key={key}>
+                <Avatar src={member?.profile_photo_url} />
+              </Fragment>
+            ))}
+          </Images>
+
+          {sessionDetails?.cancelled && (
+            <Button isValid className="w-100 teal-bg btn-56 white-text mb-3">
+              RSVP for this session
+            </Button>
+          )}
+
+          <Button isValid className="w-100 teal-bg btn-56 white-text mb-3">
+            RSVP for this session
+          </Button>
+
+          <p className="grey-2-text line-height-13 mt-4">Spread the word</p>
+
+          <div className="modal__input mb-3">
+            <span>
+              <a href="/" className="text-truncate">
+                https://adplist.org/session/qweyewra...
+              </a>
+            </span>
+            <Icon.Copy className="mx-auto" />
+          </div>
 
           <div>
             <LinkedinButton
@@ -65,7 +91,7 @@ const SuccessModal = ({ content, onHide, show, ...props }) => {
               <span className="ml-2 font-size-14">Tweet this session</span>
             </TwitterButton>
           </div>
-        </Fragment>
+        </Wrapper>
       </Modal.Body>
     </Modal>
   );
@@ -75,30 +101,50 @@ const SuccessModal = ({ content, onHide, show, ...props }) => {
  * styles
  */
 
-const StyledGrid = styled(Grid)`
-  height: 50px;
-  align-items: center;
-  border-radius: 10px;
-  border: solid 1px var(--grey-3);
+const Wrapper = styled.div`
+  .modal__input {
+    width: 100%;
+    height: 60px;
+    display: grid;
+    border-radius: 10px;
+    align-items: center;
+    border: solid 1px var(--grey-3);
+    grid-template-columns: calc(100% - 53px) 54px;
 
-  a {
-    padding-left: 18px;
+    span {
+      height: 100%;
+      display: flex;
+      overflow: hidden;
+      padding-left: 18px;
+      padding-right: 16px;
+      border-right: solid 1px var(--black-20);
+
+      a {
+        width: 100%;
+        margin: auto;
+        color: var(--grey-2);
+      }
+    }
   }
 `;
 
-const Avatar = styled(Image)`
+const Avatar = styled.img`
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
   object-position: center;
   border-radius: 50%;
-  object-fit: cover;
-  height: 100px;
-  width: 100px;
-  margin-bottom: 24px;
 `;
 
-const Divider = styled.hr`
-  border-color: #e3e6ea;
-  width: 60%;
-  margin-top: 5px;
+const Images = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 8px;
+  padding-bottom: 30px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(7, 1fr);
+  }
 `;
 
 const TwitterButton = styled(Button)`
@@ -109,4 +155,4 @@ const LinkedinButton = styled(Button)`
   background-color: #0077b5;
 `;
 
-export default SuccessModal;
+export default GroupSessionModal;
