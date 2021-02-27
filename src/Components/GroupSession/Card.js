@@ -2,9 +2,10 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 
 import Notification from "../../Icons/Notification";
-import { Delete, Edit } from "../../Icons";
+import Edit from "../../Icons/Edit";
+import { Delete } from "../../Icons";
 
-const Card = ({ content, isPrivate, ...props }) => {
+const Card = ({ content, isPrivate, handleDelete, handleEdit, ...props }) => {
   return (
     <Wrapper {...props}>
       <div className="session cursor-pointer">
@@ -22,10 +23,10 @@ const Card = ({ content, isPrivate, ...props }) => {
                     onClick={(e) => e.preventDefault()}
                     className="mr-2"
                   >
-                    <Edit />
+                    <Edit onClick={handleEdit} />
                   </a>
                   <a href="/" onClick={(e) => e.preventDefault()}>
-                    <Delete />
+                    <Delete onClick={handleDelete} />
                   </a>
                 </div>
               ) : (
@@ -63,7 +64,6 @@ const Wrapper = styled.div`
   .session {
     height: 100%;
     width: ${({ width }) => width || 330}px;
-    // width: 330px;
     display: flex;
     padding: 1.5rem;
     border-radius: 12px;

@@ -7,6 +7,7 @@ import {
   DatePicker,
   TimePicker,
   Button,
+  Icon,
 } from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
@@ -141,6 +142,8 @@ export default () => {
                 author: "Larry Buntus",
                 organisation: "Qodehub",
               }}
+              handleEdit={() => console.log("clicked")}
+              handleDelete={() => console.log("clicked")}
               width="100%"
               isPrivate
             />
@@ -168,6 +171,7 @@ export default () => {
                       field={{
                         name: "date_and_time",
                       }}
+                      icon={<Icon.Chat />}
                       className="mr-2"
                       setFieldValue={setFieldValue}
                     />
