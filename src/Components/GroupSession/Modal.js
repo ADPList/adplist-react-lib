@@ -76,7 +76,10 @@ const GroupSessionModal = ({
    * functions
    */
   const handleRegistration = async () => {
-    handleLogin().then(async () => {
+    handleLogin(
+      user,
+      "You need to login to be able to RSVP for this session",
+    ).then(async () => {
       registerSessionService(data.slug).then(
         () =>
           toast(
