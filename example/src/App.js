@@ -147,9 +147,17 @@ export default () => {
               width="100%"
               isPrivate
             />
-
-            <GroupSession.Edit />
           </Container>
+          <TimePicker
+            field={{
+              id: "time",
+            }}
+          />
+          <DatePicker
+            field={{
+              id: "date",
+            }}
+          />
         </Layout>
       </AuthProvider>
       <ToastContainer />
