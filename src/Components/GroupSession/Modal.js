@@ -12,9 +12,9 @@ import {
   copyToClipboard,
 } from "adplist-react-lib";
 
-const SuccessModal = ({ content, ...props }) => {
+const SuccessModal = ({ content, onHide, show, ...props }) => {
   return (
-    <Modal onHide={() => setModal(false)} show={modal} size="sm" centered>
+    <Modal onHide={onHide} show={show} size="sm" centered>
       <Modal.Body>
         <Fragment>
           <div className="d-flex flex-column justify-content-center align-items-center">

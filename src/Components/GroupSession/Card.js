@@ -1,13 +1,18 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 
 import Notification from "../../Icons/Notification";
+import Modal from "./Modal";
 import Edit from "../../Icons/Edit";
 import { Delete } from "../../Icons";
 
 const Card = ({ content, isPrivate, handleDelete, handleEdit, ...props }) => {
+  const [modal, showModal] = useStat(false);
+
   return (
     <Wrapper {...props}>
+      <Modal show={modal} onHide={() => showModal(false)} />
+
       <div className="session cursor-pointer">
         {content && (
           <Fragment>

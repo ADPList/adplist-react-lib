@@ -5,7 +5,8 @@ import moment from "moment";
 
 const TimePicker = ({
   label,
-  field,
+  name,
+  value,
   placeholderText,
   disabled,
   onFieldBlur,
@@ -19,23 +20,21 @@ const TimePicker = ({
   };
 
   return (
-    <Fragment>
+    <Form.Group>
       {label && <Form.Label>{label}</Form.Label>}
-      {field && (
-        <Datetime
-          dateFormat={false}
-          timeFormat
-          id={field.name}
-          name={field.name}
-          inputProps={inputProps}
-          onChange={(value) => {
-            setFieldValue(field.name, value ? moment(value).format() : "");
-          }}
-          onBlur={onFieldBlur}
-          {...props}
-        />
-      )}
-    </Fragment>
+      <Datetime
+        dateFormat={false}
+        timeFormat
+        id={name}
+        name={name}
+        inputProps={inputProps}
+        onChange={(value) => {
+          setFieldValue(name, value);
+        }}
+        onBlur={onFieldBlur}
+        {...props}
+      />
+    </Form.Group>
   );
 };
 

@@ -12,6 +12,7 @@ const Notifications = ({ data, error, mutate, route }) => {
    * variables
    */
   const notifications = data?.results;
+
   const [local, setLocal] = useState();
 
   /**
@@ -64,6 +65,13 @@ const Notifications = ({ data, error, mutate, route }) => {
 
               {notification_type === "Review" && (
                 <Review
+                  {...{ ...notification, route, local, mutate, handleRoute }}
+                  route={route}
+                />
+              )}
+
+              {notification_type === "Group Session" && (
+                <GroupSession
                   {...{ ...notification, route, local, mutate, handleRoute }}
                   route={route}
                 />
@@ -169,6 +177,55 @@ const Review = ({
           {name}
         </a>{" "}
         wrote a review on your profile.
+      </div>
+      {!seen && <span className="notif__item__unseen" />}
+    </Styled.NavDropdownItem>
+  );
+};
+
+const GroupSession = ({
+  id,
+  seen,
+  route,
+  local,
+  mutate,
+  handleRoute,
+  sessionName,
+  source_user: { profile_photo_url, name, identity_type, slug },
+  destination_user,
+}) => {
+  const type = `${identity_type.toLowerCase()}s`;
+
+  return (
+    <Styled.NavDropdownItem
+      as="div"
+      className={`notif__item ${!seen && "-unseen"}`}
+      onClick={() => {
+        if (local) {
+          return (
+            updateNotificationSeenService(id).then(() => mutate()) |
+            route(`/mentors/${destination_user.slug}`)
+          );
+        } else {
+          return updateNotificationSeenService(id).then(() =>
+            handleRoute(
+              `${process.env.REACT_APP_ADPLIST_URL}/mentors/${destination_user.slug}`,
+            ),
+          );
+        }
+      }}
+    >
+      <div className="notif__item__avatar">
+        <Image src={profile_photo_url} />
+      </div>
+      <div className="notif__item__content">
+        <a
+          href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {name}
+        </a>{" "}
+        registered for your session ${sessionName}.
       </div>
       {!seen && <span className="notif__item__unseen" />}
     </Styled.NavDropdownItem>
