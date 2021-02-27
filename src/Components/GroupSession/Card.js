@@ -68,8 +68,11 @@ const Card = ({
               onClick={(e) => e.stopPropagation()}
               href={`${process.env.REACT_APP_ADPLIST_URL}/mentors/${content?.mentor?.slug}`}
             >
-              <Avatar src={content?.mentor?.profile_photo_url} />
-              <div className="media-body px-3">
+              <Avatar
+                className="mr-3"
+                src={content?.mentor?.profile_photo_url}
+              />
+              <div className="media-body">
                 <p className="font-size-16 font-weight-600 mb-0">
                   {content?.mentor?.name}{" "}
                   {flags.countryCode(content?.mentor?.country?.iso).emoji}
