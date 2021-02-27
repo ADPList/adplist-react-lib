@@ -22,7 +22,6 @@ export { default as ChevronUp } from "./ChevronUp";
 export { default as CloseCircle } from "./CloseCircle";
 export { default as CloseSquare } from "./CloseSquare";
 export { default as Copy } from "./Copy";
-
 export { default as Delete } from "./Delete";
 export { default as Document } from "./Document";
 export { default as Download } from "./Download";

@@ -1,3 +1,4 @@
+import moment from "moment";
 import Confirm from "../Components/Confirm";
 
 export const handleShare = (type, mentor, url, message) => {
@@ -49,4 +50,8 @@ export const handleLogin = async (user, message) => {
   }
 
   return true;
+};
+
+export const handleTimezone = (datetime) => {
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 };

@@ -1,6 +1,8 @@
 import React from "react";
 import Textarea from "../Textarea";
 import Field from "../Field";
+import TimePicker from "../TimePicker";
+import DatePicker from "../DatePicker";
 
 export const SessionName = ({ value, ...props }) => (
   <Field
@@ -28,14 +30,14 @@ export const RsvpLimit = ({ value, ...props }) => (
     value={value}
     name="rsvp_limit"
     placeholder="Max of 50 allowed"
-    label="Max attendees in this session"
+    label="How many attendees do you expect"
     {...props}
   />
 );
 
 export const Description = ({ value, ...props }) => (
   <Field
-    name="bio"
+    name="description"
     minRows={6}
     value={value}
     className="p-3"
@@ -47,6 +49,26 @@ export const Description = ({ value, ...props }) => (
   />
 );
 
-export const Time = ({ value, ...props }) => (
-  <Field name="title" value={value} label="Date" placeholder="" {...props} />
+export const Date = ({ setFieldValue, name, ...props }) => (
+  <DatePicker
+    placeholderText="DD/MM/YYYY"
+    field={{
+      name,
+    }}
+    className="mr-2"
+    setFieldValue={setFieldValue}
+    {...props}
+  />
+);
+
+export const Time = ({ setFieldValue, name, ...props }) => (
+  <TimePicker
+    placeholderText="MM:HH AM"
+    field={{
+      name,
+    }}
+    className="mr-2"
+    setFieldValue={setFieldValue}
+    {...props}
+  />
 );

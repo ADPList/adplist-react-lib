@@ -1,13 +1,21 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 
+import { Delete } from "../../Icons";
 import Notification from "../../Icons/Notification";
-// import Close from "../../Icons/Close";
+import Modal from "./Modal";
 import Edit from "../../Icons/Edit";
 
-const Card = ({ content, isPrivate, ...props }) => {
+const Card = ({ content, isPrivate, handleDelete, handleEdit, ...props }) => {
+  /**
+   * state
+   */
+  const [modal, showModal] = useState(false);
+
   return (
     <Wrapper {...props}>
+      <Modal show={modal} onHide={() => showModal(false)} />
+
       <div className="session cursor-pointer">
         {content && (
           <Fragment>
@@ -18,11 +26,18 @@ const Card = ({ content, isPrivate, ...props }) => {
 
               {isPrivate ? (
                 <div className="d-flex align-items-center">
-                  <a href="/" onClick={(e) => e.preventDefault()}>
+                  <a
+                    href="/"
+                    onClick={(e) => e.preventDefault() | handleEdit()}
+                    className="mr-2"
+                  >
                     <Edit />
                   </a>
-                  <a href="/" onClick={(e) => e.preventDefault()}>
-                    {/* <Close /> */}
+                  <a
+                    href="/"
+                    onClick={(e) => e.preventDefault() | handleDelete()}
+                  >
+                    <Delete />
                   </a>
                 </div>
               ) : (
@@ -59,7 +74,7 @@ const Card = ({ content, isPrivate, ...props }) => {
 const Wrapper = styled.div`
   .session {
     height: 100%;
-    width: 330px;
+    width: ${({ width }) => width || 330}px;
     display: flex;
     padding: 1.5rem;
     border-radius: 12px;
