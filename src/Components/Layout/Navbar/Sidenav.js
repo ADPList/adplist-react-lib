@@ -1,28 +1,38 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from "reactn";
 import styled from "styled-components";
 
+import { SearchWrapper } from "../Styles";
 import Notification from "../../../Icons/Notification";
-import Chat from "../../../Icons/Chat";
+import SearchIcon from "../../../Icons/Search";
+import Search from "../../Search";
+import Button from "../../../Components/Button";
 import Badge from "../../../Components/Badge";
+import Chat from "../../../Icons/Chat";
 import Grid from "../../../Styles/Grid";
 
 const Sidenav = ({
   user,
   items,
+  router,
   logout,
   toggle,
   initUser,
   setToggle,
+  handleAuth,
   identityType,
   notifications,
+  isAuthenticated,
 }) => {
+  /**
+   * variants
+   */
   items = [
     ...items,
     {
       icon: Notification,
       name: "Notification",
       link: `${process.env.REACT_APP_ADPLIST_URL}/notifications`,
-      badge: notifications?.total_unseen || 1,
+      badge: notifications?.total_unseen,
     },
   ];
 
@@ -64,6 +74,16 @@ const Sidenav = ({
             </a>
           )}
 
+          <SearchWrapper className="my-2 mx-0">
+            <SearchIcon className="search__icon" color="var(--teal)" />
+            <div className="search__container w-100">
+              <Search
+                router={({ slug, type }) => router(`/${type}s/${slug}`)}
+                placeholder="Search for mentors, roles or companies"
+              />
+            </div>
+          </SearchWrapper>
+
           <div>
             {items?.map((item, key) => (
               <Item
@@ -94,10 +114,32 @@ const Sidenav = ({
                 )}
               </Item>
             ))}
-            <Item className="d-flex justify-content-between grey-2-text border-0">
-              <span>Logout</span>
-              <i className="material-icons-round grey-2-text">arrow_forward</i>
-            </Item>
+
+            {isAuthenticated ? (
+              <Item className="d-flex justify-content-between grey-2-text border-0">
+                <span>Logout</span>
+                <i className="material-icons-round grey-2-text">
+                  arrow_forward
+                </i>
+              </Item>
+            ) : (
+              <Grid gap="20px" className="py-20">
+                <Button
+                  isValid
+                  onClick={() => handleAuth("login")}
+                  className="btn--default-outline px-4"
+                >
+                  Log in
+                </Button>
+                <Button
+                  isValid
+                  className="btn--default px-4"
+                  onClick={() => handleAuth("signup")}
+                >
+                  Sign up
+                </Button>
+              </Grid>
+            )}
           </div>
         </Content>
       </Wrapper>

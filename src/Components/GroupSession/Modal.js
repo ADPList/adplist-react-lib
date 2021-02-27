@@ -39,7 +39,7 @@ const GroupSessionModal = ({
     rsvp_limit,
     description,
     date_and_time,
-  } = data;
+  } = data || {};
 
   const url = process.env.REACT_APP_ADPLIST_URL + `/?group-session=${slug}`;
   const message = (() => {
@@ -124,7 +124,9 @@ const GroupSessionModal = ({
               <Avatar src={mentor?.profile_photo_url} className="mr-3" />
               <div>
                 <p className="line-height-16 font-weight-500 mb-1">
-                  {mentor?.name} {flags.countryCode(mentor?.country?.iso).emoji}
+                  {mentor?.name}{" "}
+                  {mentor?.country?.iso &&
+                    flags.countryCode(mentor?.country?.iso).emoji}
                 </p>
                 <p className="font-size-14 mb-0">
                   <span className="font-weight-500">{mentor?.title}</span> at{" "}
@@ -136,7 +138,7 @@ const GroupSessionModal = ({
 
           <div className="session__mentees mb-32 pb-2">
             <p className="font-size-14 grey-2-text line-height-13 mt-12">
-              Mentees attending ({rsvp.length}/{rsvp_limit}):
+              Mentees attending ({rsvp?.length}/{rsvp_limit}):
             </p>
 
             {rsvp?.length > 0 && (
@@ -163,7 +165,7 @@ const GroupSessionModal = ({
               )}
 
               {!cancelled &&
-                rsvp.length < rsvp_limit &&
+                rsvp?.length < rsvp_limit &&
                 !hasRegistered &&
                 !isOwner && (
                   <Button

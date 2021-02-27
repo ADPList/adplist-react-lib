@@ -1,4 +1,4 @@
-import React, { Fragment, useGlobal, useState, useEffect } from "reactn";
+import React, { Fragment, useGlobal, useState } from "reactn";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 
@@ -28,7 +28,6 @@ const Navbar = ({
   /**
    * state
    */
-  const [inverse, setInverse] = useState(props?.inverse || false);
   const [isAuthenticated, setAuth] = useGlobal("isAuthenticated");
   const [sidenav, setSideNav] = useState(false);
   const [initUser, setUser] = useGlobal("user");
@@ -60,13 +59,11 @@ const Navbar = ({
    */
   const handleAuth = (type) => {
     if (typeof window !== "undefined") {
-      if (type === "signup") {
-        window.open(
-          `${process.env.REACT_APP_AUTH_URL || ""}/${type}${
-            app && type === "login" ? `?app${app}` : ""
-          }`,
-        );
-      }
+      window.open(
+        `${process.env.REACT_APP_AUTH_URL || ""}/${type}${
+          app && type === "login" ? `?app=${app}` : ""
+        }`,
+      );
     }
   };
 
@@ -76,13 +73,6 @@ const Navbar = ({
     setUser(null) |
     setAuth(false) |
     toast(<Notify body="Logged out" type="success" />);
-
-  /**
-   * effect
-   */
-  useEffect(() => {
-    setInverse(props.inverse);
-  }, [props.inverse]);
 
   return (
     <Fragment>
@@ -104,20 +94,17 @@ const Navbar = ({
 
           {width >= 992 && (
             <Styled.NavItems>
-              <Styled.SearchWrapper>
-                <SearchIcon
-                  className="search__icon"
-                  color={inverse ? "var(--grey-4)" : "var(--teal)"}
-                />
-                <div className="search__container w-100">
-                  {search && (
+              {search && (
+                <Styled.SearchWrapper>
+                  <SearchIcon className="search__icon" color="var(--teal)" />
+                  <div className="search__container w-100">
                     <Search
                       router={({ slug, type }) => router(`/${type}s/${slug}`)}
                       placeholder="Search for mentors, roles or companies"
                     />
-                  )}
-                </div>
-              </Styled.SearchWrapper>
+                  </div>
+                </Styled.SearchWrapper>
+              )}
 
               <Styled.Items>
                 {items?.map((item, key) => {
@@ -245,7 +232,16 @@ const Navbar = ({
       <Sidenav
         toggle={sidenav}
         setToggle={setSideNav}
-        {...{ items, notifications, user, initUser, identityType }}
+        {...{
+          user,
+          items,
+          router,
+          initUser,
+          handleAuth,
+          identityType,
+          notifications,
+          isAuthenticated,
+        }}
       />
     </Fragment>
   );

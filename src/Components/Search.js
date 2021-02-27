@@ -9,7 +9,7 @@ import Form from "react-bootstrap/Form";
 
 import Spinner from "./Spinner";
 import Badge from "../Icons/Badge";
-import Flag from "./Flag";
+import flag from "./Flag";
 
 /**
  * props definition
@@ -124,10 +124,10 @@ const Search = ({
                     <div className="option__info text-truncate">
                       <p className="option__info__name text-truncate">
                         {option.name}&nbsp;&nbsp;
-                        <Flag
-                          code={option?.country?.iso}
-                          label={option?.country?.name}
-                        />
+                        {flag({
+                          code: option?.country?.iso,
+                          emoji: true,
+                        })}
                       </p>
 
                       <p className="option__info__title text-truncate">
@@ -139,7 +139,9 @@ const Search = ({
                     </div>
                     <div className="option__type">
                       <span>{capitalize(option?.type)}</span>
-                      {option?.type?.toLowerCase() === "mentor" && <Badge />}
+                      {option?.type?.toLowerCase() === "mentor" && (
+                        <Badge color="var(--teal)" size={20} />
+                      )}
                     </div>
                   </Item>
                 ))}
@@ -214,11 +216,8 @@ const Item = styled(Dropdown.Item)`
     flex: 0 0 calc(100% - 80px - 48px - 32px - 8px);
 
     &__name {
-      display: flex;
-      flex-wrap: wrap;
       font-weight: 500;
       line-height: 1.6;
-      align-items: center;
       margin-bottom: 0px;
     }
 

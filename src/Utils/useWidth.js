@@ -10,23 +10,26 @@ const useWidth = () => {
   /**
    * function
    */
-  const handleWidth = debounce(() => {
-    if (typeof window !== "undefined") setWidth(window.innerWidth);
-  });
+  const handleWidth = (get) => {
+    if (get) {
+      if (typeof window !== "undefined") {
+        return window.innerWidth;
+      }
+    }
+    setWidth(window.innerWidth);
+  };
 
   /**
    * effect
    */
   useEffect(() => {
-    if (typeof window !== "undefined")
-      window.addEventListener("resize", () => handleWidth());
+    window.addEventListener("resize", () => handleWidth());
     return () => {
-      if (typeof window !== "undefined")
-        window.removeEventListener("resize", handleWidth());
+      window.removeEventListener("resize", handleWidth());
     };
   });
 
-  return width;
+  return width || handleWidth(true);
 };
 
 export default useWidth;
