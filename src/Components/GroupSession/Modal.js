@@ -17,7 +17,7 @@ import Copy from "../../Icons/Copy";
 const GroupSessionModal = ({
   data,
   show,
-  mutate,
+  mutate = () => {},
   onHide,
   isPrivate,
   ...props
@@ -80,7 +80,7 @@ const GroupSessionModal = ({
       user,
       "You need to login to be able to RSVP for this session",
     ).then(async () => {
-      registerSessionService(data.slug).then(
+      registerSessionService(data.id).then(
         () =>
           toast(
             <Notify
