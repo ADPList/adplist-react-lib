@@ -15,8 +15,9 @@ const useWidth = () => {
       if (typeof window !== "undefined") {
         return window.innerWidth;
       }
+    } else {
+      setWidth(window.innerWidth);
     }
-    setWidth(window.innerWidth);
   };
 
   /**
