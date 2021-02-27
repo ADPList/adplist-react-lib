@@ -10,49 +10,35 @@ const propTypes = {
 };
 
 const defaultProps = {
-  size: 25,
-  color: "var(--grey-2)",
+  size: 24,
+  color: "var(--black)",
 };
 
-const ArrowRight = ({ color, size, ...props }) => {
-  return (
-    <svg
-      width={size}
-      height={size}
-      fill="none"
-      viewBox="0 0 25 25"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <g clipPath="url(#clip0)">
-        <path
-          d="M7.53242 12.2981H17.3123"
-          stroke={color}
-          strokeWidth="1.38308"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M12.4224 7.4082L17.3123 12.2981L12.4224 17.1881"
-          stroke={color}
-          strokeWidth="1.38308"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0">
-          <rect
-            width="16.597"
-            height="16.597"
-            fill="white"
-            transform="translate(12.4229 0.5625) rotate(45)"
-          />
-        </clipPath>
-      </defs>
-    </svg>
-  );
-};
+const ArrowRight = ({ color, size, ...props }) => (
+  <svg
+    fill="none"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M19.75 11.7257H4.75"
+      stroke={color}
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M13.7002 5.70132L19.7502 11.7253L13.7002 17.7503"
+      stroke={color}
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 ArrowRight.propTypes = propTypes;
 ArrowRight.defaultProps = defaultProps;

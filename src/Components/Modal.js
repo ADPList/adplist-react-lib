@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Modal } from "react-bootstrap";
 import styled from "styled-components";
 
-import Close from "../Icons/Close";
+import Close from "../Icons/CloseCircle";
 import Logo from "../Icons/AdpLogo";
 
 export default ({ body, onHide, show, header, ...props }) => {

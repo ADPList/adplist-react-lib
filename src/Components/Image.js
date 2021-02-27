@@ -52,7 +52,6 @@ const StyleImageContainer = styled.div`
   margin: 0px auto;
   height: 368px;
   display: flex;
-  width: 280px;
 
   img {
     width: 100%;

@@ -16,26 +16,26 @@ const defaultProps = {
 
 const ArrowUpRight = ({ color, size, ...props }) => (
   <svg
+    fill="none"
     width={size}
     height={size}
-    fill="none"
-    viewBox="0 0 15 15"
+    viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <path
-      strokeWidth="2"
+      d="M16 7.25998L6 17.26"
+      stroke={color}
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      stroke={color}
-      d="M4.375 10.625L10.625 4.375"
     />
     <path
-      strokeWidth="2"
+      d="M7.46225 7.27795L15.9998 7.25956L15.9822 15.7979"
+      stroke={color}
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      stroke={color}
-      d="M4.375 4.375H10.625V10.625"
     />
   </svg>
 );

@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 
 import Notification from "../../Icons/Notification";
-import Close from "../../Icons/Close";
+// import Close from "../../Icons/Close";
 import Edit from "../../Icons/Edit";
 
 const Card = ({ content, isPrivate, ...props }) => {
@@ -22,7 +22,7 @@ const Card = ({ content, isPrivate, ...props }) => {
                     <Edit />
                   </a>
                   <a href="/" onClick={(e) => e.preventDefault()}>
-                    <Close />
+                    {/* <Close /> */}
                   </a>
                 </div>
               ) : (

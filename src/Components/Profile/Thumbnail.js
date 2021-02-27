@@ -6,17 +6,18 @@ import { handleShare, handleLogin } from "../../Utils/helpers";
 import ScheduleWithCalendly from "./Mentor/ScheduleWithCalendly";
 import ScheduleWithEmail from "./Mentor/ScheduleWithEmail";
 import copyToClipboard from "../../Utils/copyToClipboard";
-import MessageQuestion from "../../Icons/MessageQuestion";
 import ReportProfile from "./Mentor/ReportProfile";
-import ArrowUpRight from "../../Icons/ArrowRight";
 import AskAQuestion from "./Mentor/AskAQuestion";
-import Linkedin from "../../Icons/LinkedIn";
-import Twitter from "../../Icons/Twitter";
 import Confirm from "../Confirm";
-import Shield from "../../Icons/Shield";
 import Button from "../Button";
 import Image from "../Image";
 import Grid from "../../Styles/Grid";
+
+import MessageSquare from "../../Icons/MessageSquare";
+import ArrowUpRight from "../../Icons/ArrowRight";
+import Linkedin from "../../Icons/LinkedIn";
+import Twitter from "../../Icons/Twitter";
+import Shield from "../../Icons/Shield";
 import Copy from "../../Icons/Copy";
 import Moon from "../../Icons/Moon";
 
@@ -110,7 +111,7 @@ const Thumbnail = ({
             image={user?.profile_photo_url}
             onChange={(file) => handleImage(file)}
           />
-          <Grid className="mx-auto" gap="16px" style={{ width: 280 }}>
+          <Grid className="mx-auto" gap="16px">
             {isPrivate && user?.date_verified && (
               <div>
                 <label className="text-left grey-2-text mb-2">
@@ -147,7 +148,7 @@ const Thumbnail = ({
                               Schedule a call
                             </Button>
                             <Action onClick={handleAskQuestion}>
-                              <MessageQuestion size={24} />
+                              <MessageSquare />
                             </Action>
                             <ProfileDropdown
                               {...{ user, isPrivate, loggedInUser, setReport }}

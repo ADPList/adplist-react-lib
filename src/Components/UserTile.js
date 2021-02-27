@@ -3,9 +3,9 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { startCase } from "lodash";
 import styled from "styled-components";
 
-import ChatBubble from "../Icons/ChatBubble";
-import Briefcase from "../Icons/Briefcase";
 import Message from "../Icons/Message";
+import Chat from "../Icons/Chat";
+import Work from "../Icons/Work";
 import Flag from "./Flag";
 import Moon from "../Icons/Moon";
 
@@ -29,7 +29,7 @@ const UserTile = ({ user, href }) => (
         )}
         {user?.total_reviews ? (
           <div className="rating">
-            <ChatBubble size={14} />
+            <Chat size={14} variant="filled" color="var(--teal)" />
             <span className="font-size-14">{user.total_reviews}</span>
           </div>
         ) : (
@@ -49,13 +49,13 @@ const UserTile = ({ user, href }) => (
         <div className="details__items">
           {user?.title && (
             <div className="item">
-              <Briefcase />
+              <Work size={16} color="#fff" />
               <span>{user?.title}</span>
             </div>
           )}
           {user?.topic_of_interests && (
             <div className="item">
-              <Message />
+              <Message size={16} color="#fff" />
               <span>
                 {user?.topic_of_interests
                   ?.map(({ description }) => description)
@@ -131,11 +131,6 @@ const Wrapper = styled.a`
     .on-break {
       background: rgba(243, 101, 35, 0.76);
       color: #fff;
-
-      svg {
-        path {
-        }
-      }
     }
   }
 

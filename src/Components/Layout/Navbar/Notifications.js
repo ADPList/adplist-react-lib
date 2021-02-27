@@ -78,13 +78,7 @@ const Notifications = ({ data, error, mutate, route }) => {
           ))}
 
           <Styled.NavDropdownItem
-            onClick={() =>
-              local
-                ? route("/notifications")
-                : handleRoute(
-                    process.env.REACT_APP_ADPLIST_URL + "/notifications",
-                  )
-            }
+            href={`${process.env.REACT_APP_ADPLIST_URL}/notifications`}
             className="grey-4-bg justify-content-center py-3 font-weight-600 teal-text"
           >
             Read all notifications
@@ -100,14 +94,11 @@ const Notifications = ({ data, error, mutate, route }) => {
  */
 const Announcement = ({ id, seen, mutate, announcement: { title, url } }) => {
   return (
-    <Styled.NavDropdownItem
-      as="div"
-      className={`notif__item ${!seen && "-unseen"}`}
-    >
-      <div className="notif__item__avatar">
+    <Styled.NavNotifItem as="div" className={`item ${!seen && "-unseen"}`}>
+      <div className="item__avatar">
         <Notification />
       </div>
-      <div className="notif__item__content">
+      <div className="item__content">
         <p className="mb-0">
           <b>Announcement:</b> {title}{" "}
           <a
@@ -122,8 +113,8 @@ const Announcement = ({ id, seen, mutate, announcement: { title, url } }) => {
           </a>
         </p>
       </div>
-      {!seen && <span className="notif__item__unseen" />}
-    </Styled.NavDropdownItem>
+      {!seen && <span className="item__unseen" />}
+    </Styled.NavNotifItem>
   );
 };
 
@@ -140,9 +131,9 @@ const Review = ({
   const type = `${identity_type.toLowerCase()}s`;
 
   return (
-    <Styled.NavDropdownItem
+    <Styled.NavNotifItem
       as="div"
-      className={`notif__item ${!seen && "-unseen"}`}
+      className={`item ${!seen && "-unseen"}`}
       onClick={() => {
         if (local) {
           return (
@@ -158,10 +149,10 @@ const Review = ({
         }
       }}
     >
-      <div className="notif__item__avatar">
+      <div className="item__avatar">
         <Image src={profile_photo_url} />
       </div>
-      <div className="notif__item__content">
+      <div className="item__content">
         <a
           href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
           onClick={(e) => e.stopPropagation()}
@@ -170,8 +161,8 @@ const Review = ({
         </a>{" "}
         wrote a review on your profile.
       </div>
-      {!seen && <span className="notif__item__unseen" />}
-    </Styled.NavDropdownItem>
+      {!seen && <span className="item__unseen" />}
+    </Styled.NavNotifItem>
   );
 };
 
@@ -187,14 +178,11 @@ const Note = ({
   const type = `${identity_type.toLowerCase()}s`;
 
   return (
-    <Styled.NavDropdownItem
-      as="div"
-      className={`notif__item ${!seen && "-unseen"}`}
-    >
-      <div className="notif__item__avatar">
+    <Styled.NavNotifItem as="div" className={`item ${!seen && "-unseen"}`}>
+      <div className="item__avatar">
         <Image src={profile_photo_url} />
       </div>
-      <div className="notif__item__content">
+      <div className="item__content">
         <p className="mb-12">
           <a href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}>
             {name}
@@ -228,8 +216,8 @@ const Note = ({
           </Button>
         )}
       </div>
-      {!seen && <span className="notif__item__unseen" />}
-    </Styled.NavDropdownItem>
+      {!seen && <span className="item__unseen" />}
+    </Styled.NavNotifItem>
   );
 };
 

@@ -4,17 +4,14 @@ import {
   Profile,
   AuthProvider,
   GroupSession,
-  DatePicker,
-  TimePicker,
+  Grid,
+  Icon,
 } from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
 
 import "adplist-react-lib/dist/index.css";
 import "react-datetime/css/react-datetime.css";
-import { Form } from "react-bootstrap";
-import { Formik } from "formik";
-import { number, object, string } from "yup";
 
 export default () => {
   const user = {
@@ -105,11 +102,11 @@ export default () => {
             items: [
               {
                 name: "Hello",
-                value: "/hi",
+                link: "/hi",
               },
               {
                 name: "Become a Mentor",
-                value: "/hello",
+                link: "/hello",
               },
               {
                 name: "Hello",
@@ -117,7 +114,7 @@ export default () => {
                   {
                     name: "Hello",
                     target: "hello",
-                    value: "/hi",
+                    link: "/hi",
                   },
                 ],
               },
@@ -129,8 +126,8 @@ export default () => {
           }}
         >
           <Container className="py-5">
-            <Profile initUser={user} />
-            <GroupSession.Card
+            {/* <Profile initUser={user} /> */}
+            {/* <GroupSession.Card
               content={{
                 date: "Date here",
                 title: "Hello world 🚀",
@@ -140,7 +137,7 @@ export default () => {
                 author: "Larry Buntus",
                 organisation: "Qodehub",
               }}
-            />
+            /> */}
 
             {/* <Formik
               validateOnMount
@@ -170,6 +167,99 @@ export default () => {
                 </div>
               )}
             </Formik> */}
+
+            {/* <a href="/" onClick={() => alert("Hi is fun")}>
+              Click me
+            </a> */}
+            <Grid sm="repeat(10, 1fr)">
+              <Icon.Add size="32" />
+              <Icon.AdpLogo size="32" />
+              <Icon.AlignLeft size="32" />
+              <Icon.ArchiveFull size="32" />
+              <Icon.ArrowForward size="32" />
+              <Icon.ArrowLeft size="32" />
+              <Icon.ArrowRight size="32" />
+              <Icon.ArrowUpRight size="32" />
+              <Icon.ArrowUpRight size="32" />
+              <Icon.ArrowUpSquare size="32" />
+              {/* 
+              <Icon.Badge size="32" />
+
+              <Icon.Calendar size="32" />
+              <Icon.Camera size="32" />
+              <Icon.Category size="32" />
+              <Icon.Chat size="32" />
+              <Icon.CheckList size="32" />
+              <Icon.ChevronDown size="32" />
+              <Icon.ChevronLeft size="32" />
+              <Icon.ChevronRight size="32" />
+              <Icon.ChevronUp size="32" />
+              <Icon.CloseCircle size="32" />
+              <Icon.CloseSquare size="32" />
+              <Icon.Copy size="32" />
+
+              <Icon.Delete size="32" />
+              <Icon.Document size="32" />
+              <Icon.Download size="32" />
+
+              <Icon.Edit size="32" />
+
+              <Icon.Facebook size="32" />
+              <Icon.Filter size="32" />
+
+              <Icon.Google size="32" />
+
+              <Icon.Hide size="32" />
+              <Icon.Home size="32" />
+
+              <Icon.Image size="32" />
+
+              <Icon.Instagram size="32" />
+
+              <Icon.LinkedIn size="32" />
+              <Icon.Location size="32" />
+              <Icon.Logo size="32" />
+
+              <Icon.Message size="32" />
+              <Icon.MessageSquare size="32" />
+              <Icon.Moon size="32" />
+              <Icon.MoreHoriz size="32" />
+
+              <Icon.Notification size="32" />
+              <Icon.PaperNegative size="32" />
+              <Icon.Person size="32" />
+              <Icon.Plus size="32" />
+              <Icon.Profile size="32" />
+              <Icon.Search size="32" />
+              <Icon.Send size="32" />
+              <Icon.Settings size="32" />
+              <Icon.Shield size="32" />
+              <Icon.ShieldDone size="32" />
+              <Icon.ShieldFail size="32" />
+              <Icon.Show size="32" />
+              <Icon.Smiley size="32" />
+              <Icon.Sort size="32" />
+              <Icon.Star size="32" />
+              <Icon.Swap size="32" />
+
+              <Icon.ThumbsUp size="32" />
+              <Icon.TicketStar size="32" />
+              <Icon.TickSquare size="32" />
+              <Icon.TimeCircle size="32" />
+              <Icon.TimeSquare size="32" />
+              <Icon.Twitter size="32" />
+
+              <Icon.Unlock size="32" />
+              <Icon.Upload size="32" />
+              <Icon.Users size="32" />
+
+              <Icon.Video size="32" />
+
+              <Icon.Wallet size="32" />
+              <Icon.Work size="32" />
+
+              <Icon.Youtube size="32" /> */}
+            </Grid>
           </Container>
         </Layout>
       </AuthProvider>

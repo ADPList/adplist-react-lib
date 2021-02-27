@@ -10,38 +10,37 @@ const propTypes = {
 };
 
 const defaultProps = {
-  size: 65,
-  color: "var(--grey)",
+  size: 24,
+  color: "var(--black)",
 };
 
-const Close = ({ size, color, ...props }) => (
+const ArrowLeft = ({ color, size, ...props }) => (
   <svg
+    fill="none"
     width={size}
     height={size}
-    viewBox="0 0 65 65"
-    fill="none"
+    viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <circle cx="32.5" cy="32.5" r="32.5" fill="#EAEDF0" />
     <path
-      d="M39 27L27 39"
+      d="M4.25 12.2743H19.25"
       stroke={color}
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
-      d="M27 27L39 39"
+      d="M10.2998 18.2987L4.2498 12.2747L10.2998 6.24969"
       stroke={color}
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
   </svg>
 );
 
-Close.propTypes = propTypes;
-Close.defaultProps = defaultProps;
+ArrowLeft.propTypes = propTypes;
+ArrowLeft.defaultProps = defaultProps;
 
-export default Close;
+export default ArrowLeft;

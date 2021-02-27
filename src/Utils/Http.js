@@ -26,7 +26,6 @@ Http.interceptors.request.use((config) => {
 
   if (unAuthRoutes.filter((x) => url.includes(x)).length === 0) {
     const token = getCookie("token");
-
     if (token) {
       config.headers.Authorization = `Token ${token}`;
     }

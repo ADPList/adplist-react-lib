@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  size: 18,
+  size: 24,
   color: "var(--teal)",
 };
 
@@ -19,23 +19,23 @@ const Search = ({ color, size, ...props }) => (
     fill="none"
     width={size}
     height={size}
-    viewBox="0 0 22 22"
+    viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <path
-      d="M10.7861 19.0254C15.3367 19.0254 19.0257 15.3365 19.0257 10.7859C19.0257 6.23534 15.3367 2.54639 10.7861 2.54639C6.23559 2.54639 2.54663 6.23534 2.54663 10.7859C2.54663 15.3365 6.23559 19.0254 10.7861 19.0254Z"
+      d="M11.7666 20.7552C16.7308 20.7552 20.7552 16.7309 20.7552 11.7666C20.7552 6.80236 16.7308 2.77805 11.7666 2.77805C6.80235 2.77805 2.77804 6.80236 2.77804 11.7666C2.77804 16.7309 6.80235 20.7552 11.7666 20.7552Z"
       stroke={color}
-      strokeLinejoin="round"
-      strokeLinecap="round"
       strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
-      d="M16.5168 16.9448L19.7472 20.1668"
+      d="M18.0183 18.4851L21.5423 22"
       stroke={color}
-      strokeLinejoin="round"
-      strokeLinecap="round"
       strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
