@@ -185,7 +185,7 @@ const Review = ({
 
 const GroupSession = ({
   id,
-  seen,
+  cancelled,
   route,
   local,
   mutate,
@@ -225,7 +225,9 @@ const GroupSession = ({
         >
           {name}
         </a>{" "}
-        registered for your session ${sessionName}.
+        {cancelled
+          ? `registered for your session ${sessionName}`
+          : `cancelled the session ${sessionName}`}
       </div>
       {!seen && <span className="notif__item__unseen" />}
     </Styled.NavDropdownItem>

@@ -8,7 +8,6 @@ import {
   TimePicker,
   Button,
   Icon,
-  Notifcation,
 } from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
@@ -158,8 +157,6 @@ export default () => {
               id: "date",
             }}
           />
-
-          <Notifcation />
         </Layout>
       </AuthProvider>
       <ToastContainer />
