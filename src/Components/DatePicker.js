@@ -27,10 +27,10 @@ const DatePicker = ({
   return (
     <Fragment>
       {label && <Form.Label>{label}</Form.Label>}
-      <Copy />
       <Datetime
         dateFormat="YYYY-MM-DD"
         timeFormat={false}
+        id={field.name}
         name={field.name}
         inputProps={inputProps}
         onChange={(value) => {

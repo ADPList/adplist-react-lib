@@ -148,54 +148,7 @@ export default () => {
               isPrivate
             />
 
-            <Formik
-              validateOnMount
-              initialValues={{
-                date_and_time: "",
-              }}
-              onSubmit={(actions) => {
-                console.log(actions);
-              }}
-            >
-              {({
-                setFieldValue,
-                isValid,
-                isSubmitting,
-                handleSubmit,
-                values: { date_and_time },
-              }) => (
-                <Form onSubmit={(e) => e.preventDefault()}>
-                  <Form.Group className="d-flex">
-                    <DatePicker
-                      placeholderText="DD/MM/YYYY"
-                      field={{
-                        name: "date_and_time",
-                      }}
-                      icon={<Icon.Chat />}
-                      className="mr-2"
-                      setFieldValue={setFieldValue}
-                    />
-
-                    <TimePicker
-                      placeholderText="MM:HH AM"
-                      field={{
-                        name: "date_and_time",
-                      }}
-                      className="mr-2"
-                      setFieldValue={setFieldValue}
-                    />
-                  </Form.Group>
-
-                  <Button
-                    className="btn--default px-32"
-                    isValid={true}
-                    loading={isSubmitting}
-                    onClick={handleSubmit}
-                    value="Publish session"
-                  />
-                </Form>
-              )}
-            </Formik>
+            <GroupSession.Edit />
           </Container>
         </Layout>
       </AuthProvider>
