@@ -24,7 +24,7 @@ const DatePicker = ({
         <Datetime
           dateFormat="YYYY-MM-DD"
           timeFormat={false}
-          id={field.name || ""}
+          id={field.name}
           name={field.name}
           inputProps={inputProps}
           onChange={(value) => {

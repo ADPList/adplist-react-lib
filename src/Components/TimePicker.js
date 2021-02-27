@@ -25,13 +25,12 @@ const TimePicker = ({
         <Datetime
           dateFormat={false}
           timeFormat
-          id={field.name || ""}
+          id={field.name}
           name={field.name}
           inputProps={inputProps}
           onChange={(value) => {
             setFieldValue(field.name, value ? moment(value).format() : "");
           }}
-          closeOnSelect
           onBlur={onFieldBlur}
           {...props}
         />
