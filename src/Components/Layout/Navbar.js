@@ -236,6 +236,7 @@ const Navbar = ({
           user,
           items,
           router,
+          search,
           initUser,
           handleAuth,
           identityType,

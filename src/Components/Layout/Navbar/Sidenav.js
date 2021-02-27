@@ -16,6 +16,7 @@ const Sidenav = ({
   router,
   logout,
   toggle,
+  search,
   initUser,
   setToggle,
   handleAuth,
@@ -74,15 +75,17 @@ const Sidenav = ({
             </a>
           )}
 
-          <SearchWrapper className="my-2 mx-0">
-            <SearchIcon className="search__icon" color="var(--teal)" />
-            <div className="search__container w-100">
-              <Search
-                router={({ slug, type }) => router(`/${type}s/${slug}`)}
-                placeholder="Search for mentors, roles or companies"
-              />
-            </div>
-          </SearchWrapper>
+          {search && (
+            <SearchWrapper className="my-2 mx-0">
+              <SearchIcon className="search__icon" color="var(--teal)" />
+              <div className="search__container w-100">
+                <Search
+                  router={({ slug, type }) => router(`/${type}s/${slug}`)}
+                  placeholder="Search for mentors, roles or companies"
+                />
+              </div>
+            </SearchWrapper>
+          )}
 
           <div>
             {items?.map((item, key) => (
