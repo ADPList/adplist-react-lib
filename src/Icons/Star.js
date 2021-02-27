@@ -12,7 +12,7 @@ const propTypes = {
 
 const defaultProps = {
   size: 24,
-  color: "var(--teal)",
+  color: "var(--black)",
   variant: "filled",
 };
 

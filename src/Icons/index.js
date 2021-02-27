@@ -1,6 +1,8 @@
 export { default as Add } from "./Add";
 export { default as AdpLogo } from "./AdpLogo";
+export { default as AlignLeft } from "./AlignLeft";
 export { default as ArchiveFull } from "./ArchiveFull";
+export { default as ArrowDown } from "./ArrowDown";
 export { default as ArrowForward } from "./ArrowForward";
 export { default as ArrowLeft } from "./ArrowLeft";
 export { default as ArrowRight } from "./ArrowRight";
@@ -52,7 +54,6 @@ export { default as MoreSquare } from "./MoreSquare";
 export { default as Notification } from "./Notification";
 
 export { default as PaperNegative } from "./PaperNegative";
-export { default as Person } from "./Person";
 export { default as Plus } from "./Plus";
 export { default as Profile } from "./Profile";
 
@@ -60,8 +61,6 @@ export { default as Search } from "./Search";
 export { default as Send } from "./Send";
 export { default as Settings } from "./Settings";
 export { default as Shield } from "./Shield";
-export { default as ShieldDone } from "./ShieldDone";
-export { default as ShieldFail } from "./ShieldFail";
 export { default as Show } from "./Show";
 export { default as Smiley } from "./Smiley";
 export { default as Sort } from "./Sort";
@@ -71,7 +70,7 @@ export { default as Swap } from "./Swap";
 export { default as ThumbsUp } from "./ThumbsUp";
 export { default as TicketStar } from "./TicketStar";
 export { default as TickSquare } from "./TickSquare";
-export { default as TimeCircle } from "./TimeCircle";
+export { default as Time } from "./Time";
 export { default as Twitter } from "./Twitter";
 
 export { default as Unlock } from "./Unlock";

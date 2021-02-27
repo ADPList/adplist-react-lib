@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  color: "#fff",
+  color: "var(--black)",
   size: 24,
 };
 

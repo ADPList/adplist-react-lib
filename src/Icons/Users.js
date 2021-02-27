@@ -7,7 +7,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  size: 44,
+  size: 24,
   color: "var(--black)",
 };
 

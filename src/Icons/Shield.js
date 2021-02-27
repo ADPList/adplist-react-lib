@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
 /**
@@ -7,37 +7,84 @@ import PropTypes from "prop-types";
 const propTypes = {
   size: PropTypes.number,
   color: PropTypes.string,
+  variant: PropTypes.oneOf(["empty", "checked", "failed"]),
 };
 
 const defaultProps = {
   size: 20,
   color: "var(--black)",
+  variant: "empty",
 };
 
-const Shield = ({ size, color, ...props }) => (
+const Shield = ({ size, color, variant, ...props }) => (
   <svg
+    fill="none"
     width={size}
     height={size}
-    viewBox="0 0 40 40"
-    fill="none"
+    viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M12.8253 22.3182C11.7507 22.3182 10.8777 21.4452 10.8777 20.3705C10.8777 19.299 11.7507 18.426 12.8253 18.426C13.8999 18.426 14.7729 19.299 14.7729 20.3705C14.7729 21.4452 13.8999 22.3182 12.8253 22.3182ZM20.3967 22.3182C19.3221 22.3182 18.4491 21.4452 18.4491 20.3705C18.4491 19.299 19.3221 18.426 20.3967 18.426C21.4714 18.426 22.3444 19.299 22.3444 20.3705C22.3444 21.4452 21.4714 22.3182 20.3967 22.3182ZM26.0207 20.3705C26.0207 21.4452 26.8937 22.3182 27.9684 22.3182C29.0429 22.3182 29.9159 21.4452 29.9159 20.3705C29.9159 19.299 29.0429 18.426 27.9684 18.426C26.8937 18.426 26.0207 19.299 26.0207 20.3705Z"
-      fill={color}
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M20.0334 3.33334C10.35 3.33334 3.33337 11.2435 3.33337 20.025C3.33337 22.8292 4.15004 25.7152 5.58337 28.3525C5.85004 28.7882 5.88337 29.3373 5.70004 29.8565L4.58337 33.5953C4.33337 34.4967 5.10004 35.1627 5.95004 34.8957L9.31671 33.8958C10.2334 33.5953 10.95 33.9777 11.8 34.4967C14.2334 35.9305 17.2667 36.6667 20 36.6667C28.2667 36.6667 36.6667 30.2737 36.6667 19.975C36.6667 11.0933 29.5 3.33334 20.0334 3.33334Z"
-      stroke={color}
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+    {variant === "empty" && (
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18.8651 5.1238C19.3021 5.2768 19.5941 5.6888 19.5941 6.1518V12.9248C19.5941 14.8178 18.9051 16.6248 17.6911 18.0248C17.0791 18.7298 16.3071 19.2788 15.4861 19.7228L11.9281 21.6448L8.36409 19.7218C7.54109 19.2778 6.76809 18.7298 6.15609 18.0238C4.94009 16.6238 4.25009 14.8158 4.25009 12.9208V6.1518C4.25009 5.6888 4.54209 5.2768 4.97909 5.1238L11.5611 2.8108C11.7951 2.7288 12.0501 2.7288 12.2831 2.8108L18.8651 5.1238Z"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    )}
+
+    {variant === "checked" && (
+      <Fragment>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M18.865 5.1238C19.302 5.2768 19.594 5.6888 19.594 6.1518V12.9248C19.594 14.8178 18.906 16.6248 17.691 18.0248C17.08 18.7298 16.307 19.2788 15.486 19.7228L11.928 21.6448L8.364 19.7218C7.542 19.2778 6.768 18.7298 6.156 18.0238C4.94 16.6238 4.25 14.8158 4.25 12.9208V6.1518C4.25 5.6888 4.542 5.2768 4.979 5.1238L11.561 2.8108C11.795 2.7288 12.05 2.7288 12.283 2.8108L18.865 5.1238Z"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M9.32251 11.9177L11.2145 13.8107L15.1125 9.91269"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </Fragment>
+    )}
+
+    {variant === "failed" && (
+      <Fragment>
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M18.8651 5.1238C19.3021 5.2768 19.5941 5.6888 19.5941 6.1518V12.9248C19.5941 14.8178 18.9051 16.6248 17.6911 18.0248C17.0791 18.7298 16.3071 19.2788 15.4861 19.7228L11.9281 21.6448L8.36409 19.7218C7.54109 19.2778 6.76809 18.7298 6.15609 18.0238C4.94009 16.6238 4.25009 14.8158 4.25009 12.9208V6.1518C4.25009 5.6888 4.54209 5.2768 4.97909 5.1238L11.5611 2.8108C11.7951 2.7288 12.0501 2.7288 12.2831 2.8108L18.8651 5.1238Z"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M13.8011 13.8464L10.0431 10.0884"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M10.0433 13.8464L13.8013 10.0884"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </Fragment>
+    )}
   </svg>
 );
 

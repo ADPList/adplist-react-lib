@@ -1,66 +1,86 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
+import flags from "emoji-flags";
 
-import { Delete } from "../../Icons";
+import { handleTimezone } from "../../Utils/helpers";
 import Notification from "../../Icons/Notification";
-import Modal from "./Modal";
+import CloseSquare from "../../Icons/CloseSquare";
 import Edit from "../../Icons/Edit";
 
-const Card = ({ content, isPrivate, handleDelete, handleEdit, ...props }) => {
-  /**
-   * state
-   */
-  const [modal, showModal] = useState(false);
-
+const Card = ({
+  content = {},
+  isPrivate = false,
+  handleEdit = () => {},
+  handleDelete = () => {},
+  handleNotify = () => {},
+  ...props
+}) => {
   return (
     <Wrapper {...props}>
-      <Modal show={modal} onHide={() => showModal(false)} />
-
       <div className="session cursor-pointer">
         {content && (
           <Fragment>
             <div className="card__header">
               <p className="font-size-14 mb-0 grey-2-text">
-                {content.date || ""}
+                {handleTimezone(content?.date_and_time, "MMM DD, ha")}
               </p>
 
               {isPrivate ? (
                 <div className="d-flex align-items-center">
                   <a
                     href="/"
-                    onClick={(e) => e.preventDefault() | handleEdit()}
-                    className="mr-2"
+                    onClick={(e) =>
+                      e.preventDefault() | e.stopPropagation() | handleEdit()
+                    }
+                    className="mr-3 text-decoration-none"
                   >
-                    <Edit />
+                    <Edit color="var(--teal)" size={20} />
                   </a>
                   <a
                     href="/"
-                    onClick={(e) => e.preventDefault() | handleDelete()}
+                    onClick={(e) =>
+                      e.preventDefault() | e.stopPropagation() | handleDelete()
+                    }
+                    className="text-decoration-none"
                   >
-                    <Delete />
+                    <CloseSquare color="var(--grey-2)" size={20} />
                   </a>
                 </div>
               ) : (
                 <a
                   href="/"
-                  className="cursor-pointer"
-                  onClick={(e) => e.preventDefault()}
+                  onClick={(e) =>
+                    e.preventDefault() | e.stopPropagation() | handleNotify()
+                  }
+                  className="text-decoration-none"
                 >
                   <Notification color="var(--black)" />
                 </a>
               )}
             </div>
             <div className="card__body">
-              <p className="card__body__title">{content.title}</p>
+              <p className="card__body__title">{content.name}</p>
               <p className="card__body__description">{content.description}</p>
             </div>
-            <div className="card__footer">
-              <Avatar src={content.avatar} />
+            <a
+              target="mentor"
+              className="card__footer"
+              onClick={(e) => e.stopPropagation()}
+              href={`${process.env.REACT_APP_ADPLIST_URL}/mentors/${content?.mentor?.slug}`}
+            >
+              <Avatar src={content?.mentor?.profile_photo_url} />
               <div className="media-body px-3">
-                <p className="font-size-16 mb-1">{content.author}</p>
-                <p className="font-size-14 mb-0">{content.organisation}</p>
+                <p className="font-size-16 font-weight-600 mb-0">
+                  {content?.mentor?.name}{" "}
+                  {flags.countryCode(content?.mentor?.country?.iso).emoji}
+                </p>
+                <p className="font-size-14 mb-0">
+                  {[content?.mentor?.title, content?.mentor?.employer].join(
+                    ", ",
+                  )}
+                </p>
               </div>
-            </div>
+            </a>
           </Fragment>
         )}
       </div>
@@ -107,6 +127,13 @@ const Wrapper = styled.div`
     .card__footer {
       display: flex;
       margin-top: auto;
+      color: var(--black);
+      align-items: center;
+      text-decoration: none;
+
+      p {
+        line-height: 24px;
+      }
     }
 
     &.-skeleton {

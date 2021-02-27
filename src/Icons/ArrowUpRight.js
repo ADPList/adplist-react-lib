@@ -10,8 +10,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-  color: "var(--teal)",
-  size: 15,
+  size: 24,
+  color: "var(--black)",
 };
 
 const ArrowUpRight = ({ color, size, ...props }) => (

@@ -3,8 +3,9 @@ import { Container as C } from "react-bootstrap";
 
 import styled from "styled-components";
 
+import CloseCircle from "../Icons/CloseCircle";
 import Steps from "./Steps";
-import * as Icon from "../Icons";
+import Logo from "../Icons/Logo";
 
 /**
  * content styles
@@ -81,8 +82,12 @@ const Setup = ({
     <Wrapper>
       <Container className="py-4 py-md-32">
         <div className="d-flex justify-content-between align-items-center mb-32">
-          <Icon.Logo />
-          <Icon.Close className="cursor-pointer" onClick={() => handleBack()} />
+          <Logo />
+          <CloseCircle
+            size={48}
+            className="cursor-pointer"
+            onClick={() => handleBack()}
+          />
         </div>
 
         <StyledContent {...{ width }}>

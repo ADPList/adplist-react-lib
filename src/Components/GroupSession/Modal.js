@@ -1,17 +1,32 @@
-import React, { useGlobal, Fragment } from "reactn";
+import React, { useGlobal } from "reactn";
 import { Modal } from "react-bootstrap";
-import moment from "moment";
+import { toast } from "react-toastify";
 import styled from "styled-components";
-import emoji from "emoji-flags";
+import flags from "emoji-flags";
 
-import { handleShare } from "../../Utils/helpers";
+import { handleLogin, handleShare, handleTimezone } from "../../Utils/helpers";
+import { registerSessionService } from "../../Services/sessionService";
+import copyToClipboard from "../../Utils/copyToClipboard";
 import Button from "../Button";
+import Notify from "../Notify";
 
 import LinkedIn from "../../Icons/LinkedIn";
 import Twitter from "../../Icons/Twitter";
 import Copy from "../../Icons/Copy";
 
-const GroupSessionModal = ({ show, onHide, data, ...props }) => {
+const GroupSessionModal = ({
+  data,
+  show,
+  mutate,
+  onHide,
+  isPrivate,
+  ...props
+}) => {
+  /**
+   * state
+   */
+  const [user] = useGlobal("user");
+
   /**
    * variables
    */
@@ -21,92 +36,188 @@ const GroupSessionModal = ({ show, onHide, data, ...props }) => {
     slug,
     mentor,
     cancelled,
+    rsvp_limit,
     description,
-    data_and_time,
+    date_and_time,
   } = data;
 
   const url = process.env.REACT_APP_ADPLIST_URL + `/?group-session=${slug}`;
-  const message = `I’m hosting ${name} on @ADPList. Starting on, <MM DD> at <HH:MM> am/pm (<their local timezone>). Join me here!`;
+  const message = (() => {
+    const date = handleTimezone(data?.date_and_time, "MMM DD");
+    const time = handleTimezone(data?.date_and_time, "hh:mm a");
+
+    if (
+      user &&
+      !["limbo", "designer"].includes(user?.identity_type?.toLowerCase())
+    ) {
+      if (mentor.id === user[user.identity_type.toLowerCase()].id) {
+        return `I’m hosting ${data?.name} on @ADPList. Starting on, ${date} at ${time} (${data?.timezone}). Join me here!`;
+      }
+    }
+
+    return `I've got a seat at ${data?.name} w/ ${data?.mentor?.name}. Starting on, ${date} at ${time} on @ADPList. ${url}`;
+  })();
+
+  const hasRegistered = (() => {
+    if (user) {
+      const registeredUser = rsvp.find(
+        (r) => user[r.identity_type.toLowerCase()].id === r.id,
+      );
+
+      return Boolean(registeredUser);
+    } else {
+      return false;
+    }
+  })();
+
+  const isOwner = user?.mentor?.id === mentor?.id;
+
+  /**
+   * functions
+   */
+  const handleRegistration = async () => {
+    handleLogin().then(async () => {
+      registerSessionService(data.id).then(
+        () =>
+          toast(
+            <Notify
+              body="Registration for session successful"
+              type="success"
+            />,
+          ) | mutate(),
+      );
+    });
+  };
 
   return (
     <Modal onHide={onHide} show={show} size="sm" centered>
       <Modal.Body className="p-4">
         <Wrapper {...props}>
-          <div className="d-flex flex-column justify-content-center align-items-start">
+          <div className="session__info mb-3">
             {date_and_time && (
-              <p className="grey-2-text">
-                {moment(date_and_time).format("MMM D, HH:MM A")}
+              <p className="grey-2-text mb-12">
+                {handleTimezone(date_and_time, "MMM DD, ha")}
               </p>
             )}
-            {name && <p className="font-size-20 font-weight-600">{name}</p>}
-            {description && (
-              <p className="grey-1-text line-height-13">{description}</p>
+            {name && (
+              <p className="font-size-20 font-weight-600 mb-2 line-height-16">
+                {name}
+              </p>
             )}
-            <p className="grey-2-text line-height-13 mb-3">Organised by:</p>
+            {description && (
+              <p className="grey-1-text line-height-16 mb-0">{description}</p>
+            )}
+          </div>
 
-            <div className="modal__footer d-flex align-items-center">
-              <Avatar src={mentor?.profile_photo_url} />
-              <div className="media-body px-3">
-                <p className="font-weight-bold mb-1">
-                  {mentor?.name} {emoji.countryCode(mentor?.country?.iso)}
+          <div className="session__organizer mb-32">
+            <p className="font-size-14 grey-2-text line-height-13 mb-12">
+              Organised by:
+            </p>
+
+            <a
+              target="mentor"
+              href={
+                process.env.REACT_APP_ADPLIST_URL + `/mentors/${mentor?.slug}`
+              }
+              className="text-decoration-none d-flex align-items-center black-text"
+            >
+              <Avatar src={mentor?.profile_photo_url} className="mr-3" />
+              <div>
+                <p className="line-height-16 font-weight-500 mb-1">
+                  {mentor?.name} {flags.countryCode(mentor?.country?.iso).emoji}
                 </p>
-                <p className="font-size-14 mb-0 text-truncate">
-                  {mentor?.title} at {mentor?.employer}
+                <p className="font-size-14 mb-0">
+                  <span className="font-weight-500">{mentor?.title}</span> at{" "}
+                  <span className="font-weight-500">{mentor?.employer}</span>
                 </p>
+              </div>
+            </a>
+          </div>
+
+          <div className="session__mentees mb-32 pb-2">
+            <p className="font-size-14 grey-2-text line-height-13 mt-12">
+              Mentees attending ({rsvp.length}/{rsvp_limit}):
+            </p>
+
+            {rsvp?.length > 0 && (
+              <Images>
+                {rsvp.map((member, key) => (
+                  <Avatar src={member?.profile_photo_url} key={key} />
+                ))}
+              </Images>
+            )}
+          </div>
+
+          {!isPrivate && (
+            <div className="session__actions">
+              {cancelled && (
+                <Alert className="muted-pink-bg danger-text">
+                  RSVP for this session closed.
+                </Alert>
+              )}
+
+              {hasRegistered && (
+                <Alert className="muted-green-bg teal-text">
+                  Congrats, you’re in this session!
+                </Alert>
+              )}
+
+              {!cancelled &&
+                rsvp.length < rsvp_limit &&
+                !hasRegistered &&
+                !isOwner && (
+                  <Button
+                    isValid
+                    className="w-100 teal-bg btn-56 white-text"
+                    onClick={() => handleRegistration()}
+                  >
+                    RSVP for this session
+                  </Button>
+                )}
+            </div>
+          )}
+
+          <div className="session__share">
+            <div className="session__share__url">
+              <p className="grey-2-text line-height-13 mb-3 font-size-14">
+                Spread the word
+              </p>
+
+              <div className="share__url">
+                <span>
+                  <a
+                    href="/"
+                    onClick={(e) => e.preventDefault()}
+                    className="text-truncate"
+                  >
+                    {url}
+                  </a>
+                </span>
+                <Copy
+                  className="mx-auto cursor-pointer"
+                  onClick={() => copyToClipboard(url)}
+                />
               </div>
             </div>
 
-            <p className="grey-2-text line-height-13 mt-3">
-              Mentees attending ({rsvp.length}/50):
-            </p>
-          </div>
-
-          {rsvp?.length > 0 && (
-            <Images>
-              {rsvp.map((member, key) => (
-                <Avatar src={member?.profile_photo_url} key={key} />
-              ))}
-            </Images>
-          )}
-
-          {cancelled && (
-            <Button isValid className="w-100 teal-bg btn-56 white-text mb-3">
-              RSVP for this session
-            </Button>
-          )}
-
-          <Button isValid className="w-100 teal-bg btn-56 white-text mb-3">
-            RSVP for this session
-          </Button>
-
-          <p className="grey-2-text line-height-13 mt-4">Spread the word</p>
-
-          <div className="modal__input mb-3">
-            <span>
-              <a href="/" className="text-truncate">
-                {url}
-              </a>
-            </span>
-            <Copy className="mx-auto" />
-          </div>
-
-          <div>
-            <LinkedinButton
-              isValid
-              className="w-100 btn-56 white-text mb-3"
-              onClick={() => handleShare("linkedin", mentor, url, message)}
-            >
-              <LinkedIn color="#fff" variant="default" size={18} />
-              <span className="ml-2 font-size-14">Share on LinkedIn</span>
-            </LinkedinButton>
-            <TwitterButton
-              isValid
-              onClick={() => handleShare("twitter", mentor, url, message)}
-              className="w-100 twitter-bg btn-56 white-text"
-            >
-              <Twitter variant="default" size={18} color="white" />
-              <span className="ml-2 font-size-14">Tweet this session</span>
-            </TwitterButton>
+            <div className="session__share__buttons">
+              <Button
+                isValid
+                className="-linkedin"
+                onClick={() => handleShare("linkedin", mentor, url, message)}
+              >
+                <LinkedIn color="white" size={18} />
+                <span>Share on LinkedIn</span>
+              </Button>
+              <Button
+                isValid
+                onClick={() => handleShare("twitter", mentor, url, message)}
+                className="-twitter"
+              >
+                <Twitter size={18} color="white" />
+                <span>Tweet this session</span>
+              </Button>
+            </div>
           </div>
         </Wrapper>
       </Modal.Body>
@@ -119,7 +230,7 @@ const GroupSessionModal = ({ show, onHide, data, ...props }) => {
  */
 
 const Wrapper = styled.div`
-  .modal__input {
+  .share__url {
     gap: 24px;
     width: 100%;
     height: 60px;
@@ -140,7 +251,39 @@ const Wrapper = styled.div`
       a {
         width: 100%;
         margin: auto;
+        opacity: 0.7;
         color: var(--grey-2);
+      }
+    }
+  }
+
+  .session__actions {
+    margin-bottom: 40px;
+  }
+
+  .session__share {
+    gap: 18px;
+    display: grid;
+
+    &__buttons {
+      gap: 18px;
+      display: grid;
+
+      .btn {
+        height: 56px;
+        width: 100%;
+
+        span {
+          color: #fff;
+          margin-left: 8px;
+        }
+
+        &.-twitter {
+          background-color: #00acee;
+        }
+        &.-linkedin {
+          background-color: #0077b5;
+        }
       }
     }
   }
@@ -157,7 +300,6 @@ const Avatar = styled.img`
 const Images = styled.div`
   gap: 8px;
   display: grid;
-  padding-bottom: 30px;
   grid-template-columns: repeat(5, 1fr);
 
   @media (min-width: 768px) {
@@ -165,12 +307,13 @@ const Images = styled.div`
   }
 `;
 
-const TwitterButton = styled(Button)`
-  background-color: #00acee;
-`;
-
-const LinkedinButton = styled(Button)`
-  background-color: #0077b5;
+const Alert = styled.div`
+  height: 60px;
+  display: flex;
+  font-weight: 500;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default GroupSessionModal;

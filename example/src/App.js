@@ -1,11 +1,11 @@
-import React, { Fragment } from "reactn";
+import React, { Fragment, useState } from "reactn";
 import {
+  Grid,
+  Icon,
   Layout,
   Profile,
   AuthProvider,
   GroupSession,
-  Grid,
-  Icon,
 } from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
@@ -14,6 +14,9 @@ import "adplist-react-lib/dist/index.css";
 import "react-datetime/css/react-datetime.css";
 
 export default () => {
+  /**
+   * variables
+   */
   const user = {
     id: 3,
     username: "larrybuntus@outlook.com",
@@ -93,6 +96,38 @@ export default () => {
     agreed_to_standards: true,
   };
 
+  const session = {
+    date_and_time: new Date(),
+    name: "A look into the mind of Larry Buntus 🎉",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, ullam? Maiores voluptatum tempora quas nulla enim est. Sed at quaerat, suscipit veniam itaque saepe dolor sunt doloribus dignissimos eveniet accusamus.",
+    mentor: {
+      id: 1,
+      name: "Larry Dewan Buntus",
+      slug: "larry-dewan-buntus",
+      profile_photo_url: "https://via.placeholder.com/150",
+      title: "Web Developer",
+      employer: "Qodehub",
+      country: { iso: "GH" },
+    },
+    rsvp: [
+      {
+        id: 4,
+        name_string: "Samuel Jr. Berkoh",
+        profile_photo_url: "https://via.placeholder.com/150",
+        slug: "samuel-jr-berkoh",
+        identity_type: "Designer",
+        agreed_to_standards: false,
+      },
+    ],
+    rsvp_limit: 15,
+  };
+
+  /**
+   * states
+   */
+  const [modal, setModal] = useState(true);
+
   return (
     <Fragment>
       <AuthProvider>
@@ -126,140 +161,112 @@ export default () => {
           }}
         >
           <Container className="py-5">
-            {/* <Profile initUser={user} /> */}
-            {/* <GroupSession.Card
-              content={{
-                date: "Date here",
-                title: "Hello world 🚀",
-                avatar: "https://via.placeholder.com/150",
-                description:
-                  "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores tenetur voluptates ducimus. Temporibus autem repudiandae harum soluta at possimus minus numquam consectetur. Est velit temporibus sapiente eaque adipisci, illo magnam.",
-                author: "Larry Buntus",
-                organisation: "Qodehub",
-              }}
-            /> */}
+            <Profile initUser={user} />
 
-            {/* <Formik
-              validateOnMount
-              initialValues={{
-                name: "",
-                video_url: "",
-                rsvp_limit: "",
-                description: "",
-              }}
-              validationSchema={object({
-                name: string().required("Name is required"),
-                video_url: string()
-                  .url("Invalid url")
-                  .required("Url is required"),
-                rsvp_limit: number()
-                  .typeError("")
-                  .required("RSVP limit is required"),
-                description: string().required("Description is required"),
-              })}
-            >
-              {({ values: { name, video_url, rsvp_limit, description } }) => (
-                <div>
-                  <GroupSession.Fields.SessionName value={name} />
-                  <GroupSession.Fields.MeetingURL value={video_url} />
-                  <GroupSession.Fields.RsvpLimit value={rsvp_limit} />
-                  <GroupSession.Fields.Description value={description} />
-                </div>
-              )}
-            </Formik> */}
+            <Grid sm="repeat(10, 1fr)" className="align-items-center">
+              <Icon.Add />
+              <Icon.AdpLogo />
+              <Icon.AlignLeft />
+              <Icon.ArchiveFull />
+              <Icon.ArrowDown />
+              <Icon.ArrowForward />
+              <Icon.ArrowLeft />
+              <Icon.ArrowRight />
+              <Icon.ArrowUp />
+              <Icon.ArrowUpRight />
+              <Icon.ArrowUpSquare />
 
-            {/* <a href="/" onClick={() => alert("Hi is fun")}>
-              Click me
-            </a> */}
-            <Grid sm="repeat(10, 1fr)">
-              <Icon.Add size="32" />
-              <Icon.AdpLogo size="32" />
-              <Icon.AlignLeft size="32" />
-              <Icon.ArchiveFull size="32" />
-              <Icon.ArrowForward size="32" />
-              <Icon.ArrowLeft size="32" />
-              <Icon.ArrowRight size="32" />
-              <Icon.ArrowUpRight size="32" />
-              <Icon.ArrowUpRight size="32" />
-              <Icon.ArrowUpSquare size="32" />
-              {/* 
-              <Icon.Badge size="32" />
+              <Icon.Badge />
 
-              <Icon.Calendar size="32" />
-              <Icon.Camera size="32" />
-              <Icon.Category size="32" />
-              <Icon.Chat size="32" />
-              <Icon.CheckList size="32" />
-              <Icon.ChevronDown size="32" />
-              <Icon.ChevronLeft size="32" />
-              <Icon.ChevronRight size="32" />
-              <Icon.ChevronUp size="32" />
-              <Icon.CloseCircle size="32" />
-              <Icon.CloseSquare size="32" />
-              <Icon.Copy size="32" />
+              <Icon.Calendar />
+              <Icon.Camera />
+              <Icon.Category />
+              <Icon.Chat />
+              <Icon.Chat variant="filled" />
+              <Icon.Chat variant="empty" />
+              <Icon.CheckList />
+              <Icon.ChevronDown />
+              <Icon.ChevronLeft />
+              <Icon.ChevronRight />
+              <Icon.ChevronUp />
+              <Icon.CloseCircle />
+              <Icon.CloseSquare />
+              <Icon.Copy />
 
-              <Icon.Delete size="32" />
-              <Icon.Document size="32" />
-              <Icon.Download size="32" />
+              <Icon.Delete />
+              <Icon.Document />
+              <Icon.Download />
 
-              <Icon.Edit size="32" />
+              <Icon.Edit />
 
-              <Icon.Facebook size="32" />
-              <Icon.Filter size="32" />
+              <Icon.Facebook />
+              <Icon.Filter />
 
-              <Icon.Google size="32" />
+              <Icon.Google />
 
-              <Icon.Hide size="32" />
-              <Icon.Home size="32" />
+              <Icon.Hide />
+              <Icon.Home />
 
-              <Icon.Image size="32" />
+              <Icon.Image />
 
-              <Icon.Instagram size="32" />
+              <Icon.Instagram />
 
-              <Icon.LinkedIn size="32" />
-              <Icon.Location size="32" />
-              <Icon.Logo size="32" />
+              <Icon.LinkedIn />
+              <Icon.Location />
+              <Icon.Logo />
 
-              <Icon.Message size="32" />
-              <Icon.MessageSquare size="32" />
-              <Icon.Moon size="32" />
-              <Icon.MoreHoriz size="32" />
+              <Icon.Message />
+              <Icon.MessageSquare />
+              <Icon.Moon />
+              <Icon.MoreHoriz />
 
-              <Icon.Notification size="32" />
-              <Icon.PaperNegative size="32" />
-              <Icon.Person size="32" />
-              <Icon.Plus size="32" />
-              <Icon.Profile size="32" />
-              <Icon.Search size="32" />
-              <Icon.Send size="32" />
-              <Icon.Settings size="32" />
-              <Icon.Shield size="32" />
-              <Icon.ShieldDone size="32" />
-              <Icon.ShieldFail size="32" />
-              <Icon.Show size="32" />
-              <Icon.Smiley size="32" />
-              <Icon.Sort size="32" />
-              <Icon.Star size="32" />
-              <Icon.Swap size="32" />
+              <Icon.Notification />
+              <Icon.PaperNegative />
+              <Icon.Plus />
+              <Icon.Profile />
 
-              <Icon.ThumbsUp size="32" />
-              <Icon.TicketStar size="32" />
-              <Icon.TickSquare size="32" />
-              <Icon.TimeCircle size="32" />
-              <Icon.TimeSquare size="32" />
-              <Icon.Twitter size="32" />
+              <Icon.Search />
+              <Icon.Send />
+              <Icon.Settings />
+              <Icon.Shield />
+              <Icon.Shield variant="checked" />
+              <Icon.Shield variant="failed" />
+              <Icon.Show />
+              <Icon.Smiley />
+              <Icon.Sort />
+              <Icon.Star />
+              <Icon.Star variant="outline" />
+              <Icon.Swap />
 
-              <Icon.Unlock size="32" />
-              <Icon.Upload size="32" />
-              <Icon.Users size="32" />
+              <Icon.ThumbsUp />
+              <Icon.TicketStar />
+              <Icon.TickSquare />
+              <Icon.Time variant="circle" />
+              <Icon.Time variant="square" />
+              <Icon.Twitter />
 
-              <Icon.Video size="32" />
+              <Icon.Unlock />
+              <Icon.Upload />
+              <Icon.Users />
 
-              <Icon.Wallet size="32" />
-              <Icon.Work size="32" />
+              <Icon.Video />
 
-              <Icon.Youtube size="32" /> */}
+              <Icon.Wallet />
+              <Icon.Work />
+
+              <Icon.Youtube />
             </Grid>
+
+            <GroupSession.Card
+              content={session}
+              onClick={() => setModal(true)}
+            />
+
+            <GroupSession.Modal
+              show={modal}
+              onHide={() => setModal(false)}
+              data={session}
+            />
           </Container>
         </Layout>
       </AuthProvider>
