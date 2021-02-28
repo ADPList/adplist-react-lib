@@ -118,7 +118,10 @@ const Sidenav = ({
             ))}
 
             {isAuthenticated ? (
-              <Item className="d-flex justify-content-between grey-2-text border-0">
+              <Item
+                className="d-flex justify-content-between grey-2-text border-0"
+                onClick={(e) => e.preventDefault() | logout()}
+              >
                 <span>Logout</span>
                 <i className="material-icons-round grey-2-text">
                   arrow_forward

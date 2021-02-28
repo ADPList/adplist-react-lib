@@ -1,4 +1,4 @@
-import React from "reactn";
+import React, { Fragment } from "reactn";
 import { Image } from "react-bootstrap";
 import styled from "styled-components";
 
@@ -38,25 +38,33 @@ const ProfileDropdown = ({ logout, user, initUser, identityType }) => (
             </div>
           </Grid>
         </NavDropdownItem>
-        {(identityType === "designer" || !initUser) && (
+        {identityType === "designer" && (
           <NavDropdownItem
             href={`${process.env.REACT_APP_ADPLIST_URL}/become-a-mentor`}
           >
             Become a mentor
           </NavDropdownItem>
         )}
+        {identityType === "mentor" && (
+          <Fragment>
+            <NavDropdownItem
+              href={`${process.env.REACT_APP_ADPLIST_URL}/become-a-mentor`}
+            >
+              Send Notes
+            </NavDropdownItem>
+            <NavDropdownItem
+              href={`${process.env.REACT_APP_ADPLIST_URL}/become-a-mentor`}
+            >
+              Find a mentor
+            </NavDropdownItem>
+          </Fragment>
+        )}
         <NavDropdownItem
           href={`${process.env.REACT_APP_AUTH_URL || ""}/dashboard/profile`}
         >
-          Your profile
+          Your account
         </NavDropdownItem>
-        <NavDropdownItem
-          href={`${
-            process.env.REACT_APP_AUTH_URL || ""
-          }/dashboard/profile/edit`}
-        >
-          Edit profile
-        </NavDropdownItem>
+
         <NavDropdownItem
           href={`${
             process.env.REACT_APP_AUTH_URL || ""
