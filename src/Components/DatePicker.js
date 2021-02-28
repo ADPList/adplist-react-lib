@@ -4,12 +4,12 @@ import Datetime from "react-datetime";
 import moment from "moment";
 
 const DatePicker = ({
+  name,
   label,
-  field,
-  placeholderText,
   disabled,
   onFieldBlur,
   setFieldValue,
+  placeholderText,
   ...props
 }) => {
   const inputProps = {
@@ -20,21 +20,17 @@ const DatePicker = ({
   return (
     <Fragment>
       {label && <Form.Label>{label}</Form.Label>}
-      {field && (
-        <Datetime
-          dateFormat="YYYY-MM-DD"
-          timeFormat={false}
-          id={field.name}
-          name={field.name}
-          inputProps={inputProps}
-          onChange={(value) => {
-            setFieldValue(field.name, value ? moment(value).format() : "");
-          }}
-          closeOnSelect
-          onBlur={onFieldBlur}
-          {...props}
-        />
-      )}
+      <Datetime
+        id={name}
+        name={name}
+        closeOnSelect
+        timeFormat={false}
+        onBlur={onFieldBlur}
+        dateFormat="YYYY-MM-DD"
+        inputProps={inputProps}
+        onChange={(value) => setFieldValue(name, value)}
+        {...props}
+      />
     </Fragment>
   );
 };

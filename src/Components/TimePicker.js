@@ -1,19 +1,21 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Form } from "react-bootstrap";
 import Datetime from "react-datetime";
-import moment from "moment";
 
 const TimePicker = ({
   label,
   name,
   value,
-  placeholderText,
   disabled,
+  validDate,
   onFieldBlur,
   setFieldValue,
-  validDate,
+  placeholderText,
   ...props
 }) => {
+  /**
+   * variables
+   */
   const inputProps = {
     placeholder: placeholderText,
     disabled,
@@ -23,15 +25,13 @@ const TimePicker = ({
     <Form.Group>
       {label && <Form.Label>{label}</Form.Label>}
       <Datetime
-        dateFormat={false}
-        timeFormat
         id={name}
+        timeFormat
         name={name}
-        inputProps={inputProps}
-        onChange={(value) => {
-          setFieldValue(name, value);
-        }}
+        dateFormat={false}
         onBlur={onFieldBlur}
+        inputProps={inputProps}
+        onChange={(value) => setFieldValue(name, value)}
         {...props}
       />
     </Form.Group>
