@@ -39,6 +39,7 @@ const Navbar = ({
   const identityType = initUser?.identity_type?.toLowerCase();
   const user = identityType ? initUser[identityType] : {};
   const width = useWidth();
+  items = items?.filter((i) => Boolean(i));
 
   /**
    * apis
@@ -188,7 +189,7 @@ const Navbar = ({
                     <ProfileDropdown
                       {...{ logout, user, initUser, identityType }}
                     />
-                    {identityType !== "mentor" && (
+                    {identityType === "mentor" && (
                       <div className="nav__item pr-0">
                         <a
                           href={`${process.env.REACT_APP_ADPLIST_URL}/group-session`}

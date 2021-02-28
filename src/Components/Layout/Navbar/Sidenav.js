@@ -97,10 +97,9 @@ const Sidenav = ({
                 <span>
                   {item?.icon && (
                     <item.icon
+                      size={20}
                       variant="outline"
                       color="var(--grey-2)"
-                      size={20}
-                      stroke={3}
                     />
                   )}
                 </span>

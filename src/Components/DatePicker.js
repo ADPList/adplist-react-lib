@@ -1,36 +1,27 @@
 import React from "react";
-import { Form } from "react-bootstrap";
 import Datetime from "react-datetime";
 
-const DatePicker = ({
-  name,
-  label,
-  disabled,
-  onFieldBlur,
-  setFieldValue,
-  placeholderText,
-  ...props
-}) => {
+import Field from "./Field";
+
+const DatePicker = ({ name, disabled, placeholder, ...props }) => {
+  /**
+   * variables
+   */
   const inputProps = {
-    placeholder: placeholderText,
+    placeholder,
     disabled,
   };
 
   return (
-    <Form.Group>
-      {label && <Form.Label>{label}</Form.Label>}
-      <Datetime
-        id={name}
-        name={name}
-        closeOnSelect
-        timeFormat={false}
-        onBlur={onFieldBlur}
-        dateFormat="YYYY-MM-DD"
-        inputProps={inputProps}
-        onChange={(value) => setFieldValue(name, value)}
-        {...props}
-      />
-    </Form.Group>
+    <Field
+      id={name}
+      name={name}
+      timeFormat={false}
+      component={Datetime}
+      dateFormat="MM-DD-YYYY"
+      inputProps={inputProps}
+      {...props}
+    />
   );
 };
 
