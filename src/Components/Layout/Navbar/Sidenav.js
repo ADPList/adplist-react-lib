@@ -111,24 +111,30 @@ const Sidenav = ({
                 {...(item?.onClick && { onClick: item.onClick })}
               >
                 <span>
-                  {item?.icon && (
+                  {item?.icon ? (
                     <item.icon
                       size={20}
                       variant="outline"
                       color="var(--grey-2)"
                     />
+                  ) : (
+                    ""
                   )}
                 </span>
                 <span className="item__content">
                   <span>{item.name}</span>
-                  {item?.new && (
+                  {item?.new ? (
                     <Badge variant="danger" className="ml-3">
                       New
                     </Badge>
+                  ) : (
+                    ""
                   )}
                 </span>
-                {item?.badge && (
+                {item?.badge ? (
                   <span className="item__badge">{item.badge}</span>
+                ) : (
+                  ""
                 )}
               </Item>
             ))}
