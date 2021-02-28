@@ -19,7 +19,6 @@ const Sidenav = ({
   logout,
   toggle,
   search,
-  initUser,
   setToggle,
   handleAuth,
   identityType,
@@ -31,14 +30,14 @@ const Sidenav = ({
    */
   items = [
     ...items,
-    {
-      icon: Notification,
-      name: "Notification",
-      link: `${process.env.REACT_APP_ADPLIST_URL}/notifications`,
-      badge: notifications?.total_unseen,
-    },
-    ...(user
+    ...(isAuthenticated
       ? [
+          {
+            icon: Notification,
+            name: "Notification",
+            link: `${process.env.REACT_APP_ADPLIST_URL}/notifications`,
+            badge: notifications?.total_unseen,
+          },
           {
             icon: Profile,
             name: "Your Account",
