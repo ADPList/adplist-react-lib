@@ -55,24 +55,26 @@ const Thumbnail = ({
   const handleScheduling = async () => {
     handleLogin(loggedInUser, "You need to login to schedule with mentor")
       .then(async () => {
-        if (loggedInUser?.mentor?.id === user?.id) {
-          if (
-            await Confirm({
-              confirmation: "Cannot schedule with yourself",
-              buttons: {
-                cancel: { className: "d-none" },
-                proceed: { value: "Ok" },
-              },
-            })
-          ) {
+        if (loggedInUser) {
+          if (loggedInUser?.mentor?.id === user?.id) {
+            if (
+              await Confirm({
+                confirmation: "Cannot schedule with yourself",
+                buttons: {
+                  cancel: { className: "d-none" },
+                  proceed: { value: "Ok" },
+                },
+              })
+            ) {
+            }
+            return false;
           }
-          return false;
-        }
 
-        if (user?.calendly_url) {
-          setScheduleWithCalendly(true);
-        } else {
-          setScheduleWithEmail(true);
+          if (user?.calendly_url) {
+            setScheduleWithCalendly(true);
+          } else {
+            setScheduleWithEmail(true);
+          }
         }
       })
       .catch(() => {
@@ -83,21 +85,23 @@ const Thumbnail = ({
   const handleAskQuestion = async () => {
     handleLogin(loggedInUser, "You need to login to ask a question").then(
       async () => {
-        if (loggedInUser?.mentor?.id === user?.id) {
-          if (
-            await Confirm({
-              confirmation: "Cannot ask yourself a question",
-              buttons: {
-                cancel: { className: "d-none" },
-                proceed: { value: "Ok" },
-              },
-            })
-          ) {
+        if (loggedInUser) {
+          if (loggedInUser?.mentor?.id === user?.id) {
+            if (
+              await Confirm({
+                confirmation: "Cannot ask yourself a question",
+                buttons: {
+                  cancel: { className: "d-none" },
+                  proceed: { value: "Ok" },
+                },
+              })
+            ) {
+            }
+            return false;
           }
-          return false;
-        }
 
-        return setAskQuestion(true);
+          return setAskQuestion(true);
+        }
       },
     );
   };

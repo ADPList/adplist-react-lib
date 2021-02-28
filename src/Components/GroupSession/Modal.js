@@ -82,22 +82,24 @@ const GroupSessionModal = ({
 
     handleLogin(user, "You need to login to be able to RSVP for this session")
       .then(async () => {
-        registerSessionService(details.id)
-          .then(
-            (response) =>
-              toast(
-                <Notify
-                  type="success"
-                  body="Registration for session successful"
-                />,
-              ) |
-              setDetails(response) |
-              mutate(),
-          )
-          .catch(() =>
-            toast(<Notify body="Unable to RSVP for session" type="error" />),
-          )
-          .finally(() => setLoading(false));
+        if (user) {
+          registerSessionService(details.id)
+            .then(
+              (response) =>
+                toast(
+                  <Notify
+                    type="success"
+                    body="Registration for session successful"
+                  />,
+                ) |
+                setDetails(response) |
+                mutate(),
+            )
+            .catch(() =>
+              toast(<Notify body="Unable to RSVP for session" type="error" />),
+            )
+            .finally(() => setLoading(false));
+        }
       })
       .catch(() => setLoading(false));
   };
