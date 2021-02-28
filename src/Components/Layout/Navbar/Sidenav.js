@@ -80,7 +80,7 @@ const Sidenav = ({
             </Grid>
           )}
 
-          {user && identityType === "mentor" && (
+          {identityType === "mentor" && user?.can_mentor_create_session && (
             <a
               href={`${process.env.REACT_APP_ADPLIST_URL}/group-session`}
               className="teal-bg white-text btn btn-48 w-100 mb-2"

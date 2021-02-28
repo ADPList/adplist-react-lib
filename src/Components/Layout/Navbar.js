@@ -21,6 +21,10 @@ const Navbar = ({
   app,
   items,
   search,
+  setAuth,
+  setUser,
+  initUser,
+  isAuthenticated,
   home = () => {},
   router = (link) => (window.location.href = link),
   ...props
@@ -28,9 +32,7 @@ const Navbar = ({
   /**
    * state
    */
-  const [isAuthenticated, setAuth] = useGlobal("isAuthenticated");
   const [sidenav, setSideNav] = useState(false);
-  const [initUser, setUser] = useGlobal("user");
   const [, setToken] = useGlobal("accessToken");
 
   /**

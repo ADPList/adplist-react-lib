@@ -1,4 +1,4 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useState } from "reactn";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import styled from "styled-components";
@@ -17,6 +17,7 @@ import Copy from "../../Icons/Copy";
 const GroupSessionModal = ({
   data,
   show,
+  user,
   onHide,
   isPrivate,
   mutate = () => {},
@@ -25,7 +26,6 @@ const GroupSessionModal = ({
   /**
    * state
    */
-  const [user] = useGlobal("user");
   const [details, setDetails] = useState(data);
   const [isLoading, setLoading] = useState(false);
 
@@ -57,7 +57,7 @@ const GroupSessionModal = ({
       }
     }
 
-    return `I've got a seat at ${details?.name} w/ ${details?.mentor?.name}. Starting on, ${date} at ${time} on @ADPList. ${url}`;
+    return `I've got a seat at ${details?.name} w/ ${details?.mentor?.name}. Starting on, ${date} at ${time} on @ADPList.`;
   })();
 
   const hasRegistered = (() => {
