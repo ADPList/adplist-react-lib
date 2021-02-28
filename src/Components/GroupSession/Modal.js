@@ -1,4 +1,4 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import styled from "styled-components";
@@ -17,15 +17,17 @@ import Copy from "../../Icons/Copy";
 const GroupSessionModal = ({
   data,
   show,
-  mutate = () => {},
   onHide,
   isPrivate,
+  mutate = () => {},
   ...props
 }) => {
   /**
    * state
    */
   const [user] = useGlobal("user");
+  const [details, setDetails] = useState(data);
+  const [isLoading, setLoading] = useState(false);
 
   /**
    * variables
@@ -39,23 +41,23 @@ const GroupSessionModal = ({
     rsvp_limit,
     description,
     date_and_time,
-  } = data || {};
+  } = details || {};
 
   const url = process.env.REACT_APP_ADPLIST_URL + `/?group-session=${slug}`;
   const message = (() => {
-    const date = handleTimezone(data?.date_and_time, "MMM DD");
-    const time = handleTimezone(data?.date_and_time, "hh:mm a");
+    const date = handleTimezone(details?.date_and_time, "MMM DD");
+    const time = handleTimezone(details?.date_and_time, "hh:mm a");
 
     if (
       user &&
       !["limbo", "designer"].includes(user?.identity_type?.toLowerCase())
     ) {
       if (mentor?.slug === user[user.identity_type.toLowerCase()]?.slug) {
-        return `I’m hosting ${data?.name} on @ADPList. Starting on, ${date} at ${time} (${data?.timezone}). Join me here!`;
+        return `I’m hosting ${details?.name} on @ADPList. Starting on, ${date} at ${time} (${details?.timezone}). Join me here!`;
       }
     }
 
-    return `I've got a seat at ${data?.name} w/ ${data?.mentor?.name}. Starting on, ${date} at ${time} on @ADPList. ${url}`;
+    return `I've got a seat at ${details?.name} w/ ${details?.mentor?.name}. Starting on, ${date} at ${time} on @ADPList. ${url}`;
   })();
 
   const hasRegistered = (() => {
@@ -76,20 +78,28 @@ const GroupSessionModal = ({
    * functions
    */
   const handleRegistration = async () => {
-    handleLogin(
-      user,
-      "You need to login to be able to RSVP for this session",
-    ).then(async () => {
-      registerSessionService(data.id).then(
-        () =>
-          toast(
-            <Notify
-              body="Registration for session successful"
-              type="success"
-            />,
-          ) | mutate(),
-      );
-    });
+    setLoading(true);
+
+    handleLogin(user, "You need to login to be able to RSVP for this session")
+      .then(async () => {
+        registerSessionService(details.id)
+          .then(
+            (response) =>
+              toast(
+                <Notify
+                  type="success"
+                  body="Registration for session successful"
+                />,
+              ) |
+              setDetails(response) |
+              mutate(),
+          )
+          .catch(() =>
+            toast(<Notify body="Unable to RSVP for session" type="error" />),
+          )
+          .finally(() => setLoading(false));
+      })
+      .catch(() => setLoading(false));
   };
 
   return (
@@ -173,6 +183,7 @@ const GroupSessionModal = ({
                 !isOwner && (
                   <Button
                     isValid
+                    loading={isLoading}
                     className="w-100 teal-bg btn-56 white-text"
                     onClick={() => handleRegistration()}
                   >

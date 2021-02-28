@@ -40,7 +40,7 @@ const Notifications = ({ data, error, mutate, route }) => {
     <Fragment>
       {!data && !error && (
         <Styled.NavDropdownItem>
-          <Spinner />
+          <Spinner contained />
         </Styled.NavDropdownItem>
       )}
 

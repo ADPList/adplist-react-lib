@@ -49,7 +49,7 @@ const Navbar = ({
     error: notificationError,
     mutate: notificationMutate,
   } = useSWR(
-    false &&
+    initUser &&
       process.env.REACT_APP_MESSAGING_BASEURL +
         `/notification/?offset=0&limit=4&user=${initUser.id}`,
     { refreshInterval: 4000, shouldRetryOnError: false, errorRetryCount: 0 },
@@ -189,19 +189,20 @@ const Navbar = ({
                     <ProfileDropdown
                       {...{ logout, user, initUser, identityType }}
                     />
-                    {identityType === "mentor" && (
-                      <div className="nav__item pr-0">
-                        <a
-                          href={`${process.env.REACT_APP_ADPLIST_URL}/group-session`}
-                          className="teal-bg white-text btn"
-                        >
-                          <i className="material-icons-round mr-1 font-size-20">
-                            add
-                          </i>
-                          <span>Start a session</span>
-                        </a>
-                      </div>
-                    )}
+                    {identityType === "mentor" &&
+                      user?.can_mentor_create_session && (
+                        <div className="nav__item pr-0">
+                          <a
+                            href={`${process.env.REACT_APP_ADPLIST_URL}/group-session`}
+                            className="teal-bg white-text btn"
+                          >
+                            <i className="material-icons-round mr-1 font-size-20">
+                              add
+                            </i>
+                            <span>Start a session</span>
+                          </a>
+                        </div>
+                      )}
                   </Fragment>
                 ) : (
                   <Fragment>
