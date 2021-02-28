@@ -1,7 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Form } from "react-bootstrap";
 import Datetime from "react-datetime";
-import moment from "moment";
 
 const DatePicker = ({
   name,
@@ -18,7 +17,7 @@ const DatePicker = ({
   };
 
   return (
-    <Fragment>
+    <Form.Group>
       {label && <Form.Label>{label}</Form.Label>}
       <Datetime
         id={name}
@@ -31,7 +30,7 @@ const DatePicker = ({
         onChange={(value) => setFieldValue(name, value)}
         {...props}
       />
-    </Fragment>
+    </Form.Group>
   );
 };
 
