@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { SearchWrapper } from "../Styles";
 import Notification from "../../../Icons/Notification";
 import SearchIcon from "../../../Icons/Search";
+import Profile from "../../../Icons/Profile";
+import Unlock from "../../../Icons/Unlock";
 import Search from "../../Search";
 import Button from "../../../Components/Button";
 import Badge from "../../../Components/Badge";
@@ -35,6 +37,20 @@ const Sidenav = ({
       link: `${process.env.REACT_APP_ADPLIST_URL}/notifications`,
       badge: notifications?.total_unseen,
     },
+    ...(user
+      ? [
+          {
+            icon: Profile,
+            name: "Your Account",
+            link: `${process.env.REACT_APP_AUTH_URL}/dashboard/profile`,
+          },
+          {
+            icon: Unlock,
+            name: "Change Password",
+            link: `${process.env.REACT_APP_AUTH_URL}/dashboard/profile/change-password`,
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -76,7 +92,7 @@ const Sidenav = ({
           )}
 
           {search && (
-            <SearchWrapper className="my-2 mx-0">
+            <SearchWrapper className="my-3 mx-0">
               <SearchIcon className="search__icon" color="var(--teal)" />
               <div className="search__container w-100">
                 <Search
