@@ -9,6 +9,7 @@ import {
 } from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
+import useSWR from "swr";
 
 import "adplist-react-lib/dist/index.css";
 import "react-datetime/css/react-datetime.css";
@@ -24,6 +25,12 @@ export default () => {
    * states
    */
   const [modal, setModal] = useState(false);
+
+  /**
+   * api
+   */
+  const { data, error } = useSWR(`/group-session/?limit=10&offset=0`);
+  const items = data?.results;
 
   return (
     <Fragment>
@@ -152,16 +159,20 @@ export default () => {
               <Icon.Youtube />
             </Grid>
 
-            <GroupSession.Card
-              content={session}
-              onClick={() => setModal(true)}
-            />
+            {items && (
+              <GroupSession.Card
+                content={items && items[1]}
+                onClick={() => setModal(true)}
+              />
+            )}
 
-            <GroupSession.Modal
-              show={modal}
-              onHide={() => setModal(false)}
-              data={session}
-            />
+            {items && (
+              <GroupSession.Modal
+                show={modal}
+                onHide={() => setModal(false)}
+                data={items && items[1]}
+              />
+            )}
           </Container>
         </Layout>
       </AuthProvider>

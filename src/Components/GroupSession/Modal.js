@@ -50,7 +50,7 @@ const GroupSessionModal = ({
       user &&
       !["limbo", "designer"].includes(user?.identity_type?.toLowerCase())
     ) {
-      if (mentor.slug === user[user.identity_type.toLowerCase()].slug) {
+      if (mentor?.slug === user[user.identity_type.toLowerCase()]?.slug) {
         return `I’m hosting ${data?.name} on @ADPList. Starting on, ${date} at ${time} (${data?.timezone}). Join me here!`;
       }
     }
@@ -61,7 +61,7 @@ const GroupSessionModal = ({
   const hasRegistered = (() => {
     if (user) {
       const registeredUser = rsvp.find(
-        (r) => user[r.identity_type.toLowerCase()].slug === r.slug,
+        (r) => user[r.identity_type.toLowerCase()]?.slug === r?.slug,
       );
 
       return Boolean(registeredUser);
