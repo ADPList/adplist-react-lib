@@ -107,6 +107,7 @@ const Sidenav = ({
             {items?.map((item, key) => (
               <Item
                 key={key}
+                badge={!!item?.badge}
                 href={item?.link || "#"}
                 {...(item?.onClick && { onClick: item.onClick })}
               >
@@ -198,7 +199,7 @@ const Item = styled.a`
   line-height: 1.6;
   padding: 20px 15px;
   text-decoration: none !important;
-  grid-template-columns: 20px 1fr 28px;
+  grid-template-columns: 20px 1fr ${({ badge }) => badge && "28px"};
   border-bottom: solid 1px var(--grey-3);
 
   .item__content {
