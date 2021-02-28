@@ -78,11 +78,10 @@ const GroupSessionModal = ({
    * functions
    */
   const handleRegistration = async () => {
-    setLoading(true);
-
     handleLogin(user, "You need to login to be able to RSVP for this session")
       .then(async () => {
         if (user) {
+          setLoading(true);
           registerSessionService(details.id)
             .then(
               (response) =>
@@ -151,19 +150,21 @@ const GroupSessionModal = ({
             </a>
           </div>
 
-          <div className="session__mentees mb-32 pb-2">
-            <p className="font-size-14 grey-2-text line-height-13 mt-12">
-              Mentees attending ({rsvp?.length}/{rsvp_limit}):
-            </p>
+          {rsvp?.length > 0 && (
+            <div className="session__mentees mb-32 pb-2">
+              <p className="font-size-14 grey-2-text line-height-13 mt-12">
+                Mentees attending ({rsvp?.length}/{rsvp_limit}):
+              </p>
 
-            {rsvp?.length > 0 && (
-              <Images>
-                {rsvp.map((member, key) => (
-                  <Avatar src={member?.profile_photo_url} key={key} />
-                ))}
-              </Images>
-            )}
-          </div>
+              {rsvp?.length > 0 && (
+                <Images>
+                  {rsvp.map((member, key) => (
+                    <Avatar src={member?.profile_photo_url} key={key} />
+                  ))}
+                </Images>
+              )}
+            </div>
+          )}
 
           {!isPrivate && (
             <div className="session__actions">
