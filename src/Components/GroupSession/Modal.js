@@ -103,6 +103,16 @@ const GroupSessionModal = ({
       .catch(() => setLoading(false));
   };
 
+  const handleMember = (member) => {
+    if (typeof window !== "undefined") {
+      window.open(
+        `${
+          process.env.REACT_APP_ADPLIST_URL
+        }/${member?.identity_type?.toLowerCase()}s/${member?.slug}`,
+      );
+    }
+  };
+
   return (
     <Modal onHide={onHide} show={show} size="sm" centered>
       <Modal.Body className="p-4">
@@ -159,7 +169,11 @@ const GroupSessionModal = ({
               {rsvp?.length > 0 && (
                 <Images>
                   {rsvp.map((member, key) => (
-                    <Avatar src={member?.profile_photo_url} key={key} />
+                    <Avatar
+                      key={key}
+                      src={member?.profile_photo_url}
+                      onClick={() => handleMember(member)}
+                    />
                   ))}
                 </Images>
               )}
