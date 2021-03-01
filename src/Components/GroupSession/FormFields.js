@@ -41,6 +41,7 @@ export const Description = ({ value, ...props }) => (
     minRows={6}
     value={value}
     className="p-3"
+    maxLength="200"
     label="Description"
     useComponent={false}
     component={Textarea}
