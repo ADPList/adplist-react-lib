@@ -5,10 +5,14 @@ import styled from "styled-components";
  * styles
  */
 export const Wrapper = styled.div`
-  /* height: 64px; */
+  top: 0px;
+  height: 70px;
+  z-index: 100;
   display: flex;
+  position: sticky;
   align-items: center;
   justify-content: center;
+  background-color: #fff;
   border-bottom: solid 1px #eef1f4;
 `;
 

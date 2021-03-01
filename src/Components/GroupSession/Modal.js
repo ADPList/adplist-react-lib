@@ -1,4 +1,4 @@
-import React, { useGlobal, useState } from "reactn";
+import React, { useState } from "reactn";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import styled from "styled-components";
@@ -17,6 +17,7 @@ import Copy from "../../Icons/Copy";
 const GroupSessionModal = ({
   data,
   show,
+  user,
   onHide,
   isPrivate,
   mutate = () => {},
@@ -25,7 +26,6 @@ const GroupSessionModal = ({
   /**
    * state
    */
-  const [user] = useGlobal("user");
   const [details, setDetails] = useState(data);
   const [isLoading, setLoading] = useState(false);
 
@@ -57,7 +57,7 @@ const GroupSessionModal = ({
       }
     }
 
-    return `I've got a seat at ${details?.name} w/ ${details?.mentor?.name}. Starting on, ${date} at ${time} on @ADPList. ${url}`;
+    return `I've got a seat at ${details?.name} w/ ${details?.mentor?.name}. Starting on, ${date} at ${time} on @ADPList.`;
   })();
 
   const hasRegistered = (() => {
@@ -78,28 +78,39 @@ const GroupSessionModal = ({
    * functions
    */
   const handleRegistration = async () => {
-    setLoading(true);
-
     handleLogin(user, "You need to login to be able to RSVP for this session")
       .then(async () => {
-        registerSessionService(details.id)
-          .then(
-            (response) =>
-              toast(
-                <Notify
-                  type="success"
-                  body="Registration for session successful"
-                />,
-              ) |
-              setDetails(response) |
-              mutate(),
-          )
-          .catch(() =>
-            toast(<Notify body="Unable to RSVP for session" type="error" />),
-          )
-          .finally(() => setLoading(false));
+        if (user) {
+          setLoading(true);
+          registerSessionService(details.id)
+            .then(
+              (response) =>
+                toast(
+                  <Notify
+                    type="success"
+                    body="Registration for session successful"
+                  />,
+                ) |
+                setDetails(response) |
+                mutate(),
+            )
+            .catch(() =>
+              toast(<Notify body="Unable to RSVP for session" type="error" />),
+            )
+            .finally(() => setLoading(false));
+        }
       })
       .catch(() => setLoading(false));
+  };
+
+  const handleMember = (member) => {
+    if (typeof window !== "undefined") {
+      window.open(
+        `${
+          process.env.REACT_APP_ADPLIST_URL
+        }/${member?.identity_type?.toLowerCase()}s/${member?.slug}`,
+      );
+    }
   };
 
   return (
@@ -149,19 +160,25 @@ const GroupSessionModal = ({
             </a>
           </div>
 
-          <div className="session__mentees mb-32 pb-2">
-            <p className="font-size-14 grey-2-text line-height-13 mt-12">
-              Mentees attending ({rsvp?.length}/{rsvp_limit}):
-            </p>
+          {rsvp?.length > 0 && (
+            <div className="session__mentees mb-32 pb-2">
+              <p className="font-size-14 grey-2-text line-height-13 mt-12">
+                Mentees attending ({rsvp?.length}/{rsvp_limit}):
+              </p>
 
-            {rsvp?.length > 0 && (
-              <Images>
-                {rsvp.map((member, key) => (
-                  <Avatar src={member?.profile_photo_url} key={key} />
-                ))}
-              </Images>
-            )}
-          </div>
+              {rsvp?.length > 0 && (
+                <Images>
+                  {rsvp.map((member, key) => (
+                    <Avatar
+                      key={key}
+                      src={member?.profile_photo_url}
+                      onClick={() => handleMember(member)}
+                    />
+                  ))}
+                </Images>
+              )}
+            </div>
+          )}
 
           {!isPrivate && (
             <div className="session__actions">
