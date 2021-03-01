@@ -310,6 +310,11 @@ const Wrapper = styled.div`
     margin-bottom: 0px;
     grid-column-start: 1;
     grid-column-end: 2;
+
+    .preview {
+      width: 300px;
+      margin: 0px auto;
+    }
   }
 
   @media (min-width: 992px) {
