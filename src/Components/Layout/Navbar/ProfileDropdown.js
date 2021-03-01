@@ -48,11 +48,6 @@ const ProfileDropdown = ({ logout, user, initUser, identityType }) => (
         {identityType === "mentor" && user?.date_verified && (
           <Fragment>
             <NavDropdownItem
-              href={`${process.env.REACT_APP_ADPLIST_URL}/send-notes`}
-            >
-              Send Notes
-            </NavDropdownItem>
-            <NavDropdownItem
               href={`${process.env.REACT_APP_ADPLIST_URL}/mentors`}
             >
               Find a mentor
