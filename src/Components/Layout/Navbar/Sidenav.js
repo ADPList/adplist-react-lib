@@ -10,6 +10,7 @@ import Search from "../../Search";
 import Button from "../../../Components/Button";
 import Badge from "../../../Components/Badge";
 import Chat from "../../../Icons/Chat";
+import Edit from "../../../Icons/Edit";
 import Grid from "../../../Styles/Grid";
 
 const Sidenav = ({
@@ -40,8 +41,13 @@ const Sidenav = ({
           },
           {
             icon: Profile,
-            name: "Your Account",
+            name: "Your Profile",
             link: `${process.env.REACT_APP_AUTH_URL}/dashboard/profile`,
+          },
+          {
+            icon: Profile,
+            name: "Edit Profile",
+            link: `${process.env.REACT_APP_AUTH_URL}/dashboard/profile/edit`,
           },
           {
             icon: Unlock,
