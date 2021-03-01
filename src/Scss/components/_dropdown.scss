@@ -34,6 +34,11 @@
     overflow: hidden;
     border: none;
 
+    &.-left {
+      right: 0px !important;
+      left: auto !important;
+    }
+
     .dropdown-item {
       border-bottom: solid 1px var(--muted-grey);
       align-items: center;

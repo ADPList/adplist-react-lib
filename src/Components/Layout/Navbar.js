@@ -177,7 +177,7 @@ const Navbar = ({
                             </span>
                           )}
                         </Styled.NavDropdownMessageToggle>
-                        <Styled.NavDropdownMenu>
+                        <Styled.NavDropdownMenu className="-left">
                           <Notifications
                             route={router}
                             data={notifications}
