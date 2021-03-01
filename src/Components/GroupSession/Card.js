@@ -22,7 +22,7 @@ const Card = ({
           <Fragment>
             <div className="card__header">
               <p className="font-size-14 mb-0 grey-2-text">
-                {handleTimezone(content?.date_and_time, "MMM DD, ha (z)")}
+                {handleTimezone(content?.date_and_time, "MMM DD, ha ([GMT] Z)")}
               </p>
 
               {isPrivate ? (

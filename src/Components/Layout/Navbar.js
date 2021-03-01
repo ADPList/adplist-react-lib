@@ -193,7 +193,7 @@ const Navbar = ({
                     />
                     {identityType === "mentor" &&
                       user?.can_mentor_create_session && (
-                        <div className="nav__item pr-0">
+                        <div className="nav__item pr-0 pl-2">
                           <a
                             href={`${process.env.REACT_APP_ADPLIST_URL}/group-session`}
                             className="teal-bg white-text btn"
@@ -208,16 +208,16 @@ const Navbar = ({
                   </Fragment>
                 ) : (
                   <Fragment>
-                    <div className="nav__item">
+                    <div className="nav__item px-1">
                       <Button
                         isValid
                         onClick={() => handleAuth("login")}
-                        className="btn--default-outline px-4"
+                        className="btn--default-outline px-4 mr-0"
                       >
                         Log in
                       </Button>
                     </div>
-                    <div className="nav__item pr-0">
+                    <div className="nav__item pr-0 pl-1">
                       <Button
                         isValid
                         className="btn--default px-4"

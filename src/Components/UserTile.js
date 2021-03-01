@@ -3,7 +3,6 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { startCase } from "lodash";
 import styled from "styled-components";
 
-import Message from "../Icons/Message";
 import Chat from "../Icons/Chat";
 import Work from "../Icons/Work";
 import Flag from "./Flag";
@@ -55,7 +54,7 @@ const UserTile = ({ user, href }) => (
           )}
           {user?.topic_of_interests && (
             <div className="item">
-              <Message size={16} color="#fff" />
+              <Chat size={16} color="#fff" />
               <span>
                 {user?.topic_of_interests
                   ?.map(({ description }) => description)
