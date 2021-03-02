@@ -260,7 +260,7 @@ const GroupSession = ({
             </a>{" "}
             cancelled the session{" "}
             <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/?group-session=${group_session_slug}`}
+              href="/"
               onClick={(e) => e.stopPropagation()}
               className="font-weight-600 black-text"
             >
