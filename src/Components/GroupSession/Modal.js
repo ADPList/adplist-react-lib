@@ -129,7 +129,10 @@ const GroupSessionModal = ({
               </p>
             )}
             {description && (
-              <p className="grey-1-text line-height-16 mb-0 text-wrap">
+              <p
+                className="grey-1-text line-height-16 mb-0"
+                style={{ wordBreak: "break-word" }}
+              >
                 {description}
               </p>
             )}
