@@ -120,7 +120,7 @@ const GroupSessionModal = ({
           <div className="session__info mb-3">
             {date_and_time && (
               <p className="grey-2-text mb-12">
-                {handleTimezone(date_and_time, "MMM DD, ha")}
+                {handleTimezone(date_and_time, "MMM DD, ha ([GMT] Z)")}
               </p>
             )}
             {name && (
@@ -129,7 +129,12 @@ const GroupSessionModal = ({
               </p>
             )}
             {description && (
-              <p className="grey-1-text line-height-16 mb-0">{description}</p>
+              <p
+                className="grey-1-text line-height-16 mb-0"
+                style={{ wordBreak: "break-word" }}
+              >
+                {description}
+              </p>
             )}
           </div>
 

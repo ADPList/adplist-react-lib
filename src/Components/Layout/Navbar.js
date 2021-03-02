@@ -8,6 +8,7 @@ import Notifications from "./Navbar/Notifications";
 import Notification from "../../Icons/Notification";
 import ArrowUpRight from "../../Icons/ArrowUpRight";
 import SearchIcon from "../../Icons/Search";
+import Document from "../../Icons/Document";
 import useWidth from "../../Utils/useWidth";
 import AdpLogo from "../../Icons/AdpLogo";
 import Sidenav from "./Navbar/Sidenav";
@@ -167,7 +168,16 @@ const Navbar = ({
 
                 {isAuthenticated ? (
                   <Fragment>
-                    <div className="nav__item">
+                    {identityType === "mentor" && (
+                      <div className="nav__item px-2">
+                        <Styled.NavItemCircle
+                          href={`${process.env.REACT_APP_ADPLIST_URL}/send-notes`}
+                        >
+                          <Document />
+                        </Styled.NavItemCircle>
+                      </div>
+                    )}
+                    <div className="nav__item px-2">
                       <Styled.NavDropdown>
                         <Styled.NavDropdownMessageToggle id="notification">
                           <Notification />

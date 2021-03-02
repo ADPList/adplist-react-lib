@@ -128,8 +128,8 @@ export const NavDropdown = styled(Dropdown)``;
 
 export const NavDropdownToggle = styled(Dropdown.Toggle)``;
 
-export const NavDropdownMessageToggle = styled(Dropdown.Toggle)`
-  background-color: var(--grey-3) !important;
+const navCircle = `
+background-color: var(--grey-3) !important;
   justify-content: center;
   padding: 0px !important;
   height: 36px !important;
@@ -137,6 +137,14 @@ export const NavDropdownMessageToggle = styled(Dropdown.Toggle)`
   align-items: center;
   border-radius: 50%;
   display: flex;
+`;
+
+export const NavItemCircle = styled.a`
+  ${navCircle}
+`;
+
+export const NavDropdownMessageToggle = styled(Dropdown.Toggle)`
+  ${navCircle}
 
   .notif__badge {
     top: -3px;

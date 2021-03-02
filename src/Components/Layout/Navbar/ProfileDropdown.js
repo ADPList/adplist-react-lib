@@ -14,7 +14,7 @@ import {
 } from "../Styles";
 
 const ProfileDropdown = ({ logout, user, initUser, identityType }) => (
-  <div className="nav__item pr-2 pl-2">
+  <div className="nav__item px-2">
     <NavDropdown>
       <NavDropdownToggle>
         <Profile className="shadow-sm">

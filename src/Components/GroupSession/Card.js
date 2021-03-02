@@ -124,6 +124,7 @@ const Wrapper = styled.div`
       &__description {
         line-height: 1.5;
         margin-bottom: 0px;
+        word-break: break-word;
       }
     }
 
