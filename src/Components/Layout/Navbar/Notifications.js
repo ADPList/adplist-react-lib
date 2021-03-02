@@ -209,46 +209,46 @@ const GroupSession = ({
         }
       }}
     >
-      <div className="notif__item__avatar">
+      <div className="item__avatar">
         <Image src={profile_photo_url} />
       </div>
-      <div className="notif__item__content">
+      <div className="item__content">
         {notification_type === "GroupSessionRSVP" ? (
           <Fragment>
-            <Link
-              href={`/${identity_type}/${slug}`}
+            <a
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
               onClick={(e) => e.stopPropagation()}
             >
               {name}
-            </Link>{" "}
+            </a>{" "}
             registered for your session{" "}
             <span className="font-weight-600">{group_session_name}</span>
           </Fragment>
         ) : notification_type === "GroupSessionUpdate" ? (
           <Fragment>
-            <Link
-              href={`/${identity_type}/${slug}`}
+            <a
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
               onClick={(e) => e.stopPropagation()}
             >
               {name}
-            </Link>{" "}
+            </a>{" "}
             updated the session{" "}
             <span className="font-weight-600">{group_session_name}</span>
           </Fragment>
         ) : (
           <Fragment>
-            <Link
-              href={`/${identity_type}/${slug}`}
+            <a
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
               onClick={(e) => e.stopPropagation()}
             >
               {name}
-            </Link>{" "}
+            </a>{" "}
             cancelled the session{" "}
             <span className="font-weight-600">{group_session_name}</span>
           </Fragment>
         )}
       </div>
-      {!seen && <span className="notif__item__unseen" />}
+      {!seen && <span className="item__unseen" />}
     </Styled.NavNotifItem>
   );
 };
