@@ -70,13 +70,19 @@ const Notifications = ({ data, error, mutate, route }) => {
                 />
               )}
 
-              {notification_type === "Group Session" && (
+              {(notification_type === "GroupSessionRSVP" ||
+                notification_type === "GroupSessionUpdate" ||
+                notification_type === "GroupSessionCancel") && (
                 <GroupSession
-                  {...{ ...notification, route, local, mutate, handleRoute }}
+                  {...{
+                    route,
+                    mutate,
+                    notification_type,
+                    ...notification,
+                  }}
                   route={route}
                 />
               )}
-
               {notification_type === "Note" && (
                 <Note
                   {...{ ...notification, route, local, mutate, handleRoute }}
@@ -177,85 +183,62 @@ const Review = ({
 const GroupSession = ({
   id,
   seen,
-  route,
-  local,
+  group_session_name,
+  notification_type,
   mutate,
-  cancelled,
-  handleRoute,
-  sessionName,
+  route,
   source_user: { profile_photo_url, name, identity_type, slug },
   destination_user,
 }) => {
-  const type = identity_type;
-
   return (
-    <Styled.NavDropdownItem
-      as="div"
-      className={`notif__item ${!cancelled && "-unseen"}`}
-      onClick={() => {
-        if (local) {
-          return (
-            updateNotificationSeenService(id).then(() => mutate()) |
-            route(`/mentors/${destination_user.slug}`)
-          );
-        } else {
-          return updateNotificationSeenService(id).then(() =>
-            handleRoute(
-              `${process.env.REACT_APP_ADPLIST_URL}/mentors/${destination_user.slug}`,
-            ),
-          );
-        }
-      }}
+    <Notif
+      className={`${!seen && "-unseen"}`}
+      onClick={() =>
+        updateNotificationSeenService(id).then(() => mutate()) |
+        route(`/mentors/${destination_user.slug}`)
+      }
     >
       <div className="notif__item__avatar">
         <Image src={profile_photo_url} />
       </div>
-      {type === "GroupSessionRSVP" && (
-        <Fragment>
-          <div className="notif__item__content">
-            <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
+      <div className="notif__item__content">
+        {notification_type === "GroupSessionRSVP" ? (
+          <Fragment>
+            <Link
+              href={`/${identity_type}/${slug}`}
               onClick={(e) => e.stopPropagation()}
             >
               {name}
-            </a>{" "}
-            {`registered for your session ${sessionName}`}
-          </div>
-          {!seen && <span className="item__unseen" />}
-        </Fragment>
-      )}
-
-      {type === "GroupSessionUpdate" && (
-        <Fragment>
-          <div className="notif__item__content">
-            <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
+            </Link>{" "}
+            registered for your session{" "}
+            <span className="font-weight-600">{group_session_name}</span>
+          </Fragment>
+        ) : notification_type === "GroupSessionUpdate" ? (
+          <Fragment>
+            <Link
+              href={`/${identity_type}/${slug}`}
               onClick={(e) => e.stopPropagation()}
             >
               {name}
-            </a>{" "}
-            {`updated session ${sessionName}`}
-          </div>
-          {!seen && <span className="item__unseen" />}
-        </Fragment>
-      )}
-
-      {type === "GroupSessionCancel" && (
-        <Fragment>
-          <div className="notif__item__content">
-            <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
+            </Link>{" "}
+            updated the session{" "}
+            <span className="font-weight-600">{group_session_name}</span>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <Link
+              href={`/${identity_type}/${slug}`}
               onClick={(e) => e.stopPropagation()}
             >
               {name}
-            </a>{" "}
-            {`cancelled the session ${sessionName}`}
-          </div>
-          {!seen && <span className="item__unseen" />}
-        </Fragment>
-      )}
+            </Link>{" "}
+            cancelled the session{" "}
+            <span className="font-weight-600">{group_session_name}</span>
+          </Fragment>
+        )}
+      </div>
       {!seen && <span className="notif__item__unseen" />}
-    </Styled.NavDropdownItem>
+    </Notif>
   );
 };
 
