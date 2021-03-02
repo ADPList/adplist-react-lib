@@ -186,7 +186,7 @@ const GroupSession = ({
   source_user: { profile_photo_url, name, identity_type, slug },
   destination_user,
 }) => {
-  const type = `${identity_type.toLowerCase()}s`;
+  const type = identity_type;
 
   return (
     <Styled.NavDropdownItem
@@ -210,17 +210,50 @@ const GroupSession = ({
       <div className="notif__item__avatar">
         <Image src={profile_photo_url} />
       </div>
-      <div className="notif__item__content">
-        <a
-          href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {name}
-        </a>{" "}
-        {cancelled
-          ? `cancelled the session ${sessionName}`
-          : `registered for your session ${sessionName}`}
-      </div>
+      {type === "GroupSessionRSVP" && (
+        <Fragment>
+          <div className="notif__item__content">
+            <a
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {name}
+            </a>{" "}
+            {`registered for your session ${sessionName}`}
+          </div>
+          {!seen && <span className="item__unseen" />}
+        </Fragment>
+      )}
+
+      {type === "GroupSessionUpdate" && (
+        <Fragment>
+          <div className="notif__item__content">
+            <a
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {name}
+            </a>{" "}
+            {`updated session ${sessionName}`}
+          </div>
+          {!seen && <span className="item__unseen" />}
+        </Fragment>
+      )}
+
+      {type === "GroupSessionCancel" && (
+        <Fragment>
+          <div className="notif__item__content">
+            <a
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {name}
+            </a>{" "}
+            {`cancelled the session ${sessionName}`}
+          </div>
+          {!seen && <span className="item__unseen" />}
+        </Fragment>
+      )}
       {!seen && <span className="notif__item__unseen" />}
     </Styled.NavDropdownItem>
   );
