@@ -216,7 +216,7 @@ const GroupSession = ({
         {notification_type === "GroupSessionRSVP" ? (
           <Fragment>
             <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${identity_type}/${slug}`}
               onClick={(e) => e.stopPropagation()}
             >
               {name}
@@ -227,7 +227,7 @@ const GroupSession = ({
         ) : notification_type === "GroupSessionUpdate" ? (
           <Fragment>
             <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${identity_type}/${slug}`}
               onClick={(e) => e.stopPropagation()}
             >
               {name}
@@ -238,7 +238,7 @@ const GroupSession = ({
         ) : (
           <Fragment>
             <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${identity_type}/${slug}`}
               onClick={(e) => e.stopPropagation()}
             >
               {name}
