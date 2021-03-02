@@ -183,7 +183,9 @@ const Review = ({
 const GroupSession = ({
   id,
   seen,
+  local,
   group_session_name,
+  group_session_slug,
   notification_type,
   mutate,
   route,
@@ -224,7 +226,13 @@ const GroupSession = ({
               {name}
             </a>{" "}
             registered for your session{" "}
-            <span className="font-weight-600">{group_session_name}</span>
+            <a
+              href={`${process.env.REACT_APP_ADPLIST_URL}/?group-session=${group_session_slug}`}
+              onClick={(e) => e.stopPropagation()}
+              className="font-weight-600 black-text"
+            >
+              {group_session_name}
+            </a>
           </Fragment>
         ) : notification_type === "GroupSessionUpdate" ? (
           <Fragment>
@@ -235,7 +243,12 @@ const GroupSession = ({
               {name}
             </a>{" "}
             updated the session{" "}
-            <span className="font-weight-600">{group_session_name}</span>
+            <a
+              href={`${process.env.REACT_APP_ADPLIST_URL}/?group-session=${group_session_slug}`}
+              className="font-weight-600 black-text"
+            >
+              {group_session_name}
+            </a>
           </Fragment>
         ) : (
           <Fragment>
@@ -246,7 +259,13 @@ const GroupSession = ({
               {name}
             </a>{" "}
             cancelled the session{" "}
-            <span className="font-weight-600">{group_session_name}</span>
+            <a
+              href={`${process.env.REACT_APP_ADPLIST_URL}/?group-session=${group_session_slug}`}
+              onClick={(e) => e.stopPropagation()}
+              className="font-weight-600 black-text"
+            >
+              {group_session_name}
+            </a>
           </Fragment>
         )}
       </div>
