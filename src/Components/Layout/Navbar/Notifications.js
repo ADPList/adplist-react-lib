@@ -190,6 +190,8 @@ const GroupSession = ({
   source_user: { profile_photo_url, name, identity_type, slug },
   destination_user,
 }) => {
+  const type = `${identity_type.toLowerCase()}s`;
+
   return (
     <Styled.NavNotifItem
       as="div"
@@ -216,7 +218,7 @@ const GroupSession = ({
         {notification_type === "GroupSessionRSVP" ? (
           <Fragment>
             <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/${identity_type}/${slug}`}
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
               onClick={(e) => e.stopPropagation()}
             >
               {name}
@@ -227,7 +229,7 @@ const GroupSession = ({
         ) : notification_type === "GroupSessionUpdate" ? (
           <Fragment>
             <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/${identity_type}/${slug}`}
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
               onClick={(e) => e.stopPropagation()}
             >
               {name}
@@ -238,7 +240,7 @@ const GroupSession = ({
         ) : (
           <Fragment>
             <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/${identity_type}/${slug}`}
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
               onClick={(e) => e.stopPropagation()}
             >
               {name}
