@@ -88,7 +88,7 @@ const GroupSessionModal = ({
                 toast(
                   <Notify
                     type="success"
-                    body="Registration for session successful"
+                    body="Congrats - you're in 🤩! We've sent an invite - add it your calendar and spread the word 🎉!"
                   />,
                 ) |
                 setDetails(response) |

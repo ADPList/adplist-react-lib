@@ -114,7 +114,8 @@ export default () => {
 
               <Icon.Instagram />
 
-              <Icon.LinkedIn />
+              <Icon.LinkedIn variant="default" />
+              <Icon.LinkedIn variant="rounded" />
               <Icon.Location />
               <Icon.Logo />
 
@@ -146,7 +147,9 @@ export default () => {
               <Icon.TickSquare />
               <Icon.Time variant="circle" />
               <Icon.Time variant="square" />
-              <Icon.Twitter />
+              <Icon.Twitter variant="default" />
+
+              <Icon.Twitter variant="rounded" />
 
               <Icon.Unlock />
               <Icon.Upload />
@@ -174,6 +177,7 @@ export default () => {
                 data={items && items[0]}
               />
             )}
+            <Icon.Document />
           </Container>
         </Layout>
       </AuthProvider>
