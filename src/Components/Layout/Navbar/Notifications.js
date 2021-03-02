@@ -191,12 +191,23 @@ const GroupSession = ({
   destination_user,
 }) => {
   return (
-    <Notif
+    <Styled.NavNotifItem
+      as="div"
       className={`${!seen && "-unseen"}`}
-      onClick={() =>
-        updateNotificationSeenService(id).then(() => mutate()) |
-        route(`/mentors/${destination_user.slug}`)
-      }
+      onClick={() => {
+        if (local) {
+          return (
+            updateNotificationSeenService(id).then(() => mutate()) |
+            route(`/mentors/${destination_user.slug}`)
+          );
+        } else {
+          return updateNotificationSeenService(id).then(() =>
+            handleRoute(
+              `${process.env.REACT_APP_ADPLIST_URL}/mentors/${destination_user.slug}`,
+            ),
+          );
+        }
+      }}
     >
       <div className="notif__item__avatar">
         <Image src={profile_photo_url} />
@@ -238,7 +249,7 @@ const GroupSession = ({
         )}
       </div>
       {!seen && <span className="notif__item__unseen" />}
-    </Notif>
+    </Styled.NavNotifItem>
   );
 };
 
