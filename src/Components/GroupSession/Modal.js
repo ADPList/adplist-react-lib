@@ -13,6 +13,7 @@ import Notify from "../Notify";
 import LinkedIn from "../../Icons/LinkedIn";
 import Twitter from "../../Icons/Twitter";
 import Copy from "../../Icons/Copy";
+import Grid from "../../Styles/Grid";
 
 const GroupSessionModal = ({
   data,
@@ -175,8 +176,8 @@ const GroupSessionModal = ({
                 <Images>
                   {rsvp.map((member, key) => (
                     <Avatar
-                      className="cursor-pointer"
                       key={key}
+                      className="cursor-pointer"
                       src={member?.profile_photo_url}
                       onClick={() => handleMember(member)}
                     />
@@ -187,7 +188,7 @@ const GroupSessionModal = ({
           )}
 
           {!isPrivate && (
-            <div className="session__actions">
+            <Grid gap="24px" className="session__actions">
               {cancelled && (
                 <Alert className="muted-pink-bg danger-text">
                   RSVP for this session closed.
@@ -213,7 +214,7 @@ const GroupSessionModal = ({
                     RSVP for this session
                   </Button>
                 )}
-            </div>
+            </Grid>
           )}
 
           <div className="session__share">

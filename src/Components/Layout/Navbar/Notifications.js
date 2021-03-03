@@ -44,7 +44,7 @@ const Notifications = ({ data, error, mutate, route }) => {
         </Styled.NavDropdownItem>
       )}
 
-      {data?.count === 0 && (
+      {data && notifications?.length === 0 && (
         <Styled.NavDropdownItem>
           <div className="text-center">
             <Notification className="mb-3" />
@@ -53,7 +53,7 @@ const Notifications = ({ data, error, mutate, route }) => {
         </Styled.NavDropdownItem>
       )}
 
-      {data?.count > 0 && (
+      {data && notifications?.length > 0 && (
         <Fragment>
           {notifications?.map(({ notification_type, ...notification }, key) => (
             <Fragment key={key}>
@@ -72,7 +72,7 @@ const Notifications = ({ data, error, mutate, route }) => {
 
               {[
                 "GroupSessionRSVP",
-                "GroupSessionRSVP",
+                "GroupSessionUpdate",
                 "GroupSessionCancel",
               ].includes(notification_type) && (
                 <GroupSession
@@ -201,18 +201,9 @@ const GroupSession = ({
       as="div"
       className={`${!seen && "-unseen"}`}
       onClick={() => {
-        if (local) {
-          return (
-            updateNotificationSeenService(id).then(() => mutate()) |
-            route(`/mentors/${destination_user.slug}`)
-          );
-        } else {
-          return updateNotificationSeenService(id).then(() =>
-            handleRoute(
-              `${process.env.REACT_APP_ADPLIST_URL}/mentors/${destination_user.slug}`,
-            ),
-          );
-        }
+        if (local)
+          return updateNotificationSeenService(id).then(() => mutate());
+        else return updateNotificationSeenService(id);
       }}
     >
       <div className="item__avatar">
@@ -227,12 +218,7 @@ const GroupSession = ({
             >
               {name}
             </a>{" "}
-            <span
-              className="cursor-pointer"
-              onClick={(e) => e.stopPropagation()}
-            >
-              registered for your session
-            </span>{" "}
+            registered for your session{" "}
             <a
               href={`${process.env.REACT_APP_ADPLIST_URL}/?group-session=${group_session_slug}`}
               onClick={(e) => e.stopPropagation()}
@@ -249,12 +235,7 @@ const GroupSession = ({
             >
               {name}
             </a>{" "}
-            <span
-              className="cursor-pointer"
-              onClick={(e) => e.stopPropagation()}
-            >
-              updated the session
-            </span>{" "}
+            updated the session{" "}
             <a
               href={`${process.env.REACT_APP_ADPLIST_URL}/?group-session=${group_session_slug}`}
               className="font-weight-600 black-text"
@@ -270,12 +251,7 @@ const GroupSession = ({
             >
               {name}
             </a>{" "}
-            <span
-              className="cursor-pointer"
-              onClick={(e) => e.stopPropagation()}
-            >
-              cancelled the session
-            </span>{" "}
+            cancelled the session{" "}
             <a className="font-weight-600 black-text">{group_session_name}</a>
           </Fragment>
         )}
