@@ -175,6 +175,7 @@ const GroupSessionModal = ({
                 <Images>
                   {rsvp.map((member, key) => (
                     <Avatar
+                      className="cursor-pointer"
                       key={key}
                       src={member?.profile_photo_url}
                       onClick={() => handleMember(member)}

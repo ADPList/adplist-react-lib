@@ -227,7 +227,12 @@ const GroupSession = ({
             >
               {name}
             </a>{" "}
-            registered for your session{" "}
+            <span
+              className="cursor-pointer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              registered for your session
+            </span>{" "}
             <a
               href={`${process.env.REACT_APP_ADPLIST_URL}/?group-session=${group_session_slug}`}
               onClick={(e) => e.stopPropagation()}
@@ -244,7 +249,12 @@ const GroupSession = ({
             >
               {name}
             </a>{" "}
-            updated the session{" "}
+            <span
+              className="cursor-pointer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              updated the session
+            </span>{" "}
             <a
               href={`${process.env.REACT_APP_ADPLIST_URL}/?group-session=${group_session_slug}`}
               className="font-weight-600 black-text"
@@ -260,7 +270,12 @@ const GroupSession = ({
             >
               {name}
             </a>{" "}
-            cancelled the session{" "}
+            <span
+              className="cursor-pointer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              cancelled the session
+            </span>{" "}
             <a className="font-weight-600 black-text">{group_session_name}</a>
           </Fragment>
         )}
