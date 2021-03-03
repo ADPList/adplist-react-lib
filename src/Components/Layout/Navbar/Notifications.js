@@ -70,9 +70,11 @@ const Notifications = ({ data, error, mutate, route }) => {
                 />
               )}
 
-              {(notification_type === "GroupSessionRSVP" ||
-                notification_type === "GroupSessionUpdate" ||
-                notification_type === "GroupSessionCancel") && (
+              {[
+                "GroupSessionRSVP",
+                "GroupSessionRSVP",
+                "GroupSessionCancel",
+              ].includes(notification_type) && (
                 <GroupSession
                   {...{
                     route,
@@ -184,11 +186,11 @@ const GroupSession = ({
   id,
   seen,
   local,
+  mutate,
+  route,
   group_session_name,
   group_session_slug,
   notification_type,
-  mutate,
-  route,
   source_user: { profile_photo_url, name, identity_type, slug },
   destination_user,
 }) => {
@@ -259,13 +261,7 @@ const GroupSession = ({
               {name}
             </a>{" "}
             cancelled the session{" "}
-            <a
-              href="/"
-              onClick={(e) => e.stopPropagation()}
-              className="font-weight-600 black-text"
-            >
-              {group_session_name}
-            </a>
+            <a className="font-weight-600 black-text">{group_session_name}</a>
           </Fragment>
         )}
       </div>
