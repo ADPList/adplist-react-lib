@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import styled from "styled-components";
 import flags from "emoji-flags";
 
@@ -68,8 +69,8 @@ const Card = ({
               onClick={(e) => e.stopPropagation()}
               href={`${process.env.REACT_APP_ADPLIST_URL}/mentors/${content?.mentor?.slug}`}
             >
-              <Avatar
-                className="mr-3"
+              <LazyLoadImage
+                className="avatar mr-3"
                 src={content?.mentor?.profile_photo_url}
               />
               <div className="media-body">
@@ -143,6 +144,14 @@ const Wrapper = styled.div`
     &.-skeleton {
       height: 252px;
     }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 50%;
+    }
   }
 
   @media (min-width: 768px) {
@@ -150,14 +159,6 @@ const Wrapper = styled.div`
       width: 380px;
     }
   }
-`;
-
-const Avatar = styled.img`
-  width: 48px;
-  height: 48px;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 50%;
 `;
 
 export default Card;

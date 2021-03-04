@@ -1,4 +1,5 @@
 import React, { useState } from "reactn";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import flags from "emoji-flags";
@@ -151,7 +152,10 @@ const GroupSessionModal = ({
             }
             className="text-decoration-none d-flex align-items-center black-text"
           >
-            <Avatar src={mentor?.profile_photo_url} className="mr-3" />
+            <LazyLoadImage
+              src={mentor?.profile_photo_url}
+              className="avatar mr-3"
+            />
             <div>
               <p className="line-height-16 font-weight-500 mb-1">
                 {mentor?.name}{" "}
@@ -175,9 +179,9 @@ const GroupSessionModal = ({
             {rsvp?.length > 0 && (
               <Images>
                 {rsvp.map((member, key) => (
-                  <Avatar
+                  <LazyLoadImage
                     key={key}
-                    className="cursor-pointer"
+                    className="avatar cursor-pointer"
                     src={member?.profile_photo_url}
                     onClick={() => handleMember(member)}
                   />
@@ -323,14 +327,14 @@ const Wrapper = styled.div`
       }
     }
   }
-`;
 
-const Avatar = styled.img`
-  width: 48px;
-  height: 48px;
-  object-fit: cover;
-  border-radius: 50%;
-  object-position: center;
+  .avatar {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%;
+    object-position: center;
+  }
 `;
 
 const Images = styled.div`
