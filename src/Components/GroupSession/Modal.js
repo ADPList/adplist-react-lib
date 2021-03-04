@@ -1,5 +1,4 @@
 import React, { useState } from "reactn";
-import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import flags from "emoji-flags";
@@ -9,11 +8,12 @@ import { registerSessionService } from "../../Services/sessionService";
 import copyToClipboard from "../../Utils/copyToClipboard";
 import Button from "../Button";
 import Notify from "../Notify";
+import Modal from "../Modal";
+import Grid from "../../Styles/Grid";
 
 import LinkedIn from "../../Icons/LinkedIn";
 import Twitter from "../../Icons/Twitter";
 import Copy from "../../Icons/Copy";
-import Grid from "../../Styles/Grid";
 
 const GroupSessionModal = ({
   data,
@@ -116,151 +116,147 @@ const GroupSessionModal = ({
 
   return (
     <Modal onHide={onHide} show={show} size="sm" centered>
-      <Modal.Body className="p-4">
-        <Wrapper {...props}>
-          <div className="session__info mb-3">
-            {date_and_time && (
-              <p className="grey-2-text mb-12">
-                {handleTimezone(date_and_time, "MMM DD, ha ([GMT] Z)")}
-              </p>
-            )}
-            {name && (
-              <p className="font-size-20 font-weight-600 mb-2 line-height-16">
-                {name}
-              </p>
-            )}
-            {description && (
-              <p
-                className="grey-1-text line-height-16 mb-0"
-                style={{ wordBreak: "break-word" }}
-              >
-                {description}
-              </p>
-            )}
-          </div>
+      <Wrapper {...props}>
+        <div className="session__info mb-3">
+          {date_and_time && (
+            <p className="grey-2-text mb-0">
+              {handleTimezone(date_and_time, "MMM DD, ha ([GMT] Z)")}
+            </p>
+          )}
 
-          <div className="session__organizer mb-32">
-            <p className="font-size-14 grey-2-text line-height-13 mb-12">
-              Organised by:
+          {name && (
+            <p className="font-size-20 font-weight-600 mb-2 line-height-16">
+              {name}
+            </p>
+          )}
+          {description && (
+            <p
+              className="grey-1-text line-height-16 mb-0"
+              style={{ wordBreak: "break-word" }}
+            >
+              {description}
+            </p>
+          )}
+        </div>
+
+        <div className="session__organizer mb-32">
+          <p className="font-size-14 grey-2-text line-height-13 mb-12">
+            Organised by:
+          </p>
+
+          <a
+            target="mentor"
+            href={
+              process.env.REACT_APP_ADPLIST_URL + `/mentors/${mentor?.slug}`
+            }
+            className="text-decoration-none d-flex align-items-center black-text"
+          >
+            <Avatar src={mentor?.profile_photo_url} className="mr-3" />
+            <div>
+              <p className="line-height-16 font-weight-500 mb-1">
+                {mentor?.name}{" "}
+                {mentor?.country?.iso &&
+                  flags.countryCode(mentor?.country?.iso).emoji}
+              </p>
+              <p className="font-size-14 mb-0">
+                <span className="font-weight-500">{mentor?.title}</span> at{" "}
+                <span className="font-weight-500">{mentor?.employer}</span>
+              </p>
+            </div>
+          </a>
+        </div>
+
+        {rsvp?.length > 0 && (
+          <div className="session__mentees mb-32 pb-2">
+            <p className="font-size-14 grey-2-text line-height-13 mt-12">
+              Mentees attending ({rsvp?.length}/{rsvp_limit}):
             </p>
 
-            <a
-              target="mentor"
-              href={
-                process.env.REACT_APP_ADPLIST_URL + `/mentors/${mentor?.slug}`
-              }
-              className="text-decoration-none d-flex align-items-center black-text"
+            {rsvp?.length > 0 && (
+              <Images>
+                {rsvp.map((member, key) => (
+                  <Avatar
+                    key={key}
+                    className="cursor-pointer"
+                    src={member?.profile_photo_url}
+                    onClick={() => handleMember(member)}
+                  />
+                ))}
+              </Images>
+            )}
+          </div>
+        )}
+
+        {!isPrivate && !isOwner && (
+          <Grid gap="24px" className="session__actions">
+            {!hasRegistered && cancelled && (
+              <Alert className="muted-pink-bg danger-text">
+                RSVP for this session closed.
+              </Alert>
+            )}
+
+            {hasRegistered && (
+              <Alert className="muted-green-bg teal-text">
+                Congrats, you’re in this session!
+              </Alert>
+            )}
+
+            {!cancelled && rsvp?.length < rsvp_limit && !hasRegistered && (
+              <Button
+                isValid
+                loading={isLoading}
+                className="w-100 teal-bg btn-56 white-text"
+                onClick={() => handleRegistration()}
+              >
+                RSVP for this session
+              </Button>
+            )}
+          </Grid>
+        )}
+
+        <div className="session__share">
+          <div className="session__share__url">
+            <p className="grey-2-text line-height-13 mb-3 font-size-14">
+              Spread the word
+            </p>
+
+            <div className="share__url">
+              <span>
+                <a
+                  href="/"
+                  onClick={(e) => e.preventDefault()}
+                  className="text-truncate"
+                >
+                  {url}
+                </a>
+              </span>
+              <Copy
+                className="mx-auto cursor-pointer"
+                onClick={() => copyToClipboard(url)}
+              />
+            </div>
+          </div>
+
+          <div className="session__share__buttons">
+            <Button
+              isValid
+              className="-linkedin"
+              onClick={() => handleShare("linkedin", mentor, url, message)}
             >
-              <Avatar src={mentor?.profile_photo_url} className="mr-3" />
-              <div>
-                <p className="line-height-16 font-weight-500 mb-1">
-                  {mentor?.name}{" "}
-                  {mentor?.country?.iso &&
-                    flags.countryCode(mentor?.country?.iso).emoji}
-                </p>
-                <p className="font-size-14 mb-0">
-                  <span className="font-weight-500">{mentor?.title}</span> at{" "}
-                  <span className="font-weight-500">{mentor?.employer}</span>
-                </p>
-              </div>
-            </a>
+              <LinkedIn color="white" size={18} />
+              <span>Share on LinkedIn</span>
+            </Button>
+            <Button
+              isValid
+              onClick={() => handleShare("twitter", mentor, url, message)}
+              className="-twitter"
+            >
+              <Twitter size={18} color="white" />
+              <span>Tweet this session</span>
+            </Button>
           </div>
-
-          {rsvp?.length > 0 && (
-            <div className="session__mentees mb-32 pb-2">
-              <p className="font-size-14 grey-2-text line-height-13 mt-12">
-                Mentees attending ({rsvp?.length}/{rsvp_limit}):
-              </p>
-
-              {rsvp?.length > 0 && (
-                <Images>
-                  {rsvp.map((member, key) => (
-                    <Avatar
-                      key={key}
-                      className="cursor-pointer"
-                      src={member?.profile_photo_url}
-                      onClick={() => handleMember(member)}
-                    />
-                  ))}
-                </Images>
-              )}
-            </div>
-          )}
-
-          {!isPrivate && (
-            <Grid gap="24px" className="session__actions">
-              {cancelled && (
-                <Alert className="muted-pink-bg danger-text">
-                  RSVP for this session closed.
-                </Alert>
-              )}
-
-              {hasRegistered && (
-                <Alert className="muted-green-bg teal-text">
-                  Congrats, you’re in this session!
-                </Alert>
-              )}
-
-              {!cancelled &&
-                rsvp?.length < rsvp_limit &&
-                !hasRegistered &&
-                !isOwner && (
-                  <Button
-                    isValid
-                    loading={isLoading}
-                    className="w-100 teal-bg btn-56 white-text"
-                    onClick={() => handleRegistration()}
-                  >
-                    RSVP for this session
-                  </Button>
-                )}
-            </Grid>
-          )}
-
-          <div className="session__share">
-            <div className="session__share__url">
-              <p className="grey-2-text line-height-13 mb-3 font-size-14">
-                Spread the word
-              </p>
-
-              <div className="share__url">
-                <span>
-                  <a
-                    href="/"
-                    onClick={(e) => e.preventDefault()}
-                    className="text-truncate"
-                  >
-                    {url}
-                  </a>
-                </span>
-                <Copy
-                  className="mx-auto cursor-pointer"
-                  onClick={() => copyToClipboard(url)}
-                />
-              </div>
-            </div>
-
-            <div className="session__share__buttons">
-              <Button
-                isValid
-                className="-linkedin"
-                onClick={() => handleShare("linkedin", mentor, url, message)}
-              >
-                <LinkedIn color="white" size={18} />
-                <span>Share on LinkedIn</span>
-              </Button>
-              <Button
-                isValid
-                onClick={() => handleShare("twitter", mentor, url, message)}
-                className="-twitter"
-              >
-                <Twitter size={18} color="white" />
-                <span>Tweet this session</span>
-              </Button>
-            </div>
-          </div>
-        </Wrapper>
-      </Modal.Body>
+        </div>
+      </Wrapper>
     </Modal>
   );
 };
