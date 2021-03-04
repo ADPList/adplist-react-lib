@@ -5,26 +5,19 @@ import styled from "styled-components";
 import Close from "../Icons/CloseCircle";
 import Logo from "../Icons/AdpLogo";
 
-export default ({ body, onHide, show, header, ...props }) => {
+export default ({ className, children, ...props }) => {
   const size = props.size;
 
   if (size === "full") {
-    return <LargeModal {...{ show, onHide, ...props }} />;
+    return <LargeModal {...props} />;
   }
 
   return (
-    <Modal onHide={() => {}} centered show={show} {...props}>
-      <Modal.Body className={body || "p-32"}>
-        {onHide && (
-          <div className="d-flex align-items-center mb-32">
-            <span className="cursor-pointer d-block mr-2 mt-1" onClick={onHide}>
-              <i className="material-icons font-size-28">arrow_back</i>
-            </span>
-            <h1 className="font-size-24 mb-0 font-weight-600">{header}</h1>
-          </div>
-        )}
-        {props.component || props.children}
-      </Modal.Body>
+    <Modal {...props}>
+      <ModalBody className={className}>
+        <ModalClose onClick={props.onHide} size={24} />
+        {children}
+      </ModalBody>
     </Modal>
   );
 };
@@ -48,6 +41,17 @@ const LargeModal = ({ onHide, show, ...props }) => {
 /**
  * styles
  */
+const ModalBody = styled(Modal.Body)`
+  position: relative;
+`;
+
+const ModalClose = styled(Close)`
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+  position: absolute;
+`;
+
 const LargeModalBody = styled(Container)`
   height: calc(100% - 70px);
   overflow-y: auto;
