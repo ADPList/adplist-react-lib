@@ -9,7 +9,7 @@ export const SessionName = ({ value, ...props }) => (
     type="text"
     name="name"
     value={value}
-    maxLength
+    maxLength="100"
     label="Session name"
     placeholder="Morning portfolio review"
     {...props}
