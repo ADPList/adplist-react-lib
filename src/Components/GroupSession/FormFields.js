@@ -6,10 +6,11 @@ import DatePicker from "../DatePicker";
 
 export const SessionName = ({ value, ...props }) => (
   <Field
+    type="text"
     name="name"
     value={value}
+    maxLength
     label="Session name"
-    maxLength="100"
     placeholder="Morning portfolio review"
     {...props}
   />
