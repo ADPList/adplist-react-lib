@@ -212,16 +212,12 @@ const GroupSession = ({
       <div className="item__content">
         {notification_type === "GroupSessionRSVP" ? (
           <Fragment>
-            <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
-              onClick={(e) => e.stopPropagation()}
-            >
+            <a href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}>
               {name}
             </a>{" "}
             registered for your session{" "}
             <a
               href={`${process.env.REACT_APP_ADPLIST_URL}/?group-session=${group_session_slug}`}
-              onClick={(e) => e.stopPropagation()}
               className="font-weight-600 black-text"
             >
               {group_session_name}
@@ -229,10 +225,7 @@ const GroupSession = ({
           </Fragment>
         ) : notification_type === "GroupSessionUpdate" ? (
           <Fragment>
-            <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
-              onClick={(e) => e.stopPropagation()}
-            >
+            <a href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}>
               {name}
             </a>{" "}
             updated the session{" "}
@@ -245,10 +238,7 @@ const GroupSession = ({
           </Fragment>
         ) : (
           <Fragment>
-            <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
-              onClick={(e) => e.stopPropagation()}
-            >
+            <a href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}>
               {name}
             </a>{" "}
             cancelled the session{" "}
