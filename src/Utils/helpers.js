@@ -6,7 +6,7 @@ export const handleShare = (type, mentor, url, message) => {
     message ||
       `I just completed a mentoring session with ${mentor.name} on @ADPList!`,
   );
-  const encodedUrl = encodeURI(url);
+  const encodedUrl = encodeURIComponent(url);
 
   switch (type) {
     case "twitter":
