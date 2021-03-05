@@ -6,6 +6,7 @@ import flags from "emoji-flags";
 import { handleLogin, handleShare, handleTimezone } from "../../Utils/helpers";
 import { registerSessionService } from "../../Services/sessionService";
 import copyToClipboard from "../../Utils/copyToClipboard";
+import useWidth from "../../Utils/useWidth";
 import Button from "../Button";
 import Notify from "../Notify";
 import Modal from "../Modal";
@@ -74,6 +75,8 @@ const GroupSessionModal = ({
   })();
 
   const isOwner = user?.mentor?.slug === mentor?.slug;
+
+  const width = useWidth();
 
   /**
    * functions
@@ -174,14 +177,25 @@ const GroupSessionModal = ({
 
             {rsvp?.length > 0 && (
               <Images>
-                {rsvp.map((member, key) => (
-                  <Avatar
-                    key={key}
-                    className="cursor-pointer"
-                    src={member?.profile_photo_url}
-                    onClick={() => handleMember(member)}
-                  />
-                ))}
+                {rsvp.map((member, key) => {
+                  if ((width < 768 && key <= 8) || (width > 767 && key <= 12))
+                    return (
+                      <Avatar
+                        key={key}
+                        className="cursor-pointer"
+                        src={member?.profile_photo_url}
+                        onClick={() => handleMember(member)}
+                      />
+                    );
+
+                  if ((width < 768 && key === 9) || (width > 767 && key === 13))
+                    return (
+                      <RsvpAll>
+                        {width < 768 && rsvp.length - 9}
+                        {width > 767 && rsvp.length - 13}+
+                      </RsvpAll>
+                    );
+                })}
               </Images>
             )}
           </div>
@@ -331,6 +345,16 @@ const Avatar = styled.img`
   object-fit: cover;
   border-radius: 50%;
   object-position: center;
+`;
+
+const RsvpAll = styled.div`
+  width: 48px;
+  height: 48px;
+  display: flex;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--muted-grey);
 `;
 
 const Images = styled.div`
