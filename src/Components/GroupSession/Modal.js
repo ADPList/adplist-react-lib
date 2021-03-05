@@ -193,6 +193,12 @@ const GroupSessionModal = ({
 
         {!isPrivate && !isOwner && (
           <Grid gap="24px" className="session__actions">
+            {!cancelled && rsvp?.length === rsvp_limit && !hasRegistered && (
+              <Alert className="muted-green-bg teal-text">
+                There are no more seats for this session
+              </Alert>
+            )}
+
             {!hasRegistered && cancelled && (
               <Alert className="muted-pink-bg danger-text">
                 RSVP for this session closed.
