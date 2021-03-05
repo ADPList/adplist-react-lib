@@ -7,6 +7,7 @@ import flags from "emoji-flags";
 import { handleLogin, handleShare, handleTimezone } from "../../Utils/helpers";
 import { registerSessionService } from "../../Services/sessionService";
 import copyToClipboard from "../../Utils/copyToClipboard";
+import useWidth from "../../Utils/useWidth";
 import Button from "../Button";
 import Notify from "../Notify";
 import Modal from "../Modal";
@@ -75,6 +76,8 @@ const GroupSessionModal = ({
   })();
 
   const isOwner = user?.mentor?.slug === mentor?.slug;
+
+  const width = useWidth();
 
   /**
    * functions
@@ -178,14 +181,25 @@ const GroupSessionModal = ({
 
             {rsvp?.length > 0 && (
               <Images>
-                {rsvp.map((member, key) => (
-                  <LazyLoadImage
-                    key={key}
-                    className="avatar cursor-pointer"
-                    src={member?.profile_photo_url}
-                    onClick={() => handleMember(member)}
-                  />
-                ))}
+                {rsvp.map((member, key) => {
+                  if ((width < 768 && key <= 8) || (width > 767 && key <= 12))
+                    return (
+                      <LazyLoadImage
+                        key={key}
+                        className="avatar cursor-pointer"
+                        src={member?.profile_photo_url}
+                        onClick={() => handleMember(member)}
+                      />
+                    );
+
+                  if ((width < 768 && key === 9) || (width > 767 && key === 13))
+                    return (
+                      <div className="avatar d-flex align-items-center justify-content-center">
+                        {width < 768 && rsvp.length - 9}
+                        {width > 767 && rsvp.length - 13}+
+                      </div>
+                    );
+                })}
               </Images>
             )}
           </div>
@@ -193,6 +207,7 @@ const GroupSessionModal = ({
 
         {!isPrivate && !isOwner && (
           <Grid gap="24px" className="session__actions">
+            {console.log(cancelled)}
             {!cancelled && rsvp?.length === rsvp_limit && !hasRegistered && (
               <Alert className="muted-green-bg teal-text">
                 There are no more seats for this session
@@ -340,6 +355,7 @@ const Wrapper = styled.div`
     object-fit: cover;
     border-radius: 50%;
     object-position: center;
+    background-color: var(--muted-grey);
   }
 `;
 
