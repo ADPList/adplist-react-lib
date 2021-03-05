@@ -46,21 +46,18 @@ export default Image;
 const Button = styled(Btn)``;
 const StyleImageContainer = styled.div`
   justify-content: center;
-  border-radius: 84px;
+  border-radius: 10px;
   position: relative;
   overflow: hidden;
   margin: 0px auto;
-  height: 195px;
-  width: 195px;
+  height: 368px;
   display: flex;
-
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
   }
-
   ${Button} {
     position: absolute;
     margin: 0px auto;

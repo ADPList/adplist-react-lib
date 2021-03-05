@@ -7,7 +7,6 @@ import { converter } from "../Utils";
 import Thumbnail from "./Profile/Thumbnail";
 import Banner from "./Profile/Mentor/Banner";
 import Flag from "./Flag";
-import Metrics from "./Profile/Metrics";
 
 const Profile = ({
   url,
@@ -35,7 +34,7 @@ const Profile = ({
 
   return (
     <Fragment>
-      <Wrapper className="mx-auto">
+      <Wrapper className="py-4 py-md-5 px-3">
         {/* profile image preview */}
         <Thumbnail
           {...{
@@ -53,8 +52,8 @@ const Profile = ({
         <Content>
           <div className="user__info">
             <p className="user__info__name font-weight-600 mb-3">
-              <span className="mr-2">Hi, I’m {user?.name}</span>
-              <Flag label="Ghana" code="GH" />
+              <span className="mr-2">Hey, I'm {startCase(user?.name)}</span>
+              <Flag label={user?.country?.name} code={user?.country?.iso} />
             </p>
 
             <p className="font-weight-500 mb-0">
@@ -75,7 +74,6 @@ const Profile = ({
               </p>
             )}
           </div>
-
           <div className="user__details">
             {user?.bio && (
               <div className="user__details__about mb-4">
@@ -162,93 +160,74 @@ const Profile = ({
  * styles
  */
 const Wrapper = styled.div`
-  max-width: 450px;
-
+  max-width: 982px;
+  margin: 0px auto;
   @media (min-width: 768px) {
     display: grid;
-    grid-auto-flow: row;
-    align-items: center;
-    justify-items: center;
+    grid-row-gap: 32px;
+    grid-column-gap: 24px;
+  }
+  @media (min-width: 992px) {
+    grid-column-gap: 72px;
+    grid-row-gap: 0px;
   }
 `;
 
 const Content = styled.div`
+  margin-bottom: 32px;
   .user__info {
-    text-align: center;
-
+    margin-bottom: 18px;
+    padding-bottom: 24px;
+    border-bottom: solid 1px var(--grey-4);
     &__name {
-      font-size: 32px;
-      line-height: 36px;
+      font-size: 28px;
     }
   }
-
+  .user__details {
+    &__item {
+      grid-template-columns: 18px auto;
+      margin-bottom: 12px;
+      line-height: 20px;
+      display: grid;
+      gap: 8px;
+      &:last-child {
+        margin-bottom: 0px;
+      }
+      .info {
+        &__prefix {
+          color: var(--grey-2);
+          white-space: nowrap;
+          margin-bottom: 0px;
+          margin-right: 6px;
+          font-size: 14px;
+        }
+        &__content {
+          text-transform: capitalize;
+          margin-bottom: 0px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
   @media (min-width: 768px) {
+    grid-column-start: 2;
+    grid-column-end: 5;
     margin-bottom: 0px;
-
     .user__info {
+      &__name {
+        font-size: 36px;
+      }
     }
   }
 `;
 
-// const Content = styled.div`
-//   margin-bottom: 32px;
-
-//   .user__info {
-//     margin-bottom: 18px;
-//     padding-bottom: 24px;
-//     border-bottom: solid 1px var(--grey-4);
-
-//     &__name {
-//       font-size: 28px;
-//     }
-//   }
-
-//   // .user__details {
-//   //   &__item {
-//   //     grid-template-columns: 18px auto;
-//   //     margin-bottom: 12px;
-//   //     line-height: 20px;
-//   //     display: grid;
-//   //     gap: 8px;
-
-//   //     &:last-child {
-//   //       margin-bottom: 0px;
-//   //     }
-
-//   //     .info {
-//   //       &__prefix {
-//   //         color: var(--grey-2);
-//   //         white-space: nowrap;
-//   //         margin-bottom: 0px;
-//   //         margin-right: 6px;
-//   //         font-size: 14px;
-//   //       }
-
-//   //       &__content {
-//   //         text-transform: capitalize;
-//   //         margin-bottom: 0px;
-//   //         font-weight: 500;
-//   //       }
-//   //     }
-//   //   }
-//   // }
-
-//   // @media (min-width: 768px) {
-//   //   grid-column-start: 2;
-//   //   grid-column-end: 5;
-//   //   margin-bottom: 0px;
-
-//   //   .user__info {
-//   //     &__name {
-//   //       font-size: 36px;
-//   //     }
-//   //   }
-//   // }
-// `;
-
 const Children = styled.div`
   width: 100%;
+  grid-column-start: 1;
+  grid-row-start: 2;
+  grid-column-end: 5;
   @media (min-width: 992px) {
+    grid-column-start: 2;
   }
 `;
 
