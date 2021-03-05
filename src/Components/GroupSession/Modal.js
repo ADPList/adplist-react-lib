@@ -1,4 +1,5 @@
 import React, { useState } from "reactn";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import flags from "emoji-flags";
@@ -154,7 +155,10 @@ const GroupSessionModal = ({
             }
             className="text-decoration-none d-flex align-items-center black-text"
           >
-            <Avatar src={mentor?.profile_photo_url} className="mr-3" />
+            <LazyLoadImage
+              src={mentor?.profile_photo_url}
+              className="avatar mr-3"
+            />
             <div>
               <p className="line-height-16 font-weight-500 mb-1">
                 {mentor?.name}{" "}
@@ -180,9 +184,9 @@ const GroupSessionModal = ({
                 {rsvp.map((member, key) => {
                   if ((width < 768 && key <= 8) || (width > 767 && key <= 12))
                     return (
-                      <Avatar
+                      <LazyLoadImage
                         key={key}
-                        className="cursor-pointer"
+                        className="avatar cursor-pointer"
                         src={member?.profile_photo_url}
                         onClick={() => handleMember(member)}
                       />
@@ -190,10 +194,10 @@ const GroupSessionModal = ({
 
                   if ((width < 768 && key === 9) || (width > 767 && key === 13))
                     return (
-                      <RsvpAll>
+                      <div className="avatar d-flex align-items-center justify-content-center">
                         {width < 768 && rsvp.length - 9}
                         {width > 767 && rsvp.length - 13}+
-                      </RsvpAll>
+                      </div>
                     );
                 })}
               </Images>
@@ -203,6 +207,13 @@ const GroupSessionModal = ({
 
         {!isPrivate && !isOwner && (
           <Grid gap="24px" className="session__actions">
+            {console.log(cancelled)}
+            {!cancelled && rsvp?.length === rsvp_limit && !hasRegistered && (
+              <Alert className="muted-green-bg teal-text">
+                There are no more seats for this session
+              </Alert>
+            )}
+
             {!hasRegistered && cancelled && (
               <Alert className="muted-pink-bg danger-text">
                 RSVP for this session closed.
@@ -337,24 +348,15 @@ const Wrapper = styled.div`
       }
     }
   }
-`;
 
-const Avatar = styled.img`
-  width: 48px;
-  height: 48px;
-  object-fit: cover;
-  border-radius: 50%;
-  object-position: center;
-`;
-
-const RsvpAll = styled.div`
-  width: 48px;
-  height: 48px;
-  display: flex;
-  border-radius: 50%;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--muted-grey);
+  .avatar {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%;
+    object-position: center;
+    background-color: var(--muted-grey);
+  }
 `;
 
 const Images = styled.div`
