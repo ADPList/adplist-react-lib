@@ -13,7 +13,6 @@ import useSWR from "swr";
 
 import "adplist-react-lib/dist/index.css";
 import "react-datetime/css/react-datetime.css";
-import { Form } from "react-bootstrap";
 
 export default () => {
   /**
@@ -163,7 +162,7 @@ export default () => {
               <Icon.Youtube />
             </Grid>
 
-            {items && (
+            {/* {items && (
               <GroupSession.Card
                 content={items && items[0]}
                 onClick={() => setModal(true)}
@@ -176,8 +175,7 @@ export default () => {
                 onHide={() => setModal(false)}
                 data={items && items[0]}
               />
-            )}
-            <Icon.Document />
+            )} */}
           </Container>
         </Layout>
       </AuthProvider>
