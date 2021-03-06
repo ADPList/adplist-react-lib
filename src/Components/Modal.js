@@ -9,7 +9,7 @@ export default ({ className, children, ...props }) => {
   const size = props.size;
 
   if (size === "full") {
-    return <LargeModal {...props} />;
+    return <LargeModal {...{ ...props, children }} />;
   }
 
   return (

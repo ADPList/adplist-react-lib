@@ -13,9 +13,11 @@ $grey-3: #e3e6ea;
 $grey-4: #fafafa;
 $grey-5: #f9fafb;
 $orange: #fdbc7d;
+$blue-3: #56ccf2;
 $warning: #f88634;
 $default: #05051b;
 $lavendar: #f09ce6;
+$purple-1: #9b51e0;
 $pale-grey: #fafbfc;
 $dark-blue: #071a52;
 $pale-peach: rgba(243, 101, 35, 0.2);
@@ -26,7 +28,7 @@ $muted-brown: #ecdbc9;
 $muted-green: #bee1dc;
 $muted-purple: #f0ebf5;
 $muted-orange: #fef9ef;
-$linkedin-blue: #2966bc;
+$linkedin-blue: #0077b5;
 
 $colors: () !default;
 
@@ -45,9 +47,11 @@ $colors: map-merge(
     "grey-3": $grey-3,
     "grey-4": $grey-4,
     "grey-5": $grey-5,
+    "blue-3": $blue-3,
     "orange": $orange,
     "warning": $warning,
     "default": $default,
+    "purple-1": $purple-1,
     "lavendar": $lavendar,
     "pale-grey": $pale-grey,
     "dark-blue": $dark-blue,
@@ -101,9 +105,11 @@ $weights: (400, 500, 600, 700);
   --grey-3: #{$grey-3};
   --grey-4: #{$grey-4};
   --grey-5: #{$grey-5};
+  --blue-3: #{$blue-3};
   --orange: #{$orange};
   --warning: #{$warning};
   --default: #{$default};
+  --purple-1: #{$purple-1};
   --lavendar: #{$lavendar};
   --pale-grey: #{$pale-grey};
   --dark-blue: #{$dark-blue};
