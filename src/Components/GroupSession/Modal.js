@@ -39,6 +39,7 @@ const GroupSessionModal = ({
     name,
     rsvp,
     slug,
+    active,
     mentor,
     cancelled,
     rsvp_limit,
