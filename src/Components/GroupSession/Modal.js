@@ -226,6 +226,12 @@ const GroupSessionModal = ({
               </Alert>
             )}
 
+            {!active && (
+              <Alert className="muted-pink-bg danger-text">
+                Sorry, this session has ended.
+              </Alert>
+            )}
+
             {!cancelled && rsvp?.length < rsvp_limit && !hasRegistered && (
               <Button
                 isValid
