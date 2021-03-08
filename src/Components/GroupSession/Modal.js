@@ -39,8 +39,8 @@ const GroupSessionModal = ({
     name,
     rsvp,
     slug,
-    active,
     mentor,
+    active,
     cancelled,
     rsvp_limit,
     description,
@@ -227,22 +227,25 @@ const GroupSessionModal = ({
               </Alert>
             )}
 
-            {!active && (
+            {!active && !hasRegistered && (
               <Alert className="muted-pink-bg danger-text">
                 Sorry, this session has ended.
               </Alert>
             )}
 
-            {!cancelled && rsvp?.length < rsvp_limit && !hasRegistered && (
-              <Button
-                isValid
-                loading={isLoading}
-                className="w-100 teal-bg btn-56 white-text"
-                onClick={() => handleRegistration()}
-              >
-                RSVP for this session
-              </Button>
-            )}
+            {active &&
+              !cancelled &&
+              rsvp?.length < rsvp_limit &&
+              !hasRegistered && (
+                <Button
+                  isValid
+                  loading={isLoading}
+                  className="w-100 teal-bg btn-56 white-text"
+                  onClick={() => handleRegistration()}
+                >
+                  RSVP for this session
+                </Button>
+              )}
           </Grid>
         )}
 

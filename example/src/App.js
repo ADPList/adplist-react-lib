@@ -162,9 +162,10 @@ export default () => {
               <Icon.Youtube />
             </Grid>
 
-            {/* {items && (
+            {items && (
               <GroupSession.Card
                 content={items && items[0]}
+                active={false}
                 onClick={() => setModal(true)}
               />
             )}
@@ -175,7 +176,7 @@ export default () => {
                 onHide={() => setModal(false)}
                 data={items && items[0]}
               />
-            )} */}
+            )}
           </Container>
         </Layout>
       </AuthProvider>
