@@ -76,7 +76,7 @@ const Card = ({
               <div className="media-body">
                 <p className="font-size-16 font-weight-600 mb-0">
                   {content?.mentor?.name}{" "}
-                  {flags.countryCode(content?.mentor?.country?.iso).emoji}
+                  {flags.countryCode(content?.mentor?.country_iso).emoji}
                 </p>
                 <p className="font-size-14 mb-0">
                   {[content?.mentor?.title, content?.mentor?.employer].join(
