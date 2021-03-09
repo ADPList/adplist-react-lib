@@ -164,8 +164,7 @@ export default () => {
 
             {items && (
               <GroupSession.Card
-                content={items && items[0]}
-                active={false}
+                content={items && items[2]}
                 onClick={() => setModal(true)}
               />
             )}
@@ -174,7 +173,7 @@ export default () => {
               <GroupSession.Modal
                 show={modal}
                 onHide={() => setModal(false)}
-                data={items && items[0]}
+                data={items && items[2]}
               />
             )}
           </Container>
