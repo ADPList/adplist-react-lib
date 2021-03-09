@@ -45,6 +45,11 @@ const Sidenav = ({
             link: `${process.env.REACT_APP_AUTH_URL}/dashboard/profile`,
           },
           {
+            icon: Edit,
+            name: "Edit Profile",
+            link: `${process.env.REACT_APP_AUTH_URL}/dashboard/profile/edit`,
+          },
+          {
             icon: Unlock,
             name: "Change Password",
             link: `${process.env.REACT_APP_AUTH_URL}/dashboard/profile/change-password`,
