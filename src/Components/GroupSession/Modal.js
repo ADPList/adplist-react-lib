@@ -35,7 +35,6 @@ const GroupSessionModal = ({
    */
   const [details, setDetails] = useState(data);
   const [isLoading, setLoading] = useState(false);
-  console.log(data);
 
   /**
    * variables
@@ -151,7 +150,8 @@ const GroupSessionModal = ({
               <a
                 target="mentor"
                 href={
-                  process.env.REACT_APP_ADPLIST_URL + `/mentors/${mentor?.slug}`
+                  process.env.REACT_APP_ADPLIST_URL +
+                  `/mentors/${data?.mentor?.slug}`
                 }
                 className="text-decoration-none d-flex align-items-center black-text"
               >
