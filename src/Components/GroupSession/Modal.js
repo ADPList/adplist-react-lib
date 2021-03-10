@@ -22,6 +22,8 @@ const GroupSessionModal = ({
   data,
   show,
   user,
+  past,
+  sessionMutate,
   error,
   onHide,
   isPrivate,
@@ -33,6 +35,7 @@ const GroupSessionModal = ({
    */
   const [details, setDetails] = useState(data);
   const [isLoading, setLoading] = useState(false);
+  console.log(data);
 
   /**
    * variables
@@ -80,7 +83,7 @@ const GroupSessionModal = ({
       .then(async () => {
         if (user) {
           setLoading(true);
-          registerSessionService(data.id)
+          registerSessionService(data?.id)
             .then(
               (response) =>
                 toast(
@@ -225,7 +228,13 @@ const GroupSessionModal = ({
 
                 {!hasRegistered && data?.cancelled && (
                   <Alert className="muted-pink-bg danger-text">
-                    RSVP for this session closed.
+                    RSVP for this session closed
+                  </Alert>
+                )}
+
+                {past && !data?.cancelled && !hasRegistered && (
+                  <Alert className="muted-pink-bg danger-text">
+                    This session has ended
                   </Alert>
                 )}
 
@@ -237,7 +246,8 @@ const GroupSessionModal = ({
 
                 {!data?.cancelled &&
                   data?.rsvp?.length < data?.rsvp_limit &&
-                  !hasRegistered && (
+                  !hasRegistered &&
+                  !past && (
                     <Button
                       isValid
                       loading={isLoading}
