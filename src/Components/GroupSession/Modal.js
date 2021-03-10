@@ -80,7 +80,7 @@ const GroupSessionModal = ({
       .then(async () => {
         if (user) {
           setLoading(true);
-          registerSessionService(details.id)
+          registerSessionService(data.id)
             .then(
               (response) =>
                 toast(
