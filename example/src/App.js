@@ -25,12 +25,19 @@ export default () => {
    * states
    */
   const [modal, setModal] = useState(false);
+  const [details, setDetails] = useState();
 
   /**
    * api
    */
   const { data, error } = useSWR(`/group-session/?limit=10&offset=0`);
   const items = data?.results;
+
+  const {
+    data: gSessions,
+    error: sessionError,
+    mutate: sessionMutate,
+  } = useSWR(details && `/group-session/${items[2]?.slug}`);
 
   return (
     <Fragment>
@@ -165,15 +172,17 @@ export default () => {
             {items && (
               <GroupSession.Card
                 content={items && items[2]}
-                onClick={() => setModal(true)}
+                onClick={() => setModal(true) | setDetails(items[2]?.slug)}
               />
             )}
 
             {items && (
               <GroupSession.Modal
+                {...{ sessionMutate }}
                 show={modal}
+                data={gSessions}
+                error={sessionError}
                 onHide={() => setModal(false)}
-                data={items && items[2]}
               />
             )}
           </Container>

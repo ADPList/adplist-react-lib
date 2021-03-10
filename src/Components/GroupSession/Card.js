@@ -11,6 +11,7 @@ import Edit from "../../Icons/Edit";
 const Card = ({
   content = {},
   isPrivate = false,
+  mutate = () => {},
   handleEdit = () => {},
   handleDelete = () => {},
   handleNotify = () => {},

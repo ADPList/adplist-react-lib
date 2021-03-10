@@ -1,4 +1,4 @@
-import React, { useState } from "reactn";
+import React, { useState, Fragment } from "reactn";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { toast } from "react-toastify";
 import styled from "styled-components";
@@ -12,6 +12,7 @@ import Button from "../Button";
 import Notify from "../Notify";
 import Modal from "../Modal";
 import Grid from "../../Styles/Grid";
+import Spinner from "../Spinner";
 
 import LinkedIn from "../../Icons/LinkedIn";
 import Twitter from "../../Icons/Twitter";
@@ -21,6 +22,7 @@ const GroupSessionModal = ({
   data,
   show,
   user,
+  error,
   onHide,
   isPrivate,
   mutate = () => {},
@@ -35,16 +37,7 @@ const GroupSessionModal = ({
   /**
    * variables
    */
-  const {
-    name,
-    rsvp,
-    slug,
-    mentor,
-    cancelled,
-    rsvp_limit,
-    description,
-    date_and_time,
-  } = details || {};
+  const { slug, mentor, cancelled } = details || {};
 
   const url = process.env.REACT_APP_ADPLIST_URL + `/?group-session=${slug}`;
   const message = (() => {
@@ -65,7 +58,9 @@ const GroupSessionModal = ({
 
   const hasRegistered = (() => {
     if (user) {
-      const registeredUser = [];
+      const registeredUser = data?.rsvp.find(
+        (r) => user[r.identity_type.toLowerCase()]?.slug === r?.slug,
+      );
 
       return Boolean(registeredUser);
     } else {
@@ -118,167 +113,188 @@ const GroupSessionModal = ({
 
   return (
     <Modal onHide={onHide} show={show} size="sm" centered>
+      {!data && !error && <Spinner center contained />}
+
       <Wrapper {...props}>
-        <div className="session__info mb-3">
-          {date_and_time && (
-            <p className="grey-2-text mb-0">
-              {handleTimezone(date_and_time, "MMM DD, ha ([GMT] Z)")}
-            </p>
-          )}
+        {data && (
+          <Fragment>
+            <div className="session__info mb-3">
+              {data?.date_and_time && (
+                <p className="grey-2-text mb-0">
+                  {handleTimezone(data?.date_and_time, "MMM DD, ha ([GMT] Z)")}
+                </p>
+              )}
 
-          {name && (
-            <p className="font-size-20 font-weight-600 mb-2 line-height-16">
-              {name}
-            </p>
-          )}
-          {description && (
-            <p
-              className="grey-1-text line-height-16 mb-0"
-              style={{ wordBreak: "break-word" }}
-            >
-              {description}
-            </p>
-          )}
-        </div>
-
-        <div className="session__organizer mb-32">
-          <p className="font-size-14 grey-2-text line-height-13 mb-12">
-            Organised by:
-          </p>
-
-          <a
-            target="mentor"
-            href={
-              process.env.REACT_APP_ADPLIST_URL + `/mentors/${mentor?.slug}`
-            }
-            className="text-decoration-none d-flex align-items-center black-text"
-          >
-            <LazyLoadImage
-              src={mentor?.profile_photo_url}
-              className="avatar mr-3"
-            />
-            <div>
-              <p className="line-height-16 font-weight-500 mb-1">
-                {mentor?.name}{" "}
-                {mentor?.country?.iso &&
-                  flags.countryCode(mentor?.country?.iso).emoji}
-              </p>
-              <p className="font-size-14 mb-0">
-                <span className="font-weight-500">{mentor?.title}</span> at{" "}
-                <span className="font-weight-500">{mentor?.employer}</span>
-              </p>
-            </div>
-          </a>
-        </div>
-
-        {rsvp?.length > 0 && (
-          <div className="session__mentees mb-32 pb-2">
-            <p className="font-size-14 grey-2-text line-height-13 mt-12">
-              Mentees attending ({rsvp?.length}/{rsvp_limit}):
-            </p>
-
-            {rsvp?.length > 0 && (
-              <Images>
-                {rsvp.map((member, key) => {
-                  if ((width < 768 && key <= 8) || (width > 767 && key <= 12))
-                    return (
-                      <LazyLoadImage
-                        key={key}
-                        className="avatar cursor-pointer"
-                        src={member?.profile_photo_url}
-                        onClick={() => handleMember(member)}
-                      />
-                    );
-
-                  if ((width < 768 && key === 9) || (width > 767 && key === 13))
-                    return (
-                      <div className="avatar d-flex align-items-center justify-content-center">
-                        {width < 768 && rsvp.length - 9}
-                        {width > 767 && rsvp.length - 13}+
-                      </div>
-                    );
-                })}
-              </Images>
-            )}
-          </div>
-        )}
-
-        {!isPrivate && !isOwner && (
-          <Grid gap="24px" className="session__actions">
-            {console.log(cancelled)}
-            {!cancelled && rsvp?.length === rsvp_limit && !hasRegistered && (
-              <Alert className="muted-green-bg teal-text">
-                There are no more seats for this session
-              </Alert>
-            )}
-
-            {!hasRegistered && cancelled && (
-              <Alert className="muted-pink-bg danger-text">
-                RSVP for this session closed.
-              </Alert>
-            )}
-
-            {hasRegistered && (
-              <Alert className="muted-green-bg teal-text">
-                Congrats, you’re in this session!
-              </Alert>
-            )}
-
-            {!cancelled && rsvp?.length < rsvp_limit && !hasRegistered && (
-              <Button
-                isValid
-                loading={isLoading}
-                className="w-100 teal-bg btn-56 white-text"
-                onClick={() => handleRegistration()}
-              >
-                RSVP for this session
-              </Button>
-            )}
-          </Grid>
-        )}
-
-        <div className="session__share">
-          <div className="session__share__url">
-            <p className="grey-2-text line-height-13 mb-3 font-size-14">
-              Spread the word
-            </p>
-
-            <div className="share__url">
-              <span>
-                <a
-                  href="/"
-                  onClick={(e) => e.preventDefault()}
-                  className="text-truncate"
+              {data?.name && (
+                <p className="font-size-20 font-weight-600 mb-2 line-height-16">
+                  {data?.name}
+                </p>
+              )}
+              {data?.description && (
+                <p
+                  className="grey-1-text line-height-16 mb-0"
+                  style={{ wordBreak: "break-word" }}
                 >
-                  {url}
-                </a>
-              </span>
-              <Copy
-                className="mx-auto cursor-pointer"
-                onClick={() => copyToClipboard(url)}
-              />
+                  {data?.description}
+                </p>
+              )}
             </div>
-          </div>
 
-          <div className="session__share__buttons">
-            <Button
-              isValid
-              className="-linkedin"
-              onClick={() => handleShare("linkedin", mentor, url, message)}
-            >
-              <LinkedIn color="white" size={18} />
-              <span>Share on LinkedIn</span>
-            </Button>
-            <Button
-              isValid
-              onClick={() => handleShare("twitter", mentor, url, message)}
-              className="-twitter"
-            >
-              <Twitter size={18} color="white" />
-              <span>Tweet this session</span>
-            </Button>
-          </div>
-        </div>
+            <div className="session__organizer mb-32">
+              <p className="font-size-14 grey-2-text line-height-13 mb-12">
+                Organised by:
+              </p>
+
+              <a
+                target="mentor"
+                href={
+                  process.env.REACT_APP_ADPLIST_URL + `/mentors/${mentor?.slug}`
+                }
+                className="text-decoration-none d-flex align-items-center black-text"
+              >
+                <LazyLoadImage
+                  src={data?.mentor?.profile_photo_url}
+                  className="avatar mr-3"
+                />
+                <div>
+                  <p className="line-height-16 font-weight-500 mb-1">
+                    {data?.mentor?.name}{" "}
+                    {data?.mentor?.country_iso &&
+                      flags.countryCode(data?.mentor?.country_iso).emoji}
+                  </p>
+                  <p className="font-size-14 mb-0">
+                    <span className="font-weight-500">
+                      {data?.mentor?.title}
+                    </span>{" "}
+                    at{" "}
+                    <span className="font-weight-500">
+                      {data?.mentor?.employer}
+                    </span>
+                  </p>
+                </div>
+              </a>
+            </div>
+
+            {data?.rsvp?.length > 0 && (
+              <div className="session__mentees mb-32 pb-2">
+                <p className="font-size-14 grey-2-text line-height-13 mt-12">
+                  Mentees attending ({data?.rsvp?.length}/{data?.rsvp_limit}):
+                </p>
+
+                {data?.rsvp?.length > 0 && (
+                  <Images>
+                    {data?.rsvp.map((member, key) => {
+                      if (
+                        (width < 768 && key <= 8) ||
+                        (width > 767 && key <= 12)
+                      )
+                        return (
+                          <LazyLoadImage
+                            key={key}
+                            className="avatar cursor-pointer"
+                            src={member?.profile_photo_url}
+                            onClick={() => handleMember(member)}
+                          />
+                        );
+
+                      if (
+                        (width < 768 && key === 9) ||
+                        (width > 767 && key === 13)
+                      )
+                        return (
+                          <div className="avatar d-flex align-items-center justify-content-center">
+                            {width < 768 && data?.rsvp.length - 9}
+                            {width > 767 && data?.rsvp.length - 13}+
+                          </div>
+                        );
+                    })}
+                  </Images>
+                )}
+              </div>
+            )}
+
+            {!isPrivate && !isOwner && (
+              <Grid gap="24px" className="session__actions">
+                {console.log(cancelled)}
+                {!data?.cancelled &&
+                  data?.rsvp?.length === data?.rsvp_limit &&
+                  !hasRegistered && (
+                    <Alert className="muted-green-bg teal-text">
+                      There are no more seats for this session
+                    </Alert>
+                  )}
+
+                {!hasRegistered && data?.cancelled && (
+                  <Alert className="muted-pink-bg danger-text">
+                    RSVP for this session closed.
+                  </Alert>
+                )}
+
+                {hasRegistered && (
+                  <Alert className="muted-green-bg teal-text">
+                    Congrats, you’re in this session!
+                  </Alert>
+                )}
+
+                {!data?.cancelled &&
+                  data?.rsvp?.length < data?.rsvp_limit &&
+                  !hasRegistered && (
+                    <Button
+                      isValid
+                      loading={isLoading}
+                      className="w-100 teal-bg btn-56 white-text"
+                      onClick={() => handleRegistration()}
+                    >
+                      RSVP for this session
+                    </Button>
+                  )}
+              </Grid>
+            )}
+
+            <div className="session__share">
+              <div className="session__share__url">
+                <p className="grey-2-text line-height-13 mb-3 font-size-14">
+                  Spread the word
+                </p>
+
+                <div className="share__url">
+                  <span>
+                    <a
+                      href="/"
+                      onClick={(e) => e.preventDefault()}
+                      className="text-truncate"
+                    >
+                      {url}
+                    </a>
+                  </span>
+                  <Copy
+                    className="mx-auto cursor-pointer"
+                    onClick={() => copyToClipboard(url)}
+                  />
+                </div>
+              </div>
+
+              <div className="session__share__buttons">
+                <Button
+                  isValid
+                  className="-linkedin"
+                  onClick={() => handleShare("linkedin", mentor, url, message)}
+                >
+                  <LinkedIn color="white" size={18} />
+                  <span>Share on LinkedIn</span>
+                </Button>
+                <Button
+                  isValid
+                  onClick={() => handleShare("twitter", mentor, url, message)}
+                  className="-twitter"
+                >
+                  <Twitter size={18} color="white" />
+                  <span>Tweet this session</span>
+                </Button>
+              </div>
+            </div>
+          </Fragment>
+        )}
       </Wrapper>
     </Modal>
   );
