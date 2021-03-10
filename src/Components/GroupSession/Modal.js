@@ -39,23 +39,24 @@ const GroupSessionModal = ({
   /**
    * variables
    */
-  const { slug, mentor } = details || {};
+  const { mentor } = details || {};
 
-  const url = process.env.REACT_APP_ADPLIST_URL + `/?group-session=${slug}`;
+  const url =
+    process.env.REACT_APP_ADPLIST_URL + `/?group-session=${data?.slug}`;
   const message = (() => {
-    const date = handleTimezone(details?.date_and_time, "MMM DD");
-    const time = handleTimezone(details?.date_and_time, "hh:mm a");
+    const date = handleTimezone(data?.date_and_time, "MMM DD");
+    const time = handleTimezone(data?.date_and_time, "hh:mm a");
 
     if (
       user &&
       !["limbo", "designer"].includes(user?.identity_type?.toLowerCase())
     ) {
       if (mentor?.slug === user[user.identity_type.toLowerCase()]?.slug) {
-        return `I’m hosting ${details?.name} on @ADPList. Starting on, ${date} at ${time} (${details?.timezone}). Join me here!`;
+        return `I’m hosting ${data?.name} on @ADPList. Starting on, ${date} at ${time} (${data?.timezone}). Join me here!`;
       }
     }
 
-    return `I've got a seat at ${details?.name} w/ ${details?.mentor?.name}. Starting on, ${date} at ${time} on @ADPList.`;
+    return `I've got a seat at ${data?.name} w/ ${data?.mentor?.name}. Starting on, ${date} at ${time} on @ADPList.`;
   })();
 
   const hasRegistered = (() => {
