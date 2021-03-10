@@ -213,43 +213,42 @@ const GroupSessionModal = ({
               </div>
             )}
 
-            {!isPrivate && !isOwner && (
-              <Grid gap="24px" className="session__actions">
-                {console.log(cancelled)}
-                {!data?.cancelled &&
-                  data?.rsvp?.length === data?.rsvp_limit &&
-                  !hasRegistered && (
-                    <Alert className="muted-green-bg teal-text">
-                      There are no more seats for this session
-                    </Alert>
-                  )}
-
-                {!hasRegistered && data?.cancelled && (
-                  <Alert className="muted-pink-bg danger-text">
-                    RSVP for this session closed.
-                  </Alert>
-                )}
-
-                {hasRegistered && (
+            {/* {!isPrivate && !isOwner && ( */}
+            <Grid gap="24px" className="session__actions">
+              {!data?.cancelled &&
+                data?.rsvp?.length === data?.rsvp_limit &&
+                !hasRegistered && (
                   <Alert className="muted-green-bg teal-text">
-                    Congrats, you’re in this session!
+                    There are no more seats for this session
                   </Alert>
                 )}
 
-                {!data?.cancelled &&
-                  data?.rsvp?.length < data?.rsvp_limit &&
-                  !hasRegistered && (
-                    <Button
-                      isValid
-                      loading={isLoading}
-                      className="w-100 teal-bg btn-56 white-text"
-                      onClick={() => handleRegistration()}
-                    >
-                      RSVP for this session
-                    </Button>
-                  )}
-              </Grid>
-            )}
+              {!hasRegistered && data?.cancelled && (
+                <Alert className="muted-pink-bg danger-text">
+                  RSVP for this session closed.
+                </Alert>
+              )}
+
+              {hasRegistered && (
+                <Alert className="muted-green-bg teal-text">
+                  Congrats, you’re in this session!
+                </Alert>
+              )}
+
+              {!data?.cancelled &&
+                data?.rsvp?.length < data?.rsvp_limit &&
+                !hasRegistered && (
+                  <Button
+                    isValid
+                    loading={isLoading}
+                    className="w-100 teal-bg btn-56 white-text"
+                    onClick={() => handleRegistration()}
+                  >
+                    RSVP for this session
+                  </Button>
+                )}
+            </Grid>
+            {/* )} */}
 
             <div className="session__share">
               <div className="session__share__url">
