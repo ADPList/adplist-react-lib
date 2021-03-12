@@ -136,6 +136,7 @@ const Thumbnail = ({
                 </Grid>
               </div>
             )}
+
             {userType === "mentor" && (
               <React.Fragment>
                 {!user?.on_break ? (
@@ -209,6 +210,16 @@ const Thumbnail = ({
                   </a>
                 </p>
               </NoShow>
+            )}
+
+            {!isPrivate && userType === "designer" && (
+              <a
+                href="/"
+                className="grey-2-text d-block py-2"
+                onClick={(e) => e.preventDefault() | setReport(true)}
+              >
+                Report profile
+              </a>
             )}
 
             {isEdit && isPrivate && (
@@ -305,6 +316,10 @@ const DropdownMenu = styled(Dropdown.Menu)`
 const Wrapper = styled.div`
   text-align: center;
   margin-bottom: 32px;
+
+  a {
+    text-decoration: underline;
+  }
 
   @media (min-width: 768px) {
     margin-bottom: 0px;
