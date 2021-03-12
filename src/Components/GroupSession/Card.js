@@ -12,7 +12,6 @@ import Badge from "../../Components/Badge";
 const Card = ({
   content = {},
   isPrivate = false,
-  hasRsvped = false,
   mutate,
   handleEdit = () => {},
   handleDelete = () => {},
@@ -31,10 +30,20 @@ const Card = ({
                 {handleTimezone(content?.date_and_time, "MMM DD, ha ([GMT] Z)")}
               </p>
 
-              {full && <Badge className="grey-3-bg grey-2-text">Full</Badge>}
+              {full && !isPrivate && (
+                <Badge className="grey-3-bg grey-2-text">Full</Badge>
+              )}
 
-              {hasRsvped && (
-                <Badge className="muted-green-bg teal-text">You're in</Badge>
+              {!full && !isPrivate && (
+                <a
+                  href="/"
+                  onClick={(e) =>
+                    e.preventDefault() | e.stopPropagation() | handleNotify()
+                  }
+                  className="text-decoration-none"
+                >
+                  <Notification color="var(--black)" />
+                </a>
               )}
 
               {isPrivate && (
@@ -59,51 +68,6 @@ const Card = ({
                   </a>
                 </div>
               )}
-
-              {!hasRsvped && (
-                <a
-                  href="/"
-                  onClick={(e) =>
-                    e.preventDefault() | e.stopPropagation() | handleNotify()
-                  }
-                  className="text-decoration-none"
-                >
-                  <Notification color="var(--black)" />
-                </a>
-              )}
-
-              {/* {isPrivate ? (
-                <div className="d-flex align-items-center">
-                  <a
-                    href="/"
-                    onClick={(e) =>
-                      e.preventDefault() | e.stopPropagation() | handleEdit()
-                    }
-                    className="mr-3 text-decoration-none"
-                  >
-                    <Edit color="var(--teal)" size={20} />
-                  </a>
-                  <a
-                    href="/"
-                    onClick={(e) =>
-                      e.preventDefault() | e.stopPropagation() | handleDelete()
-                    }
-                    className="text-decoration-none"
-                  >
-                    <CloseSquare color="var(--grey-2)" size={20} />
-                  </a>
-                </div>
-              ) : (
-                <a
-                  href="/"
-                  onClick={(e) =>
-                    e.preventDefault() | e.stopPropagation() | handleNotify()
-                  }
-                  className="text-decoration-none"
-                >
-                  <Notification color="var(--black)" />
-                </a>
-              )} */}
             </div>
 
             <div className="card__body">

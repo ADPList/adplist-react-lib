@@ -32,13 +32,12 @@ export default () => {
    */
   const { data, error } = useSWR(`/group-session/?limit=10&offset=0`);
   const items = data?.results;
-  console.log(items);
 
   const {
     data: gSessions,
     error: sessionError,
     mutate: sessionMutate,
-  } = useSWR(details && `/group-session/${items[2]?.slug}`);
+  } = useSWR(details && `/group-session/${items[0]?.slug}`);
 
   return (
     <Fragment>
@@ -172,8 +171,8 @@ export default () => {
 
             {items && (
               <GroupSession.Card
-                content={items && items[2]}
-                onClick={() => setModal(true) | setDetails(items[2]?.slug)}
+                content={items && items[0]}
+                onClick={() => setModal(true) | setDetails(items[0]?.slug)}
               />
             )}
 
