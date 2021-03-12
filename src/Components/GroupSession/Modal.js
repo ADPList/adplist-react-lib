@@ -13,6 +13,7 @@ import Notify from "../Notify";
 import Modal from "../Modal";
 import Grid from "../../Styles/Grid";
 import Spinner from "../Spinner";
+import Confirm from "../../Components/Confirm";
 
 import LinkedIn from "../../Icons/LinkedIn";
 import Twitter from "../../Icons/Twitter";
@@ -114,11 +115,33 @@ const GroupSessionModal = ({
     }
   };
 
-  const handleCancellation = async () => {
+  const handleCancellation = async (id) => {
     handleLogin(user, "You need to login to be able to cancel this RSVP").then(
       async () => {
         if (user) {
-          setLoading(true);
+          await Confirm({
+            header: "Cancel this rsvp",
+            confirmation: "Are you sure you want to cancel this booking",
+            buttons: {
+              proceed: {
+                value: "Yes, cancel this",
+              },
+              cancel: {
+                value: "No never mind",
+              },
+            },
+          }).then(() => {
+            cancelGroupSessionService(id)
+              .then(
+                () =>
+                  toast(
+                    <Notify body="RSVP has been cancelled" type="success" />,
+                  ) | mutate(),
+              )
+              .catch(() =>
+                toast(<Notify body="Unable to cancel booking" type="error" />),
+              );
+          });
         }
       },
     );
@@ -243,16 +266,13 @@ const GroupSessionModal = ({
                   </Alert>
                 )}
 
-                {past && !data?.cancelled && !hasRegistered && (
-                  <Alert className="muted-pink-bg danger-text">
-                    This session has ended
-                  </Alert>
-                )}
-
                 {hasRegistered && (
-                  <Alert className="muted-green-bg teal-text">
-                    RSVPed, you're all set!{" "}
-                    <a href={data?.video_url} className="teal-text">
+                  <Alert className="muted-green-bg teal-text font-weight-400">
+                    RSVPed, you're all set! &nbsp;
+                    <a
+                      href={data?.video_url}
+                      className="teal-text font-weight-600"
+                    >
                       Join session
                     </a>
                   </Alert>
