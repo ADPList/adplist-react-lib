@@ -36,6 +36,8 @@ const GroupSessionModal = ({
   const [details, setDetails] = useState(data);
   const [isLoading, setLoading] = useState(false);
 
+  console.log(data);
+
   /**
    * variables
    */
@@ -112,6 +114,16 @@ const GroupSessionModal = ({
         }/${member?.identity_type?.toLowerCase()}s/${member?.slug}`,
       );
     }
+  };
+
+  const handleCancellation = async () => {
+    handleLogin(user, "You need to login to be able to cancel this RSVP").then(
+      async () => {
+        if (user) {
+          setLoading(true);
+        }
+      },
+    );
   };
 
   return (
@@ -241,7 +253,7 @@ const GroupSessionModal = ({
 
                 {hasRegistered && (
                   <Alert className="muted-green-bg teal-text">
-                    Congrats, you’re in this session!
+                    RSVPed, you're all set! <a href="#">Join session</a>
                   </Alert>
                 )}
 
@@ -263,43 +275,53 @@ const GroupSessionModal = ({
 
             <div className="session__share">
               <div className="session__share__url">
-                <p className="grey-2-text line-height-13 mb-3 font-size-14">
+                <p className="line-height-13 mb-3 font-size-16">
                   Spread the word
                 </p>
 
-                <div className="share__url">
-                  <span>
-                    <a
-                      href="/"
-                      onClick={(e) => e.preventDefault()}
-                      className="text-truncate"
-                    >
-                      {url}
-                    </a>
-                  </span>
-                  <Copy
-                    className="mx-auto cursor-pointer"
-                    onClick={() => copyToClipboard(url)}
-                  />
+                <div className="session__share__buttons">
+                  <Button
+                    isValid
+                    className="-linkedin"
+                    onClick={() =>
+                      handleShare("linkedin", mentor, url, message)
+                    }
+                  >
+                    <LinkedIn color="white" size={18} />
+                    <span>Share</span>
+                  </Button>
+                  <Button
+                    isValid
+                    onClick={() => handleShare("twitter", mentor, url, message)}
+                    className="-twitter"
+                  >
+                    <Twitter size={18} color="white" />
+                    <span>Tweet</span>
+                  </Button>
+                  <div className="share__url">
+                    <Copy
+                      className="mx-auto cursor-pointer"
+                      onClick={() => copyToClipboard(url)}
+                    />
+                    <span>
+                      <a
+                        href={url}
+                        onClick={(e) => e.preventDefault()}
+                        className="font-weight-600"
+                      >
+                        Copy Link
+                      </a>
+                    </span>
+                  </div>
                 </div>
-              </div>
+                <Divider />
 
-              <div className="session__share__buttons">
                 <Button
                   isValid
-                  className="-linkedin"
-                  onClick={() => handleShare("linkedin", mentor, url, message)}
+                  onClick={() => handleCancellation()}
+                  className="font-weight-600 grey-2-border grey-2-text btn-60 w-100"
                 >
-                  <LinkedIn color="white" size={18} />
-                  <span>Share on LinkedIn</span>
-                </Button>
-                <Button
-                  isValid
-                  onClick={() => handleShare("twitter", mentor, url, message)}
-                  className="-twitter"
-                >
-                  <Twitter size={18} color="white" />
-                  <span>Tweet this session</span>
+                  Cancel this RSVP
                 </Button>
               </div>
             </div>
@@ -316,46 +338,34 @@ const GroupSessionModal = ({
 
 const Wrapper = styled.div`
   .share__url {
-    gap: 24px;
     width: 100%;
     height: 60px;
     display: grid;
     align-items: center;
     border-radius: 10px;
     border: solid 1px var(--grey-3);
-    grid-template-columns: 1fr 54px;
+    grid-template-columns: 48px 1fr;
 
     span {
-      height: 100%;
-      display: flex;
-      overflow: hidden;
-      padding-left: 18px;
-      padding-right: 16px;
-      border-right: solid 1px var(--black-20);
-
       a {
         width: 100%;
         margin: auto;
-        opacity: 0.7;
-        color: var(--grey-2);
+        color: var(--black);
       }
     }
   }
 
   .session__actions {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 
   .session__share {
-    gap: 18px;
-    display: grid;
-
     &__buttons {
-      gap: 18px;
       display: grid;
+      gap: 16px;
 
       .btn {
-        height: 56px;
+        height: 60px;
         width: 100%;
 
         span {
@@ -369,6 +379,11 @@ const Wrapper = styled.div`
         &.-linkedin {
           background-color: #0077b5;
         }
+      }
+
+      @media (min-width: 778px) {
+        grid-template-columns: 124px 116px minmax(0, 1fr);
+        gap: 6px;
       }
     }
   }
@@ -400,6 +415,11 @@ const Alert = styled.div`
   border-radius: 8px;
   align-items: center;
   justify-content: center;
+`;
+
+const Divider = styled.hr`
+  margin-top: 20px;
+  margin-bottom: 14px;
 `;
 
 export default GroupSessionModal;
