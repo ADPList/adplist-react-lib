@@ -36,8 +36,6 @@ const GroupSessionModal = ({
   const [details, setDetails] = useState(data);
   const [isLoading, setLoading] = useState(false);
 
-  console.log(data);
-
   /**
    * variables
    */
@@ -253,7 +251,10 @@ const GroupSessionModal = ({
 
                 {hasRegistered && (
                   <Alert className="muted-green-bg teal-text">
-                    RSVPed, you're all set! <a href="#">Join session</a>
+                    RSVPed, you're all set!{" "}
+                    <a href={data?.video_url} className="teal-text">
+                      Join session
+                    </a>
                   </Alert>
                 )}
 
