@@ -7,16 +7,20 @@ import { handleTimezone } from "../../Utils/helpers";
 import Notification from "../../Icons/Notification";
 import CloseSquare from "../../Icons/CloseSquare";
 import Edit from "../../Icons/Edit";
+import Badge from "../../Components/Badge";
 
 const Card = ({
   content = {},
   isPrivate = false,
+  hasRsvped = false,
   mutate,
   handleEdit = () => {},
   handleDelete = () => {},
   handleNotify = () => {},
   ...props
 }) => {
+  const full = content?.booked_seats === content?.rsvp_limit;
+
   return (
     <Wrapper {...props}>
       <div className="session cursor-pointer">
@@ -27,7 +31,48 @@ const Card = ({
                 {handleTimezone(content?.date_and_time, "MMM DD, ha ([GMT] Z)")}
               </p>
 
-              {isPrivate ? (
+              {full && <Badge className="grey-3-bg grey-2-text">Full</Badge>}
+
+              {hasRsvped && (
+                <Badge className="muted-green-bg teal-text">You're in</Badge>
+              )}
+
+              {isPrivate && (
+                <div className="d-flex align-items-center">
+                  <a
+                    href="/"
+                    onClick={(e) =>
+                      e.preventDefault() | e.stopPropagation() | handleEdit()
+                    }
+                    className="mr-3 text-decoration-none"
+                  >
+                    <Edit color="var(--teal)" size={20} />
+                  </a>
+                  <a
+                    href="/"
+                    onClick={(e) =>
+                      e.preventDefault() | e.stopPropagation() | handleDelete()
+                    }
+                    className="text-decoration-none"
+                  >
+                    <CloseSquare color="var(--grey-2)" size={20} />
+                  </a>
+                </div>
+              )}
+
+              {!hasRsvped && (
+                <a
+                  href="/"
+                  onClick={(e) =>
+                    e.preventDefault() | e.stopPropagation() | handleNotify()
+                  }
+                  className="text-decoration-none"
+                >
+                  <Notification color="var(--black)" />
+                </a>
+              )}
+
+              {/* {isPrivate ? (
                 <div className="d-flex align-items-center">
                   <a
                     href="/"
@@ -58,8 +103,9 @@ const Card = ({
                 >
                   <Notification color="var(--black)" />
                 </a>
-              )}
+              )} */}
             </div>
+
             <div className="card__body">
               <p className="card__body__title">{content.name}</p>
               <p className="card__body__description">{content.description}</p>

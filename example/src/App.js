@@ -32,6 +32,7 @@ export default () => {
    */
   const { data, error } = useSWR(`/group-session/?limit=10&offset=0`);
   const items = data?.results;
+  console.log(items);
 
   const {
     data: gSessions,
