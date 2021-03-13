@@ -7,6 +7,7 @@ import SmileyLogo from "../../Icons/SmileyLogo";
 import LinkedIn from "../../Icons/LinkedIn";
 import Youtube from "../../Icons/Youtube";
 import Twitter from "../../Icons/Twitter";
+import { userRoute } from "../../Utils/helpers";
 
 const Footer = () => {
   /**
@@ -16,37 +17,27 @@ const Footer = () => {
     {
       icon: Youtube,
       name: "youtube",
-      link: "https://www.youtube.com/channel/UCEDeB17hbLD_Ius5cnilqSg",
+      link: process.env.REACT_APP_SOCIAL_YOUTUBE,
     },
     {
       icon: LinkedIn,
       name: "linkedin",
-      link: "https://www.linkedin.com/company/adplist-org/",
+      link: process.env.REACT_APP_SOCIAL_LINKEDIN,
     },
     {
       icon: Twitter,
       name: "twitter",
-      link: "https://twitter.com/adplist",
+      link: process.env.REACT_APP_SOCIAL_TWITTER,
     },
   ];
 
   const firstItems = [
-    // {
-    //   name: "about us",
-    //   link: "https://www.adplist.org/about",
-    // },
     {
       name: "find mentors",
-      link: `${process.env.REACT_APP_ADPLIST_URL}/mentors`,
+      link: `${process.env.REACT_APP_ADPLIST_URL}/${userRoute(
+        process.env.REACT_APP_MENTOR,
+      )}`,
     },
-    // {
-    //   name: "hire designers",
-    //   link: `${process.env.REACT_APP_ADPLIST_URL}/designers`,
-    // },
-    // {
-    //   name: "find jobs",
-    //   link: `https://www.adplist.org/jobs`,
-    // },
   ];
 
   const secondItems = [
@@ -63,7 +54,7 @@ const Footer = () => {
     { name: "partnerships", link: "mailto: partnership@adplist.org" },
     {
       name: "support us",
-      link: "https://www.buymeacoffee.com/adplist",
+      link: process.env.REACT_APP_SOCIAL_SUPPORT,
       external: true,
     },
   ];

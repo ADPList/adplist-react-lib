@@ -7,6 +7,7 @@ import styled from "styled-components";
 import useSWR from "swr";
 import Form from "react-bootstrap/Form";
 
+import { userRoute } from "../Utils/helpers";
 import Spinner from "./Spinner";
 import Badge from "../Icons/Badge";
 import flag from "./Flag";
@@ -67,7 +68,9 @@ const Search = ({
               title,
               country,
               employer,
-              type: interests ? "mentor" : "designer",
+              type: interests
+                ? process.env.REACT_APP_MENTOR
+                : process.env.REACT_APP_MEMBER,
             };
           },
         );
@@ -139,7 +142,8 @@ const Search = ({
                     </div>
                     <div className="option__type">
                       <span>{capitalize(option?.type)}</span>
-                      {option?.type?.toLowerCase() === "mentor" && (
+                      {option?.type?.toLowerCase() ===
+                        process.env.REACT_APP_MENTOR && (
                         <Badge color="var(--teal)" size={20} />
                       )}
                     </div>

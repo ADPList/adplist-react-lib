@@ -7,17 +7,18 @@ import NoConnection from "../Icons/NoConnection";
 import UserTile from "./UserTile";
 import Modal from "./Modal";
 import loop from "../Utils/loop";
+import { userRoute } from "../Utils/helpers";
 
 const GetAMatch = ({ modal, setModal }) => {
   /**
    * state
    */
-  const [initUser] = useGlobal("user");
+  const [initUser = {}] = useGlobal("user");
 
   /**
    * variables
    */
-  const user = initUser?.designer;
+  const user = initUser[process.env.REACT_APP_MEMBER];
   const expertises = user?.expertise?.map((e) => e.id);
   const languages = user?.languages?.map((l) => l.id);
 
@@ -81,7 +82,7 @@ const GetAMatch = ({ modal, setModal }) => {
                     user={item}
                     href={
                       process.env.REACT_APP_ADPLIST_URL +
-                      `/mentors/${item.slug}`
+                      `/${userRoute(process.env.REACT_APP_MENTOR)}/${item.slug}`
                     }
                   />
                 </div>

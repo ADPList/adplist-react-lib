@@ -16,7 +16,6 @@ export { default as Notify } from "./Notify";
 export { default as Search } from "./Search";
 export { default as Select } from "./Select";
 export { default as Confirm } from "./Confirm";
-export { default as Project } from "./Project";
 export { default as Spinner } from "./Spinner";
 export { default as Socials } from "./Socials";
 export { default as Textarea } from "./Textarea";

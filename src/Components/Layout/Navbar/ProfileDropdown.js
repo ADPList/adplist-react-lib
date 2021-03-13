@@ -38,14 +38,14 @@ const ProfileDropdown = ({ logout, user, identityType }) => (
             </div>
           </Grid>
         </NavDropdownItem>
-        {identityType === "designer" && (
+        {identityType === process.env.REACT_APP_MEMBER && (
           <NavDropdownItem
             href={`${process.env.REACT_APP_ADPLIST_URL}/become-a-mentor`}
           >
             Become a mentor
           </NavDropdownItem>
         )}
-        {identityType === "mentor" && user?.date_verified && (
+        {identityType === process.env.REACT_APP_MENTOR && user?.date_verified && (
           <Fragment>
             <NavDropdownItem
               href={`${process.env.REACT_APP_ADPLIST_URL}/mentors`}
