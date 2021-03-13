@@ -3,7 +3,6 @@ import {
   Grid,
   Icon,
   Layout,
-  Profile,
   AuthProvider,
   GroupSession,
 } from "adplist-react-lib";
@@ -70,8 +69,6 @@ export default () => {
           }}
         >
           <Container className="py-5">
-            <Profile initUser={user} />
-
             <Grid sm="repeat(10, 1fr)" className="align-items-center">
               <Icon.Add />
               <Icon.AdpLogo />

@@ -3,16 +3,16 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import styled from "styled-components";
 import flags from "emoji-flags";
 
-import { handleTimezone } from "../../Utils/helpers";
+import { handleTimezone, userRoute } from "../../Utils/helpers";
 import Notification from "../../Icons/Notification";
 import CloseSquare from "../../Icons/CloseSquare";
-import Edit from "../../Icons/Edit";
 import Badge from "../../Components/Badge";
+import Edit from "../../Icons/Edit";
 
 const Card = ({
+  mutate,
   content = {},
   isPrivate = false,
-  mutate,
   handleEdit = () => {},
   handleDelete = () => {},
   handleNotify = () => {},
@@ -78,21 +78,28 @@ const Card = ({
               target="mentor"
               className="card__footer"
               onClick={(e) => e.stopPropagation()}
-              href={`${process.env.REACT_APP_ADPLIST_URL}/mentors/${content?.mentor?.slug}`}
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${userRoute(
+                process.env.REACT_APP_MENTOR,
+              )}/${content[process.env.REACT_APP_MENTOR]?.slug}`}
             >
               <LazyLoadImage
                 className="avatar mr-3"
-                src={content?.mentor?.profile_photo_url}
+                src={content[process.env.REACT_APP_MENTOR]?.profile_photo_url}
               />
               <div className="media-body">
                 <p className="font-size-16 font-weight-600 mb-0">
-                  {content?.mentor?.name}{" "}
-                  {flags.countryCode(content?.mentor?.country_iso).emoji}
+                  {content[process.env.REACT_APP_MENTOR]?.name}{" "}
+                  {
+                    flags.countryCode(
+                      content[process.env.REACT_APP_MENTOR]?.country_iso,
+                    ).emoji
+                  }
                 </p>
                 <p className="font-size-14 mb-0">
-                  {[content?.mentor?.title, content?.mentor?.employer].join(
-                    ", ",
-                  )}
+                  {[
+                    content[process.env.REACT_APP_MENTOR]?.title,
+                    content[process.env.REACT_APP_MENTOR]?.employer,
+                  ].join(", ")}
                 </p>
               </div>
             </a>

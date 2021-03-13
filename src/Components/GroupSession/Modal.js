@@ -8,7 +8,12 @@ import {
   registerSessionService,
   cancelSessionService,
 } from "../../Services/sessionService";
-import { handleLogin, handleShare, handleTimezone } from "../../Utils/helpers";
+import {
+  handleLogin,
+  handleShare,
+  handleTimezone,
+  userRoute,
+} from "../../Utils/helpers";
 import copyToClipboard from "../../Utils/copyToClipboard";
 import useWidth from "../../Utils/useWidth";
 import Confirm from "../../Components/Confirm";
@@ -23,12 +28,12 @@ import Twitter from "../../Icons/Twitter";
 import Copy from "../../Icons/Copy";
 
 const GroupSessionModal = ({
-  data,
   show,
   user,
   past,
   error,
   onHide,
+  data = {},
   isPrivate,
   mutate = () => {},
   ...props
@@ -52,7 +57,9 @@ const GroupSessionModal = ({
 
     if (
       user &&
-      !["limbo", "designer"].includes(user?.identity_type?.toLowerCase())
+      ![process.env.REACT_APP_LIMBO, process.env.REACT_APP_MEMBER].includes(
+        user?.identity_type?.toLowerCase(),
+      )
     ) {
       if (mentor?.slug === user[user.identity_type.toLowerCase()]?.slug) {
         return `I’m hosting ${data?.name} on @ADPList. Starting on, ${date} at ${time} (${data?.timezone}). Join me here!`;
@@ -185,7 +192,9 @@ const GroupSessionModal = ({
                 target="mentor"
                 href={
                   process.env.REACT_APP_ADPLIST_URL +
-                  `/mentors/${data?.mentor?.slug}`
+                  `/${userRoute(process.env.REACT_APP_MENTOR)}/${
+                    data?.mentor?.slug
+                  }`
                 }
                 className="text-decoration-none d-flex align-items-center black-text"
               >

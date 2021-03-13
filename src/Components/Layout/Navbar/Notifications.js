@@ -6,6 +6,7 @@ import * as Styled from "../Styles";
 import Notification from "../../../Icons/Notification";
 import Spinner from "../../Spinner";
 import Button from "../../Button";
+import { userRoute } from "../../../Utils/helpers";
 
 const Notifications = ({ data, error, mutate, route }) => {
   /**
@@ -154,12 +155,18 @@ const Review = ({
         if (local) {
           return (
             updateNotificationSeenService(id).then(() => mutate()) |
-            route(`/mentors/${destination_user.slug}`)
+            route(
+              `/${userRoute(process.env.REACT_APP_MENTOR)}/${
+                destination_user.slug
+              }`,
+            )
           );
         } else {
           return updateNotificationSeenService(id).then(() =>
             handleRoute(
-              `${process.env.REACT_APP_ADPLIST_URL}/mentors/${destination_user.slug}`,
+              `${process.env.REACT_APP_ADPLIST_URL}/${userRoute(
+                process.env.REACT_APP_MENTOR,
+              )}/${destination_user.slug}`,
             ),
           );
         }
@@ -187,12 +194,10 @@ const GroupSession = ({
   seen,
   local,
   mutate,
-  route,
+  notification_type,
   group_session_name,
   group_session_slug,
-  notification_type,
   source_user: { profile_photo_url, name, identity_type, slug },
-  destination_user,
 }) => {
   const type = `${identity_type.toLowerCase()}s`;
 
@@ -286,12 +291,14 @@ const Note = ({
               if (local) {
                 return (
                   updateNotificationSeenService(id).then(() => mutate()) |
-                  route(`/mentors/${slug}`)
+                  route(`/${userRoute(process.env.REACT_APP_MENTOR)}/${slug}`)
                 );
               } else {
                 return updateNotificationSeenService(id).then(() =>
                   handleRoute(
-                    `${process.env.REACT_APP_ADPLIST_URL}/mentors/${slug}`,
+                    `${process.env.REACT_APP_ADPLIST_URL}/${userRoute(
+                      process.env.REACT_APP_MENTOR,
+                    )}/${slug}`,
                   ),
                 );
               }

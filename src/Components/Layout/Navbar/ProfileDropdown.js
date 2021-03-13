@@ -13,7 +13,7 @@ import {
   NavDropdownToggle,
 } from "../Styles";
 
-const ProfileDropdown = ({ logout, user, initUser, identityType }) => (
+const ProfileDropdown = ({ logout, user, identityType }) => (
   <div className="nav__item px-2">
     <NavDropdown>
       <NavDropdownToggle>
@@ -63,15 +63,7 @@ const ProfileDropdown = ({ logout, user, initUser, identityType }) => (
         <NavDropdownItem
           href={`${
             process.env.REACT_APP_AUTH_URL || ""
-          }/dashboard/profile/edit`}
-        >
-          Edit profile
-        </NavDropdownItem>
-
-        <NavDropdownItem
-          href={`${
-            process.env.REACT_APP_AUTH_URL || ""
-          }/dashboard/profile/change-password`}
+          }/dashboard/profile/login-and-security/change-password`}
         >
           Change Password
         </NavDropdownItem>
