@@ -15,7 +15,7 @@ export const handleShare = (type, mentor, url, message) => {
   switch (type) {
     case "twitter":
       window.open(
-        `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${text}&hashtags=adplist,adplistmentorship?utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=${twitterEncodedUrl}`,
+        `https://twitter.com/intent/tweet?url=${encodedUrl}&utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=${twitterEncodedUrl}&text=${text}?utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=ADPlist Twitter Sharing&hashtags=adplist,adplistmentorship`,
       );
       break;
     case "linkedin":
