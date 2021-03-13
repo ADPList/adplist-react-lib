@@ -31,9 +31,9 @@ const GroupSessionModal = ({
   show,
   user,
   past,
+  data,
   error,
   onHide,
-  data = {},
   isPrivate,
   mutate = () => {},
   ...props
