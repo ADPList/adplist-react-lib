@@ -18,9 +18,9 @@ const GetAMatch = ({ modal, setModal }) => {
   /**
    * variables
    */
-  const user = initUser[process.env.REACT_APP_MEMBER];
-  const expertises = user?.expertise?.map((e) => e.id);
-  const languages = user?.languages?.map((l) => l.id);
+  const user = initUser && initUser[process.env.REACT_APP_MEMBER];
+  const expertises = user && user?.expertise?.map((e) => e.id);
+  const languages = user && user?.languages?.map((l) => l.id);
 
   const url = (() => {
     let url = `/account/mentor/?offset=0&limit=3&on_break=false&randomize=true&`;
