@@ -4,16 +4,19 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import flags from "emoji-flags";
 
+import {
+  registerSessionService,
+  cancelSessionService,
+} from "../../Services/sessionService";
 import { handleLogin, handleShare, handleTimezone } from "../../Utils/helpers";
-import { registerSessionService } from "../../Services/sessionService";
 import copyToClipboard from "../../Utils/copyToClipboard";
 import useWidth from "../../Utils/useWidth";
+import Confirm from "../../Components/Confirm";
+import Spinner from "../Spinner";
 import Button from "../Button";
 import Notify from "../Notify";
 import Modal from "../Modal";
 import Grid from "../../Styles/Grid";
-import Spinner from "../Spinner";
-import Confirm from "../../Components/Confirm";
 
 import LinkedIn from "../../Icons/LinkedIn";
 import Twitter from "../../Icons/Twitter";
@@ -24,7 +27,6 @@ const GroupSessionModal = ({
   show,
   user,
   past,
-  sessionMutate,
   error,
   onHide,
   isPrivate,
@@ -115,36 +117,34 @@ const GroupSessionModal = ({
     }
   };
 
-  const handleCancellation = async (id) => {
-    handleLogin(user, "You need to login to be able to cancel this RSVP").then(
-      async () => {
-        if (user) {
-          await Confirm({
-            header: "Cancel this rsvp",
-            confirmation: "Are you sure you want to cancel this booking",
-            buttons: {
-              proceed: {
-                value: "Yes, cancel this",
-              },
-              cancel: {
-                value: "No never mind",
-              },
-            },
-          }).then(() => {
-            cancelGroupSessionService(id)
-              .then(
-                () =>
-                  toast(
-                    <Notify body="RSVP has been cancelled" type="success" />,
-                  ) | mutate(),
-              )
-              .catch(() =>
-                toast(<Notify body="Unable to cancel booking" type="error" />),
-              );
-          });
-        }
-      },
-    );
+  const handleCancellation = async () => {
+    if (
+      await Confirm({
+        header: "Cancel this rsvp",
+        confirmation: "Are you sure you want to cancel this booking",
+        buttons: {
+          proceed: {
+            value: "Yes, cancel this",
+          },
+          cancel: {
+            value: "No never mind",
+          },
+        },
+      })
+    ) {
+      setLoading(true);
+      cancelSessionService(data?.id)
+        .then(
+          (response) =>
+            toast(<Notify body="RSVP has been cancelled" type="success" />) |
+            setDetails(response) |
+            mutate(),
+        )
+        .catch(() =>
+          toast(<Notify body="Unable to cancel booking" type="error" />),
+        )
+        .finally(() => setLoading(false));
+    }
   };
 
   return (
@@ -319,33 +319,32 @@ const GroupSessionModal = ({
                     <Twitter size={18} color="white" />
                     <span>Tweet</span>
                   </Button>
-                  <div className="share__url">
-                    <Copy
-                      className="mx-auto cursor-pointer"
-                      onClick={() => copyToClipboard(url)}
-                    />
-                    <span>
-                      <a
-                        href={url}
-                        onClick={(e) => e.preventDefault()}
-                        className="font-weight-600"
-                      >
-                        Copy Link
-                      </a>
-                    </span>
-                  </div>
+                  <Button
+                    isValid
+                    loadingColor="var(--black)"
+                    className="black-border white-bg"
+                    onClick={() => copyToClipboard(url)}
+                  >
+                    <Copy size={18} />
+                    <span>Copy Link</span>
+                  </Button>
                 </div>
-                <Divider />
+              </div>
+            </div>
 
+            {hasRegistered && !data?.cancelled && (
+              <Fragment>
+                <Divider />
                 <Button
                   isValid
+                  loading={isLoading}
                   onClick={() => handleCancellation()}
                   className="font-weight-600 grey-2-border grey-2-text btn-60 w-100"
                 >
                   Cancel this RSVP
                 </Button>
-              </div>
-            </div>
+              </Fragment>
+            )}
           </Fragment>
         )}
       </Wrapper>
@@ -378,6 +377,10 @@ const Wrapper = styled.div`
 
   .session__actions {
     margin-bottom: 20px;
+
+    a {
+      text-decoration: underline;
+    }
   }
 
   .session__share {
@@ -390,15 +393,16 @@ const Wrapper = styled.div`
         width: 100%;
 
         span {
-          color: #fff;
           margin-left: 8px;
         }
 
         &.-twitter {
           background-color: #00acee;
+          color: #fff;
         }
         &.-linkedin {
           background-color: #0077b5;
+          color: #fff;
         }
       }
 
