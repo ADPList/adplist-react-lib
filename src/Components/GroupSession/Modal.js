@@ -6,12 +6,12 @@ import flags from "emoji-flags";
 
 import {
   registerSessionService,
-  cancelSessionService,
+  // cancelSessionService,
 } from "../../Services/sessionService";
 import { handleLogin, handleShare, handleTimezone } from "../../Utils/helpers";
 import copyToClipboard from "../../Utils/copyToClipboard";
 import useWidth from "../../Utils/useWidth";
-import Confirm from "../../Components/Confirm";
+// import Confirm from "../../Components/Confirm";
 import Spinner from "../Spinner";
 import Button from "../Button";
 import Notify from "../Notify";
@@ -117,35 +117,35 @@ const GroupSessionModal = ({
     }
   };
 
-  const handleCancellation = async () => {
-    if (
-      await Confirm({
-        header: "Cancel this rsvp",
-        confirmation: "Are you sure you want to cancel this booking",
-        buttons: {
-          proceed: {
-            value: "Yes, cancel this",
-          },
-          cancel: {
-            value: "No never mind",
-          },
-        },
-      })
-    ) {
-      setLoading(true);
-      cancelSessionService(data?.id)
-        .then(
-          (response) =>
-            toast(<Notify body="RSVP has been cancelled" type="success" />) |
-            setDetails(response) |
-            mutate(),
-        )
-        .catch(() =>
-          toast(<Notify body="Unable to cancel booking" type="error" />),
-        )
-        .finally(() => setLoading(false));
-    }
-  };
+  // const handleCancellation = async () => {
+  //   if (
+  //     await Confirm({
+  //       header: "Cancel this rsvp",
+  //       confirmation: "Are you sure you want to cancel this booking",
+  //       buttons: {
+  //         proceed: {
+  //           value: "Yes, cancel this",
+  //         },
+  //         cancel: {
+  //           value: "No never mind",
+  //         },
+  //       },
+  //     })
+  //   ) {
+  //     setLoading(true);
+  //     cancelSessionService(data?.id)
+  //       .then(
+  //         (response) =>
+  //           toast(<Notify body="RSVP has been cancelled" type="success" />) |
+  //           setDetails(response) |
+  //           mutate(),
+  //       )
+  //       .catch(() =>
+  //         toast(<Notify body="Unable to cancel booking" type="error" />),
+  //       )
+  //       .finally(() => setLoading(false));
+  //   }
+  // };
 
   return (
     <Modal onHide={onHide} show={show} size="sm" centered>
@@ -269,12 +269,12 @@ const GroupSessionModal = ({
                 {hasRegistered && (
                   <Alert className="muted-green-bg teal-text font-weight-400">
                     RSVPed, you're all set! &nbsp;
-                    <a
+                    {/* <a
                       href={data?.video_url}
                       className="teal-text font-weight-600"
                     >
                       Join session
-                    </a>
+                    </a> */}
                   </Alert>
                 )}
 
@@ -332,7 +332,7 @@ const GroupSessionModal = ({
               </div>
             </div>
 
-            {hasRegistered && !data?.cancelled && (
+            {/* {hasRegistered && !data?.cancelled && (
               <Fragment>
                 <Divider />
                 <Button
@@ -344,7 +344,7 @@ const GroupSessionModal = ({
                   Cancel this RSVP
                 </Button>
               </Fragment>
-            )}
+            )} */}
           </Fragment>
         )}
       </Wrapper>

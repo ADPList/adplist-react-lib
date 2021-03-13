@@ -18,7 +18,8 @@ const Card = ({
   handleNotify = () => {},
   ...props
 }) => {
-  const full = content?.booked_seats === content?.rsvp_limit;
+  // const full = content?.booked_seats === content?.rsvp_limit;
+  const full = false;
 
   return (
     <Wrapper {...props}>
@@ -30,23 +31,7 @@ const Card = ({
                 {handleTimezone(content?.date_and_time, "MMM DD, ha ([GMT] Z)")}
               </p>
 
-              {full && !isPrivate && (
-                <Badge className="grey-3-bg grey-2-text">Full</Badge>
-              )}
-
-              {!full && !isPrivate && (
-                <a
-                  href="/"
-                  onClick={(e) =>
-                    e.preventDefault() | e.stopPropagation() | handleNotify()
-                  }
-                  className="text-decoration-none"
-                >
-                  <Notification color="var(--black)" />
-                </a>
-              )}
-
-              {isPrivate && (
+              {isPrivate ? (
                 <div className="d-flex align-items-center">
                   <a
                     href="/"
@@ -67,6 +52,24 @@ const Card = ({
                     <CloseSquare color="var(--grey-2)" size={20} />
                   </a>
                 </div>
+              ) : (
+                <Fragment>
+                  {full ? (
+                    <Badge className="grey-3-bg grey-2-text">Full</Badge>
+                  ) : (
+                    <a
+                      href="/"
+                      onClick={(e) =>
+                        e.preventDefault() |
+                        e.stopPropagation() |
+                        handleNotify()
+                      }
+                      className="text-decoration-none"
+                    >
+                      <Notification color="var(--black)" />
+                    </a>
+                  )}
+                </Fragment>
               )}
             </div>
 
