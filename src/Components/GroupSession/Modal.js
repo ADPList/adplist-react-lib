@@ -71,7 +71,7 @@ const GroupSessionModal = ({
 
   const hasRegistered = (() => {
     if (user) {
-      const registeredUser = data?.rsvp.find(
+      const registeredUser = data?.rsvp?.find(
         (r) => user[r.identity_type.toLowerCase()]?.slug === r?.slug,
       );
 
