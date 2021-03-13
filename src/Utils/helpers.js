@@ -8,15 +8,19 @@ export const handleShare = (type, mentor, url, message) => {
   );
   const encodedUrl = encodeURIComponent(url);
 
+  const linkedinEncodedUrl = encodeURIComponent("ADPlist LinkedIn Sharing");
+
+  const twitterEncodedUrl = encodeURIComponent("ADPlist Twitter Sharing");
+
   switch (type) {
     case "twitter":
       window.open(
-        `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${text}&hashtags=adplist,adplistmentorship`,
+        `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${text}&hashtags=adplist,adplistmentorship?utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=${twitterEncodedUrl}`,
       );
       break;
     case "linkedin":
       window.open(
-        `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+        `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}?utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=${linkedinEncodedUrl}`,
       );
       break;
     default:
