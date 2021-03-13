@@ -20,7 +20,7 @@ export const handleShare = (type, mentor, url, message) => {
       break;
     case "linkedin":
       window.open(
-        `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}?utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=${linkedinEncodedUrl}`,
+        `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}&utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=${linkedinEncodedUrl}`,
       );
       break;
     default:
