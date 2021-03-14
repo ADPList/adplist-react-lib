@@ -130,7 +130,7 @@ const Navbar = ({
                               expand_more
                             </i>
                           </Styled.NavDropdown.Toggle>
-                          <Styled.NavDropdownMenu>
+                          <Styled.NavDropdownMenu align="right">
                             {item.menu?.map((menu, key) => (
                               <Styled.NavDropdownItem
                                 href={menu?.link}
@@ -169,7 +169,7 @@ const Navbar = ({
                   );
                 })}
 
-                {isAuthenticated ? (
+                {!isAuthenticated ? (
                   <Fragment>
                     {identityType === process.env.REACT_APP_MENTOR && (
                       <div className="nav__item px-2">
@@ -190,7 +190,7 @@ const Navbar = ({
                             </span>
                           )}
                         </Styled.NavDropdownMessageToggle>
-                        <Styled.NavDropdownMenu>
+                        <Styled.NavDropdownMenu align="right">
                           <Notifications
                             route={router}
                             data={notifications}

@@ -24,7 +24,7 @@ const ProfileDropdown = ({ logout, user, identityType }) => (
           expand_more
         </i>
       </NavDropdownToggle>
-      <NavDropdownMenu>
+      <NavDropdownMenu align="right">
         <NavDropdownItem className="px-2 py-3 pb-0 border-bottom-0">
           <Grid
             gap="8px"
