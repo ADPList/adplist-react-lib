@@ -169,7 +169,7 @@ const Navbar = ({
                   );
                 })}
 
-                {!isAuthenticated ? (
+                {isAuthenticated ? (
                   <Fragment>
                     {identityType === process.env.REACT_APP_MENTOR && (
                       <div className="nav__item px-2">
