@@ -55,7 +55,7 @@ const ProfileDropdown = ({ logout, user, identityType }) => (
           </Fragment>
         )}
         <NavDropdownItem
-          href={`${process.env.REACT_APP_AUTH_URL || ""}/dashboard/profile`}
+          href={`${process.env.REACT_APP_AUTH_URL || ""}/dashboard`}
         >
           Your profile
         </NavDropdownItem>
