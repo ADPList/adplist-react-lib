@@ -340,6 +340,7 @@ const GroupSessionModal = ({
                 <Button
                   isValid
                   loading={isLoading}
+                  loadingColor="var(--black)"
                   onClick={() => handleCancellation()}
                   className="font-weight-600 grey-2-border grey-2-text btn-60 w-100"
                 >
