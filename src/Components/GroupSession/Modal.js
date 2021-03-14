@@ -69,20 +69,8 @@ const GroupSessionModal = ({
     return `I've got a seat at ${data?.name} w/ ${data?.mentor?.name}. Starting on, ${date} at ${time} on @ADPList.`;
   })();
 
-  const hasRegistered = (() => {
-    if (user) {
-      const registeredUser = data?.rsvp?.find(
-        (r) => user[r.identity_type.toLowerCase()]?.slug === r?.slug,
-      );
-
-      return Boolean(registeredUser);
-    } else {
-      return false;
-    }
-  })();
-
+  const hasRegistered = data?.user_in_rsvp;
   const isOwner = user?.mentor?.slug === data?.mentor?.slug;
-
   const width = useWidth();
 
   /**
@@ -259,7 +247,7 @@ const GroupSessionModal = ({
               </div>
             )}
 
-            {!isPrivate && !isOwner && (
+            {!isPrivate && !isOwner && data?.active && (
               <Grid gap="24px" className="session__actions">
                 {!data?.cancelled &&
                   data?.rsvp?.length === data?.rsvp_limit &&
@@ -279,6 +267,7 @@ const GroupSessionModal = ({
                   <Alert className="muted-green-bg teal-text font-weight-400">
                     RSVPed, you're all set! &nbsp;
                     <a
+                      target="session"
                       href={data?.video_url}
                       className="teal-text font-weight-600"
                     >
@@ -303,45 +292,49 @@ const GroupSessionModal = ({
               </Grid>
             )}
 
-            <div className="session__share">
-              <div className="session__share__url">
-                <p className="line-height-13 mb-3 font-size-16">
-                  Spread the word
-                </p>
+            {data?.active && (
+              <div className="session__share">
+                <div className="session__share__url">
+                  <p className="line-height-13 mb-3 font-size-16">
+                    Spread the word
+                  </p>
 
-                <div className="session__share__buttons">
-                  <Button
-                    isValid
-                    className="-linkedin"
-                    onClick={() =>
-                      handleShare("linkedin", mentor, url, message)
-                    }
-                  >
-                    <LinkedIn color="white" size={18} />
-                    <span>Share</span>
-                  </Button>
-                  <Button
-                    isValid
-                    onClick={() => handleShare("twitter", mentor, url, message)}
-                    className="-twitter"
-                  >
-                    <Twitter size={18} color="white" />
-                    <span>Tweet</span>
-                  </Button>
-                  <Button
-                    isValid
-                    loadingColor="var(--black)"
-                    className="black-border white-bg"
-                    onClick={() => copyToClipboard(url)}
-                  >
-                    <Copy size={18} />
-                    <span>Copy Link</span>
-                  </Button>
+                  <div className="session__share__buttons">
+                    <Button
+                      isValid
+                      className="-linkedin"
+                      onClick={() =>
+                        handleShare("linkedin", mentor, url, message)
+                      }
+                    >
+                      <LinkedIn color="white" size={18} />
+                      <span>Share</span>
+                    </Button>
+                    <Button
+                      isValid
+                      onClick={() =>
+                        handleShare("twitter", mentor, url, message)
+                      }
+                      className="-twitter"
+                    >
+                      <Twitter size={18} color="white" />
+                      <span>Tweet</span>
+                    </Button>
+                    <Button
+                      isValid
+                      loadingColor="var(--black)"
+                      className="black-border white-bg"
+                      onClick={() => copyToClipboard(url)}
+                    >
+                      <Copy size={18} />
+                      <span>Copy Link</span>
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
-            {hasRegistered && !data?.cancelled && (
+            {hasRegistered && !data?.cancelled && data?.active && (
               <Fragment>
                 <Divider />
                 <Button

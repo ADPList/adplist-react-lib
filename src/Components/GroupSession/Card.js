@@ -30,23 +30,35 @@ const Card = ({
                 {handleTimezone(content?.date_and_time, "MMM DD, ha ([GMT] Z)")}
               </p>
 
-              {full && !isPrivate && (
-                <Badge className="grey-3-bg grey-2-text">Full</Badge>
-              )}
+              {!isPrivate ? (
+                <Fragment>
+                  {content?.user_in_rsvp ? (
+                    <Badge className="muted-green-bg teal-text">
+                      You’re In
+                    </Badge>
+                  ) : (
+                    <Fragment>
+                      {full && (
+                        <Badge className="grey-3-bg grey-2-text">Full</Badge>
+                      )}
 
-              {!full && !isPrivate && (
-                <a
-                  href="/"
-                  onClick={(e) =>
-                    e.preventDefault() | e.stopPropagation() | handleNotify()
-                  }
-                  className="text-decoration-none"
-                >
-                  <Notification color="var(--black)" />
-                </a>
-              )}
-
-              {isPrivate && (
+                      {!full && (
+                        <a
+                          href="/"
+                          onClick={(e) =>
+                            e.preventDefault() |
+                            e.stopPropagation() |
+                            handleNotify()
+                          }
+                          className="text-decoration-none"
+                        >
+                          <Notification color="var(--black)" />
+                        </a>
+                      )}
+                    </Fragment>
+                  )}
+                </Fragment>
+              ) : (
                 <div className="d-flex align-items-center">
                   <a
                     href="/"
