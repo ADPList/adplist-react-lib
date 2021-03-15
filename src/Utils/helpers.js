@@ -9,24 +9,28 @@ export const handleShare = (type, mentor, url, message) => {
     message ||
       `I just completed a mentoring session with ${mentor.name} on @ADPList!`,
   );
-  const encodedUrl = encodeURIComponent(url);
-  url = ((url) => {
-    if (url.includes("?")) return `${encodedUrl}&`;
-    return `${encodedUrl}?`;
-  })(url);
 
   const linkedinEncodedUrl = encodeURIComponent("ADPlist LinkedIn Sharing");
   const twitterEncodedUrl = encodeURIComponent("ADPlist Twitter Sharing");
 
+  url = ((url) => {
+    if (url.includes("?")) return `${url}&`;
+    return `${url}?`;
+  })(url);
+
   switch (type) {
     case "twitter":
       window.open(
-        `https://twitter.com/intent/tweet?url=${url}utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=${twitterEncodedUrl}&text=${text}&hashtags=adplist,adplistmentorship`,
+        `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          `${url}utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=${twitterEncodedUrl}`,
+        )}&text=${text}&hashtags=adplist,adplistmentorship`,
       );
       break;
     case "linkedin":
       window.open(
-        `https://www.linkedin.com/sharing/share-offsite/?url=${url}utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=${linkedinEncodedUrl}`,
+        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+          `${url}utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=${linkedinEncodedUrl}`,
+        )}`,
       );
       break;
     default:
