@@ -34,28 +34,34 @@ const Card = ({
 
               {!isPrivate ? (
                 <Fragment>
-                  {content?.user_in_rsvp ? (
-                    <Badge className="muted-green-bg teal-text">
-                      You’re In
-                    </Badge>
-                  ) : (
+                  {content?.active && (
                     <Fragment>
-                      {full && (
-                        <Badge className="grey-3-bg grey-2-text">Full</Badge>
-                      )}
+                      {content?.user_in_rsvp ? (
+                        <Badge className="muted-green-bg teal-text">
+                          You’re In
+                        </Badge>
+                      ) : (
+                        <Fragment>
+                          {full && (
+                            <Badge className="grey-3-bg grey-2-text">
+                              Full
+                            </Badge>
+                          )}
 
-                      {!full && (
-                        <a
-                          href="/"
-                          onClick={(e) =>
-                            e.preventDefault() |
-                            e.stopPropagation() |
-                            handleNotify()
-                          }
-                          className="text-decoration-none"
-                        >
-                          <Notification color="var(--black)" />
-                        </a>
+                          {!full && (
+                            <a
+                              href="/"
+                              onClick={(e) =>
+                                e.preventDefault() |
+                                e.stopPropagation() |
+                                handleNotify()
+                              }
+                              className="text-decoration-none"
+                            >
+                              <Notification color="var(--black)" />
+                            </a>
+                          )}
+                        </Fragment>
                       )}
                     </Fragment>
                   )}
