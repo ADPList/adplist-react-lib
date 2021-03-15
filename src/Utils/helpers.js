@@ -77,3 +77,9 @@ export const userRoute = (type) => {
       break;
   }
 };
+
+export const handleIntercom = (event = "show") => {
+  if (typeof window !== "undefined") {
+    window.Intercom(event);
+  }
+};
