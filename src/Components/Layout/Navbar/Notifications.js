@@ -2,11 +2,11 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Image } from "react-bootstrap";
 
 import { updateNotificationSeenService } from "../../../Services/notificationService";
+import { userRoute } from "../../../Utils/helpers";
 import * as Styled from "../Styles";
 import Notification from "../../../Icons/Notification";
 import Spinner from "../../Spinner";
 import Button from "../../Button";
-import { userRoute } from "../../../Utils/helpers";
 
 const Notifications = ({ data, error, mutate, route }) => {
   /**
@@ -145,7 +145,7 @@ const Review = ({
   source_user: { profile_photo_url, name, identity_type, slug },
   destination_user,
 }) => {
-  const type = `${identity_type.toLowerCase()}s`;
+  const type = identity_type.toLowerCase();
 
   return (
     <Styled.NavNotifItem
@@ -177,7 +177,9 @@ const Review = ({
       </div>
       <div className="item__content">
         <a
-          href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}
+          href={`${process.env.REACT_APP_ADPLIST_URL}/${userRoute(
+            type,
+          )}/${slug}`}
           onClick={(e) => e.stopPropagation()}
         >
           {name}
@@ -199,7 +201,7 @@ const GroupSession = ({
   group_session_slug,
   source_user: { profile_photo_url, name, identity_type, slug },
 }) => {
-  const type = `${identity_type.toLowerCase()}s`;
+  const type = identity_type.toLowerCase();
 
   return (
     <Styled.NavNotifItem
@@ -217,7 +219,11 @@ const GroupSession = ({
       <div className="item__content">
         {notification_type === "GroupSessionRSVP" ? (
           <Fragment>
-            <a href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}>
+            <a
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${userRoute(
+                type,
+              )}/${slug}`}
+            >
               {name}
             </a>{" "}
             registered for your session{" "}
@@ -230,7 +236,11 @@ const GroupSession = ({
           </Fragment>
         ) : notification_type === "GroupSessionUpdate" ? (
           <Fragment>
-            <a href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}>
+            <a
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${userRoute(
+                type,
+              )}/${slug}`}
+            >
               {name}
             </a>{" "}
             updated the session{" "}
@@ -243,7 +253,11 @@ const GroupSession = ({
           </Fragment>
         ) : (
           <Fragment>
-            <a href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}>
+            <a
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${userRoute(
+                type,
+              )}/${slug}`}
+            >
               {name}
             </a>{" "}
             cancelled the session{" "}
@@ -265,7 +279,7 @@ const Note = ({
   handleRoute,
   source_user: { profile_photo_url, name, identity_type, slug },
 }) => {
-  const type = `${identity_type.toLowerCase()}s`;
+  const type = identity_type.toLowerCase();
 
   return (
     <Styled.NavNotifItem as="div" className={`item ${!seen && "-unseen"}`}>
@@ -274,7 +288,11 @@ const Note = ({
       </div>
       <div className="item__content">
         <p className="mb-12">
-          <a href={`${process.env.REACT_APP_ADPLIST_URL}/${type}/${slug}`}>
+          <a
+            href={`${process.env.REACT_APP_ADPLIST_URL}/${userRoute(
+              type,
+            )}/${slug}`}
+          >
             {name}
           </a>{" "}
           sent you a note. Write one for them.
