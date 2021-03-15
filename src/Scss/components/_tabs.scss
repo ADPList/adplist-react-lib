@@ -8,10 +8,9 @@
     height: 60px;
     padding: 0px;
     display: flex;
-    color: $grey-2;
+    color: $grey-1;
     font-size: 16px;
     margin-left: 20px;
-    margin-right: 20px;
     padding-right: 8px;
     margin-bottom: 0px;
     align-items: center;
@@ -39,8 +38,8 @@
 
     &.active {
       border: none;
-      color: $default;
-      border-bottom: solid 3px $default !important;
+      color: $teal;
+      border-bottom: solid 3px $teal !important;
 
       svg {
         path {
