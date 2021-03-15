@@ -6,6 +6,7 @@ import flags from "emoji-flags";
 import { handleTimezone, userRoute } from "../../Utils/helpers";
 import Notification from "../../Icons/Notification";
 import CloseSquare from "../../Icons/CloseSquare";
+import Download from "../../Icons/Download";
 import Badge from "../../Components/Badge";
 import Edit from "../../Icons/Edit";
 
@@ -16,6 +17,7 @@ const Card = ({
   handleEdit = () => {},
   handleDelete = () => {},
   handleNotify = () => {},
+  handleDownload = () => {},
   ...props
 }) => {
   const full = content?.booked_seats === content?.rsvp_limit;
@@ -60,24 +62,43 @@ const Card = ({
                 </Fragment>
               ) : (
                 <div className="d-flex align-items-center">
-                  <a
-                    href="/"
-                    onClick={(e) =>
-                      e.preventDefault() | e.stopPropagation() | handleEdit()
-                    }
-                    className="mr-3 text-decoration-none"
-                  >
-                    <Edit color="var(--teal)" size={20} />
-                  </a>
-                  <a
-                    href="/"
-                    onClick={(e) =>
-                      e.preventDefault() | e.stopPropagation() | handleDelete()
-                    }
-                    className="text-decoration-none"
-                  >
-                    <CloseSquare color="var(--grey-2)" size={20} />
-                  </a>
+                  {handleDownload && (
+                    <a
+                      href="/"
+                      onClick={(e) =>
+                        e.preventDefault() |
+                        e.stopPropagation() |
+                        handleDownload()
+                      }
+                      className="mr-3 text-decoration-none"
+                    >
+                      <Download color="var(--black)" size={20} />
+                    </a>
+                  )}
+                  {handleEdit && (
+                    <a
+                      href="/"
+                      onClick={(e) =>
+                        e.preventDefault() | e.stopPropagation() | handleEdit()
+                      }
+                      className="mr-3 text-decoration-none"
+                    >
+                      <Edit color="var(--teal)" size={20} />
+                    </a>
+                  )}
+                  {handleDelete && (
+                    <a
+                      href="/"
+                      onClick={(e) =>
+                        e.preventDefault() |
+                        e.stopPropagation() |
+                        handleDelete()
+                      }
+                      className="text-decoration-none"
+                    >
+                      <CloseSquare color="var(--grey-2)" size={20} />
+                    </a>
+                  )}
                 </div>
               )}
             </div>
