@@ -84,6 +84,7 @@ const Sidenav = ({
           {identityType === process.env.REACT_APP_MENTOR &&
             user?.can_mentor_create_session && (
               <a
+                onClick={() => setToggle(false)}
                 href={`${process.env.REACT_APP_ADPLIST_URL}/group-session`}
                 className="teal-bg white-text btn btn-48 w-100 mb-2"
               >
@@ -98,7 +99,7 @@ const Sidenav = ({
               <div className="search__container w-100">
                 <Search
                   router={({ slug, type }) =>
-                    router(`/${userRoute(type)}/${slug}`)
+                    router(`/${userRoute(type)}/${slug}`) | setToggle(false)
                   }
                   placeholder="Search for mentors, roles or companies"
                 />
@@ -112,6 +113,7 @@ const Sidenav = ({
                 key={key}
                 badge={!!item?.badge}
                 href={item?.link || "#"}
+                onClick={() => setToggle(false)}
                 {...(item?.onClick && { onClick: item.onClick })}
               >
                 <span>
