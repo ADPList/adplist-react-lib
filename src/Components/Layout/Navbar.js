@@ -17,6 +17,7 @@ import cookie from "../../Utils/cookie";
 import Notify from "../Notify";
 import Button from "../Button";
 import Badge from "../Badge";
+import { userRoute } from "../../Utils/helpers";
 
 const Navbar = ({
   app,
@@ -103,7 +104,9 @@ const Navbar = ({
                   <SearchIcon className="search__icon" color="var(--teal)" />
                   <div className="search__container w-100">
                     <Search
-                      router={({ slug, type }) => router(`/${type}s/${slug}`)}
+                      router={({ slug, type }) =>
+                        router(`/${userRoute(type)}/${slug}`)
+                      }
                       placeholder="Search for mentors, roles or companies"
                     />
                   </div>
@@ -127,7 +130,7 @@ const Navbar = ({
                               expand_more
                             </i>
                           </Styled.NavDropdown.Toggle>
-                          <Styled.NavDropdownMenu>
+                          <Styled.NavDropdownMenu align="right">
                             {item.menu?.map((menu, key) => (
                               <Styled.NavDropdownItem
                                 href={menu?.link}
@@ -168,7 +171,7 @@ const Navbar = ({
 
                 {isAuthenticated ? (
                   <Fragment>
-                    {identityType === "mentor" && (
+                    {identityType === process.env.REACT_APP_MENTOR && (
                       <div className="nav__item px-2">
                         <Styled.NavItemCircle
                           href={`${process.env.REACT_APP_ADPLIST_URL}/send-notes`}
@@ -187,7 +190,7 @@ const Navbar = ({
                             </span>
                           )}
                         </Styled.NavDropdownMessageToggle>
-                        <Styled.NavDropdownMenu>
+                        <Styled.NavDropdownMenu align="right">
                           <Notifications
                             route={router}
                             data={notifications}
@@ -201,7 +204,7 @@ const Navbar = ({
                     <ProfileDropdown
                       {...{ logout, user, initUser, identityType }}
                     />
-                    {identityType === "mentor" &&
+                    {identityType === process.env.REACT_APP_MENTOR &&
                       user?.can_mentor_create_session && (
                         <div className="nav__item pr-0 pl-2">
                           <a

@@ -3,23 +3,24 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import styled from "styled-components";
 import flags from "emoji-flags";
 
-import { handleTimezone } from "../../Utils/helpers";
+import { handleTimezone, userRoute } from "../../Utils/helpers";
 import Notification from "../../Icons/Notification";
 import CloseSquare from "../../Icons/CloseSquare";
-import Edit from "../../Icons/Edit";
+import Download from "../../Icons/Download";
 import Badge from "../../Components/Badge";
+import Edit from "../../Icons/Edit";
 
 const Card = ({
+  mutate,
   content = {},
   isPrivate = false,
-  mutate,
   handleEdit = () => {},
   handleDelete = () => {},
   handleNotify = () => {},
+  handleDownload = () => {},
   ...props
 }) => {
-  // const full = content?.booked_seats === content?.rsvp_limit;
-  const full = false;
+  const full = content?.booked_seats === content?.rsvp_limit;
 
   return (
     <Wrapper {...props}>
@@ -31,45 +32,80 @@ const Card = ({
                 {handleTimezone(content?.date_and_time, "MMM DD, ha ([GMT] Z)")}
               </p>
 
-              {isPrivate ? (
-                <div className="d-flex align-items-center">
-                  <a
-                    href="/"
-                    onClick={(e) =>
-                      e.preventDefault() | e.stopPropagation() | handleEdit()
-                    }
-                    className="mr-3 text-decoration-none"
-                  >
-                    <Edit color="var(--teal)" size={20} />
-                  </a>
-                  <a
-                    href="/"
-                    onClick={(e) =>
-                      e.preventDefault() | e.stopPropagation() | handleDelete()
-                    }
-                    className="text-decoration-none"
-                  >
-                    <CloseSquare color="var(--grey-2)" size={20} />
-                  </a>
-                </div>
-              ) : (
+              {!isPrivate ? (
                 <Fragment>
-                  {full ? (
-                    <Badge className="grey-3-bg grey-2-text">Full</Badge>
-                  ) : (
+                  {content?.active && (
+                    <Fragment>
+                      {content?.user_in_rsvp ? (
+                        <Badge className="muted-green-bg teal-text">
+                          You’re In
+                        </Badge>
+                      ) : (
+                        <Fragment>
+                          {full && (
+                            <Badge className="grey-3-bg grey-2-text">
+                              Full
+                            </Badge>
+                          )}
+
+                          {!full && (
+                            <a
+                              href="/"
+                              onClick={(e) =>
+                                e.preventDefault() |
+                                e.stopPropagation() |
+                                handleNotify()
+                              }
+                              className="text-decoration-none"
+                            >
+                              <Notification color="var(--black)" />
+                            </a>
+                          )}
+                        </Fragment>
+                      )}
+                    </Fragment>
+                  )}
+                </Fragment>
+              ) : (
+                <div className="d-flex align-items-center">
+                  {handleDownload && (
                     <a
                       href="/"
                       onClick={(e) =>
                         e.preventDefault() |
                         e.stopPropagation() |
-                        handleNotify()
+                        handleDownload()
+                      }
+                      className="mr-3 text-decoration-none"
+                    >
+                      <Download color="var(--black)" size={20} />
+                    </a>
+                  )}
+                  {handleEdit && (
+                    <a
+                      href="/"
+                      onClick={(e) =>
+                        e.preventDefault() | e.stopPropagation() | handleEdit()
+                      }
+                      className="mr-3 text-decoration-none"
+                    >
+                      <Edit color="var(--teal)" size={20} />
+                    </a>
+                  )}
+                  {handleDelete && (
+                    <a
+                      href="/"
+                      onClick={(e) =>
+                        e.preventDefault() |
+                        e.stopPropagation() |
+                        handleDelete()
                       }
                       className="text-decoration-none"
                     >
-                      <Notification color="var(--black)" />
+                      <CloseSquare color="var(--grey-2)" size={20} />
                     </a>
                   )}
-                </Fragment>
+                </div>
               )}
             </div>
 
@@ -81,21 +117,28 @@ const Card = ({
               target="mentor"
               className="card__footer"
               onClick={(e) => e.stopPropagation()}
-              href={`${process.env.REACT_APP_ADPLIST_URL}/mentors/${content?.mentor?.slug}`}
+              href={`${process.env.REACT_APP_ADPLIST_URL}/${userRoute(
+                process.env.REACT_APP_MENTOR,
+              )}/${content[process.env.REACT_APP_MENTOR]?.slug}`}
             >
               <LazyLoadImage
                 className="avatar mr-3"
-                src={content?.mentor?.profile_photo_url}
+                src={content[process.env.REACT_APP_MENTOR]?.profile_photo_url}
               />
               <div className="media-body">
                 <p className="font-size-16 font-weight-600 mb-0">
-                  {content?.mentor?.name}{" "}
-                  {flags.countryCode(content?.mentor?.country_iso).emoji}
+                  {content[process.env.REACT_APP_MENTOR]?.name}{" "}
+                  {
+                    flags.countryCode(
+                      content[process.env.REACT_APP_MENTOR]?.country_iso,
+                    ).emoji
+                  }
                 </p>
                 <p className="font-size-14 mb-0">
-                  {[content?.mentor?.title, content?.mentor?.employer].join(
-                    ", ",
-                  )}
+                  {[
+                    content[process.env.REACT_APP_MENTOR]?.title,
+                    content[process.env.REACT_APP_MENTOR]?.employer,
+                  ].join(", ")}
                 </p>
               </div>
             </a>
@@ -118,47 +161,39 @@ const Wrapper = styled.div`
     border-radius: 12px;
     flex-direction: column;
     border: solid 1px var(--grey-3);
-
     .card__header {
       display: flex;
       margin-bottom: 1rem;
       align-items: center;
       justify-content: space-between;
     }
-
     .card__body {
       margin-bottom: 24px;
-
       &__title {
         font-size: 19px;
         font-weight: 600;
         line-height: 1.3;
         margin-bottom: 8px;
       }
-
       &__description {
         line-height: 1.5;
         margin-bottom: 0px;
         word-break: break-word;
       }
     }
-
     .card__footer {
       display: flex;
       margin-top: auto;
       color: var(--black);
       align-items: center;
       text-decoration: none;
-
       p {
         line-height: 24px;
       }
     }
-
     &.-skeleton {
       height: 252px;
     }
-
     .avatar {
       width: 48px;
       height: 48px;
@@ -167,7 +202,6 @@ const Wrapper = styled.div`
       border-radius: 50%;
     }
   }
-
   @media (min-width: 768px) {
     .topic {
       width: 380px;

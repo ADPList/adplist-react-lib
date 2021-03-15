@@ -2,6 +2,7 @@ import React, { Fragment } from "reactn";
 import styled from "styled-components";
 
 import { SearchWrapper } from "../Styles";
+import { userRoute } from "../../../Utils/helpers";
 import Notification from "../../../Icons/Notification";
 import SearchIcon from "../../../Icons/Search";
 import Profile from "../../../Icons/Profile";
@@ -10,7 +11,6 @@ import Search from "../../Search";
 import Button from "../../../Components/Button";
 import Badge from "../../../Components/Badge";
 import Chat from "../../../Icons/Chat";
-import Edit from "../../../Icons/Edit";
 import Grid from "../../../Styles/Grid";
 
 const Sidenav = ({
@@ -42,17 +42,12 @@ const Sidenav = ({
           {
             icon: Profile,
             name: "Your Profile",
-            link: `${process.env.REACT_APP_AUTH_URL}/dashboard/profile`,
-          },
-          {
-            icon: Edit,
-            name: "Edit Profile",
-            link: `${process.env.REACT_APP_AUTH_URL}/dashboard/profile/edit`,
+            link: `${process.env.REACT_APP_AUTH_URL}/dashboard`,
           },
           {
             icon: Unlock,
             name: "Change Password",
-            link: `${process.env.REACT_APP_AUTH_URL}/dashboard/profile/change-password`,
+            link: `${process.env.REACT_APP_AUTH_URL}/dashboard/profile/login-and-security/change-password`,
           },
         ]
       : []),
@@ -72,7 +67,7 @@ const Sidenav = ({
             </a>
           </div>
 
-          {user && identityType === "designer" && (
+          {user && identityType === process.env.REACT_APP_MEMBER && (
             <Grid
               gap="8px"
               sm="24px 1fr"
@@ -86,22 +81,26 @@ const Sidenav = ({
             </Grid>
           )}
 
-          {identityType === "mentor" && user?.can_mentor_create_session && (
-            <a
-              href={`${process.env.REACT_APP_ADPLIST_URL}/group-session`}
-              className="teal-bg white-text btn btn-48 w-100 mb-2"
-            >
-              <i className="material-icons-round mr-1 font-size-20">add</i>
-              <span>Start a session</span>
-            </a>
-          )}
+          {identityType === process.env.REACT_APP_MENTOR &&
+            user?.can_mentor_create_session && (
+              <a
+                onClick={() => setToggle(false)}
+                href={`${process.env.REACT_APP_ADPLIST_URL}/group-session`}
+                className="teal-bg white-text btn btn-48 w-100 mb-2"
+              >
+                <i className="material-icons-round mr-1 font-size-20">add</i>
+                <span>Start a session</span>
+              </a>
+            )}
 
           {search && (
             <SearchWrapper className="my-3 mx-0">
               <SearchIcon className="search__icon" color="var(--teal)" />
               <div className="search__container w-100">
                 <Search
-                  router={({ slug, type }) => router(`/${type}s/${slug}`)}
+                  router={({ slug, type }) =>
+                    router(`/${userRoute(type)}/${slug}`) | setToggle(false)
+                  }
                   placeholder="Search for mentors, roles or companies"
                 />
               </div>
@@ -114,6 +113,7 @@ const Sidenav = ({
                 key={key}
                 badge={!!item?.badge}
                 href={item?.link || "#"}
+                onClick={() => setToggle(false)}
                 {...(item?.onClick && { onClick: item.onClick })}
               >
                 <span>

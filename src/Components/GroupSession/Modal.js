@@ -6,12 +6,17 @@ import flags from "emoji-flags";
 
 import {
   registerSessionService,
-  // cancelSessionService,
+  cancelSessionService,
 } from "../../Services/sessionService";
-import { handleLogin, handleShare, handleTimezone } from "../../Utils/helpers";
+import {
+  handleLogin,
+  handleShare,
+  handleTimezone,
+  userRoute,
+} from "../../Utils/helpers";
 import copyToClipboard from "../../Utils/copyToClipboard";
 import useWidth from "../../Utils/useWidth";
-// import Confirm from "../../Components/Confirm";
+import Confirm from "../../Components/Confirm";
 import Spinner from "../Spinner";
 import Button from "../Button";
 import Notify from "../Notify";
@@ -23,10 +28,10 @@ import Twitter from "../../Icons/Twitter";
 import Copy from "../../Icons/Copy";
 
 const GroupSessionModal = ({
-  data,
   show,
   user,
   past,
+  data,
   error,
   onHide,
   isPrivate,
@@ -52,7 +57,9 @@ const GroupSessionModal = ({
 
     if (
       user &&
-      !["limbo", "designer"].includes(user?.identity_type?.toLowerCase())
+      ![process.env.REACT_APP_LIMBO, process.env.REACT_APP_MEMBER].includes(
+        user?.identity_type?.toLowerCase(),
+      )
     ) {
       if (mentor?.slug === user[user.identity_type.toLowerCase()]?.slug) {
         return `I’m hosting ${data?.name} on @ADPList. Starting on, ${date} at ${time} (${data?.timezone}). Join me here!`;
@@ -62,20 +69,8 @@ const GroupSessionModal = ({
     return `I've got a seat at ${data?.name} w/ ${data?.mentor?.name}. Starting on, ${date} at ${time} on @ADPList.`;
   })();
 
-  const hasRegistered = (() => {
-    if (user) {
-      const registeredUser = data?.rsvp.find(
-        (r) => user[r.identity_type.toLowerCase()]?.slug === r?.slug,
-      );
-
-      return Boolean(registeredUser);
-    } else {
-      return false;
-    }
-  })();
-
+  const hasRegistered = data?.user_in_rsvp;
   const isOwner = user?.mentor?.slug === data?.mentor?.slug;
-
   const width = useWidth();
 
   /**
@@ -117,35 +112,35 @@ const GroupSessionModal = ({
     }
   };
 
-  // const handleCancellation = async () => {
-  //   if (
-  //     await Confirm({
-  //       header: "Cancel this rsvp",
-  //       confirmation: "Are you sure you want to cancel this booking",
-  //       buttons: {
-  //         proceed: {
-  //           value: "Yes, cancel this",
-  //         },
-  //         cancel: {
-  //           value: "No never mind",
-  //         },
-  //       },
-  //     })
-  //   ) {
-  //     setLoading(true);
-  //     cancelSessionService(data?.id)
-  //       .then(
-  //         (response) =>
-  //           toast(<Notify body="RSVP has been cancelled" type="success" />) |
-  //           setDetails(response) |
-  //           mutate(),
-  //       )
-  //       .catch(() =>
-  //         toast(<Notify body="Unable to cancel booking" type="error" />),
-  //       )
-  //       .finally(() => setLoading(false));
-  //   }
-  // };
+  const handleCancellation = async () => {
+    if (
+      await Confirm({
+        header: "Cancel this rsvp",
+        confirmation: "Are you sure you want to cancel this booking",
+        buttons: {
+          proceed: {
+            value: "Yes, cancel this",
+          },
+          cancel: {
+            value: "No never mind",
+          },
+        },
+      })
+    ) {
+      setLoading(true);
+      cancelSessionService(data?.id)
+        .then(
+          (response) =>
+            toast(<Notify body="RSVP has been cancelled" type="success" />) |
+            setDetails(response) |
+            mutate(),
+        )
+        .catch(() =>
+          toast(<Notify body="Unable to cancel booking" type="error" />),
+        )
+        .finally(() => setLoading(false));
+    }
+  };
 
   return (
     <Modal onHide={onHide} show={show} size="sm" centered>
@@ -185,7 +180,9 @@ const GroupSessionModal = ({
                 target="mentor"
                 href={
                   process.env.REACT_APP_ADPLIST_URL +
-                  `/mentors/${data?.mentor?.slug}`
+                  `/${userRoute(process.env.REACT_APP_MENTOR)}/${
+                    data?.mentor?.slug
+                  }`
                 }
                 className="text-decoration-none d-flex align-items-center black-text"
               >
@@ -250,7 +247,7 @@ const GroupSessionModal = ({
               </div>
             )}
 
-            {!isPrivate && !isOwner && (
+            {!isPrivate && !isOwner && data?.active && (
               <Grid gap="24px" className="session__actions">
                 {!data?.cancelled &&
                   data?.rsvp?.length === data?.rsvp_limit &&
@@ -269,12 +266,13 @@ const GroupSessionModal = ({
                 {hasRegistered && (
                   <Alert className="muted-green-bg teal-text font-weight-400">
                     RSVPed, you're all set! &nbsp;
-                    {/* <a
+                    <a
+                      target="session"
                       href={data?.video_url}
                       className="teal-text font-weight-600"
                     >
                       Join session
-                    </a> */}
+                    </a>
                   </Alert>
                 )}
 
@@ -294,57 +292,62 @@ const GroupSessionModal = ({
               </Grid>
             )}
 
-            <div className="session__share">
-              <div className="session__share__url">
-                <p className="line-height-13 mb-3 font-size-16">
-                  Spread the word
-                </p>
+            {data?.active && (
+              <div className="session__share">
+                <div className="session__share__url">
+                  <p className="line-height-13 mb-3 font-size-16">
+                    Spread the word
+                  </p>
 
-                <div className="session__share__buttons">
-                  <Button
-                    isValid
-                    className="-linkedin"
-                    onClick={() =>
-                      handleShare("linkedin", mentor, url, message)
-                    }
-                  >
-                    <LinkedIn color="white" size={18} />
-                    <span>Share</span>
-                  </Button>
-                  <Button
-                    isValid
-                    onClick={() => handleShare("twitter", mentor, url, message)}
-                    className="-twitter"
-                  >
-                    <Twitter size={18} color="white" />
-                    <span>Tweet</span>
-                  </Button>
-                  <Button
-                    isValid
-                    loadingColor="var(--black)"
-                    className="black-border white-bg"
-                    onClick={() => copyToClipboard(url)}
-                  >
-                    <Copy size={18} />
-                    <span>Copy Link</span>
-                  </Button>
+                  <div className="session__share__buttons">
+                    <Button
+                      isValid
+                      className="-linkedin"
+                      onClick={() =>
+                        handleShare("linkedin", mentor, url, message)
+                      }
+                    >
+                      <LinkedIn color="white" size={18} />
+                      <span>Share</span>
+                    </Button>
+                    <Button
+                      isValid
+                      onClick={() =>
+                        handleShare("twitter", mentor, url, message)
+                      }
+                      className="-twitter"
+                    >
+                      <Twitter size={18} color="white" />
+                      <span>Tweet</span>
+                    </Button>
+                    <Button
+                      isValid
+                      loadingColor="var(--black)"
+                      className="black-border white-bg"
+                      onClick={() => copyToClipboard(url)}
+                    >
+                      <Copy size={18} />
+                      <span>Copy Link</span>
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
-            {/* {hasRegistered && !data?.cancelled && (
+            {hasRegistered && !data?.cancelled && data?.active && (
               <Fragment>
                 <Divider />
                 <Button
                   isValid
                   loading={isLoading}
+                  loadingColor="var(--black)"
                   onClick={() => handleCancellation()}
                   className="font-weight-600 grey-2-border grey-2-text btn-60 w-100"
                 >
                   Cancel this RSVP
                 </Button>
               </Fragment>
-            )} */}
+            )}
           </Fragment>
         )}
       </Wrapper>
@@ -365,7 +368,6 @@ const Wrapper = styled.div`
     border-radius: 10px;
     border: solid 1px var(--grey-3);
     grid-template-columns: 48px 1fr;
-
     span {
       a {
         width: 100%;
@@ -374,28 +376,22 @@ const Wrapper = styled.div`
       }
     }
   }
-
   .session__actions {
     margin-bottom: 20px;
-
     a {
       text-decoration: underline;
     }
   }
-
   .session__share {
     &__buttons {
       display: grid;
       gap: 16px;
-
       .btn {
         height: 60px;
         width: 100%;
-
         span {
           margin-left: 8px;
         }
-
         &.-twitter {
           background-color: #00acee;
           color: #fff;
@@ -405,14 +401,12 @@ const Wrapper = styled.div`
           color: #fff;
         }
       }
-
       @media (min-width: 778px) {
         grid-template-columns: 124px 116px minmax(0, 1fr);
         gap: 6px;
       }
     }
   }
-
   .avatar {
     width: 48px;
     height: 48px;
@@ -427,7 +421,6 @@ const Images = styled.div`
   gap: 8px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-
   @media (min-width: 768px) {
     grid-template-columns: repeat(7, 1fr);
   }

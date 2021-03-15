@@ -13,7 +13,7 @@ import {
   NavDropdownToggle,
 } from "../Styles";
 
-const ProfileDropdown = ({ logout, user, initUser, identityType }) => (
+const ProfileDropdown = ({ logout, user, identityType }) => (
   <div className="nav__item px-2">
     <NavDropdown>
       <NavDropdownToggle>
@@ -24,7 +24,7 @@ const ProfileDropdown = ({ logout, user, initUser, identityType }) => (
           expand_more
         </i>
       </NavDropdownToggle>
-      <NavDropdownMenu>
+      <NavDropdownMenu align="right">
         <NavDropdownItem className="px-2 py-3 pb-0 border-bottom-0">
           <Grid
             gap="8px"
@@ -38,14 +38,14 @@ const ProfileDropdown = ({ logout, user, initUser, identityType }) => (
             </div>
           </Grid>
         </NavDropdownItem>
-        {identityType === "designer" && (
+        {identityType === process.env.REACT_APP_MEMBER && (
           <NavDropdownItem
             href={`${process.env.REACT_APP_ADPLIST_URL}/become-a-mentor`}
           >
             Become a mentor
           </NavDropdownItem>
         )}
-        {identityType === "mentor" && user?.date_verified && (
+        {identityType === process.env.REACT_APP_MENTOR && user?.date_verified && (
           <Fragment>
             <NavDropdownItem
               href={`${process.env.REACT_APP_ADPLIST_URL}/mentors`}
@@ -55,7 +55,7 @@ const ProfileDropdown = ({ logout, user, initUser, identityType }) => (
           </Fragment>
         )}
         <NavDropdownItem
-          href={`${process.env.REACT_APP_AUTH_URL || ""}/dashboard/profile`}
+          href={`${process.env.REACT_APP_AUTH_URL || ""}/dashboard`}
         >
           Your profile
         </NavDropdownItem>
@@ -63,15 +63,7 @@ const ProfileDropdown = ({ logout, user, initUser, identityType }) => (
         <NavDropdownItem
           href={`${
             process.env.REACT_APP_AUTH_URL || ""
-          }/dashboard/profile/edit`}
-        >
-          Edit profile
-        </NavDropdownItem>
-
-        <NavDropdownItem
-          href={`${
-            process.env.REACT_APP_AUTH_URL || ""
-          }/dashboard/profile/change-password`}
+          }/dashboard/profile/login-and-security/change-password`}
         >
           Change Password
         </NavDropdownItem>

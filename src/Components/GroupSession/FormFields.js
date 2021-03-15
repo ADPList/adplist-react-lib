@@ -21,17 +21,18 @@ export const MeetingURL = ({ value, ...props }) => (
     type="url"
     value={value}
     name="video_url"
-    label="Zoom/Meets/Clubhouse URL"
+    label="Zoom/Meets URL"
     {...props}
   />
 );
 
 export const RsvpLimit = ({ value, ...props }) => (
   <Field
+    max="100"
     type="number"
     value={value}
     name="rsvp_limit"
-    placeholder="Max of 50 allowed"
+    placeholder="Max of 100 allowed"
     label="How many attendees do you expect"
     {...props}
   />
@@ -39,11 +40,11 @@ export const RsvpLimit = ({ value, ...props }) => (
 
 export const Description = ({ value, ...props }) => (
   <Field
-    name="description"
     minRows={6}
     value={value}
     className="p-3"
     maxLength="200"
+    name="description"
     label="Description"
     useComponent={false}
     component={Textarea}
