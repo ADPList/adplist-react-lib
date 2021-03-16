@@ -12,6 +12,7 @@ import Document from "../../Icons/Document";
 import useWidth from "../../Utils/useWidth";
 import AdpLogo from "../../Icons/AdpLogo";
 import Sidenav from "./Navbar/Sidenav";
+import Heart from "../../Icons/Heart";
 import Search from "../Search";
 import cookie from "../../Utils/cookie";
 import Notify from "../Notify";
@@ -177,6 +178,12 @@ const Navbar = ({
                           href={`${process.env.REACT_APP_ADPLIST_URL}/send-notes`}
                         >
                           <Document />
+                        </Styled.NavItemCircle>
+
+                        <Styled.NavItemCircle
+                          href={`${process.env.REACT_APP_ADPLIST_URL}/wishlist`}
+                        >
+                          <Heart />
                         </Styled.NavItemCircle>
                       </div>
                     )}
