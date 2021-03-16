@@ -181,12 +181,16 @@ const Navbar = ({
                         </Styled.NavItemCircle>
                       </div>
                     )}
+
                     <div className="nav__item px-2">
                       <Styled.NavItemCircle
                         href={`${process.env.REACT_APP_ADPLIST_URL}/wishlist`}
                       >
                         <Heart />
                       </Styled.NavItemCircle>
+                    </div>
+
+                    <div className="nav__item px-2">
                       <Styled.NavDropdown>
                         <Styled.NavDropdownMessageToggle id="notification">
                           <Notification />
