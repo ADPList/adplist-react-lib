@@ -11,8 +11,12 @@ export const handleShare = (type, mentor, url, message) => {
   );
 
   url = ((url) => {
-    if (url.includes("?")) return `${url}&`;
-    return `${url}?`;
+    if (type === "twitter") {
+      if (url.includes("?")) return `${url}&`;
+      return `${url}?`;
+    }
+
+    return url;
   })(url);
 
   switch (type) {
@@ -26,7 +30,7 @@ export const handleShare = (type, mentor, url, message) => {
     case "linkedin":
       window.open(
         `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-          `${url}utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=ADPlistLinkedInSharing`,
+          `${url}`,
         )}`,
       );
       break;
