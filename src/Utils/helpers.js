@@ -1,4 +1,6 @@
 import moment from "moment-timezone";
+import shortUrl from "node-url-shortener";
+
 import Confirm from "../Components/Confirm";
 
 export const handleShare = (type, mentor, url, message) => {
@@ -17,22 +19,34 @@ export const handleShare = (type, mentor, url, message) => {
 
   switch (type) {
     case "twitter":
-      window.open(
-        `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-          `${url}utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=ADPlistTwitterSharing`,
-        )}&text=${text}&hashtags=adplist,adplistmentorship`,
-      );
+      url = `${url}utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=ADPlistTwitterSharing`;
       break;
     case "linkedin":
-      window.open(
-        `https://www.linkedin.com/shareArticle/?mini=true&url=${encodeURIComponent(
-          `${url}utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=ADPlistLinkedInSharing`,
-        )}`,
-      );
-      break;
+      url = `${url}utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=ADPlistLinkedInSharing`;
     default:
       break;
   }
+
+  shortUrl.short(url, (err, shortenedUrl) => {
+    let newUrl = "";
+
+    if (shortenedUrl) newUrl = shortenedUrl;
+    else newUrl = url;
+
+    if (type === "twitter")
+      window.open(
+        `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          shortenedUrl,
+        )}&text=${text}&hashtags=adplist,adplistmentorship`,
+      );
+
+    if (type === "linkedin")
+      window.open(
+        `https://www.linkedin.com/shareArticle/?mini=true&url=${encodeURIComponent(
+          shortenedUrl,
+        )}`,
+      );
+  });
 };
 
 export const handleLogin = async (user, message) => {
