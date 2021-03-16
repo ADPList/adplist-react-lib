@@ -105,9 +105,9 @@ const GroupSessionModal = ({
   const handleMember = (member) => {
     if (typeof window !== "undefined") {
       window.open(
-        `${
-          process.env.REACT_APP_ADPLIST_URL
-        }/${member?.identity_type?.toLowerCase()}s/${member?.slug}`,
+        `${process.env.REACT_APP_ADPLIST_URL}/${userRoute(
+          member?.identity_type?.toLowerCase(),
+        )}/${member?.slug}`,
       );
     }
   };
