@@ -110,6 +110,8 @@ export default () => {
 
               <Icon.Google />
 
+              <Icon.Heart />
+
               <Icon.Hide />
               <Icon.Home />
 
@@ -166,7 +168,7 @@ export default () => {
               <Icon.Youtube />
             </Grid>
 
-            {items && (
+            {/* {items && (
               <GroupSession.Card
                 content={items && items[2]}
                 onClick={() => setModal(true) | setDetails(items[2]?.slug)}
@@ -181,7 +183,7 @@ export default () => {
                 error={sessionError}
                 onHide={() => setModal(false)}
               />
-            )}
+            )} */}
           </Container>
         </Layout>
       </AuthProvider>

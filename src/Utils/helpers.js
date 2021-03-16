@@ -79,6 +79,18 @@ export const userRoute = (type) => {
   }
 };
 
+export const userType = (user) => {
+  const initUser = ((identity) => {
+    switch (identity) {
+      case process.env.REACT_APP_MEMBER:
+      case process.env.REACT_APP_MENTOR:
+        return user[identity];
+      default:
+        return user;
+    }
+  })(userType);
+};
+
 export const handleIntercom = (event = "show") => {
   if (typeof window !== "undefined") {
     window.Intercom(event);

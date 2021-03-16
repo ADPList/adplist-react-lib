@@ -35,6 +35,7 @@ export { default as Filter } from "./Filter";
 
 export { default as Google } from "./Google";
 
+export { default as Heart } from "./Heart";
 export { default as Hide } from "./Hide";
 export { default as Home } from "./Home";
 
