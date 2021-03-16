@@ -40,7 +40,7 @@ export default () => {
     name: "Abigail Edwin",
     slug: "abigail-edwin",
     on_break: true,
-    favorite: false,
+    mentor_in_user_wishlist: true,
   };
 
   return (

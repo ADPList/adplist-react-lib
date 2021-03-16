@@ -12,17 +12,7 @@ import Flag from "./Flag";
 import Heart from "../Icons/Heart";
 import Moon from "../Icons/Moon";
 
-const UserTile = ({ user, href }) => {
-  // const handleAddToWishlist = () => {
-  //   handleLogin(user, "You need to login to add this mentor to your wishlist").then(
-  //     async() => {
-  //       if(user) {
-
-  //       }
-  //     }
-  //   );
-  // };
-
+const UserTile = ({ user, href, handleAddToWishlist = () => {} }) => {
   return (
     <Wrapper className="user-tile" target="_blank" href={href}>
       {user?.profile_photo_url && (
