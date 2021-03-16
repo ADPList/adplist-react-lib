@@ -41,7 +41,7 @@ const UserTile = ({ user, href, handleAddToWishlist = () => {} }) => {
             ""
           )}
 
-          <div className="favorited" onClick={handleAddToWishlist}>
+          <div className="favorited" onClick={(e) => e.stopPropagation()}>
             <Heart
               variant="filled"
               color={
@@ -49,6 +49,7 @@ const UserTile = ({ user, href, handleAddToWishlist = () => {} }) => {
                   ? "var(--danger)"
                   : "rgba(19, 19, 19, 0.38)"
               }
+              onClick={handleAddToWishlist}
             />
           </div>
         </div>
