@@ -19,14 +19,14 @@ export const handleShare = (type, mentor, url, message) => {
     case "twitter":
       window.open(
         `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-          `${url}utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=ADPlist Twitter Sharing`,
+          `${url}utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=ADPlistTwitterSharing`,
         )}&text=${text}&hashtags=adplist,adplistmentorship`,
       );
       break;
     case "linkedin":
       window.open(
         `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-          `${url}utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=ADPlist LinkedIn Sharing`,
+          `${url}utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=ADPlistLinkedInSharing`,
         )}`,
       );
       break;
