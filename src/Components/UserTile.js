@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Chat from "../Icons/Chat";
 import Work from "../Icons/Work";
 import Flag from "./Flag";
+import Heart from "../Icons/Heart";
 import Moon from "../Icons/Moon";
 
 const UserTile = ({ user, href }) => (
@@ -26,6 +27,7 @@ const UserTile = ({ user, href }) => (
             <span className="font-size-14 font-weight-bold">On break</span>
           </div>
         )}
+
         {user?.total_reviews ? (
           <div className="rating">
             <Chat size={14} variant="filled" color="var(--teal)" />
@@ -34,6 +36,13 @@ const UserTile = ({ user, href }) => (
         ) : (
           ""
         )}
+
+        <div className="favorited">
+          <Heart
+            variant={user?.favorite ? "filled" : "outline"}
+            color={user?.favorite ? "var(--danger)" : "#fff"}
+          />
+        </div>
       </div>
 
       <div className="details">
@@ -130,6 +139,16 @@ const Wrapper = styled.a`
     .on-break {
       background: rgba(243, 101, 35, 0.76);
       color: #fff;
+    }
+
+    .favorited {
+      display: flex;
+      align-items: center;
+
+      svg {
+        stroke: ${({ favorite }) => (favorite ? null : "white")};
+        stroke-width: 1.5px;
+      }
     }
   }
 

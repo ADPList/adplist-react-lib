@@ -1,11 +1,5 @@
 import React, { Fragment, useState } from "reactn";
-import {
-  Grid,
-  Icon,
-  Layout,
-  AuthProvider,
-  GroupSession,
-} from "adplist-react-lib";
+import { Grid, Icon, Layout, AuthProvider, UserTile } from "adplist-react-lib";
 import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
 import useSWR from "swr";
@@ -37,6 +31,17 @@ export default () => {
     error: sessionError,
     mutate: sessionMutate,
   } = useSWR(details && `/group-session/${items[2]?.slug}`);
+
+  const profile = {
+    profile_photo_url:
+      "https://adplist-bucket.s3.amazonaws.com/media/profile_photos/f1352d5c9c9d464694ff9b31970816ba1QDtz.png",
+    total_reviews: 1,
+    country_iso: "GH",
+    name: "Abigail Edwin",
+    slug: "abigail-edwin",
+    on_break: true,
+    favorite: false,
+  };
 
   return (
     <Fragment>
@@ -111,6 +116,7 @@ export default () => {
               <Icon.Google />
 
               <Icon.Heart />
+              <Icon.Heart variant="filled" color="var(--danger)" />
 
               <Icon.Hide />
               <Icon.Home />
@@ -167,6 +173,8 @@ export default () => {
 
               <Icon.Youtube />
             </Grid>
+
+            <UserTile user={profile} />
 
             {/* {items && (
               <GroupSession.Card
