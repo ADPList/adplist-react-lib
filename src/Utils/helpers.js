@@ -1,51 +1,51 @@
 import moment from "moment-timezone";
-import shortUrl from "node-url-shortener";
-
 import Confirm from "../Components/Confirm";
 
 export const handleShare = (type, mentor, url, message) => {
-  /**
-   * variables
-   */
-  const text = encodeURI(
-    message ||
-      `I just completed a mentoring session with ${mentor.name} on @ADPList!`,
-  );
+  import("node-url-shortener").then((shortUrl) => {
+    /**
+     * variables
+     */
+    const text = encodeURI(
+      message ||
+        `I just completed a mentoring session with ${mentor.name} on @ADPList!`,
+    );
 
-  url = ((url) => {
-    if (url.includes("?")) return `${url}&`;
-    return `${url}?`;
-  })(url);
+    url = ((url) => {
+      if (url.includes("?")) return `${url}&`;
+      return `${url}?`;
+    })(url);
 
-  switch (type) {
-    case "twitter":
-      url = `${url}utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=ADPlistTwitterSharing`;
-      break;
-    case "linkedin":
-      url = `${url}utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=ADPlistLinkedInSharing`;
-    default:
-      break;
-  }
+    switch (type) {
+      case "twitter":
+        url = `${url}utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=ADPlistTwitterSharing`;
+        break;
+      case "linkedin":
+        url = `${url}utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=ADPlistLinkedInSharing`;
+      default:
+        break;
+    }
 
-  shortUrl.short(url, (err, shortenedUrl) => {
-    let newUrl = "";
+    shortUrl.short(url, (err, shortenedUrl) => {
+      let newUrl = "";
 
-    if (shortenedUrl) newUrl = shortenedUrl;
-    else newUrl = url;
+      if (shortenedUrl) newUrl = shortenedUrl;
+      else newUrl = url;
 
-    if (type === "twitter")
-      window.open(
-        `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-          shortenedUrl,
-        )}&text=${text}&hashtags=adplist,adplistmentorship`,
-      );
+      if (type === "twitter")
+        window.open(
+          `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+            shortenedUrl,
+          )}&text=${text}&hashtags=adplist,adplistmentorship`,
+        );
 
-    if (type === "linkedin")
-      window.open(
-        `https://www.linkedin.com/shareArticle/?mini=true&url=${encodeURIComponent(
-          shortenedUrl,
-        )}`,
-      );
+      if (type === "linkedin")
+        window.open(
+          `https://www.linkedin.com/shareArticle/?mini=true&url=${encodeURIComponent(
+            shortenedUrl,
+          )}`,
+        );
+    });
   });
 };
 
