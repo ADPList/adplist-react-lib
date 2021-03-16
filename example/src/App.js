@@ -40,7 +40,7 @@ export default () => {
     name: "Abigail Edwin",
     slug: "abigail-edwin",
     on_break: true,
-    favorite: true,
+    favorite: false,
   };
 
   return (
@@ -112,6 +112,7 @@ export default () => {
 
               <Icon.Facebook />
               <Icon.Filter />
+              <Icon.Flag />
 
               <Icon.Google />
 

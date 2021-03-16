@@ -32,6 +32,7 @@ export { default as Edit } from "./Edit";
 
 export { default as Facebook } from "./Facebook";
 export { default as Filter } from "./Filter";
+export { default as Flag } from "./Flag";
 
 export { default as Google } from "./Google";
 

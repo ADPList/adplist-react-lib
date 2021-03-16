@@ -9,73 +9,79 @@ import Flag from "./Flag";
 import Heart from "../Icons/Heart";
 import Moon from "../Icons/Moon";
 
-const UserTile = ({ user, href }) => (
-  <Wrapper className="user-tile" target="_blank" href={href}>
-    {user?.profile_photo_url && (
-      <LazyLoadImage
-        width="100%"
-        height="100%"
-        className="avatar"
-        src={user?.profile_photo_url}
-      />
-    )}
-    <div className="overlay">
-      <div className="top-items ml-auto">
-        {user?.on_break && (
-          <div className="on-break">
-            <Moon color="#fff" />
-            <span className="font-size-14 font-weight-bold">On break</span>
-          </div>
-        )}
+const UserTile = ({ user, href }) => {
+  const handleAddToWishlist = () => {};
 
-        {user?.total_reviews ? (
-          <div className="rating">
-            <Chat size={14} variant="filled" color="var(--teal)" />
-            <span className="font-size-14">{user.total_reviews}</span>
-          </div>
-        ) : (
-          ""
-        )}
-
-        <div className="favorited">
-          <Heart
-            variant="filled"
-            color={user?.favorite ? "var(--danger)" : "rgba(19, 19, 19, 0.38)"}
-          />
-        </div>
-      </div>
-
-      <div className="details">
-        <p className="details__name">
-          {startCase(user?.name)}&nbsp;&nbsp;
-          <Flag code={user?.country?.iso} label={user?.country?.name} />
-        </p>
-        {user?.employer && (
-          <p className="details__employer">{user?.employer}</p>
-        )}
-
-        <div className="details__items">
-          {user?.title && (
-            <div className="item">
-              <Work size={16} color="#fff" />
-              <span>{user?.title}</span>
+  return (
+    <Wrapper className="user-tile" target="_blank" href={href}>
+      {user?.profile_photo_url && (
+        <LazyLoadImage
+          width="100%"
+          height="100%"
+          className="avatar"
+          src={user?.profile_photo_url}
+        />
+      )}
+      <div className="overlay">
+        <div className="top-items ml-auto">
+          {user?.on_break && (
+            <div className="on-break">
+              <Moon color="#fff" />
+              <span className="font-size-14 font-weight-bold">On break</span>
             </div>
           )}
-          {user?.topic_of_interests && (
-            <div className="item">
-              <Chat size={16} color="#fff" />
-              <span>
-                {user?.topic_of_interests
-                  ?.map(({ description }) => description)
-                  .join(", ")}
-              </span>
+
+          {user?.total_reviews ? (
+            <div className="rating">
+              <Chat size={14} variant="filled" color="var(--teal)" />
+              <span className="font-size-14">{user.total_reviews}</span>
             </div>
+          ) : (
+            ""
           )}
+
+          <div className="favorited" onClick={handleAddToWishlist}>
+            <Heart
+              variant="filled"
+              color={
+                user?.favorite ? "var(--danger)" : "rgba(19, 19, 19, 0.38)"
+              }
+            />
+          </div>
+        </div>
+
+        <div className="details">
+          <p className="details__name">
+            {startCase(user?.name)}&nbsp;&nbsp;
+            <Flag code={user?.country?.iso} label={user?.country?.name} />
+          </p>
+          {user?.employer && (
+            <p className="details__employer">{user?.employer}</p>
+          )}
+
+          <div className="details__items">
+            {user?.title && (
+              <div className="item">
+                <Work size={16} color="#fff" />
+                <span>{user?.title}</span>
+              </div>
+            )}
+            {user?.topic_of_interests && (
+              <div className="item">
+                <Chat size={16} color="#fff" />
+                <span>
+                  {user?.topic_of_interests
+                    ?.map(({ description }) => description)
+                    .join(", ")}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  </Wrapper>
-);
+    </Wrapper>
+  );
+};
 
 /**
  * styles
