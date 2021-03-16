@@ -12,12 +12,12 @@ import Edit from "../../Icons/Edit";
 
 const Card = ({
   mutate,
-  content = {},
+  content,
+  handleEdit,
+  handleDelete,
+  handleDownload,
   isPrivate = false,
-  handleEdit = () => {},
-  handleDelete = () => {},
   handleNotify = () => {},
-  handleDownload = () => {},
   ...props
 }) => {
   const full = content?.booked_seats === content?.rsvp_limit;
@@ -48,7 +48,7 @@ const Card = ({
                             </Badge>
                           )}
 
-                          {!full && (
+                          {!full && handleNotify && (
                             <a
                               href="/"
                               onClick={(e) =>
