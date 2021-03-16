@@ -173,26 +173,21 @@ const Navbar = ({
                 {isAuthenticated ? (
                   <Fragment>
                     {identityType === process.env.REACT_APP_MENTOR && (
-                      <Fragment>
-                        <div className="nav__item px-2">
-                          <Styled.NavItemCircle
-                            href={`${process.env.REACT_APP_ADPLIST_URL}/send-notes`}
-                          >
-                            <Document />
-                          </Styled.NavItemCircle>
-                        </div>
-
-                        <div className="nav__item px-2">
-                          <Styled.NavItemCircle
-                            href={`${process.env.REACT_APP_ADPLIST_URL}/wishlist`}
-                          >
-                            <Heart />
-                          </Styled.NavItemCircle>
-                        </div>
-                      </Fragment>
+                      <div className="nav__item px-2">
+                        <Styled.NavItemCircle
+                          href={`${process.env.REACT_APP_ADPLIST_URL}/send-notes`}
+                        >
+                          <Document />
+                        </Styled.NavItemCircle>
+                      </div>
                     )}
                     <div className="nav__item px-2">
                       <Styled.NavDropdown>
+                        <Styled.NavItemCircle
+                          href={`${process.env.REACT_APP_ADPLIST_URL}/wishlist`}
+                        >
+                          <Heart />
+                        </Styled.NavItemCircle>
                         <Styled.NavDropdownMessageToggle id="notification">
                           <Notification />
                           {!!notifications?.total_unseen && (
