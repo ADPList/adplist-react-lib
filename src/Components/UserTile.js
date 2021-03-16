@@ -39,8 +39,8 @@ const UserTile = ({ user, href }) => (
 
         <div className="favorited">
           <Heart
-            variant={user?.favorite ? "filled" : "outline"}
-            color={user?.favorite ? "var(--danger)" : "#fff"}
+            variant="filled"
+            color={user?.favorite ? "var(--danger)" : "rgba(19, 19, 19, 0.38)"}
           />
         </div>
       </div>
@@ -146,7 +146,7 @@ const Wrapper = styled.a`
       align-items: center;
 
       svg {
-        stroke: ${({ favorite }) => (favorite ? null : "white")};
+        stroke: ${({ favorite }) => (favorite ? "#fff" : "#fff")};
         stroke-width: 1.5px;
       }
     }
