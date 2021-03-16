@@ -11,12 +11,8 @@ export const handleShare = (type, mentor, url, message) => {
   );
 
   url = ((url) => {
-    if (type === "twitter") {
-      if (url.includes("?")) return `${url}&`;
-      return `${url}?`;
-    }
-
-    return url;
+    if (url.includes("?")) return `${url}&`;
+    return `${url}?`;
   })(url);
 
   switch (type) {
@@ -29,8 +25,8 @@ export const handleShare = (type, mentor, url, message) => {
       break;
     case "linkedin":
       window.open(
-        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-          `${url}`,
+        `https://www.linkedin.com/shareArticle/?mini=true&url=${encodeURIComponent(
+          `${url}utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=ADPlistLinkedInSharing`,
         )}`,
       );
       break;
@@ -67,9 +63,15 @@ export const handleLogin = async (user, message) => {
   return true;
 };
 
-export const handleTimezone = (datetime, format) => {
+export const handleTimezone = (datetime, format, timezone) => {
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  return moment(datetime).tz(tz).format(format);
+
+  if (timezone) {
+    datetime = moment.tz(datetime, timezone);
+    return datetime.clone().tz(tz).format(format);
+  } else {
+    return moment(datetime).tz(tz).format(format);
+  }
 };
 
 export const userRoute = (type) => {

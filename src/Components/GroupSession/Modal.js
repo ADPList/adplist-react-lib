@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from "reactn";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { toast } from "react-toastify";
+import moment from "moment";
 import styled from "styled-components";
 import flags from "emoji-flags";
 
@@ -8,12 +9,7 @@ import {
   registerSessionService,
   cancelSessionService,
 } from "../../Services/sessionService";
-import {
-  handleLogin,
-  handleShare,
-  handleTimezone,
-  userRoute,
-} from "../../Utils/helpers";
+import { handleLogin, handleShare, userRoute } from "../../Utils/helpers";
 import copyToClipboard from "../../Utils/copyToClipboard";
 import useWidth from "../../Utils/useWidth";
 import Confirm from "../../Components/Confirm";
@@ -52,8 +48,8 @@ const GroupSessionModal = ({
   const url =
     process.env.REACT_APP_ADPLIST_URL + `/?group-session=${data?.slug}`;
   const message = (() => {
-    const date = handleTimezone(data?.date_and_time, "MMM DD");
-    const time = handleTimezone(data?.date_and_time, "hh:mm a");
+    const date = moment(data?.date_and_time).format("MMM DD");
+    const time = moment(data?.date_and_time).format("hh:mm a Z");
 
     if (
       user &&
@@ -62,7 +58,7 @@ const GroupSessionModal = ({
       )
     ) {
       if (mentor?.slug === user[user.identity_type.toLowerCase()]?.slug) {
-        return `I’m hosting ${data?.name} on @ADPList. Starting on, ${date} at ${time} (${data?.timezone}). Join me here!`;
+        return `I’m hosting ${data?.name} on @ADPList. Starting on, ${date} at ${time}. Join me here!`;
       }
     }
 
@@ -151,8 +147,10 @@ const GroupSessionModal = ({
           <Fragment>
             <div className="session__info mb-3">
               {data?.date_and_time && (
-                <p className="grey-2-text mb-0">
-                  {handleTimezone(data?.date_and_time, "MMM DD, ha ([GMT] Z)")}
+                <p className="grey-2-text mb-3">
+                  {moment(data?.date_and_time).format(
+                    "MMM DD, h:mma ([GMT] Z)",
+                  )}
                 </p>
               )}
 

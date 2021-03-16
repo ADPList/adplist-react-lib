@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import moment from "moment";
 import styled from "styled-components";
 import flags from "emoji-flags";
 
-import { handleTimezone, userRoute } from "../../Utils/helpers";
+import { userRoute } from "../../Utils/helpers";
 import Notification from "../../Icons/Notification";
 import CloseSquare from "../../Icons/CloseSquare";
 import Download from "../../Icons/Download";
@@ -29,7 +30,9 @@ const Card = ({
           <Fragment>
             <div className="card__header">
               <p className="font-size-14 mb-0 grey-2-text">
-                {handleTimezone(content?.date_and_time, "MMM DD, ha ([GMT] Z)")}
+                {moment(content?.date_and_time).format(
+                  "MMM DD, h:mma ([GMT] Z)",
+                )}
               </p>
 
               {!isPrivate ? (
