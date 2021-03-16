@@ -3,6 +3,9 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { startCase } from "lodash";
 import styled from "styled-components";
 
+import { addMentorToWishlist } from "../Services/wishlistService";
+import { handleLogin } from "../Utils/helpers";
+
 import Chat from "../Icons/Chat";
 import Work from "../Icons/Work";
 import Flag from "./Flag";
@@ -10,7 +13,15 @@ import Heart from "../Icons/Heart";
 import Moon from "../Icons/Moon";
 
 const UserTile = ({ user, href }) => {
-  const handleAddToWishlist = () => {};
+  // const handleAddToWishlist = () => {
+  //   handleLogin(user, "You need to login to add this mentor to your wishlist").then(
+  //     async() => {
+  //       if(user) {
+
+  //       }
+  //     }
+  //   );
+  // };
 
   return (
     <Wrapper className="user-tile" target="_blank" href={href}>
@@ -44,7 +55,9 @@ const UserTile = ({ user, href }) => {
             <Heart
               variant="filled"
               color={
-                user?.favorite ? "var(--danger)" : "rgba(19, 19, 19, 0.38)"
+                user?.mentor_in_user_wishlist
+                  ? "var(--danger)"
+                  : "rgba(19, 19, 19, 0.38)"
               }
             />
           </div>
@@ -152,7 +165,8 @@ const Wrapper = styled.a`
       align-items: center;
 
       svg {
-        stroke: ${({ favorite }) => (favorite ? "#fff" : "#fff")};
+        stroke: ${({ mentor_in_user_wishlist }) =>
+          mentor_in_user_wishlist ? "#fff" : "#fff"};
         stroke-width: 1.5px;
       }
     }
