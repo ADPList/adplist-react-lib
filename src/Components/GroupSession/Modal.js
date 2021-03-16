@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "reactn";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { toast } from "react-toastify";
-import moment from "moment";
+import moment from "moment-timezone";
 import styled from "styled-components";
 import flags from "emoji-flags";
 
@@ -9,7 +9,12 @@ import {
   registerSessionService,
   cancelSessionService,
 } from "../../Services/sessionService";
-import { handleLogin, handleShare, userRoute } from "../../Utils/helpers";
+import {
+  userRoute,
+  handleLogin,
+  handleShare,
+  handleTimezone,
+} from "../../Utils/helpers";
 import copyToClipboard from "../../Utils/copyToClipboard";
 import useWidth from "../../Utils/useWidth";
 import Confirm from "../../Components/Confirm";
@@ -48,8 +53,8 @@ const GroupSessionModal = ({
   const url =
     process.env.REACT_APP_ADPLIST_URL + `/?group-session=${data?.slug}`;
   const message = (() => {
-    const date = moment(data?.date_and_time).format("MMM DD");
-    const time = moment(data?.date_and_time).format("hh:mm a Z");
+    const date = handleTimezone(data?.date_and_time, "MMM DD");
+    const time = handleTimezone(data?.date_and_time, "hh:mma z");
 
     if (
       user &&

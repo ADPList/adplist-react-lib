@@ -1,52 +1,39 @@
 import moment from "moment-timezone";
+
 import Confirm from "../Components/Confirm";
 
 export const handleShare = (type, mentor, url, message) => {
-  import("node-url-shortener").then((shortUrl) => {
-    /**
-     * variables
-     */
-    const text = encodeURI(
-      message ||
-        `I just completed a mentoring session with ${mentor.name} on @ADPList!`,
-    );
+  /**
+   * variables
+   */
+  const text = encodeURI(
+    message ||
+      `I just completed a mentoring session with ${mentor.name} on @ADPList!`,
+  );
 
-    url = ((url) => {
-      if (url.includes("?")) return `${url}&`;
-      return `${url}?`;
-    })(url);
+  url = ((url) => {
+    if (url.includes("?")) return `${url}&`;
+    return `${url}?`;
+  })(url);
 
-    switch (type) {
-      case "twitter":
-        url = `${url}utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=ADPlistTwitterSharing`;
-        break;
-      case "linkedin":
-        url = `${url}utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=ADPlistLinkedInSharing`;
-      default:
-        break;
-    }
-
-    shortUrl.short(url, (err, shortenedUrl) => {
-      let newUrl = "";
-
-      if (shortenedUrl) newUrl = shortenedUrl;
-      else newUrl = url;
-
-      if (type === "twitter")
-        window.open(
-          `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-            shortenedUrl,
-          )}&text=${text}&hashtags=adplist,adplistmentorship`,
-        );
-
-      if (type === "linkedin")
-        window.open(
-          `https://www.linkedin.com/shareArticle/?mini=true&url=${encodeURIComponent(
-            shortenedUrl,
-          )}`,
-        );
-    });
-  });
+  switch (type) {
+    case "twitter":
+      window.open(
+        `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          `${url}utm_source=twittershare&utm_medium=adplistTwittershare&utm_campaign=ADPlistTwitterSharing`,
+        )}&text=${text}&hashtags=adplist,adplistmentorship`,
+      );
+      break;
+    case "linkedin":
+      window.open(
+        `https://www.linkedin.com/shareArticle/?mini=true&url=${encodeURIComponent(
+          `${url}utm_source=linkedinshare&utm_medium=adplistLinkedInshare&utm_campaign=ADPlistLinkedInSharing`,
+        )}`,
+      );
+      break;
+    default:
+      break;
+  }
 };
 
 export const handleLogin = async (user, message) => {
